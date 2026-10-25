@@ -1,0 +1,149 @@
+<style>
+  /* Judge.me CSS Translations - Instant with zero flicker */
+  .jdgm-carousel-title {
+    font-size: 0 !important;
+  }
+  .jdgm-carousel-title::after {
+    content: "Co o nás říkají naši zákazníci" !important;
+    font-size: 1.5rem !important;
+    display: inline-block !important;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+  }
+
+  .jdgm-rev-widg__title {
+    font-size: 0 !important;
+  }
+  .jdgm-rev-widg__title::after {
+    content: "Hodnocení zákazníků" !important;
+    font-size: 1.5rem !important;
+    display: inline-block !important;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+  }
+
+  .jdgm-write-rev-link {
+    font-size: 0 !important;
+  }
+  .jdgm-write-rev-link::after {
+    content: "Napsat recenzi" !important;
+    font-size: 14px !important;
+    display: inline-block !important;
+    font-family: inherit !important;
+    font-weight: 500 !important;
+  }
+</style>
+
+<script>
+  (function() {
+    function translateNode(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        let val = node.nodeValue;
+        if (!val) return;
+        
+        let newVal = val
+          .replace(/Let customers speak for us/gi, 'Co o nás říkají naši zákazníci')
+          .replace(/Customer Reviews/gi, 'Hodnocení zákazníků')
+          .replace(/Write a review/gi, 'Napsat recenzi')
+          .replace(/Cancel review/gi, 'Zrušit')
+          .replace(/from\s+(\d+)\s+reviews?/gi, 'ze $1 recenzí')
+          .replace(/Based on\s+(\d+)\s+reviews?/gi, 'Na základě $1 recenzí')
+          .replace(/(\d+)\s+reviews/gi, '$1 recenzí')
+          .replace(/(\d+)\s+review/gi, '$1 recenze')
+          .replace(/\bAll reviews\b/gi, 'Všechny recenze')
+          .replace(/\bMost Recent\b/gi, 'Nejnovější')
+          .replace(/\bHighest Rating\b/gi, 'Nejvyšší hodnocení')
+          .replace(/\bLowest Rating\b/gi, 'Nejnižší hodnocení')
+          .replace(/\bOnly Pictures\b/gi, 'Pouze s fotkami')
+          .replace(/\bPictures First\b/gi, 'Nejprve s fotkami')
+          .replace(/\bVideos First\b/gi, 'Nejprve s videi')
+          .replace(/\bVerified Buyer\b/gi, 'Ověřený nákup')
+          .replace(/\bVerified\b/gi, 'Ověřeno')
+          .replace(/\bReview Title\b/gi, 'Předmět recenze')
+          .replace(/\bReview\b/gi, 'Recenze')
+          .replace(/\bSubmit Review\b/gi, 'Odeslat recenzi')
+          .replace(/\bEye Care Machine\b/gi, 'Brýle proti otokům');
+          
+        if (newVal !== val) {
+          node.nodeValue = newVal;
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // Translate placeholders
+        if (node.placeholder) {
+          node.placeholder = node.placeholder
+            .replace(/Write your review here/gi, 'Napište svou recenzi zde...')
+            .replace(/Give your review a title/gi, 'Zadejte název recenze')
+            .replace(/Enter your name/gi, 'Vaše jméno')
+            .replace(/Enter your email/gi, 'Váš e-mail');
+        }
+        
+        for (let i = 0; i < node.childNodes.length; i++) {
+          translateNode(node.childNodes[i]);
+        }
+      }
+    }
+
+    function runTranslations() {
+      // Carousel title
+      document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
+        if (el.textContent.includes('speak for us')) {
+          el.textContent = 'Co o nás říkají naši zákazníci';
+        }
+      });
+
+      // Widget title
+      document.querySelectorAll('.jdgm-rev-widg__title').forEach(el => {
+        if (el.textContent.includes('Customer Reviews')) {
+          el.textContent = 'Hodnocení zákazníků';
+        }
+      });
+
+      // Badge texts
+      document.querySelectorAll('.jdgm-prev-badge__text, .jdgm-carousel-title-and-link, .jdgm-rev-widg__summary-text').forEach(el => {
+        translateNode(el);
+      });
+
+      // Sort dropdown
+      document.querySelectorAll('.jdgm-sort-dropdown option').forEach(opt => {
+        if (opt.textContent.includes('Most Recent')) opt.textContent = 'Nejnovější';
+        if (opt.textContent.includes('Highest Rating')) opt.textContent = 'Nejvyšší hodnocení';
+        if (opt.textContent.includes('Lowest Rating')) opt.textContent = 'Nejnižší hodnocení';
+        if (opt.textContent.includes('Only Pictures')) opt.textContent = 'Pouze s fotkami';
+        if (opt.textContent.includes('Pictures First')) opt.textContent = 'Nejprve s fotkami';
+      });
+
+      // Form labels
+      document.querySelectorAll('.jdgm-form__label').forEach(el => {
+        if (el.textContent.includes('Name')) el.textContent = 'Jméno (zobrazí se veřejně)';
+        if (el.textContent.includes('Email')) el.textContent = 'E-mail';
+        if (el.textContent.includes('Rating')) el.textContent = 'Hodnocení';
+        if (el.textContent.includes('Review Title')) el.textContent = 'Název recenze';
+        if (el.textContent.includes('Review') && !el.textContent.includes('Title')) el.textContent = 'Vaše recenze';
+      });
+
+      // Submit button
+      document.querySelectorAll('.jdgm-submit-rev').forEach(el => {
+        if (el.value && el.value.includes('Submit')) el.value = 'Odeslat recenzi';
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runTranslations);
+    } else {
+      runTranslations();
+    }
+
+    // Observer for asynchronously injected widgets
+    const observer = new MutationObserver(function() {
+      runTranslations();
+    });
+
+    if (document.body) {
+      observer.observe(document.body, { childList: true, subtree: true });
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    }
+  })();
+</script>

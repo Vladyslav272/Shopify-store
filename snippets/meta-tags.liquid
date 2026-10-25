@@ -19,7 +19,8 @@
 >
 
 {%- liquid
-  assign og_title = page_title | default: shop.name
+  assign raw_title = page_title | replace: 'Eye Care Machine', 'Brýle proti otokům'
+  assign og_title = raw_title | default: shop.name
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
@@ -31,7 +32,7 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
-%}
+-%}
 
 <meta
   property="og:site_name"
@@ -104,9 +105,9 @@
 >
 
 <title>
-  {{ page_title }}
-  {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-  {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+  {{ page_title | replace: 'Eye Care Machine', 'Brýle proti otokům' }}
+  {%- if current_tags %} &ndash; se štítkem "{{ current_tags | join: ', ' }}"{% endif -%}
+  {%- if current_page != 1 %} &ndash; Strana {{ current_page }}{% endif -%}
   {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
 </title>
 

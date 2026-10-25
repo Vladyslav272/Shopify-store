@@ -241,7 +241,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h2>Our signature product</h2>",
+                    "text": "<h2>Náš nejprodávanější produkt</h2>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -264,7 +264,7 @@
                 "text_WpXhQM": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Made with care and unconditionally loved by our customers, this signature bestseller exceeds all expectations.</p>",
+                    "text": "<p>Vyrobeno s péčí a prověřeno spokojenými zákazníky. Špičkový přístroj pro dokonalé výsledky.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -330,7 +330,7 @@
                   "type": "button",
                   "name": "t:names.button",
                   "settings": {
-                    "label": "Shop now",
+                    "label": "Koupit nyní",
                     "link": "shopify://collections/all",
                     "open_in_new_tab": false,
                     "style_class": "button-custom",
@@ -348,7 +348,7 @@
                   "type": "button",
                   "name": "t:names.button",
                   "settings": {
-                    "label": "Explore the collection",
+                    "label": "Prohlédnout nabídku",
                     "open_in_new_tab": false,
                     "style_class": "button-custom",
                     "custom_button_background": "{{ settings.color_palette.color1 }}",
@@ -739,7 +739,7 @@
                 "text_DNm6Az": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Introducing our latest product, made especially for the season. Shop now before it's gone!</p>",
+                    "text": "<p>Introducing our latest product, made especially for the season. Koupit nyní before it's gone!</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -805,7 +805,7 @@
                   "type": "button",
                   "name": "t:names.button",
                   "settings": {
-                    "label": "Shop now",
+                    "label": "Koupit nyní",
                     "link": "shopify://collections/all",
                     "open_in_new_tab": false,
                     "width": "fit-content",
@@ -819,7 +819,7 @@
                   "type": "button",
                   "name": "t:names.button",
                   "settings": {
-                    "label": "Explore the collection",
+                    "label": "Prohlédnout nabídku",
                     "open_in_new_tab": false,
                     "style_class": "button-custom",
                     "custom_button_background": "{{ settings.color_palette.color3 }}",
