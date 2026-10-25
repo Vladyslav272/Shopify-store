@@ -88,8 +88,12 @@
                 {%- endunless -%}
               {%- endif -%}
               {%- assign item_href = link.url -%}
+              {%- assign item_title = link.title -%}
               {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
                 {%- assign item_href = target_product_url -%}
+                {%- assign item_title = 'Domů' -%}
+              {%- elsif link_title_downcase == 'contact' -%}
+                {%- assign item_title = 'Kontakt' -%}
               {%- endif -%}
               <li>
                 <a
@@ -100,7 +104,7 @@
                     aria-current="page"
                   {% endif %}
                 >
-                  {{- link.title -}}
+                  {{- item_title -}}
                 </a>
               </li>
             {% endfor %}
@@ -128,7 +132,7 @@
                     aria-current="page"
                   {% endif %}
                 >
-                  Contact
+                  Kontakt
                 </a>
               </li>
             {% endunless %}
@@ -213,8 +217,12 @@
             <span class="menu-list__trigger">
           {%- endif -%}
           {%- assign item_href = link.url -%}
+          {%- assign item_title = link.title -%}
           {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
             {%- assign item_href = target_product_url -%}
+            {%- assign item_title = 'Domů' -%}
+          {%- elsif link_title_downcase == 'contact' -%}
+            {%- assign item_title = 'Kontakt' -%}
           {%- endif -%}
           <a
             href="{{ item_href }}"
@@ -225,7 +233,7 @@
             {% endif %}
             ref="menuitem"
           >
-            <span class="menu-list__link-title">{{- link.title -}}</span>
+            <span class="menu-list__link-title">{{- item_title -}}</span>
           </a>
           {%- if link.links != blank -%}
             <button
@@ -312,7 +320,7 @@
             class="menu-list__link{% if request.path == '/pages/contact' %} menu-list__link--active{% endif %}"
             ref="menuitem"
           >
-            <span class="menu-list__link-title">Contact</span>
+            <span class="menu-list__link-title">Kontakt</span>
           </a>
         </li>
       {% endunless %}
