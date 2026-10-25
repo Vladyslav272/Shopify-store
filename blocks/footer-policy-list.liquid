@@ -13,39 +13,11 @@
       {% if block.settings.font_size != "" %}custom-font-size{% endif %}
     "
   >
-    {%- if shop.policies.size > 0 -%}
-      {%- for policy in shop.policies -%}
-        {%- if policy != blank -%}
-          <li>
-            <a
-              href="{{ policy.url }}"
-              class="footer-utilities__text"
-            >
-              {%- assign policy_title_lower = policy.title | downcase -%}
-              {%- if policy_title_lower contains 'privacy' -%}
-                Zásady ochrany osobních údajů
-              {%- elsif policy_title_lower contains 'refund' or policy_title_lower contains 'return' -%}
-                Vrácení zboží a reklamace
-              {%- elsif policy_title_lower contains 'terms' -%}
-                Obchodní podmínky
-              {%- elsif policy_title_lower contains 'shipping' -%}
-                Doprava a doručení
-              {%- elsif policy_title_lower contains 'contact' -%}
-                Kontaktní informace
-              {%- else -%}
-                {{- policy.title | escape -}}
-              {%- endif -%}
-            </a>
-          </li>
-        {%- endif -%}
-      {%- endfor -%}
-    {%- else -%}
-      <li><a href="/policies/terms-of-service" class="footer-utilities__text">Obchodní podmínky</a></li>
-      <li><a href="/policies/privacy-policy" class="footer-utilities__text">Zásady ochrany osobních údajů</a></li>
-      <li><a href="/policies/refund-policy" class="footer-utilities__text">Vrácení zboží a reklamace</a></li>
-      <li><a href="/policies/shipping-policy" class="footer-utilities__text">Doprava a doručení</a></li>
-      <li><a href="/policies/contact-information" class="footer-utilities__text">Kontaktní informace</a></li>
-    {%- endif -%}
+    <li><a href="/policies/refund-policy" class="footer-utilities__text">Vrácení zboží & Reklamace</a></li>
+    <li><a href="/policies/shipping-policy" class="footer-utilities__text">Doprava & Dodání</a></li>
+    <li><a href="/policies/contact-information" class="footer-utilities__text">Kontaktní Údaje</a></li>
+    <li><a href="/policies/terms-of-service" class="footer-utilities__text">Obchodní Podmínky</a></li>
+    <li><a href="/policies/privacy-policy" class="footer-utilities__text">Ochrana Osobních Údajů</a></li>
   </ul>
 </div>
 
@@ -57,18 +29,13 @@
   .policy_list-visible {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 14px;
     margin: 0;
     padding: 0;
     list-style: none;
-    text-align: center;
-
-    @media screen and (min-width: 750px) {
-      align-items: center;
-      text-align: center;
-    }
+    text-align: left;
 
     li {
       margin: 0;
@@ -78,10 +45,11 @@
     a {
       color: inherit;
       text-decoration: none;
-      font-size: var(--font-size, 0.75rem);
+      font-size: var(--font-size, 0.9375rem);
       line-height: 1.4;
+      font-weight: 500;
       text-transform: var(--text-transform, none);
-      opacity: 0.85;
+      opacity: 0.9;
       transition: opacity 0.2s ease, text-decoration 0.2s ease;
 
       &:hover {
@@ -137,7 +105,7 @@
           "label": "18px"
         }
       ],
-      "default": "0.75rem"
+      "default": "0.875rem"
     },
     {
       "type": "select",
