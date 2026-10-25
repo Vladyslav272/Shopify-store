@@ -35,8 +35,7 @@
   based on the .header[transparent] selector
 {% endcomment %}
 <a
-  {% if template.name == 'index' and block_settings.hide_logo_on_home_page %
-  %}
+  {% if template.name == 'index' and block_settings.hide_logo_on_home_page %}
     data-hidden-on-home-page
   {% endif %}
   href="{{ target_logo_url }}"
