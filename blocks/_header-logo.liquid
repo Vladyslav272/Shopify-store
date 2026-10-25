@@ -84,7 +84,9 @@
         class="header-logo__image"
         width="{{ logo_width }}"
         height="{{ settings.logo_height }}"
-        style="{{ logo_style }}"
+        style="height: {{ settings.logo_height | default: 36 }}px; width: auto; max-height: 100%; object-fit: contain; {{ logo_style }}"
+        loading="eager"
+        fetchpriority="high"
       >
     {% endif %}
   </span>
@@ -110,7 +112,9 @@
           class="header-logo__image"
           width="{{ inverse_logo_width }}"
           height="{{ settings.logo_height }}"
-          style="{{ inverse_logo_style }}"
+          style="height: {{ settings.logo_height | default: 36 }}px; width: auto; max-height: 100%; object-fit: contain; {{ inverse_logo_style }}"
+          loading="eager"
+          fetchpriority="high"
         >
       {% endif %}
     </span>
