@@ -1,6 +1,13 @@
-
-
 {% liquid
+  assign primary_product = all_products['eye-care-machine-household-eye-massager']
+  if primary_product != blank and primary_product.url != blank
+    assign target_logo_url = primary_product.url
+  elsif settings.homepage_redirect_product != blank and settings.homepage_redirect_product.url != blank
+    assign target_logo_url = settings.homepage_redirect_product.url
+  else
+    assign target_logo_url = '/products/eye-care-machine-household-eye-massager'
+  endif
+
   assign block_settings = block.settings
   assign use_inverse_logo = false
 
@@ -28,10 +35,11 @@
   based on the .header[transparent] selector
 {% endcomment %}
 <a
-  {% if template.name == 'index' and block_settings.hide_logo_on_home_page %}
+  {% if template.name == 'index' and block_settings.hide_logo_on_home_page %
+  %}
     data-hidden-on-home-page
   {% endif %}
-  href="{{ routes.root_url }}"
+  href="{{ target_logo_url }}"
   class="size-style spacing-style header-logo"
   style="
     {% render 'size-style', settings: block_settings %}
@@ -43,10 +51,13 @@
   {{ block.shopify_attributes }}
 >
   {% liquid
-    assign logo_width = settings.logo_height | times: settings.logo.aspect_ratio | ceil
-    assign logo_width_mobile = settings.logo_height_mobile | times: settings.logo.aspect_ratio | ceil
-    assign inverse_logo_width = settings.logo_height | times: inverse_logo.aspect_ratio | ceil
-    assign inverse_logo_width_mobile = settings.logo_height_mobile | times: inverse_logo.aspect_ratio | ceil
+    assign default_aspect_ratio = 2.994
+    assign logo_aspect_ratio = settings.logo.aspect_ratio | default: default_aspect_ratio
+    assign logo_width = settings.logo_height | times: logo_aspect_ratio | ceil
+    assign logo_width_mobile = settings.logo_height_mobile | times: logo_aspect_ratio | ceil
+    assign inverse_logo_aspect_ratio = inverse_logo.aspect_ratio | default: default_aspect_ratio
+    assign inverse_logo_width = settings.logo_height | times: inverse_logo_aspect_ratio | ceil
+    assign inverse_logo_width_mobile = settings.logo_height_mobile | times: inverse_logo_aspect_ratio | ceil
     assign logo_style = '--header-logo-image-width: ' | append: logo_width | append: 'px;' | append: '--header-logo-image-width-mobile: ' | append: logo_width_mobile | append: 'px; --header-logo-image-height: ' | append: settings.logo_height | append: 'px; --header-logo-image-height-mobile: ' | append: settings.logo_height_mobile | append: 'px;'
     assign inverse_logo_style = '--header-logo-image-width: ' | append: inverse_logo_width | append: 'px;' | append: '--header-logo-image-width-mobile: ' | append: inverse_logo_width_mobile | append: 'px; --header-logo-image-height: ' | append: settings.logo_height | append: 'px; --header-logo-image-height-mobile: ' | append: settings.logo_height_mobile | append: 'px;'
   %}
@@ -57,14 +68,25 @@
     {% endif %}
     data-testid="header-logo"
   >
-    {% render 'image',
-      image: settings.logo,
-      class: 'header-logo__image',
-      height: settings.logo_height,
-      alt_text_fallback: alt_text_fallback,
-      text_fallback: shop.name,
-      style: logo_style
-    %}
+    {% if settings.logo != blank %}
+      {% render 'image',
+        image: settings.logo,
+        class: 'header-logo__image',
+        height: settings.logo_height,
+        alt_text_fallback: alt_text_fallback,
+        text_fallback: shop.name,
+        style: logo_style
+      %}
+    {% else %}
+      <img
+        src="{{ 'logo.png' | asset_url }}"
+        alt="{{ alt_text_fallback }}"
+        class="header-logo__image"
+        width="{{ logo_width }}"
+        height="{{ settings.logo_height }}"
+        style="{{ logo_style }}"
+      >
+    {% endif %}
   </span>
 
   {% if use_inverse_logo %}
@@ -72,14 +94,25 @@
       class="header-logo__transparent-header-image-container"
       data-testid="header-logo-inverse"
     >
-      {% render 'image',
-        image: inverse_logo,
-        class: 'header-logo__image',
-        height: settings.logo_height,
-        alt_text_fallback: alt_text_fallback,
-        text_fallback: shop.name,
-        style: inverse_logo_style
-      %}
+      {% if inverse_logo != blank %}
+        {% render 'image',
+          image: inverse_logo,
+          class: 'header-logo__image',
+          height: settings.logo_height,
+          alt_text_fallback: alt_text_fallback,
+          text_fallback: shop.name,
+          style: inverse_logo_style
+        %}
+      {% else %}
+        <img
+          src="{{ 'logo-inverse.png' | asset_url }}"
+          alt="{{ alt_text_fallback }}"
+          class="header-logo__image"
+          width="{{ inverse_logo_width }}"
+          height="{{ settings.logo_height }}"
+          style="{{ inverse_logo_style }}"
+        >
+      {% endif %}
     </span>
   {% endif %}
 </a>

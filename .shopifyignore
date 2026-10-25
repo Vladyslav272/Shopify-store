@@ -11,3 +11,8 @@
 #
 # Ignore templates and sections with a regular expression:
 #   /(templates|sections)/.*\.json/
+
+# Skills and Agent configs
+.agents/
+.gemini/
+skills-lock.json

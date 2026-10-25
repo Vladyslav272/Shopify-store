@@ -809,7 +809,8 @@ export function setHeaderMenuStyle() {
     window.requestAnimationFrame(() => {
       const overflowList = headerComponent?.querySelector('overflow-list');
       const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-      headerComponent.dataset.menuStyle = isTouchDevice() || hasReachedMinimum ? 'drawer' : 'menu';
+      const isMobile = window.innerWidth < 750;
+      headerComponent.dataset.menuStyle = isMobile || (isMobile && isTouchDevice()) || hasReachedMinimum ? 'drawer' : 'menu';
     });
   }
 }

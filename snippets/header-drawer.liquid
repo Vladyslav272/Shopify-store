@@ -15,6 +15,14 @@
 
 {% liquid
   assign block_settings = block.settings
+  assign primary_product = all_products['eye-care-machine-household-eye-massager']
+  if primary_product != blank and primary_product.url != blank
+    assign target_product_url = primary_product.url
+  elsif settings.homepage_redirect_product != blank and settings.homepage_redirect_product.url != blank
+    assign target_product_url = settings.homepage_redirect_product.url
+  else
+    assign target_product_url = '/products/eye-care-machine-household-eye-massager'
+  endif
   assign max_featured_items = 4
   assign image_border_radius = block_settings.image_border_radius
 
@@ -107,9 +115,46 @@
             Handle menus with fewer than 3 levels of links
           {%- endcomment -%}
           {% if linklist.levels < 3 %}
+            {% assign has_returns_drawer = false %}
+            {% assign has_contact_drawer = false %}
+            {% for link in linklist.links %}
+              {% assign link_title_downcase = link.title | downcase | strip %}
+              {% if link_title_downcase contains 'vrácení' or link_title_downcase contains 'reklamac' or link_title_downcase contains 'refund' or link_title_downcase contains 'returns' %}
+                {% assign has_returns_drawer = true %}
+              {% endif %}
+              {% if link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' %}
+                {% assign has_contact_drawer = true %}
+              {% endif %}
+            {% endfor %}
+            {% assign returns_url = shop.refund_policy.url | default: '/policies/refund-policy' %}
             {% assign first_accordion_open = false %}
             {% assign animation_index = 0 %}
             {%- for link in linklist.links -%}
+              {%- assign link_title_downcase = link.title | downcase | strip -%}
+              {%- if link_title_downcase == 'catalog' or link_title_downcase == 'katalog' or link.handle == 'catalog' or link.handle == 'katalog' -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- if link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' -%}
+                {%- unless has_returns_drawer -%}
+                  {%- assign has_returns_drawer = true -%}
+                  {% assign animation_index = animation_index | plus: 1 %}
+                  <li
+                    style="--menu-drawer-animation-index: {{ animation_index }};"
+                    class="{%- if block_settings.drawer_accordion -%}menu-drawer__list-item--deep{%- else -%}menu-drawer__list-item--flat{%- endif -%}{% if block_settings.drawer_dividers %} menu-drawer__list-item--divider{% endif %}"
+                  >
+                    <a
+                      id="HeaderDrawer-returns"
+                      href="{{ returns_url }}"
+                      class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
+                      {% if request.path == returns_url %}
+                        aria-current="page"
+                      {% endif %}
+                    >
+                      <span class="menu-drawer__menu-item-text wrap-text">Vrácení zboží & reklamace</span>
+                    </a>
+                  </li>
+                {%- endunless -%}
+              {%- endif -%}
               {% assign animation_index = animation_index | plus: 1 %}
               <li
                 style="--menu-drawer-animation-index: {{ animation_index }};"
@@ -190,11 +235,15 @@
                   {%- comment -%}
                     Flat menus for links with children, in menus with fewer than 3 levels of links
                   {%- endcomment -%}
+                  {%- assign item_href = link.url -%}
+                  {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
+                    {%- assign item_href = target_product_url -%}
+                  {%- endif -%}
                   <a
                     id="HeaderDrawer-{{ link.handle }}"
-                    href="{{ link.url }}"
+                    href="{{ item_href }}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
-                    {% if link.current %}
+                    {% if link.current or request.path == item_href %}
                       aria-current="page"
                     {% endif %}
                   >
@@ -244,11 +293,15 @@
                   {%- comment -%}
                     Simple links for links with no children (regardless of accordion setting), in menus with fewer than 3 levels of links
                   {%- endcomment -%}
+                  {%- assign item_href = link.url -%}
+                  {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
+                    {%- assign item_href = target_product_url -%}
+                  {%- endif -%}
                   <a
                     id="HeaderDrawer-{{ link.handle }}"
-                    href="{{ link.url }}"
+                    href="{{ item_href }}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
-                    {% if link.current %}
+                    {% if link.current or request.path == item_href %}
                       aria-current="page"
                     {% endif %}
                   >
@@ -257,12 +310,52 @@
                 {% endif %}
               </li>
             {%- endfor -%}
+            {% unless has_returns_drawer %}
+              {% assign animation_index = animation_index | plus: 1 %}
+              <li
+                style="--menu-drawer-animation-index: {{ animation_index }};"
+                class="{%- if block_settings.drawer_accordion -%}menu-drawer__list-item--deep{%- else -%}menu-drawer__list-item--flat{%- endif -%}{% if block_settings.drawer_dividers %} menu-drawer__list-item--divider{% endif %}"
+              >
+                <a
+                  id="HeaderDrawer-returns"
+                  href="{{ returns_url }}"
+                  class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
+                  {% if request.path == returns_url %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  <span class="menu-drawer__menu-item-text wrap-text">Vrácení zboží & reklamace</span>
+                </a>
+              </li>
+            {% endunless %}
+            {% unless has_contact_drawer %}
+              {% assign animation_index = animation_index | plus: 1 %}
+              <li
+                style="--menu-drawer-animation-index: {{ animation_index }};"
+                class="{%- if block_settings.drawer_accordion -%}menu-drawer__list-item--deep{%- else -%}menu-drawer__list-item--flat{%- endif -%}{% if block_settings.drawer_dividers %} menu-drawer__list-item--divider{% endif %}"
+              >
+                <a
+                  id="HeaderDrawer-contact"
+                  href="/pages/contact"
+                  class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
+                  {% if request.path == '/pages/contact' %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  <span class="menu-drawer__menu-item-text wrap-text">Contact</span>
+                </a>
+              </li>
+            {% endunless %}
           {% else %}
             {%- comment -%}
               Handle menus with 3 levels of links
             {%- endcomment -%}
             {% assign animation_index = 0 %}
             {%- for link in linklist.links -%}
+              {%- assign link_title_downcase = link.title | downcase | strip -%}
+              {%- if link_title_downcase == 'catalog' or link_title_downcase == 'katalog' or link.handle == 'catalog' or link.handle == 'katalog' -%}
+                {%- continue -%}
+              {%- endif -%}
               {% assign animation_index = animation_index | plus: 1 %}
               <li
                 class="menu-drawer__list-item"
@@ -573,11 +666,15 @@
                   {%- comment -%}
                     Simple links for links with no children (regardless of accordion setting), in menus with 3 levels of links
                   {%- endcomment -%}
+                  {%- assign item_href = link.url -%}
+                  {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
+                    {%- assign item_href = target_product_url -%}
+                  {%- endif -%}
                   <a
                     id="HeaderDrawer-{{ link.handle }}"
-                    href="{{ link.url }}"
+                    href="{{ item_href }}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
-                    {% if link.current %}
+                    {% if link.current or request.path == item_href %}
                       aria-current="page"
                     {% endif %}
                   >

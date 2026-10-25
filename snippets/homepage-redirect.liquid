@@ -1,0 +1,42 @@
+{%- comment -%}
+  Automatické okamžité přesměrování z domovské stránky přímo na produkt.
+  Návštěvník nemůže domovskou stránku vůbec zobrazit.
+  Zachovává všechny UTM a reklamní parametry (?utm_source=... fbclid=...) i kotvy (#).
+{%- endcomment -%}
+{%- liquid
+  assign target_product = all_products['eye-care-machine-household-eye-massager']
+  if target_product != blank and target_product.url != blank
+    assign target_url = target_product.url
+  elsif settings.homepage_redirect_product != blank and settings.homepage_redirect_product.url != blank
+    assign target_url = settings.homepage_redirect_product.url
+  elsif collections.all.products.first != blank
+    assign target_url = collections.all.products.first.url
+  else
+    assign fallback_path = '/products/eye-care-machine-household-eye-massager'
+    if routes.root_url != '/'
+      assign target_url = routes.root_url | append: fallback_path
+    else
+      assign target_url = fallback_path
+    endif
+  endif
+-%}
+
+{%- if template.name == 'index' or request.page_type == 'index' or request.path == '/' or request.path == routes.root_url -%}
+  <style>
+    html {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+  </style>
+  <meta http-equiv="refresh" content="0;url={{ target_url }}">
+  <script>
+    (function() {
+      var target = {{ target_url | json }};
+      var search = window.location.search || '';
+      var hash = window.location.hash || '';
+      var destination = target + search + hash;
+      window.location.replace(destination);
+    })();
+  </script>
+{%- endif -%}

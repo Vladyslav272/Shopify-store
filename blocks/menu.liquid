@@ -1,5 +1,3 @@
-
-
 {% liquid
   assign block_settings = block.settings
   assign menu = block_settings.menu
@@ -73,6 +71,10 @@
         {% if menu %}
           <ul class="list-unstyled">
             {% for link in menu.links %}
+              {% assign link_title_downcase = link.title | downcase | strip %}
+              {% if link_title_downcase == 'search' or link_title_downcase == 'hledat' or link_title_downcase == 'vyhledat' or link_title_downcase == 'vyhledávání' or link.url contains '/search' %}
+                {% continue %}
+              {% endif %}
               <li class="menu__item {{ block_settings.link_preset }}">
                 <a href="{{ link.url }}">
                   {{ link.title }}{% if link.data_sharing_opt_out_icon %}{{ link.data_sharing_opt_out_icon }}{% endif %}

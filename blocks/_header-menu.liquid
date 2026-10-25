@@ -8,6 +8,14 @@
 
 {% liquid
   assign block_settings = block.settings
+  assign primary_product = all_products['eye-care-machine-household-eye-massager']
+  if primary_product != blank and primary_product.url != blank
+    assign target_product_url = primary_product.url
+  elsif settings.homepage_redirect_product != blank and settings.homepage_redirect_product.url != blank
+    assign target_product_url = settings.homepage_redirect_product.url
+  else
+    assign target_product_url = '/products/eye-care-machine-household-eye-massager'
+  endif
   assign effective_submenu_color = block_settings.background_color | default: settings.page_background_color
 %}
 
@@ -45,13 +53,50 @@
             class="menu-list__list list-unstyled"
             role="list"
           >
+            {% assign has_returns_bar = false %}
+            {% assign has_contact_bar = false %}
             {% for link in block_settings.menu.links %}
+              {% assign link_title_downcase = link.title | downcase | strip %}
+              {% if link_title_downcase contains 'vrácení' or link_title_downcase contains 'reklamac' or link_title_downcase contains 'refund' or link_title_downcase contains 'returns' %}
+                {% assign has_returns_bar = true %}
+              {% endif %}
+              {% if link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' %}
+                {% assign has_contact_bar = true %}
+              {% endif %}
+            {% endfor %}
+            {% assign returns_url = shop.refund_policy.url | default: '/policies/refund-policy' %}
+            {% for link in block_settings.menu.links %}
+              {%- assign link_title_downcase = link.title | downcase | strip -%}
+              {%- if link_title_downcase == 'catalog' or link_title_downcase == 'katalog' or link.handle == 'catalog' or link.handle == 'katalog' -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- if link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' -%}
+                {%- unless has_returns_bar -%}
+                  {%- assign has_returns_bar = true -%}
+                  <li>
+                    <a
+                      href="{{ returns_url }}"
+                      id="MenuItem-returns"
+                      class="menu-list__item"
+                      {% if request.path == returns_url %}
+                        aria-current="page"
+                      {% endif %}
+                    >
+                      Vrácení zboží & reklamace
+                    </a>
+                  </li>
+                {%- endunless -%}
+              {%- endif -%}
+              {%- assign item_href = link.url -%}
+              {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
+                {%- assign item_href = target_product_url -%}
+              {%- endif -%}
               <li>
                 <a
-                  href="{{ link.url }}"
+                  href="{{ item_href }}"
                   id="MenuItem-{{ link.handle }}"
                   class="menu-list__item"
-                  {% if link.current %}
+                  {% if link.current or request.path == item_href %}
                     aria-current="page"
                   {% endif %}
                 >
@@ -59,6 +104,34 @@
                 </a>
               </li>
             {% endfor %}
+            {% unless has_returns_bar %}
+              <li>
+                <a
+                  href="{{ returns_url }}"
+                  id="MenuItem-returns"
+                  class="menu-list__item"
+                  {% if request.path == returns_url %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  Vrácení zboží & reklamace
+                </a>
+              </li>
+            {% endunless %}
+            {% unless has_contact_bar %}
+              <li>
+                <a
+                  href="/pages/contact"
+                  id="MenuItem-contact"
+                  class="menu-list__item"
+                  {% if request.path == '/pages/contact' %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  Contact
+                </a>
+              </li>
+            {% endunless %}
           </ul>
         </div>
       </div>
@@ -93,7 +166,43 @@
     %}
 
     {% capture children %}
+      {% assign has_returns = false %}
+      {% assign has_contact = false %}
       {% for link in block_settings.menu.links %}
+        {%- assign link_title_downcase = link.title | downcase | strip -%}
+        {%- if link_title_downcase contains 'vrácení' or link_title_downcase contains 'reklamac' or link_title_downcase contains 'refund' or link_title_downcase contains 'returns' -%}
+          {%- assign has_returns = true -%}
+        {%- endif -%}
+        {%- if link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' -%}
+          {%- assign has_contact = true -%}
+        {%- endif -%}
+      {% endfor %}
+      {% assign returns_url = shop.refund_policy.url | default: '/policies/refund-policy' %}
+      {% for link in block_settings.menu.links %}
+        {%- assign link_title_downcase = link.title | downcase | strip -%}
+        {%- if link_title_downcase == 'catalog' or link_title_downcase == 'katalog' or link.handle == 'catalog' or link.handle == 'katalog' -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- if link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' -%}
+          {%- unless has_returns -%}
+            {%- assign has_returns = true -%}
+            <li
+              class="menu-list__list-item"
+              on:blur="/deactivate"
+              on:pointerenter="/activate"
+              on:pointerleave="/deactivate"
+            >
+              <a
+                href="{{ returns_url }}"
+                data-skip-node-update="true"
+                class="menu-list__link{% if request.path == returns_url %} menu-list__link--active{% endif %}"
+                ref="menuitem"
+              >
+                <span class="menu-list__link-title">Vrácení zboží & reklamace</span>
+              </a>
+            </li>
+          {%- endunless -%}
+        {%- endif -%}
         <li
           class="menu-list__list-item"
           on:blur="/deactivate"
@@ -103,11 +212,15 @@
           {%- if link.links != blank -%}
             <span class="menu-list__trigger">
           {%- endif -%}
+          {%- assign item_href = link.url -%}
+          {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
+            {%- assign item_href = target_product_url -%}
+          {%- endif -%}
           <a
-            href="{{ link.url }}"
+            href="{{ item_href }}"
             data-skip-node-update="true"
-            class="menu-list__link{% if link.active %} menu-list__link--active{% endif %}"
-            {% if link.current %}
+            class="menu-list__link{% if link.active or request.path == item_href %} menu-list__link--active{% endif %}"
+            {% if link.current or request.path == item_href %}
               aria-current="page"
             {% endif %}
             ref="menuitem"
@@ -169,6 +282,40 @@
           {%- endif -%}
         </li>
       {% endfor %}
+      {% unless has_returns %}
+        <li
+          class="menu-list__list-item"
+          on:blur="/deactivate"
+          on:pointerenter="/activate"
+          on:pointerleave="/deactivate"
+        >
+          <a
+            href="{{ returns_url }}"
+            data-skip-node-update="true"
+            class="menu-list__link{% if request.path == returns_url %} menu-list__link--active{% endif %}"
+            ref="menuitem"
+          >
+            <span class="menu-list__link-title">Vrácení zboží & reklamace</span>
+          </a>
+        </li>
+      {% endunless %}
+      {% unless has_contact %}
+        <li
+          class="menu-list__list-item"
+          on:blur="/deactivate"
+          on:pointerenter="/activate"
+          on:pointerleave="/deactivate"
+        >
+          <a
+            href="/pages/contact"
+            data-skip-node-update="true"
+            class="menu-list__link{% if request.path == '/pages/contact' %} menu-list__link--active{% endif %}"
+            ref="menuitem"
+          >
+            <span class="menu-list__link-title">Contact</span>
+          </a>
+        </li>
+      {% endunless %}
       <li
         class="menu-list__list-item"
         slot="more"
@@ -208,7 +355,7 @@
             class: class,
             ref: 'overflowMenu',
             children: children,
-            minimum-items: 2,
+            minimum-items: 0,
             data-testid: 'header-menu-overflow-list',
             attributes: 'data-skip-node-update'
           %}
@@ -242,9 +389,13 @@
   }
 
   @media screen and (min-width: 750px) {
-    #header-component[data-menu-style='menu'] .header__drawer {
-      display: none;
-      min-height: 0;
+    .header__drawer {
+      display: none !important;
+      min-height: 0 !important;
+    }
+
+    .header-menu {
+      display: flex !important;
     }
   }
 

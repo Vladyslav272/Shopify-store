@@ -13,7 +13,11 @@ node_modules/
 .shopify/
 .playwright-mcp/
 
+# Agent skills
+.agents/
+.gemini/
+
 ## Release files
 release
 *.zip
-
+skills-lock.json

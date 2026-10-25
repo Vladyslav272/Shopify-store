@@ -2116,5 +2116,23 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Přesměrování domovské stránky",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_homepage_redirect",
+        "label": "Automaticky přesměrovat domovskou stránku na produkt",
+        "default": true,
+        "info": "Pokud je zapnuto, návštěvníci domovské stránky budou okamžitě přesměrováni na zvolený produkt (mimo editor motivu)."
+      },
+      {
+        "type": "product",
+        "id": "homepage_redirect_product",
+        "label": "Cílový produkt",
+        "info": "Ponechte prázdné pro automatické přesměrování na první produkt v obchodě."
+      }
+    ]
   }
 ]

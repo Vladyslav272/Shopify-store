@@ -332,6 +332,8 @@
     "name": {{ shop.name | json }},
     {% if settings.logo %}
       "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+    {% else %}
+      "logo": {{ 'logo.png' | asset_url | prepend: "https:" | json }},
     {% endif %}
     "url": {{ request.origin | append: page.url | json }}
   }
@@ -517,8 +519,8 @@
   }
 
   @media screen and (min-width: 750px) {
-    #header-component[data-menu-style='menu'] :is(.header-menu, .dropdown-localization) {
-      display: flex;
+    #header-component :is(.header-menu, .dropdown-localization) {
+      display: flex !important;
     }
   }
 

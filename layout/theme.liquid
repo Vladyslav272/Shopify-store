@@ -7,11 +7,26 @@
   dir="{{ request.locale.direction | default: 'ltr' }}"
 >
   <head>
+    {%- render 'homepage-redirect' -%}
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
         type="image/png"
         href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ settings.favicon | image_url: width: 180, height: 180 }}"
+      >
+    {%- else -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ 'favicon-32x32.png' | asset_url }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ 'apple-touch-icon.png' | asset_url }}"
       >
     {%- endif -%}
 
@@ -140,10 +155,11 @@
         (function setHeaderMenuStyle() {
           const headerComponent = document.querySelector('#header-component');
           if (headerComponent) {
-            const isTouchDevice = 'ontouchstart' in window && navigator.maxTouchPoints > 0;
+            const isMobile = window.innerWidth < 750;
+            const isTouchDevice = isMobile && 'ontouchstart' in window && navigator.maxTouchPoints > 0;
             const overflowList = headerComponent.querySelector('overflow-list');
             const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-            headerComponent.dataset.menuStyle = isTouchDevice || hasReachedMinimum ? 'drawer' : 'menu';
+            headerComponent.dataset.menuStyle = isMobile || (isTouchDevice || hasReachedMinimum) ? 'drawer' : 'menu';
           }
         })();
       </script>
