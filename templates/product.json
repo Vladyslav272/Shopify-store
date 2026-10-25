@@ -1913,7 +1913,7 @@
     },
     "section_faq": {
       "type": "section",
-      "name": "Často kladené otázky",
+      "name": "Časté dotazy",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -1947,7 +1947,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h3><strong>Často kladené otázky</strong></h3>",
+            "text": "<h3><strong>Časté dotazy</strong></h3>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
