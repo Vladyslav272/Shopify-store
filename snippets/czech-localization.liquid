@@ -357,10 +357,15 @@
         if (el.value && el.value.includes('Submit')) el.value = 'Odeslat recenzi';
       });
 
-      // Hide carousel navigation arrows
+      // Hide carousel navigation arrows & handle mobile layout
       document.querySelectorAll('.jdgm-carousel__arrows, .jdgm-carousel__left-arrow, .jdgm-carousel__right-arrow').forEach(el => {
         el.style.display = 'none';
       });
+      if (window.innerWidth <= 749) {
+        document.querySelectorAll('.jdgm-carousel__item-wrapper').forEach(el => {
+          el.style.transform = 'none';
+        });
+      }
     }
 
     if (document.readyState === 'loading') {
