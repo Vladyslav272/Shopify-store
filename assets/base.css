@@ -1996,7 +1996,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   background-color: #FAF5F5 !important;
 }
 
-/* Veaskin FAQ Section - White Background */
+/* Veaskin FAQ Section - White Background & Full Width Alignment */
 .shopify-section:has([id*="section_faq"]),
 .shopify-section:has(accordion-custom),
 [id*="section_faq"] .section-background,
@@ -2004,14 +2004,26 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   background-color: #ffffff !important;
 }
 
+.shopify-section:has([id*="section_faq"]) .group-block,
+[id*="section_faq"] .group-block {
+  width: 100% !important;
+  max-width: var(--page-width, 1200px) !important;
+}
+
+.shopify-section:has([id*="section_faq"]) accordion-custom,
+[id*="section_faq"] accordion-custom {
+  width: 100% !important;
+}
+
 .veaskin-benefits-section {
   width: 100%;
-  padding: 30px 24px 60px;
+  padding: 40px var(--page-margin, 40px);
   box-sizing: border-box;
 }
 
 .veaskin-benefits-container {
-  max-width: 1050px;
+  max-width: var(--page-width, 1200px);
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -2109,7 +2121,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 
 @media (max-width: 749px) {
   .veaskin-benefits-section {
-    padding: 10px 16px 40px;
+    padding: 30px var(--page-margin, 16px) !important;
   }
   .veaskin-benefits-card {
     padding: 34px 20px 38px;
