@@ -1993,6 +1993,14 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .shopify-section:has(#veaskin-technology-benefits),
 .shopify-section:has(.veaskin-benefits-section),
 .veaskin-benefits-section {
+  background-color: #FAF5F5 !important;
+}
+
+/* Veaskin FAQ Section - White Background */
+.shopify-section:has([id*="section_faq"]),
+.shopify-section:has(accordion-custom),
+[id*="section_faq"] .section-background,
+.shopify-section:has(accordion-custom) .section-background {
   background-color: #ffffff !important;
 }
 
