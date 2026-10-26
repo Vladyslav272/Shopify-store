@@ -121,8 +121,7 @@
     }
 
     function injectTechnologyBenefits() {
-      if (document.querySelector('.veaskin-benefits-card')) return;
-
+      var existing = document.querySelector('.veaskin-benefits-card');
       var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
       if (!faqSection) {
         var allSections = document.querySelectorAll('.shopify-section');
@@ -135,6 +134,14 @@
       }
 
       if (!faqSection || !faqSection.parentNode) return;
+
+      if (existing) {
+        var existingContainer = existing.closest('.shopify-section') || existing.closest('#veaskin-technology-benefits') || existing;
+        if (existingContainer && existingContainer !== faqSection && (faqSection.compareDocumentPosition(existingContainer) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+          faqSection.parentNode.insertBefore(existingContainer, faqSection);
+        }
+        return;
+      }
 
       var container = document.createElement('div');
       container.className = 'shopify-section';
@@ -224,7 +231,7 @@
         </section>
       `;
 
-      faqSection.parentNode.insertBefore(container, faqSection.nextSibling);
+      faqSection.parentNode.insertBefore(container, faqSection);
     }
 
     function injectAnnouncementBar() {
