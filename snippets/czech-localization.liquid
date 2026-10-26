@@ -228,19 +228,59 @@
     }
 
     function injectAnnouncementBar() {
-      if (document.querySelector('.veaskin-announcement-bar, .announcement-bar')) return;
+      var existing = document.querySelector('.veaskin-announcement-bar');
+      if (existing) {
+        // If it doesn't have track/slides yet, upgrade its innerHTML
+        if (!existing.querySelector('.veaskin-announcement-track')) {
+          existing.innerHTML = `
+            <div class="veaskin-announcement-track">
+              <div class="veaskin-announcement-slide active">
+                <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+                <span>Doprava zdarma na všechny objednávky</span>
+              </div>
+              <div class="veaskin-announcement-slide">
+                <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
+                <span>Časově omezená nabídka: Sleva 30 %</span>
+              </div>
+            </div>
+          `;
+        }
+        initAnnouncementTimer();
+        return;
+      }
+
+      if (document.querySelector('.announcement-bar:not(.veaskin-announcement-bar)')) return;
 
       var headerGroup = document.querySelector('#header-group');
       var bar = document.createElement('div');
       bar.className = 'veaskin-announcement-bar';
       bar.innerHTML = `
-        <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-          <rect x="1" y="3" width="15" height="13"></rect>
-          <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
-          <circle cx="5.5" cy="18.5" r="2.5"></circle>
-          <circle cx="18.5" cy="18.5" r="2.5"></circle>
-        </svg>
-        <span>Doprava zdarma na všechny objednávky</span>
+        <div class="veaskin-announcement-track">
+          <div class="veaskin-announcement-slide active">
+            <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            <span>Doprava zdarma na všechny objednávky</span>
+          </div>
+          <div class="veaskin-announcement-slide">
+            <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+              <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            <span>Časově omezená nabídka: Sleva 30 %</span>
+          </div>
+        </div>
       `;
 
       if (headerGroup) {
@@ -251,6 +291,23 @@
           headerSection.parentNode.insertBefore(bar, headerSection);
         }
       }
+
+      initAnnouncementTimer();
+    }
+
+    function initAnnouncementTimer() {
+      if (window._veaskinAnnounceTimer) return;
+      window._veaskinAnnounceTimer = setInterval(function() {
+        var slides = document.querySelectorAll('.veaskin-announcement-slide');
+        if (slides.length < 2) return;
+        var activeIdx = -1;
+        slides.forEach(function(s, idx) {
+          if (s.classList.contains('active')) activeIdx = idx;
+          s.classList.remove('active');
+        });
+        var nextIdx = (activeIdx + 1) % slides.length;
+        slides[nextIdx].classList.add('active');
+      }, 3500);
     }
 
     function runTranslations() {
