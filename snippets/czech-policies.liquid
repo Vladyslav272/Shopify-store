@@ -1,0 +1,202 @@
+{%- comment -%}
+  Renders complete Czech legal policies for Veaskin on /policies/* pages
+{%- endcomment -%}
+
+<script>
+  (function() {
+    var path = window.location.pathname;
+    if (!path.includes('/policies/')) return;
+
+    var policiesData = {
+      'refund-policy': {
+        title: 'Vrácení zboží a reklamace',
+        body: `
+          <p><strong>Poslední aktualizace:</strong> 25. října 2026</p>
+          
+          <h2>1. Odstoupení od kupní smlouvy do 14 dnů</h2>
+          <p>Jako spotřebitel máte podle § 1829 občanského zákoníku právo odstoupit od kupní smlouvy bez udání důvodu do <strong>14 kalendářních dnů</strong> ode dne převzetí zboží.</p>
+          <p>Chcete-li uplatnit právo na odstoupení od smlouvy, kontaktujte nás na e-mailové adrese <strong>vladcz272@gmail.com</strong> s uvedením čísla objednávky a informací, že si přejete zboží vrátit.</p>
+          
+          <h3>Podmínky pro vrácení zboží:</h3>
+          <ul>
+            <li>Zboží musí být vráceno nepoškozené, čisté a v původním balení včetně veškerého dodaného příslušenství a návodů.</li>
+            <li>Zboží nesmí jevit známky nepřiměřeného opotřebení přesahujícího míru nutnou pro seznámení se s povahou a funkcemi výrobku.</li>
+          </ul>
+
+          <h2>2. Postup vrácení a doprava</h2>
+          <p>Po obdržení vašeho požadavku vám obratem zašleme instrukce k odeslání balíčku. Vrácení zboží je pro naše zákazníky <strong>zdarma</strong> – poskytneme vám štítek nebo kód pro bezplatné podání zásilky.</p>
+          <p>Zboží nezasílejte na dobírku, takové zásilky nemohou být převzaty.</p>
+
+          <h2>3. Vrácení peněz</h2>
+          <p>Peníze za vrácené zboží vám poukážeme nejpozději do <strong>14 dnů</strong> od chvíle, kdy nám doručíte vrácené zboží, a to stejnou platební metodou, kterou jste zvolili při nákupu (na platební kartu nebo bankovní účet), pokud se nedohodneme jinak.</p>
+
+          <h2>4. Reklamace a záruční podmínky (24 měsíců)</h2>
+          <p>Na veškeré spotřební zboží poskytujeme zákonnou záruku v délce <strong>24 měsíců</strong>. V případě, že se na výrobku projeví vada, máte právo uplatnit reklamaci.</p>
+          <p>Pro zahájení reklamace nám napište na <strong>vladcz272@gmail.com</strong>, popište závadu a přiložte fotografii nebo krátké video zachycující vadu. Reklamaci vyřizujeme bez zbytečného odkladu, nejpozději do 30 kalendářních dnů od jejího uplatnění.</p>
+          
+          <h2>5. Kontakt pro reklamace a vrácení</h2>
+          <p><strong>Veaskin</strong><br>
+          E-mail: <strong>vladcz272@gmail.com</strong><br>
+          Adresa: Rýchorské sídliště, 542 24 Svoboda nad Úpou, Česká republika</p>
+        `
+      },
+      'shipping-policy': {
+        title: 'Doprava a dodání',
+        body: `
+          <p><strong>Poslední aktualizace:</strong> 25. října 2026</p>
+          
+          <h2>1. Zpracování objednávky</h2>
+          <p>Všechny objednávky přijaté v našem obchodě <strong>Veaskin</strong> zpracováváme a expedujeme zpravidla do <strong>24 až 48 hodin</strong> v pracovních dnech od jejich potvrzení.</p>
+
+          <h2>2. Cena dopravy</h2>
+          <p>V rámci České republiky nabízíme pro všechny naše zákazníky <strong>DOPRAVU ZDARMA</strong> bez ohledu na výši objednávky. Žádné skryté poplatky u pokladny neplatíte.</p>
+
+          <h2>3. Doba doručení</h2>
+          <p>Standardní doba doručení zásilky po jejím odeslání je obvykle <strong>2 až 4 pracovní dny</strong>. O odeslání zásilky vás budeme informovat e-mailem.</p>
+
+          <h2>4. Způsob doručení a přepravci</h2>
+          <p>Zboží doručujeme prostřednictvím spolehlivých kurýrních služeb a výdejních míst (např. Zásilkovna, PPL nebo Česká pošta). Kurýr vás v den doručení bude kontaktovat formou SMS nebo e-mailem s upřesněním času doručení.</p>
+
+          <h2>5. Sledování zásilky</h2>
+          <p>Jakmile vaši objednávku předáme přepravci, obdržíte e-mail s číslem zásilky a odkazem pro sledování jejího pohybu online v reálném čase.</p>
+
+          <h2>6. Kontrola zásilky při převzetí</h2>
+          <p>Při převzetí zásilky doporučujeme zkontrolovat stav obalu. Pokud je zásilka viditelně poškozena, doporučujeme ji nepřevzít a sepsat s řidičem zápis o škodě, případně nás neprodleně kontaktovat na <strong>vladcz272@gmail.com</strong>, abychom vám obratem zajistili nový kus.</p>
+        `
+      },
+      'contact-information': {
+        title: 'Kontaktní údaje',
+        body: `
+          <p>Jsme tu pro vás. Máte-li jakékoliv dotazy ohledně našich produktů, stavu vaší objednávky, vrácení zboží nebo reklamace, neváhejte se na nás obrátit.</p>
+          
+          <h2>Provozovatel internetového obchodu:</h2>
+          <p><strong>Obchodní název:</strong> Veaskin<br>
+          <strong>Webové stránky:</strong> <a href="https://veaskin.cz">veaskin.cz</a></p>
+
+          <h2>Zákaznická podpora:</h2>
+          <p><strong>E-mail:</strong> <a href="mailto:vladcz272@gmail.com">vladcz272@gmail.com</a><br>
+          <strong>Doba odezvy:</strong> Na vaše dotazy odpovídáme zpravidla do 24 hodin v pracovní dny.<br>
+          <strong>Provozní doba podpory:</strong> Pondělí – Pátek: 9:00 – 17:00</p>
+
+          <h2>Fakturační a korespondenční adresa:</h2>
+          <p>Rýchorské sídliště<br>
+          542 24 Svoboda nad Úpou<br>
+          Česká republika</p>
+
+          <p><em>Tato adresa slouží rovněž pro korespondenci a po předchozí domluvě pro zasílání vratek či reklamovaného zboží.</em></p>
+        `
+      },
+      'terms-of-service': {
+        title: 'Obchodní podmínky',
+        body: `
+          <p><strong>Poslední aktualizace:</strong> 25. října 2026</p>
+
+          <h2>1. Úvodní ustanovení</h2>
+          <p>Tyto obchodní podmínky (dále jen „obchodní podmínky“) upravují vzájemná práva a povinnosti smluvních stran vzniklé v souvislosti nebo na základě kupní smlouvy uzavírané mezi prodávajícím (Veaskin) a kupujícím prostřednictvím internetového obchodu na adrese <strong>veaskin.cz</strong>.</p>
+          <p>Veškeré smluvní vztahy se řídí právním řádem České republiky, zejména zákonem č. 89/2012 Sb., občanský zákoník, a zákonem č. 634/1992 Sb., o ochraně spotřebitele.</p>
+
+          <h2>2. Objednávka a uzavření kupní smlouvy</h2>
+          <p>Prezentace zboží na webových stránkách je informativního charakteru. Kupní smlouva je uzavřena odesláním objednávky kupujícím a jejím následným potvrzením ze strany prodávajícího na e-mailovou adresu kupujícího.</p>
+
+          <h2>3. Ceny a platební podmínky</h2>
+          <p>Veškeré ceny zboží jsou uvedeny v českých korunách (Kč) včetně všech příslušných daní a poplatků. Cena platná v okamžiku objednání je konečná.</p>
+          <p>Kupující může uhradit cenu zboží zabezpečenými online platebními metodami: platební kartou (Visa, Mastercard), Apple Pay, Google Pay nebo prostřednictvím služby PayPal.</p>
+
+          <h2>4. Dodací podmínky a poštovné</h2>
+          <p>Zboží je doručováno na adresu uvedenou kupujícím v objednávce. Poštovné a balné je na veškeré objednávky v rámci České republiky <strong>zdarma</strong>. Obvyklá doba dodání činí 2–4 pracovní dny od expedice.</p>
+
+          <h2>5. Odstoupení od smlouvy spotřebitelem</h2>
+          <p>Kupující spotřebitel má právo odstoupit od kupní smlouvy do 14 dnů ode dne převzetí zboží bez udání důvodu. Podrobný postup je popsán v Zásadách vrácení zboží a reklamace.</p>
+
+          <h2>6. Práva z vadného plnění (Reklamace)</h2>
+          <p>Práva a povinnosti stran ohledně vadného plnění se řídí příslušnými právními předpisy. Záruční doba na zboží pro spotřebitele činí 24 měsíců. Reklamaci uplatňuje kupující e-mailem na <strong>vladcz272@gmail.com</strong>.</p>
+
+          <h2>7. Mimosoudní řešení spotřebitelských sporů</h2>
+          <p>V případě vzniku sporu mezi spotřebitelem a prodávajícím, který se nepodaří vyřešit vzájemnou dohodou, má spotřebitel právo na mimosoudní řešení spotřebitelského sporu u <strong>České obchodní inspekce</strong> (Ústřední inspektorát – oddělení ADR, Štěpánská 44, 120 00 Praha 2, web: <a href="https://adr.coi.cz" target="_blank" rel="noopener">adr.coi.cz</a>).</p>
+
+          <h2>8. Závěrečná ustanovení</h2>
+          <p>Prodávající si vyhrazuje právo tyto obchodní podmínky měnit. Pro kupujícího platí obchodní podmínky ve znění účinném v den odeslání objednávky.</p>
+        `
+      },
+      'privacy-policy': {
+        title: 'Zásady ochrany osobních údajů (GDPR)',
+        body: `
+          <p><strong>Poslední aktualizace:</strong> 25. října 2026</p>
+
+          <h2>1. Kdo je správcem vašich údajů?</h2>
+          <p>Správcem vašich osobních údajů je internetový obchod <strong>Veaskin</strong> (kontakt: <strong>vladcz272@gmail.com</strong>, adresa: Rýchorské sídliště, 542 24 Svoboda nad Úpou, Česká republika).</p>
+          <p>Zpracování osobních údajů probíhá v plném souladu s Nařízením Evropského parlamentu a Rady (EU) 2016/679 (obecné nařízení o ochraně osobních údajů neboli GDPR).</p>
+
+          <h2>2. Jaké údaje zpracováváme a proč?</h2>
+          <p>Zpracováváme pouze údaje nezbytné pro plnění smluvních a zákonných povinností:</p>
+          <ul>
+            <li><strong>Identifikační a kontaktní údaje:</strong> jméno, příjmení, doručovací a fakturační adresa, e-mailová adresa, telefonní číslo – nezbytné pro vyřízení, fakturaci a doručení vaší objednávky.</li>
+            <li><strong>Údaje o nákupech:</strong> zakoupené položky, historie objednávek a platební transakce – nezbytné pro účetnictví a vyřizování případných reklamací.</li>
+          </ul>
+
+          <h2>3. Právní základ zpracování</h2>
+          <p>Vaše údaje zpracováváme na základě:</p>
+          <ul>
+            <li><strong>Plnění kupní smlouvy:</strong> abychom vám mohli zboží řádně doručit a vyřídit platbu.</li>
+            <li><strong>Plnění právních povinností:</strong> vedení daňové a účetní evidence podle zákonů ČR.</li>
+            <li><strong>Oprávněného zájmu:</strong> ochrana našich právních nároků (např. řešení sporů) a měření spokojenosti zákazníků.</li>
+          </ul>
+
+          <h2>4. Kdo má k údajům přístup?</h2>
+          <p>Vaše osobní údaje neprodáváme ani neposkytujeme neoprávněným subjektům. Údaje sdílíme výhradně s prověřenými partnery nezbytnými pro provoz e-shopu:</p>
+          <ul>
+            <li>Dopravní a zásilkové společnosti (pro doručení zboží).</li>
+            <li>Poskytovatelé platebních bran (pro bezpečné zpracování platby).</li>
+            <li>Poskytovatelé technického řešení e-shopu (Shopify Inc.).</li>
+          </ul>
+
+          <h2>5. Doba uchování údajů</h2>
+          <p>Osobní údaje uchováváme po dobu trvání smluvního vztahu a dále po dobu vyžadovanou platnými právními předpisy (např. účetní a daňové doklady po dobu 10 let).</p>
+
+          <h2>6. Vaše práva podle GDPR</h2>
+          <p>Máte právo na:</p>
+          <ul>
+            <li>Přístup ke svým osobním údajům a kopii těchto údajů.</li>
+            <li>Opravu nepřesných nebo neúplných údajů.</li>
+            <li>Výmaz osobních údajů (právo být zapomenut), pokud pominul důvod jejich zpracování.</li>
+            <li>Omezení zpracování údajů a vznesení námitky proti zpracování.</li>
+            <li>Podání stížnosti u dozorového orgánu, kterým je <strong>Úřad pro ochranu osobních údajů (ÚOOÚ)</strong>, Pplk. Sochora 27, 170 00 Praha 7 (web: <a href="https://www.uoou.cz" target="_blank" rel="noopener">www.uoou.cz</a>).</li>
+          </ul>
+
+          <h2>7. Kontakt pro ochranu osobních údajů</h2>
+          <p>V případě jakýchkoliv dotazů nebo uplatnění vašich práv nás můžete kdykoliv kontaktovat na e-mailu: <strong>vladcz272@gmail.com</strong>.</p>
+        `
+      }
+    };
+
+    function applyCzechPolicy() {
+      for (var slug in policiesData) {
+        if (path.includes(slug)) {
+          var policy = policiesData[slug];
+          
+          // Update title
+          var titleEl = document.querySelector('.shopify-policy__title h1');
+          if (titleEl) {
+            titleEl.textContent = policy.title;
+          }
+          
+          // Update document title
+          document.title = policy.title + ' – Veaskin';
+          
+          // Update body
+          var bodyEl = document.querySelector('.shopify-policy__body .rte');
+          if (bodyEl) {
+            bodyEl.innerHTML = policy.body;
+          }
+          break;
+        }
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyCzechPolicy);
+    } else {
+      applyCzechPolicy();
+    }
+  })();
+</script>
