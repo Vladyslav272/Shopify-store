@@ -1989,9 +1989,16 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 /* Veaskin Technology Benefits Card */
+#shopify-section-technology-benefits,
+.shopify-section:has(#veaskin-technology-benefits),
+.shopify-section:has(.veaskin-benefits-section),
+.veaskin-benefits-section {
+  background-color: #ffffff !important;
+}
+
 .veaskin-benefits-section {
   width: 100%;
-  padding: 20px 24px 60px;
+  padding: 30px 24px 60px;
   box-sizing: border-box;
 }
 
