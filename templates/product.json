@@ -1673,11 +1673,11 @@
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
+            "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 30,
-            "width": "fit-content",
-            "custom_width": 100,
+            "width": "custom",
+            "custom_width": 48,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -1704,94 +1704,35 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "group_ENADXB": {
-              "type": "group",
+            "text_transformation_stats": {
+              "type": "text",
               "name": "t:names.text",
               "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "background_color": "",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "link": "",
-                "open_in_new_tab": false,
-                "placeholder": "",
+                "text": "<div class=\"veaskin-transformation-stats\" style=\"display: flex; flex-direction: column; gap: 24px; width: 100%;\">\n  <h2 class=\"veaskin-transformation-title\" style=\"font-size: 2.15rem; font-weight: 700; line-height: 1.25; color: #2b2325; margin: 0; letter-spacing: -0.01em;\">Viditelná proměna už během několika týdnů</h2>\n  <div class=\"veaskin-transformation-list\" style=\"display: flex; flex-direction: column; gap: 20px; margin: 0; padding: 0;\">\n    <div class=\"veaskin-transformation-item\" style=\"display: flex; align-items: center; gap: 22px;\">\n      <span class=\"veaskin-transformation-percent\" style=\"font-size: 2.6rem; font-weight: 800; color: #c98a7d; line-height: 1; min-width: 95px; flex-shrink: 0; letter-spacing: -0.02em;\">82 %</span>\n      <p class=\"veaskin-transformation-desc\" style=\"font-size: 1.05rem; line-height: 1.45; color: #2b2325; font-weight: 500; margin: 0;\">Zaznamenalo zesvětlení tmavých kruhů a sjednocení tónu pleti již po 2 týdnech.</p>\n    </div>\n    <div class=\"veaskin-transformation-item\" style=\"display: flex; align-items: center; gap: 22px;\">\n      <span class=\"veaskin-transformation-percent\" style=\"font-size: 2.6rem; font-weight: 800; color: #c98a7d; line-height: 1; min-width: 95px; flex-shrink: 0; letter-spacing: -0.02em;\">87 %</span>\n      <p class=\"veaskin-transformation-desc\" style=\"font-size: 1.05rem; line-height: 1.45; color: #2b2325; font-weight: 500; margin: 0;\">Potvrdilo výraznou redukci ranních otoků a váčků pod očima po 2 týdnech.</p>\n    </div>\n    <div class=\"veaskin-transformation-item\" style=\"display: flex; align-items: center; gap: 22px;\">\n      <span class=\"veaskin-transformation-percent\" style=\"font-size: 2.6rem; font-weight: 800; color: #c98a7d; line-height: 1; min-width: 95px; flex-shrink: 0; letter-spacing: -0.02em;\">91 %</span>\n      <p class=\"veaskin-transformation-desc\" style=\"font-size: 1.05rem; line-height: 1.45; color: #2b2325; font-weight: 500; margin: 0;\">Zaznamenalo vyhlazení jemných vrásek a pevnou pokožku během 5 týdnů.</p>\n    </div>\n  </div>\n  <p class=\"veaskin-transformation-note\" style=\"font-size: 0.82rem; line-height: 1.4; color: #725d57; font-style: italic; margin: 4px 0 0 0;\">*Výsledky založené na nezávislém spotřebitelském testování při pravidelném používání 10 minut denně.</p>\n</div>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#2B2325",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {
-                "icon_wgFYzd": {
-                  "type": "icon",
-                  "name": "t:names.icon",
-                  "settings": {
-                    "icon": "price_tag",
-                    "image_upload": "shopify://shop_images/90.png",
-                    "width": 50,
-                    "link": "",
-                    "open_in_new_tab": false,
-                    "icon_color": ""
-                  },
-                  "blocks": {}
-                },
-                "text_kArfAr": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h4><strong>Od unavených očí k zářivému pohledu</strong></h4>",
-                    "width": "fit-content",
-                    "max_width": "narrow",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "#2B2325",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "icon_wgFYzd",
-                "text_kArfAr"
-              ]
+              "blocks": {}
             }
           },
           "block_order": [
-            "group_ENADXB"
+            "text_transformation_stats"
           ]
         },
         "comparison_slider_EKDKPi": {
