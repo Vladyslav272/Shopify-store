@@ -1,39 +1,3 @@
-<style>
-  /* Judge.me CSS Translations - Instant with zero flicker */
-  .jdgm-carousel-title {
-    font-size: 0 !important;
-  }
-  .jdgm-carousel-title::after {
-    content: "Co o nás říkají naši zákazníci" !important;
-    font-size: 1.5rem !important;
-    display: inline-block !important;
-    font-family: inherit !important;
-    font-weight: 600 !important;
-  }
-
-  .jdgm-rev-widg__title {
-    font-size: 0 !important;
-  }
-  .jdgm-rev-widg__title::after {
-    content: "Hodnocení zákazníků" !important;
-    font-size: 1.5rem !important;
-    display: inline-block !important;
-    font-family: inherit !important;
-    font-weight: 600 !important;
-  }
-
-  .jdgm-write-rev-link {
-    font-size: 0 !important;
-  }
-  .jdgm-write-rev-link::after {
-    content: "Napsat recenzi" !important;
-    font-size: 14px !important;
-    display: inline-block !important;
-    font-family: inherit !important;
-    font-weight: 500 !important;
-  }
-</style>
-
 <script>
   (function() {
     function translateNode(node) {
@@ -43,6 +7,7 @@
         
         let newVal = val
           .replace(/Let customers speak for us/gi, 'Co o nás říkají naši zákazníci')
+          .replace(/Nechte zákazníky mluvit za nás/gi, 'Co o nás říkají naši zákazníci')
           .replace(/Customer Reviews/gi, 'Hodnocení zákazníků')
           .replace(/Write a review/gi, 'Napsat recenzi')
           .replace(/Cancel review/gi, 'Zrušit')
@@ -86,7 +51,7 @@
     function runTranslations() {
       // Carousel title
       document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
-        if (el.textContent.includes('speak for us')) {
+        if (el.textContent.includes('speak for us') || el.textContent.includes('Nechte zákazníky')) {
           el.textContent = 'Co o nás říkají naši zákazníci';
         }
       });
