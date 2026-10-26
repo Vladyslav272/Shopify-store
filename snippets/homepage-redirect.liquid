@@ -40,3 +40,10 @@
     })();
   </script>
 {%- endif -%}
+
+{%- if request.path == '/pages/contact' -%}
+  <meta http-equiv="refresh" content="0;url=/policies/contact-information">
+  <script>
+    window.location.replace('/policies/contact-information');
+  </script>
+{%- endif -%}

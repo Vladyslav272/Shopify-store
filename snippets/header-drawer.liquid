@@ -240,7 +240,8 @@
                   {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
                     {%- assign item_href = target_product_url -%}
                     {%- assign item_title = 'Domů' -%}
-                  {%- elsif link_title_downcase == 'contact' -%}
+                  {%- elsif link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' or link.url contains 'contact' -%}
+                  {%- assign item_href = '/policies/contact-information' -%}
                     {%- assign item_title = 'Kontakt' -%}
                   {%- endif -%}
                   <a
@@ -302,7 +303,8 @@
                   {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
                     {%- assign item_href = target_product_url -%}
                     {%- assign item_title = 'Domů' -%}
-                  {%- elsif link_title_downcase == 'contact' -%}
+                  {%- elsif link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' or link.url contains 'contact' -%}
+                  {%- assign item_href = '/policies/contact-information' -%}
                     {%- assign item_title = 'Kontakt' -%}
                   {%- endif -%}
                   <a
@@ -344,9 +346,9 @@
               >
                 <a
                   id="HeaderDrawer-contact"
-                  href="/pages/contact"
+                  href="/policies/contact-information"
                   class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
-                  {% if request.path == '/pages/contact' %}
+                  {% if request.path == '/policies/contact-information' %}
                     aria-current="page"
                   {% endif %}
                 >
@@ -679,7 +681,8 @@
                   {%- if link.url == '/' or link.url == routes.root_url or link_title_downcase == 'home' or link_title_downcase == 'domů' -%}
                     {%- assign item_href = target_product_url -%}
                     {%- assign item_title = 'Domů' -%}
-                  {%- elsif link_title_downcase == 'contact' -%}
+                  {%- elsif link_title_downcase == 'contact' or link_title_downcase == 'kontakt' or link.handle == 'contact' or link.handle == 'kontakt' or link.url contains 'contact' -%}
+                  {%- assign item_href = '/policies/contact-information' -%}
                     {%- assign item_title = 'Kontakt' -%}
                   {%- endif -%}
                   <a
