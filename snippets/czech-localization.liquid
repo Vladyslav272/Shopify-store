@@ -272,6 +272,11 @@
       document.querySelectorAll('.jdgm-submit-rev').forEach(el => {
         if (el.value && el.value.includes('Submit')) el.value = 'Odeslat recenzi';
       });
+
+      // Hide carousel navigation arrows
+      document.querySelectorAll('.jdgm-carousel__arrows, .jdgm-carousel__left-arrow, .jdgm-carousel__right-arrow').forEach(el => {
+        el.style.display = 'none';
+      });
     }
 
     if (document.readyState === 'loading') {

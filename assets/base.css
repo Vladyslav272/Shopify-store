@@ -2120,3 +2120,13 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     line-height: 1.48;
   }
 }
+
+/* Hide Judge.me Reviews Carousel Navigation Arrows */
+.jdgm-carousel__arrows,
+.jdgm-carousel__left-arrow,
+.jdgm-carousel__right-arrow {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
