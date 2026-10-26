@@ -48,7 +48,67 @@
       }
     }
 
+    function updateTransformationStats() {
+      var slider = document.querySelector('comparison-slider-component, .comparison-slider');
+      if (!slider) return;
+
+      var parentWrapper = slider.closest('.section-content-wrapper, [data-testid="section-content"]');
+      if (!parentWrapper) return;
+
+      var leftCol = parentWrapper.firstElementChild;
+      if (!leftCol || leftCol === slider) return;
+
+      if (leftCol.querySelector('.veaskin-transformation-stats')) return;
+
+      if (leftCol.textContent.includes('Od unavených') || leftCol.querySelector('img[src*="90.png"]') || !leftCol.textContent.includes('Viditelná proměna')) {
+        leftCol.style.width = '48%';
+        leftCol.style.maxWidth = '550px';
+        leftCol.innerHTML = `
+          <div class="veaskin-transformation-stats" style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+            <h2 class="veaskin-transformation-title" style="font-size: 2.15rem; font-weight: 700; line-height: 1.25; color: #2b2325; margin: 0; letter-spacing: -0.01em;">
+              Viditelná proměna už během několika týdnů
+            </h2>
+
+            <div class="veaskin-transformation-list" style="display: flex; flex-direction: column; gap: 20px; margin: 0; padding: 0;">
+              <div class="veaskin-transformation-item" style="display: flex; align-items: center; gap: 22px;">
+                <span class="veaskin-transformation-percent" style="font-size: 2.6rem; font-weight: 800; color: #c98a7d; line-height: 1; min-width: 95px; flex-shrink: 0; letter-spacing: -0.02em;">
+                  82 %
+                </span>
+                <p class="veaskin-transformation-desc" style="font-size: 1.05rem; line-height: 1.45; color: #2b2325; font-weight: 500; margin: 0;">
+                  Zaznamenalo zesvětlení tmavých kruhů a sjednocení tónu pleti již po 2 týdnech.
+                </p>
+              </div>
+
+              <div class="veaskin-transformation-item" style="display: flex; align-items: center; gap: 22px;">
+                <span class="veaskin-transformation-percent" style="font-size: 2.6rem; font-weight: 800; color: #c98a7d; line-height: 1; min-width: 95px; flex-shrink: 0; letter-spacing: -0.02em;">
+                  87 %
+                </span>
+                <p class="veaskin-transformation-desc" style="font-size: 1.05rem; line-height: 1.45; color: #2b2325; font-weight: 500; margin: 0;">
+                  Potvrdilo výraznou redukci ranních otoků a váčků pod očima po 2 týdnech.
+                </p>
+              </div>
+
+              <div class="veaskin-transformation-item" style="display: flex; align-items: center; gap: 22px;">
+                <span class="veaskin-transformation-percent" style="font-size: 2.6rem; font-weight: 800; color: #c98a7d; line-height: 1; min-width: 95px; flex-shrink: 0; letter-spacing: -0.02em;">
+                  91 %
+                </span>
+                <p class="veaskin-transformation-desc" style="font-size: 1.05rem; line-height: 1.45; color: #2b2325; font-weight: 500; margin: 0;">
+                  Zaznamenalo vyhlazení jemných vrásek a pevnou pokožku během 5 týdnů.
+                </p>
+              </div>
+            </div>
+
+            <p class="veaskin-transformation-note" style="font-size: 0.82rem; line-height: 1.4; color: #725d57; font-style: italic; margin: 4px 0 0 0;">
+              *Výsledky založené na nezávislém spotřebitelském testování při pravidelném používání 10 minut denně.
+            </p>
+          </div>
+        `;
+      }
+    }
+
     function runTranslations() {
+      updateTransformationStats();
+
       // Carousel title
       document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
         if (el.textContent.includes('speak for us') || el.textContent.includes('Nechte zákazníky')) {
@@ -98,7 +158,7 @@
       runTranslations();
     }
 
-    // Observer for asynchronously injected widgets
+    // Observer for asynchronously injected widgets and DOM updates
     const observer = new MutationObserver(function() {
       runTranslations();
     });
