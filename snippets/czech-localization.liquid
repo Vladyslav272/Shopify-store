@@ -373,6 +373,22 @@
           el.style.transform = 'none';
         });
       }
+
+      // Ensure product image in sticky add-to-cart bar
+      var stickyBar = document.querySelector('.sticky-add-to-cart__bar');
+      if (stickyBar && !stickyBar.querySelector('.sticky-add-to-cart__image')) {
+        var galleryImg = document.querySelector('.product-media-gallery img, .product-gallery img, media-gallery img');
+        if (galleryImg && galleryImg.src) {
+          var imgDiv = document.createElement('div');
+          imgDiv.className = 'sticky-add-to-cart__image';
+          imgDiv.innerHTML = '<img src="' + galleryImg.src + '" class="sticky-add-to-cart__image-img" alt="Product" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />';
+          var info = stickyBar.querySelector('.sticky-add-to-cart__info');
+          if (info) {
+            info.setAttribute('data-has-image', 'true');
+            stickyBar.insertBefore(imgDiv, info);
+          }
+        }
+      }
     }
 
     if (document.readyState === 'loading') {
