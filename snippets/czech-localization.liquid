@@ -116,8 +116,116 @@
       `;
     }
 
+    function injectTechnologyBenefits() {
+      if (document.querySelector('.veaskin-benefits-card')) return;
+
+      var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
+      if (!faqSection) {
+        var allSections = document.querySelectorAll('.shopify-section');
+        for (var i = 0; i < allSections.length; i++) {
+          if (allSections[i].textContent.includes('Časté dotazy') || allSections[i].textContent.includes('Caste dotazy')) {
+            faqSection = allSections[i];
+            break;
+          }
+        }
+      }
+
+      if (!faqSection || !faqSection.parentNode) return;
+
+      var container = document.createElement('div');
+      container.className = 'shopify-section';
+      container.id = 'shopify-section-technology-benefits';
+      container.innerHTML = `
+        <section class="veaskin-benefits-section" id="veaskin-technology-benefits">
+          <div class="veaskin-benefits-container">
+            <div class="veaskin-benefits-card">
+              <h2 class="veaskin-benefits-title">
+                Proč je <span class="veaskin-benefits-highlight">terapie červeným světlem +</span><br>
+                <span class="veaskin-benefits-highlight">mikroproudy</span> tak účinná
+              </h2>
+
+              <div class="veaskin-benefits-list">
+                <div class="veaskin-benefits-item">
+                  <div class="veaskin-benefits-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
+                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <p class="veaskin-benefits-text">
+                    <span class="veaskin-benefits-prefix">Červené světlo (630–660 nm) proniká 2–3 mm hluboko</span>
+                    <span class="veaskin-benefits-sep">–</span>
+                    stimuluje tvorbu kolagenu a zrychluje mikrocirkulaci tam, kam běžné krémy nedosáhnou
+                  </p>
+                </div>
+
+                <div class="veaskin-benefits-item">
+                  <div class="veaskin-benefits-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
+                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <p class="veaskin-benefits-text">
+                    <span class="veaskin-benefits-prefix">Mikroproudy aktivují lymfatickou drenáž</span>
+                    <span class="veaskin-benefits-sep">–</span>
+                    eliminují hromadění tekutiny, která způsobuje ranní otoky a váčky pod očima
+                  </p>
+                </div>
+
+                <div class="veaskin-benefits-item">
+                  <div class="veaskin-benefits-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
+                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <p class="veaskin-benefits-text">
+                    <span class="veaskin-benefits-prefix">Řeší všechny 3 hlavní příčiny problémů</span>
+                    <span class="veaskin-benefits-sep">–</span>
+                    slabou cirkulaci (tmavé kruhy), zadržování vody (otoky) a úbytek kolagenu (vrásky)
+                  </p>
+                </div>
+
+                <div class="veaskin-benefits-item">
+                  <div class="veaskin-benefits-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
+                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <p class="veaskin-benefits-text">
+                    <span class="veaskin-benefits-prefix">Klinicky ověřená medicínská technologie</span>
+                    <span class="veaskin-benefits-sep">–</span>
+                    původ v rehabilitační medicíně a výzkumu NASA, podloženo desítkami let studií
+                  </p>
+                </div>
+
+                <div class="veaskin-benefits-item">
+                  <div class="veaskin-benefits-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
+                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <p class="veaskin-benefits-text">
+                    <span class="veaskin-benefits-prefix">Neinvazivní a bezpečné bez rekonvalescence</span>
+                    <span class="veaskin-benefits-sep">–</span>
+                    dosahuje dlouhodobého zlepšení pleti bez jehel, bolesti a operací
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      faqSection.parentNode.insertBefore(container, faqSection.nextSibling);
+    }
+
     function runTranslations() {
       updateTransformationStats();
+      injectTechnologyBenefits();
 
       // Carousel title
       document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
