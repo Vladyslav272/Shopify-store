@@ -2130,3 +2130,38 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* Veaskin Top Announcement Bar */
+.veaskin-announcement-bar {
+  background-color: #c98a7d;
+  color: #ffffff;
+  width: 100%;
+  padding: 9px 16px;
+  text-align: center;
+  font-family: var(--font-body--family, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.veaskin-announcement-bar .veaskin-shipping-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media (max-width: 749px) {
+  .veaskin-announcement-bar {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+}

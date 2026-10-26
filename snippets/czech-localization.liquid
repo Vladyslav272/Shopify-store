@@ -227,7 +227,34 @@
       faqSection.parentNode.insertBefore(container, faqSection.nextSibling);
     }
 
+    function injectAnnouncementBar() {
+      if (document.querySelector('.veaskin-announcement-bar, .announcement-bar')) return;
+
+      var headerGroup = document.querySelector('#header-group');
+      var bar = document.createElement('div');
+      bar.className = 'veaskin-announcement-bar';
+      bar.innerHTML = `
+        <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+          <rect x="1" y="3" width="15" height="13"></rect>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+          <circle cx="5.5" cy="18.5" r="2.5"></circle>
+          <circle cx="18.5" cy="18.5" r="2.5"></circle>
+        </svg>
+        <span>Doprava zdarma na všechny objednávky</span>
+      `;
+
+      if (headerGroup) {
+        headerGroup.insertBefore(bar, headerGroup.firstChild);
+      } else {
+        var headerSection = document.querySelector('.header-section, #header-component, header');
+        if (headerSection && headerSection.parentNode) {
+          headerSection.parentNode.insertBefore(bar, headerSection);
+        }
+      }
+    }
+
     function runTranslations() {
+      injectAnnouncementBar();
       updateTransformationStats();
       injectTechnologyBenefits();
 
