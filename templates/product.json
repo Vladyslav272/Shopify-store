@@ -782,7 +782,7 @@
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 0,
+            "gap": 6,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -815,7 +815,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h4><strong>Snadná 10minutová péče:</strong></h4>",
+                "text": "<h4><strong>Snadná 10minutová péče:&nbsp;</strong></h4>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",

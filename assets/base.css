@@ -2292,3 +2292,8 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     font-size: 13px !important;
   }
 }
+
+/* Space after colon in care heading */
+[class*="text_j7Rzrc"] {
+  margin-right: 6px !important;
+}
