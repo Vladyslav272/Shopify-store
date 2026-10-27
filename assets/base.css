@@ -2006,7 +2006,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 
 .veaskin-benefits-section {
   width: 100%;
-  padding: 50px 24px 85px;
+  padding: 40px 24px 70px;
   box-sizing: border-box;
 }
 
@@ -2109,7 +2109,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 
 @media (max-width: 749px) {
   .veaskin-benefits-section {
-    padding: 35px 16px 65px;
+    padding: 28px 16px 50px;
   }
   .veaskin-benefits-container {
     max-width: 380px !important;

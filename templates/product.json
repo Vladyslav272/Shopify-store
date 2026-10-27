@@ -721,8 +721,8 @@
         "gap": 12,
         "enable_sticky_add_to_cart": true,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 80,
-        "padding-block-end": 80
+        "padding-block-start": 100,
+        "padding-block-end": 100
       }
     },
     "1792698193c2bc235e": {
@@ -928,7 +928,7 @@
         "border_color": "",
         "border_radius": 0,
         "padding-block-start": 100,
-        "padding-block-end": 25
+        "padding-block-end": 20
       }
     },
     "section_n6Btmh": {
@@ -1657,7 +1657,7 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 25,
+        "padding-block-start": 20,
         "padding-block-end": 100
       }
     },
@@ -1881,7 +1881,7 @@
         "border_color": "",
         "border_radius": 0,
         "padding-block-start": 100,
-        "padding-block-end": 110
+        "padding-block-end": 100
       },
       "blocks": {
         "text_faq_heading": {
