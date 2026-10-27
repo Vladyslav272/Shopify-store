@@ -104,19 +104,19 @@
    Generous Spacing Between Sections & Content Breathing Room
    ========================================================================== */
 .zm-section {
-  padding: 125px 0 !important;
+  padding: 160px 0 !important;
   box-sizing: border-box !important;
 }
 
 .custom_guarantee-section {
-  padding: 125px 20px !important;
+  padding: 160px 20px !important;
 }
 
 /* Margin and separation around review carousel and product */
 .shopify-section:has([id*="1792698193c2bc235e"]),
 #shopify-section-1792698193c2bc235e {
-  padding-top: 55px !important;
-  padding-bottom: 65px !important;
+  padding-top: 75px !important;
+  padding-bottom: 85px !important;
 }
 
 /* ==========================================================================
@@ -125,11 +125,11 @@
 @media screen and (max-width: 749px) {
   /* Generous section padding on mobile */
   .zm-section {
-    padding: 80px 0 !important;
+    padding: 100px 0 !important;
   }
   
   .custom_guarantee-section {
-    padding: 80px 16px !important;
+    padding: 100px 16px !important;
   }
 
   /* Content container width on mobile: narrower, comfortable margins */
