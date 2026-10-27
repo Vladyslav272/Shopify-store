@@ -2234,14 +2234,14 @@
     "landing_hero_hook": {
       "type": "landing-hero-hook",
       "settings": {
-        "rating_text": "4.9/5 hvězdiček od více než 1 240 spokojených žen",
-        "heading_top": "Svěží a mladistvý pohled bez unavených očí.",
-        "heading_accent": "Stačí 10 minut denně v pohodlí domova.",
-        "subtitle": "Klinicky inspirovaná kombinace terapie červeným světlem, EMS mikroproudů a jemného prohřívání pro redukci vrásek, kruhů a otoků pod očima.",
+        "rating_text": "4.9/5 hvězdiček od více než 2 000 žen, které znovu září",
+        "heading_top": "Znovu se podívejte do zrcadla s úsměvem a hrdostí.*",
+        "heading_accent": "Cítit se přirozeně krásná nebyl nikdy snadnější rituál.",
+        "subtitle": "Už žádné vrstvy korektoru ani nepříjemné otázky okolí, jestli jste se nevyspala. Dopřejte si 10 minut luxusní péče denně – probuďte zářivý, odpočatý pohled a znovu zažijte ten nádherný pocit ženského sebevědomí, kdy se cítíte neodolatelná i bez kapky make-upu.",
         "check_1": "Viditelné zmenšení ranních otoků již po 7 dnech",
         "check_2": "Stimulace tvorby vlastního kolagenu bez invazivních jehel",
         "check_3": "Garance spokojenosti 60 dní nebo vrácení peněz",
-        "cta_text": "Vyzkoušet se slevou 30 %",
+        "cta_text": "Chci se znovu cítit krásná a zářit",
         "background_color": "#FAF5F5"
       }
     },
@@ -2249,51 +2249,52 @@
       "type": "landing-symptom-checklist",
       "settings": {
         "background_color": "#ffffff",
-        "heading": "Poznáváte na svém očním okolí <em>tyto příznaky?</em>"
+        "heading": "Poznáváte tyto pocity? <em>Zasloužíte si cítit se krásná každé ráno.</em>"
       }
     },
     "landing_timeline_wait": {
       "type": "landing-timeline-wait",
       "settings": {
         "background_color": "#FAF5F5",
-        "heading": "Stárnutí očního okolí se samo nezastaví. <em>A vrásky s otoky se prohlubují.</em>",
-        "cta_text": "Zastavit stárnutí očního okolí včas"
+        "heading": "Čas běží a unavený výraz se sám nenapraví. <em>A ztráta sebevědomí bolí nejvíc.</em>",
+        "cta_text": "Zastavit stárnutí včas a cítit se znovu krásná"
       }
     },
     "landing_solutions_compare": {
       "type": "landing-solutions-compare",
       "settings": {
         "background_color": "#ffffff",
-        "heading": "Proč běžná řešení nestačí? <em>Srovnejte sami.</em>",
-        "subtitle": "Kůže kolem očí je nejtenčí na celém těle. Povrchová péče se k příčinám nedostane."
+        "heading": "Proč běžná péče nestačí? <em>A jak znovu získat mladistvý půvab.</em>",
+        "subtitle": "Skutečné sebevědomí nepřichází z maskování vad, ale z přirozeně zdravé, odpočaté a zářící pleti.",
+        "cta_text": "Zvolit přirozenou krásu s Veaskin"
       }
     },
     "landing_timeline_results": {
       "type": "landing-timeline-results",
       "settings": {
         "background_color": "#ffffff",
-        "heading": "Co můžete očekávat? <em>Viditelné výsledky krok za krokem.</em>",
-        "subtitle": "Pouhých 10 minut denně v pohodlí domova stačí k postupné obnově mladistvého očního okolí.",
-        "cta_text": "Chci začít s proměnou ještě dnes"
+        "heading": "Co se stane, když začnete? <em>Znovu se zamilujete do svého odrazu.</em>",
+        "subtitle": "Už za pár týdnů pocítíte ten rozdíl. Nejen na pleti, ale v tom, jak sebevědomě a s úsměvem vstupujete do každého nového dne.",
+        "cta_text": "Chci se znovu cítit krásná a zářit"
       }
     },
     "landing_guarantee": {
       "type": "landing-guarantee",
       "settings": {
         "background_color": "#FAF5F5",
-        "heading": "Vyzkoušejte Veaskin <span>100% bez rizika</span>",
-        "subheading": "60denní garance vrácení peněz bez zbytečných otázek",
-        "text": "Věříme našemu přístroji natolik, že vám dáváme celých 60 dní na jeho vyzkoušení v pohodlí vašeho domova. Pokud během dvou měsíců neuvidíte viditelný úbytek otoků, zesvětlení kruhů nebo vyhlazení jemných vrásek, jednoduše nám přístroj pošlete zpět a my vám obratem vrátíme 100 % zaplacené částky.",
-        "cta_text": "Vyzkoušet na 60 dní bez rizika"
+        "heading": "Buď se zamilujete do svého nového pohledu, <span>nebo neplatíte ani korunu</span>",
+        "subheading": "60denní garance vrácení peněz pro váš klid a jistotu",
+        "text": "Chceme, abyste se cítila skutečně krásná, odpočatá a sebevědomá. Proto vám dáváme celé dva měsíce na to, abyste si Veaskin vyzkoušela v klidu svého domova. Pokud neuvidíte viditelnou proměnu, nebudete nadšená z každého ranního pohledu do zrcadla a neuslyšíte první komplimenty, jednoduše nám přístroj pošlete zpět a my vám obratem vrátíme 100 % zaplacené částky bez zbytečných otázek.",
+        "cta_text": "Vyzkoušet na 60 dní s garancí spokojenosti"
       }
     },
     "landing_two_paths": {
       "type": "landing-two-paths",
       "settings": {
         "background_color": "#ffffff",
-        "heading": "Teď máte na výběr. <em>Kterou cestou se vydáte?</em>",
-        "subtitle": "Můžete pokračovat v tom, co nefunguje, nebo vyzkoušet klinicky inspirovanou péči v pohodlí domova.",
-        "cta_text": "Zvolit omlazení s Veaskin"
+        "heading": "Teď máte na výběr. <em>Jak se chcete cítit každé ráno před zrcadlem?</em>",
+        "subtitle": "Můžete dál bojovat s unaveným výrazem a maskovat vrásky, nebo si dopřát 10 minut péče, díky které budete zářit sebevědomím.",
+        "cta_text": "Zvolit sebevědomí a zářit s Veaskin"
       }
     }
   },
