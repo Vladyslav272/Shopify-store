@@ -2676,3 +2676,9 @@ h6,
   font-style: italic;
   font-weight: 400;
 }
+
+.product-details,
+[id*="ProductInformation"],
+.product-information {
+  scroll-margin-top: 24px;
+}
