@@ -6,14 +6,14 @@
 
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
-  style="background-color: {{ section.settings.background_color | default: 'var(--color-background, #FAF5F5)' }};"
+  style="background-color: {{ section.settings.background_color | default: 'var(--color-background, #000000)' }};"
 ></div>
 
 <div
   class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
   style="
-    background-color: {{ section.settings.background_color | default: 'var(--color-background, #FAF5F5)' }};
-    border-top: {{ section.settings.divider_thickness | default: 1 }}px solid {{ section.settings.divider_color | default: 'rgba(43, 35, 37, 0.08)' }};
+    background-color: {{ section.settings.background_color | default: 'var(--color-background, #000000)' }};
+    border-top: {{ section.settings.divider_thickness | default: 1 }}px solid {{ section.settings.divider_color | default: 'rgba(255, 255, 255, 0.12)' }};
     padding-block-start: {{ section.settings.padding-block-start | default: 48 }}px;
     padding-block-end: {{ section.settings.padding-block-end | default: 40 }}px;
   "
@@ -36,7 +36,7 @@
           </li>
           <li class="veaskin-footer__link-item">
             <a href="/policies/contact-information" class="veaskin-footer__link">
-              Kontaktní Údaje
+              Kontaktní údaje
             </a>
           </li>
           <li class="veaskin-footer__link-item">
@@ -83,7 +83,7 @@
 {% stylesheet %}
   .veaskin-footer {
     width: 100%;
-    color: var(--color-foreground, #2b2325);
+    color: var(--color-foreground, #ffffff);
   }
 
   .veaskin-footer__main {
@@ -93,8 +93,7 @@
     align-items: flex-start;
   }
 
-  @media screen and (min-width: 768px) {
-    .veaskin-footer__main {
+  @media screen and (min-width: 768px) {\n    .veaskin-footer__main {
       flex-direction: row;
       justify-content: space-between;
       align-items: flex-end;
@@ -127,7 +126,7 @@
     font-family: var(--font-heading--family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
     font-size: 15px;
     font-weight: 500;
-    color: var(--color-foreground, #2b2325);
+    color: var(--color-foreground, #ffffff);
     text-decoration: none;
     letter-spacing: -0.01em;
     display: inline-block;
@@ -203,7 +202,7 @@
   .veaskin-footer__copyright {
     margin: 0;
     font-size: 13px;
-    color: var(--color-foreground-muted, #725d57);
+    color: var(--color-foreground-muted, #b5a8aa);
     opacity: 0.85;
     letter-spacing: 0.01em;
   }
@@ -238,7 +237,7 @@
       "type": "color",
       "id": "background_color",
       "label": "t:settings.background_color",
-      "default": "#FAF5F5"
+      "default": "#000000"
     },
     {
       "type": "range",
@@ -262,7 +261,7 @@
     {
       "type": "range",
       "id": "padding-block-start",
-      "label": "t:settings.top",
+      "label": "t:settings.padding_top",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -272,7 +271,7 @@
     {
       "type": "range",
       "id": "padding-block-end",
-      "label": "t:settings.bottom",
+      "label": "t:settings.padding_bottom",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -282,19 +281,7 @@
   ],
   "blocks": [
     {
-      "type": "footer-copyright"
-    },
-    {
-      "type": "footer-policy-list"
-    },
-    {
-      "type": "social-links"
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:names.policies_and_links",
-      "category": "t:categories.footer"
+      "type": "@app"
     }
   ]
 }

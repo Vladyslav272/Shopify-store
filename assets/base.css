@@ -1931,7 +1931,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .veaskin-transformation-note {
   font-size: 0.82rem !important;
   line-height: 1.4 !important;
-  color: #725d57 !important;
+  color: #b5a8aa !important;
   font-style: italic !important;
   margin: 4px 0 0 0 !important;
 }
@@ -1993,7 +1993,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .shopify-section:has(#veaskin-technology-benefits),
 .shopify-section:has(.veaskin-benefits-section),
 .veaskin-benefits-section {
-  background-color: #FAF5F5 !important;
+  background-color: #000000 !important;
 }
 
 /* Veaskin FAQ Section - White Background */
@@ -2001,7 +2001,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .shopify-section:has(accordion-custom),
 [id*="section_faq"] .section-background,
 .shopify-section:has(accordion-custom) .section-background {
-  background-color: #ffffff !important;
+  background-color: #000000 !important;
 }
 
 .veaskin-benefits-section {
@@ -2293,4 +2293,75 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 /* Space after colon in care heading */
 [class*="text_j7Rzrc"] {
   margin-right: 6px !important;
+}
+
+
+/* === Premium Dark Mode Overrides === */
+body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Header & Navigation */
+.header,
+header,
+.header__wrapper,
+.section-header {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* FAQ Accordion Dark Styling */
+.shopify-section:has([id*="section_faq"]) accordion-custom,
+[id*="section_faq"] details,
+[id*="section_faq"] summary,
+[id*="section_faq"] .accordion-details {
+  color: #ffffff !important;
+}
+[id*="section_faq"] details {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+[id*="section_faq"] summary svg {
+  stroke: #ffffff !important;
+}
+
+/* Judge.me Reviews Carousel Dark Styling */
+.jdgm-carousel-item,
+.jdgm-rev {
+  background-color: #141414 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+.jdgm-carousel-title,
+.jdgm-rev-widg__title,
+.jdgm-carousel-item__review-title,
+.jdgm-rev__title,
+.jdgm-carousel-item__reviewer-name,
+.jdgm-rev__author {
+  color: #ffffff !important;
+}
+.jdgm-carousel-item__review-body,
+.jdgm-rev__body {
+  color: #d1c5c7 !important;
+}
+.jdgm-carousel-item__timestamp,
+.jdgm-rev__timestamp {
+  color: #a69597 !important;
+}
+.jdgm-widget,
+.jdgm-rev-widg {
+  color: #ffffff !important;
+}
+
+/* Sticky Add To Cart Bar */
+.sticky-add-to-cart__bar {
+  background-color: rgba(20, 20, 20, 0.95) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+.sticky-add-to-cart__title {
+  color: #ffffff !important;
+}
+.sticky-add-to-cart__price {
+  color: #e5988a !important;
 }

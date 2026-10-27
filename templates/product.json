@@ -265,9 +265,9 @@
                       "static": true,
                       "settings": {
                         "style_class": "button",
-                        "custom_button_background": "{{ settings.color_palette.foreground }}",
-                        "custom_button_text": "{{ settings.color_palette.background }}",
-                        "custom_button_border": "{{ settings.color_palette.background }}"
+                        "custom_button_background": "#c98a7d",
+                        "custom_button_text": "#ffffff",
+                        "custom_button_border": "#c98a7d"
                       },
                       "blocks": {}
                     },
@@ -1719,7 +1719,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "text_color": "#2B2325",
+                "text_color": "#ffffff",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -2242,20 +2242,20 @@
         "check_2": "Stimulace tvorby vlastního kolagenu bez invazivních jehel",
         "check_3": "Garance spokojenosti 60 dní nebo vrácení peněz",
         "cta_text": "Chci se znovu cítit krásná a zářit",
-        "background_color": "#FAF5F5"
+        "background_color": "#000000"
       }
     },
     "landing_symptom_checklist": {
       "type": "landing-symptom-checklist",
       "settings": {
-        "background_color": "#ffffff",
+        "background_color": "#000000",
         "heading": "Poznáváte tyto pocity? <em>Zasloužíte si cítit se krásná každé ráno.</em>"
       }
     },
     "landing_timeline_wait": {
       "type": "landing-timeline-wait",
       "settings": {
-        "background_color": "#FAF5F5",
+        "background_color": "#000000",
         "heading": "Čas běží a unavený výraz se sám nenapraví. <em>A ztráta sebevědomí bolí nejvíc.</em>",
         "cta_text": "Zastavit stárnutí včas a cítit se znovu krásná"
       }
@@ -2263,7 +2263,7 @@
     "landing_solutions_compare": {
       "type": "landing-solutions-compare",
       "settings": {
-        "background_color": "#ffffff",
+        "background_color": "#000000",
         "heading": "Proč běžná péče nestačí? <em>A jak znovu získat mladistvý půvab.</em>",
         "subtitle": "Skutečné sebevědomí nepřichází z maskování vad, ale z přirozeně zdravé, odpočaté a zářící pleti.",
         "cta_text": "Zvolit přirozenou krásu s Veaskin"
@@ -2272,7 +2272,7 @@
     "landing_timeline_results": {
       "type": "landing-timeline-results",
       "settings": {
-        "background_color": "#ffffff",
+        "background_color": "#000000",
         "heading": "Co se stane, když začnete? <em>Znovu se zamilujete do svého odrazu.</em>",
         "subtitle": "Už za pár týdnů pocítíte ten rozdíl. Nejen na pleti, ale v tom, jak sebevědomě a s úsměvem vstupujete do každého nového dne.",
         "cta_text": "Chci se znovu cítit krásná a zářit"
@@ -2281,7 +2281,7 @@
     "landing_guarantee": {
       "type": "landing-guarantee",
       "settings": {
-        "background_color": "#FAF5F5",
+        "background_color": "#000000",
         "heading": "Buď se zamilujete do svého nového pohledu, <span>nebo neplatíte ani korunu</span>",
         "subheading": "60denní garance vrácení peněz pro váš klid a jistotu",
         "text": "Chceme, abyste se cítila skutečně krásná, odpočatá a sebevědomá. Proto vám dáváme celé dva měsíce na to, abyste si Veaskin vyzkoušela v klidu svého domova. Pokud neuvidíte viditelnou proměnu, nebudete nadšená z každého ranního pohledu do zrcadla a neuslyšíte první komplimenty, jednoduše nám přístroj pošlete zpět a my vám obratem vrátíme 100 % zaplacené částky bez zbytečných otázek.",
@@ -2291,7 +2291,7 @@
     "landing_two_paths": {
       "type": "landing-two-paths",
       "settings": {
-        "background_color": "#ffffff",
+        "background_color": "#000000",
         "heading": "Teď máte na výběr. <em>Jak se chcete cítit každé ráno před zrcadlem?</em>",
         "subtitle": "Můžete dál bojovat s unaveným výrazem a maskovat vrásky, nebo si dopřát 10 minut péče, díky které budete zářit sebevědomím.",
         "cta_text": "Zvolit sebevědomí a zářit s Veaskin"
@@ -2300,7 +2300,7 @@
     "landing_morning_calm": {
       "type": "landing-morning-calm",
       "settings": {
-        "background_color": "#FAF5F5",
+        "background_color": "#000000",
         "kicker": "Více než péče o pleť — váš ranní klid",
         "heading": "Probuďte se do dne s pocitem, že se na sebe v zrcadle ráda usmějete.",
         "paragraph_1": "Znáte ta rána, kdy se cítíte plná energie, ale pohled do zrcadla vypráví jiný příběh? Unavené oči, napuchlá víčka a pocit, že bez vrstvy korektoru nemůžete vyjít ze dveří.",
