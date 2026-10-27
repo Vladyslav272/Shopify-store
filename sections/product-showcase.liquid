@@ -18,7 +18,7 @@
               alt: section.settings.heading | default: product_resource.title | default: 'VeaSkin'
             }}
           {% else %}
-            {{ 'product-1' | placeholder_svg_tag: 'product-showcase-placeholder' }}
+            <img src="{{ 'rannikafe.jpg' | asset_url }}" alt="VeaSkin ranní káva a péče" class="product-showcase-img" loading="lazy" />
           {% endif %}
 
           <div class="product-showcase-badge">

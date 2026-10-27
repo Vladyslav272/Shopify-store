@@ -247,11 +247,7 @@
 
       if (!main) return;
 
-      var prodImg = '{{ product.featured_image | image_url: width: 800 }}';
-      var galleryImg = document.querySelector('.product-media-gallery img, .product-gallery img, media-gallery img');
-      if (galleryImg && galleryImg.src) {
-        prodImg = galleryImg.src;
-      }
+      var showcaseImg = '{{ "rannikafe.jpg" | asset_url }}';
 
       var container = document.createElement('div');
       container.className = 'shopify-section';
@@ -265,8 +261,8 @@
               <div class="product-showcase-visual">
                 <div class="product-showcase-card">
                   <img
-                    src="${prodImg}"
-                    alt="VeaSkin Brýle proti otokům"
+                    src="${showcaseImg}"
+                    alt="VeaSkin ranní káva a péče"
                     class="product-showcase-img"
                     loading="lazy"
                   />
