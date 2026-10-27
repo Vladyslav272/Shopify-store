@@ -1962,7 +1962,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     font-size: 1.4rem !important;
     line-height: 1.25 !important;
     text-align: center !important;
-    margin-bottom: 4px !important;
+    margin-bottom: 18px !important;
   }
   .veaskin-transformation-list {
     gap: 16px;
@@ -1985,6 +1985,29 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   .veaskin-transformation-note {
     font-size: 0.78rem !important;
     line-height: 1.4 !important;
+  }
+}
+
+
+/* Generous separation between Návod na použití and Viditelná proměna */
+.shopify-section:has([id*="section_n6Btmh"]) {
+  margin-bottom: 35px !important;
+}
+
+.shopify-section:has(.veaskin-transformation-stats),
+.shopify-section:has([id*="section_Kny7xc"]) {
+  margin-top: 35px !important;
+}
+
+@media (max-width: 749px) {
+  .shopify-section:has([id*="section_n6Btmh"]) {
+    margin-bottom: 30px !important;
+    padding-bottom: 30px !important;
+  }
+  .shopify-section:has(.veaskin-transformation-stats),
+  .shopify-section:has([id*="section_Kny7xc"]) {
+    margin-top: 30px !important;
+    padding-top: 30px !important;
   }
 }
 
