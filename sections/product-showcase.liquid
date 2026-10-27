@@ -6,7 +6,31 @@
 
 <div class="product-showcase-section" style="background-color: {{ bg_color }};">
   <div class="product-showcase-wrapper">
-    <div class="product-showcase-grid">
+
+    <!-- Header: Heading and text ABOVE image -->
+    <div class="product-showcase-header">
+      {% if section.settings.kicker != blank %}
+        <div class="product-showcase-kicker">
+          <span class="product-showcase-kicker-dot"></span>
+          {{ section.settings.kicker }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="product-showcase-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="product-showcase-desc">
+          <p>{{ section.settings.text }}</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Body: Image + Details & CTA -->
+    <div class="product-showcase-body">
 
       <!-- Product Image Column -->
       <div class="product-showcase-visual">
@@ -31,27 +55,8 @@
         </div>
       </div>
 
-      <!-- Text & Content Column -->
-      <div class="product-showcase-content">
-        {% if section.settings.kicker != blank %}
-          <div class="product-showcase-kicker">
-            <span class="product-showcase-kicker-dot"></span>
-            {{ section.settings.kicker }}
-          </div>
-        {% endif %}
-
-        {% if section.settings.heading != blank %}
-          <h2 class="product-showcase-heading">
-            {{ section.settings.heading }}
-          </h2>
-        {% endif %}
-
-        {% if section.settings.text != blank %}
-          <div class="product-showcase-desc">
-            <p>{{ section.settings.text }}</p>
-          </div>
-        {% endif %}
-
+      <!-- Feature Points & CTA Column -->
+      <div class="product-showcase-details">
         <!-- Feature Points -->
         <ul class="product-showcase-features" role="list">
           <li class="product-showcase-feature-item">

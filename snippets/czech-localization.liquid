@@ -255,7 +255,26 @@
       container.innerHTML = `
         <div class="product-showcase-section">
           <div class="product-showcase-wrapper">
-            <div class="product-showcase-grid">
+
+            <!-- Heading and text ABOVE image -->
+            <div class="product-showcase-header">
+              <div class="product-showcase-kicker">
+                <span class="product-showcase-kicker-dot"></span>
+                <span>První krok k vaší ranní proměně</span>
+              </div>
+
+              <h2 class="product-showcase-heading">
+                Vykročte do rána s úsměvem.
+                <em>Stačí jen 10 minut péče.</em>
+              </h2>
+
+              <p class="product-showcase-desc">
+                Probuďte se do dne bez otoků a unavených očí. VeaSkin vám během pár minut vrátí svěžest a ten příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky make-upu.
+              </p>
+            </div>
+
+            <!-- Body: Image on left, features + CTA on right -->
+            <div class="product-showcase-body">
 
               <!-- Visual Card (Image + Rating Badge) -->
               <div class="product-showcase-visual">
@@ -276,23 +295,8 @@
                 </div>
               </div>
 
-              <!-- Content & CTA -->
-              <div class="product-showcase-content">
-                <div class="product-showcase-kicker">
-                  <span class="product-showcase-kicker-dot"></span>
-                  <span>První krok k vaší ranní proměně</span>
-                </div>
-
-                <h2 class="product-showcase-heading">
-                  Vykročte do rána s úsměvem.
-                  <em>Stačí jen 10 minut péče.</em>
-                </h2>
-
-                <p class="product-showcase-desc">
-                  Probuďte se do dne bez otoků a unavených očí. VeaSkin vám během pár minut vrátí svěžest a ten příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky make-upu.
-                </p>
-
-                <!-- Value Features -->
+              <!-- Value Features & Action CTA -->
+              <div class="product-showcase-details">
                 <ul class="product-showcase-features">
                   <li class="product-showcase-feature-item">
                     <div class="product-showcase-feature-icon">
@@ -334,7 +338,6 @@
                   </li>
                 </ul>
 
-                <!-- Action CTA -->
                 <div class="product-showcase-actions">
                   <a href="#BuyButtons-ProductSubmitButton-AUkd4cHVwd1JPTjFDS__add-to-cart" class="product-showcase-btn" onclick="var t = document.querySelector('button[name=\'add\']:not([class*=\'sticky\']), [id*=\'ProductSubmitButton\'], .product-form button[type=\'submit\']') || document.querySelector('.product-information, [id*=\'product-information\']'); if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); } return false;">
                     <span>Chci se cítit svěže každé ráno</span>
@@ -350,7 +353,6 @@
                     <span>Bezpečný nákup • Garance vrácení zboží 30 dní • Česká značka</span>
                   </p>
                 </div>
-
               </div>
 
             </div>
