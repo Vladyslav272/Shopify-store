@@ -1989,27 +1989,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 
-/* Generous separation between Návod na použití and Viditelná proměna */
-.shopify-section:has([id*="section_n6Btmh"]) {
-  margin-bottom: 35px !important;
-}
-
-.shopify-section:has(.veaskin-transformation-stats),
-.shopify-section:has([id*="section_Kny7xc"]) {
-  margin-top: 35px !important;
-}
-
-@media (max-width: 749px) {
-  .shopify-section:has([id*="section_n6Btmh"]) {
-    margin-bottom: 30px !important;
-    padding-bottom: 30px !important;
-  }
-  .shopify-section:has(.veaskin-transformation-stats),
-  .shopify-section:has([id*="section_Kny7xc"]) {
-    margin-top: 30px !important;
-    padding-top: 30px !important;
-  }
-}
+/* Harmonized 160px Spacing Between Sections */
 
 /* Veaskin Technology Benefits Card */
 #shopify-section-technology-benefits,
@@ -2029,7 +2009,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 
 .veaskin-benefits-section {
   width: 100%;
-  padding: 40px 24px 70px;
+  padding: 0 24px;
   box-sizing: border-box;
 }
 
@@ -2132,7 +2112,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 
 @media (max-width: 749px) {
   .veaskin-benefits-section {
-    padding: 28px 16px 50px;
+    padding: 0 16px;
   }
   .veaskin-benefits-container {
     max-width: 380px !important;

@@ -101,35 +101,45 @@
 
 
 /* ==========================================================================
-   Generous Spacing Between Sections & Content Breathing Room
+   Generous Spacing Between Sections & Content Breathing Room (160px)
    ========================================================================== */
 .zm-section {
-  padding: 100px 0 !important;
+  padding: 160px 0 !important;
   box-sizing: border-box !important;
 }
 
 .custom_guarantee-section {
-  padding: 100px 20px !important;
+  padding: 160px 20px !important;
 }
 
-/* Margin and separation around review carousel and product */
+/* Margin and separation around review carousel and reviews widget */
 .shopify-section:has([id*="1792698193c2bc235e"]),
-#shopify-section-1792698193c2bc235e {
-  padding-top: 50px !important;
-  padding-bottom: 50px !important;
+#shopify-section-1792698193c2bc235e,
+.shopify-section:has([id*="17926947644e416e5d"]),
+#shopify-section-17926947644e416e5d {
+  padding-top: 160px !important;
+  padding-bottom: 160px !important;
 }
 
 /* ==========================================================================
    Mobile Optimization: Mobile Container Width & Spacing Fixes
    ========================================================================== */
 @media screen and (max-width: 749px) {
-  /* Section padding on mobile */
+  /* Section padding on mobile (clean & readable proportional spacing 100px) */
   .zm-section {
-    padding: 70px 0 !important;
+    padding: 100px 0 !important;
   }
   
   .custom_guarantee-section {
-    padding: 70px 16px !important;
+    padding: 100px 16px !important;
+  }
+
+  .shopify-section:has([id*="1792698193c2bc235e"]),
+  #shopify-section-1792698193c2bc235e,
+  .shopify-section:has([id*="17926947644e416e5d"]),
+  #shopify-section-17926947644e416e5d {
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
   }
 
   /* Content container width on mobile: narrower, comfortable margins */
