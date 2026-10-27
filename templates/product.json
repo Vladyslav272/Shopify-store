@@ -2307,6 +2307,17 @@
         "paragraph_2": "VeaSkin nevznikl proto, aby měnil to, kým jste. Vznikl proto, aby vám vrátil svěžest, lehkost a ten příjemný pocit, kdy se cítíte krásná i v úplně obyčejný den – přirozeně a bez líčení.",
         "cta_text": "Dopřejte si svůj ranní klid s VeaSkin"
       }
+    },
+    "landing_product_showcase": {
+      "type": "landing-product-showcase",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "kicker": "Vaše nová ranní rutina",
+        "heading": "Dopřejte svým očím péči, kterou si zaslouží. <em>Znovu se zamilujte do svého odrazu.</em>",
+        "subtitle": "Připojte se k tisícům spokojených žen, které každé ráno začínají s úsměvem a svěžím pohledem bez make-upu a unavených kruhů.",
+        "cta_text": "Objednat VeaSkin s 60denní garancí",
+        "cta_url": "#MainContent"
+      }
     }
   },
   "order": [
@@ -2325,6 +2336,7 @@
     "landing_guarantee",
     "landing_two_paths",
     "section_faq",
+    "landing_product_showcase",
     "17926947644e416e5d"
   ]
 }

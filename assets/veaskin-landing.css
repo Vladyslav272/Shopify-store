@@ -423,3 +423,225 @@
     font-size: 0.72rem;
   }
 }
+
+
+/* ==========================================================================
+   Landing: Product Showcase Section (Under FAQ)
+   ========================================================================== */
+.zm-showcase {
+  position: relative;
+  overflow: hidden;
+}
+
+.zm-showcase__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.zm-showcase__visual {
+  position: relative;
+}
+
+.zm-showcase__card {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 24px 50px -12px rgba(59, 47, 50, 0.16);
+  border: 1px solid rgba(201, 138, 125, 0.25);
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #faf3f3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 30px;
+  min-height: 440px;
+}
+
+.zm-showcase__img {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+  display: block;
+  border-radius: 20px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zm-showcase__placeholder {
+  max-width: 320px;
+  fill: #e8dede;
+}
+
+.zm-showcase__card:hover .zm-showcase__img {
+  transform: scale(1.02);
+}
+
+.zm-showcase__badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 18px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(45, 30, 32, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  z-index: 2;
+}
+
+.zm-showcase__stars {
+  color: #e28743;
+  letter-spacing: 2px;
+  font-size: 1.1rem;
+}
+
+.zm-showcase__badge-text strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #1d1617;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.zm-showcase__badge-text span {
+  display: block;
+  font-size: 0.78rem;
+  color: #837274;
+}
+
+.zm-showcase__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(201, 138, 125, 0.12);
+  color: #c98a7d;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.zm-showcase__kicker-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c98a7d;
+  box-shadow: 0 0 8px #c98a7d;
+}
+
+.zm-showcase__heading {
+  font-size: clamp(2.4rem, 2rem + 1.8vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1d1617;
+  margin: 0 0 18px 0;
+  letter-spacing: -0.02em;
+}
+
+.zm-showcase__heading em {
+  font-style: italic;
+  font-weight: 400;
+  color: #c98a7d;
+  display: block;
+}
+
+.zm-showcase__desc p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #5a4b4e;
+  margin: 0 0 28px 0;
+}
+
+.zm-showcase__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.zm-showcase__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.zm-showcase__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.zm-showcase__feature strong {
+  display: block;
+  font-size: 0.98rem;
+  color: #1d1617;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.zm-showcase__feature span {
+  display: block;
+  font-size: 0.88rem;
+  color: #725d57;
+  line-height: 1.45;
+}
+
+.zm-showcase__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.zm-showcase__btn {
+  width: 100% !important;
+  max-width: 440px !important;
+}
+
+@media (max-width: 749px) {
+  .zm-showcase__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .zm-showcase__card {
+    padding: 24px 18px;
+    max-width: 380px;
+    margin: 0 auto;
+    min-height: 320px;
+  }
+
+  .zm-showcase__badge {
+    bottom: 14px;
+    left: 14px;
+    padding: 10px 14px;
+  }
+
+  .zm-showcase__content {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .zm-showcase__heading {
+    font-size: 2.2rem;
+  }
+
+  .zm-showcase__actions {
+    align-items: center;
+  }
+
+  .zm-showcase__btn {
+    max-width: 100% !important;
+  }
+}
