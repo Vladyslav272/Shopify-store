@@ -1,0 +1,96 @@
+{{ 'veaskin-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="zm-section zm-tl zm-tl--warning" style="background-color: {{ section.settings.background_color }};">
+  <div class="zm-container zm-container--narrow">
+    <div class="zm-head">
+      <h2 class="zm-heading">
+        {{ section.settings.heading | default: 'Stárnutí očního okolí se samo nezastaví. <em>A vrásky s otoky se prohlubují.</em>' }}
+      </h2>
+    </div>
+
+    <ol class="zm-tl__list" role="list">
+      <li class="zm-tl__step" style="--step-color: #725d57; --next-color: #8c5755;">
+        <span class="zm-tl__dot" aria-hidden="true">1</span>
+        <div class="zm-tl__card">
+          <h3 class="zm-tl__label">Dnes</h3>
+          <div class="zm-tl__text">
+            <p>Unavený pohled, jemné linky a ranní otoky. Zatím se dají na pár hodin zamaskovat korektorem.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="zm-tl__step" style="--step-color: #8c5755; --next-color: #a4484b;">
+        <span class="zm-tl__dot" aria-hidden="true">2</span>
+        <div class="zm-tl__card">
+          <h3 class="zm-tl__label">Za pár měsíců</h3>
+          <div class="zm-tl__text">
+            <p>Tmavé kruhy se usazují permanentně. Jemné mimické linky se prohlubují do vějířků kolem očí.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="zm-tl__step" style="--step-color: #a4484b; --next-color: #bb3941;">
+        <span class="zm-tl__dot" aria-hidden="true">3</span>
+        <div class="zm-tl__card">
+          <h3 class="zm-tl__label">Za rok či dva</h3>
+          <div class="zm-tl__text">
+            <p>Výrazný úbytek kolagenu a elastinu. Povislá oční víčka a trvalé váčky pod očima nelze skrýt make-upem.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="zm-tl__step" style="--step-color: #bb3941; --next-color: #bb3941;">
+        <span class="zm-tl__dot" aria-hidden="true">4</span>
+        <div class="zm-tl__card">
+          <h3 class="zm-tl__label">Později</h3>
+          <div class="zm-tl__text">
+            <p>Kůže ztrácí pružnost a jediným řešením se stává drahá operace (blefaroplastika) či bolestivý botox.</p>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="zm-actions" style="margin-top: 36px;">
+      <a href="#MainContent" class="zm-btn" data-zm-scroll>
+        <span>{{ section.settings.cta_text | default: 'Zastavit stárnutí očního okolí včas' }}</span>
+        <svg class="zm-icon zm-icon--arrow_down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+      </a>
+      <p class="zm-note">
+        <span>Začněte se správnou péčí dříve, než bude nutný chirurgický zákrok.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing: Timeline Wait",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Stárnutí očního okolí se samo nezastaví. <em>A vrásky s otoky se prohlubují.</em>"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text tlačítka",
+      "default": "Zastavit stárnutí očního okolí včas"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing: Timeline Wait"
+    }
+  ]
+}
+{% endschema %}

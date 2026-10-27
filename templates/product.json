@@ -2230,15 +2230,87 @@
         "padding-block-start": 0,
         "padding-block-end": 20
       }
+    },
+    "landing_hero_hook": {
+      "type": "landing-hero-hook",
+      "settings": {
+        "rating_text": "4.9/5 hvězdiček od více než 1 240 spokojených žen",
+        "heading_top": "Svěží a mladistvý pohled bez unavených očí.",
+        "heading_accent": "Stačí 10 minut denně v pohodlí domova.",
+        "subtitle": "Klinicky inspirovaná kombinace terapie červeným světlem, EMS mikroproudů a jemného prohřívání pro redukci vrásek, kruhů a otoků pod očima.",
+        "check_1": "Viditelné zmenšení ranních otoků již po 7 dnech",
+        "check_2": "Stimulace tvorby vlastního kolagenu bez invazivních jehel",
+        "check_3": "Garance spokojenosti 60 dní nebo vrácení peněz",
+        "cta_text": "Vyzkoušet se slevou 30 %",
+        "background_color": "#FAF5F5"
+      }
+    },
+    "landing_symptom_checklist": {
+      "type": "landing-symptom-checklist",
+      "settings": {
+        "background_color": "#ffffff",
+        "heading": "Poznáváte na svém očním okolí <em>tyto příznaky?</em>"
+      }
+    },
+    "landing_timeline_wait": {
+      "type": "landing-timeline-wait",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "heading": "Stárnutí očního okolí se samo nezastaví. <em>A vrásky s otoky se prohlubují.</em>",
+        "cta_text": "Zastavit stárnutí očního okolí včas"
+      }
+    },
+    "landing_solutions_compare": {
+      "type": "landing-solutions-compare",
+      "settings": {
+        "background_color": "#ffffff",
+        "heading": "Proč běžná řešení nestačí? <em>Srovnejte sami.</em>",
+        "subtitle": "Kůže kolem očí je nejtenčí na celém těle. Povrchová péče se k příčinám nedostane."
+      }
+    },
+    "landing_timeline_results": {
+      "type": "landing-timeline-results",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "heading": "Co můžete očekávat? <em>Viditelné výsledky krok za krokem.</em>",
+        "subtitle": "Pouhých 10 minut denně v pohodlí domova stačí k postupné obnově mladistvého očního okolí.",
+        "cta_text": "Chci začít s proměnou ještě dnes"
+      }
+    },
+    "landing_guarantee": {
+      "type": "landing-guarantee",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "heading": "Vyzkoušejte Veaskin <span>100% bez rizika</span>",
+        "subheading": "60denní garance vrácení peněz bez zbytečných otázek",
+        "text": "Věříme našemu přístroji natolik, že vám dáváme celých 60 dní na jeho vyzkoušení v pohodlí vašeho domova. Pokud během dvou měsíců neuvidíte viditelný úbytek otoků, zesvětlení kruhů nebo vyhlazení jemných vrásek, jednoduše nám přístroj pošlete zpět a my vám obratem vrátíme 100 % zaplacené částky.",
+        "cta_text": "Vyzkoušet na 60 dní bez rizika"
+      }
+    },
+    "landing_two_paths": {
+      "type": "landing-two-paths",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "heading": "Teď máte na výběr. <em>Kterou cestou se vydáte?</em>",
+        "subtitle": "Můžete pokračovat v tom, co nefunguje, nebo vyzkoušet klinicky inspirovanou péči v pohodlí domova.",
+        "cta_text": "Zvolit omlazení s Veaskin"
+      }
     }
   },
   "order": [
+    "landing_hero_hook",
     "product-information",
     "1792698193c2bc235e",
-    "section_pNEVnp",
-    "section_n6Btmh",
+    "landing_symptom_checklist",
+    "landing_timeline_wait",
+    "landing_solutions_compare",
     "section_Kny7xc",
     "section_technology_benefits",
+    "section_pNEVnp",
+    "section_n6Btmh",
+    "landing_timeline_results",
+    "landing_guarantee",
+    "landing_two_paths",
     "section_faq",
     "17926947644e416e5d"
   ]

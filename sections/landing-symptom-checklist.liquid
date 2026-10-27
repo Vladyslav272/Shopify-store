@@ -1,0 +1,158 @@
+{{ 'veaskin-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'veaskin-landing.js' | asset_url }}" defer="defer"></script>
+
+<section class="zm-section zm-symptoms" style="background-color: {{ section.settings.background_color }};">
+  <div class="zm-container zm-container--narrow">
+    <div class="zm-head">
+      <h2 class="zm-heading">
+        {{ section.settings.heading | default: 'Poznáváte na svém očním okolí <em>tyto příznaky?</em>' }}
+      </h2>
+    </div>
+
+    <zm-checklist class="zm-symptoms__wrap" data-threshold="2" data-nudge>
+      <div class="zm-symptoms__bar">
+        <p class="zm-symptoms__hint" id="ZmSymptomsHint-{{ section.id }}">
+          <span class="zm-symptoms__hint-icon" aria-hidden="true">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 14a8 8 0 0 1-8 8"></path>
+              <path d="M18 11v-1a2 2 0 0 0-4 0"></path>
+              <path d="M14 10V9a2 2 0 0 0-4 0v1"></path>
+              <path d="M10 9.5V4a2 2 0 0 0-4 0v10"></path>
+              <path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+            </svg>
+          </span>
+          <span><strong>Rychlý test:</strong> zaškrtněte vše, co u sebe poznáváte</span>
+        </p>
+        <p class="zm-symptoms__count" data-count aria-hidden="true">
+          <span data-count-value>0</span>/6
+        </p>
+      </div>
+
+      <div class="zm-symptoms__progress" aria-hidden="true">
+        <span class="zm-symptoms__progress-fill" data-progress style="width: 0%;"></span>
+      </div>
+
+      <ul class="zm-symptoms__list" role="list" aria-describedby="ZmSymptomsHint-{{ section.id }}">
+        <li class="zm-symptoms__item" style="--zm-i: 0;">
+          <label class="zm-symptoms__label">
+            <input type="checkbox" class="zm-symptoms__input">
+            <span class="zm-symptoms__box" aria-hidden="true">
+              <svg class="zm-icon zm-icon--check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <span class="zm-symptoms__text">Tmavé kruhy pod očima, které nezakryje ani korektor</span>
+          </label>
+        </li>
+        <li class="zm-symptoms__item" style="--zm-i: 1;">
+          <label class="zm-symptoms__label">
+            <input type="checkbox" class="zm-symptoms__input">
+            <span class="zm-symptoms__box" aria-hidden="true">
+              <svg class="zm-icon zm-icon--check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <span class="zm-symptoms__text">Ranní otoky a váčky pod očima, které mizí až k poledni</span>
+          </label>
+        </li>
+        <li class="zm-symptoms__item" style="--zm-i: 2;">
+          <label class="zm-symptoms__label">
+            <input type="checkbox" class="zm-symptoms__input">
+            <span class="zm-symptoms__box" aria-hidden="true">
+              <svg class="zm-icon zm-icon--check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <span class="zm-symptoms__text">Jemné mimické vrásky a povadlá kůže v koutcích očí</span>
+          </label>
+        </li>
+        <li class="zm-symptoms__item" style="--zm-i: 3;">
+          <label class="zm-symptoms__label">
+            <input type="checkbox" class="zm-symptoms__input">
+            <span class="zm-symptoms__box" aria-hidden="true">
+              <svg class="zm-icon zm-icon--check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <span class="zm-symptoms__text">Unavené, těžké a suché oči po celém dni u obrazovky</span>
+          </label>
+        </li>
+        <li class="zm-symptoms__item" style="--zm-i: 4;">
+          <label class="zm-symptoms__label">
+            <input type="checkbox" class="zm-symptoms__input">
+            <span class="zm-symptoms__box" aria-hidden="true">
+              <svg class="zm-icon zm-icon--check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <span class="zm-symptoms__text">Běžné oční krémy nepřinášejí žádný viditelný výsledek</span>
+          </label>
+        </li>
+        <li class="zm-symptoms__item" style="--zm-i: 5;">
+          <label class="zm-symptoms__label">
+            <input type="checkbox" class="zm-symptoms__input">
+            <span class="zm-symptoms__box" aria-hidden="true">
+              <svg class="zm-icon zm-icon--check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <span class="zm-symptoms__text">Bojíte se předčasného stárnutí pleti a drahých zákroků</span>
+          </label>
+        </li>
+      </ul>
+
+      <div class="zm-symptoms__result" data-result aria-live="polite">
+        <span class="zm-symptoms__result-icon" aria-hidden="true">
+          <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#bb6966" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12l2 2 4-4"></path>
+          </svg>
+        </span>
+        <div class="zm-symptoms__result-body">
+          <p class="zm-symptoms__result-label">
+            <svg class="zm-icon zm-icon--check_circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m8 12 3 3 5-6"></path>
+            </svg>
+            Váš výsledek
+          </p>
+          <div class="zm-symptoms__result-text">
+            <p>
+              Pokud jste zaškrtla alespoň dvě, problém není v nedostatku spánku ani v kosmetice, ale v <strong>hluboké mikrocirkulaci a úbytku kolagenu pod kůží</strong>. A přesně na to je Veaskin zkonstruován.
+            </p>
+          </div>
+          <div style="margin-top: 16px;">
+            <a href="#MainContent" class="zm-btn" style="min-height: 48px; font-size: 1.4rem; padding: 1rem 2.4rem;" data-zm-scroll>
+              <span>Vyzkoušet Veaskin bez rizika</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </zm-checklist>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing: Symptom Checklist",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Poznáváte na svém očním okolí <em>tyto příznaky?</em>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing: Symptom Checklist"
+    }
+  ]
+}
+{% endschema %}

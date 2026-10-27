@@ -1,0 +1,88 @@
+{{ 'veaskin-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="zm-section custom_guarantee-section" style="background-color: {{ section.settings.background_color | default: '#FAF5F5' }};">
+  <div class="custom_guarantee-container custom_guarantee--css" style="background: radial-gradient(70% 100% at 50% 1%, #3b2f32, #211a1b); border-color: rgba(201, 138, 125, 0.35);">
+    <div class="custom_guarantee-bgelements">
+      <div class="custom_guarantee-light" style="background-color: #c98a7d; box-shadow: 0 0 20px #c98a7d;"></div>
+      <div class="custom_guarantee-dots custom_guarantee-dots--css" style="background-image: radial-gradient(rgba(201, 138, 125, 0.4) .1rem, transparent .16rem);"></div>
+      <div class="custom_guarantee-rays custom_guarantee-rays--css"></div>
+    </div>
+
+    <div class="custom_guarantee-values">
+      <div class="custom_guarantee-image">
+        <div class="custom_guarantee-seal" style="border-color: #c98a7d; background: radial-gradient(circle at 50% 35%, #46373b, #211a1b 70%); box-shadow: 0 0 0 .8rem rgba(201, 138, 125, 0.15), 0 2rem 4rem -1.6rem rgba(0,0,0,0.6);">
+          <span class="custom_guarantee-seal__number" style="color: #ffffff;">60</span>
+          <span class="custom_guarantee-seal__label" style="color: #e5b3aa;">Dní na vyzkoušení</span>
+        </div>
+      </div>
+
+      <div class="custom_guarantee-texts">
+        <h2>{{ section.settings.heading | default: 'Vyzkoušejte Veaskin <span>100% bez rizika</span>' }}</h2>
+        <span style="color: #e5b3aa;">{{ section.settings.subheading | default: '60denní garance vrácení peněz bez zbytečných otázek' }}</span>
+        <div>
+          <p style="color: #f1e9e8;">
+            {{ section.settings.text | default: 'Věříme našemu přístroji natolik, že vám dáváme celých 60 dní na jeho vyzkoušení v pohodlí vašeho domova. Pokud během dvou měsíců neuvidíte viditelný úbytek otoků, zesvětlení kruhů nebo vyhlazení jemných vrásek, jednoduše nám přístroj pošlete zpět a my vám obratem vrátíme 100 % zaplacené částky.' }}
+          </p>
+        </div>
+
+        <div class="zm-actions" style="margin-top: 15px;">
+          <a href="#MainContent" class="zm-btn" data-zm-scroll style="background-color: #c98a7d !important; color: #ffffff !important;">
+            <span>{{ section.settings.cta_text | default: 'Vyzkoušet na 60 dní bez rizika' }}</span>
+            <svg class="zm-icon zm-icon--arrow_down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+          </a>
+          <p class="zm-note" style="color: #d1c5c7;">
+            <svg class="zm-icon" style="color: #7bc18a;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Doprava zdarma • Okamžité odeslání do 24 hodin</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing: Guarantee",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí sekce",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Vyzkoušejte Veaskin <span>100% bez rizika</span>"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Podnadpis",
+      "default": "60denní garance vrácení peněz bez zbytečných otázek"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text garance",
+      "default": "Věříme našemu přístroji natolik, že vám dáváme celých 60 dní na jeho vyzkoušení v pohodlí vašeho domova. Pokud během dvou měsíců neuvidíte viditelný úbytek otoků, zesvětlení kruhů nebo vyhlazení jemných vrásek, jednoduše nám přístroj pošlete zpět a my vám obratem vrátíme 100 % zaplacené částky."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text tlačítka",
+      "default": "Vyzkoušet na 60 dní bez rizika"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing: Guarantee"
+    }
+  ]
+}
+{% endschema %}

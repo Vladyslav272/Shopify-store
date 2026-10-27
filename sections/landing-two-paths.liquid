@@ -1,0 +1,143 @@
+{{ 'veaskin-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="zm-section zm-paths" style="background-color: {{ section.settings.background_color | default: '#FAF5F5' }};">
+  <div class="zm-container">
+    <div class="zm-head">
+      <h2 class="zm-heading">
+        {{ section.settings.heading | default: 'Teď máte na výběr. <em>Kterou cestou se vydáte?</em>' }}
+      </h2>
+      <div class="zm-text">
+        <p>{{ section.settings.subtitle | default: 'Můžete pokračovat v tom, co nefunguje, nebo vyzkoušet klinicky inspirovanou péči v pohodlí domova.' }}</p>
+      </div>
+    </div>
+
+    <div class="zm-paths__grid">
+      <div class="zm-paths__col zm-paths__col--bad">
+        <h3 class="zm-paths__title">
+          <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          <span>Nechat to být</span>
+        </h3>
+        <ul class="zm-paths__list" role="list">
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Každé ráno maskovat otoky a tmavé kruhy korektorem a make-upem</span>
+          </li>
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Sledovat, jak se jemné linky rok od roku prohlubují v hluboké vrásky</span>
+          </li>
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Utrácet tisíce za drahé oční krémy, které zůstávají jen na povrchu kůže</span>
+          </li>
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Riziko, že jediným dalším řešením bude drahý a invazivní chirurgický zákrok</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="zm-paths__col zm-paths__col--good">
+        <h3 class="zm-paths__title">
+          <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Zvolit Veaskin Eye Care</span>
+        </h3>
+        <ul class="zm-paths__list" role="list">
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Příjemný 10minutový rituál denně přímo v teple a klidu domova</span>
+          </li>
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Rychlá úleva od otoků, zpevnění pleti a postupné zesvětlení kruhů</span>
+          </li>
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Hloubková stimulace tvorby vlastního kolagenu a zpevnění očních víček</span>
+          </li>
+          <li class="zm-paths__item">
+            <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Plných 60 dní na vyzkoušení s jistotou 100% vrácení peněz bez otázek</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="zm-paths__price">
+      <p>Vyzkoušejte Veaskin ještě dnes s <strong>garancí 60 dní</strong> a dopravou zdarma.</p>
+    </div>
+
+    <div class="zm-actions">
+      <a href="#MainContent" class="zm-btn" data-zm-scroll>
+        <span>{{ section.settings.cta_text | default: 'Zvolit omlazení s Veaskin' }}</span>
+        <svg class="zm-icon zm-icon--arrow_down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+      </a>
+      <p class="zm-note">
+        <svg class="zm-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span>Rychlé doručení kurýrem po celé ČR zdarma</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing: Two Paths",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Teď máte na výběr. <em>Kterou cestou se vydáte?</em>"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Podnadpis",
+      "default": "Můžete pokračovat v tom, co nefunguje, nebo vyzkoušet klinicky inspirovanou péči v pohodlí domova."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text tlačítka",
+      "default": "Zvolit omlazení s Veaskin"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing: Two Paths"
+    }
+  ]
+}
+{% endschema %}
