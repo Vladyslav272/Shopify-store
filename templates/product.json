@@ -2230,6 +2230,17 @@
         "padding-block-start": 0,
         "padding-block-end": 20
       }
+    },
+    "product_showcase": {
+      "type": "product-showcase",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "kicker": "Poslední krok k vaší ranní proměně",
+        "heading": "Dopřejte svým očím péči, kterou si zamilujete. <em>Každé ráno se svěžím úsměvem.</em>",
+        "text": "Stačí 10 minut denně v pohodlí domova. Kombinace červeného světla a jemných mikroproudů redukuje ranní otoky, kruhy pod očima i jemné vrásky – bez bolesti, jehel a zbytečného maskování.",
+        "cta_text": "Objednat VeaSkin s 60denní garancí",
+        "cta_link": "#MainContent"
+      }
     }
   },
   "order": [
@@ -2240,6 +2251,7 @@
     "section_Kny7xc",
     "section_technology_benefits",
     "section_faq",
+    "product_showcase",
     "17926947644e416e5d"
   ]
 }
