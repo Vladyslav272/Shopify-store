@@ -1,0 +1,151 @@
+{{ 'veaskin-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="zm-section landing-morning-calm-section" style="background-color: {{ section.settings.background_color | default: '#FAF5F5' }};">
+  <div class="landing-morning-calm-container">
+    <div class="landing-morning-calm-grid">
+      
+      <!-- Visual Image Column -->
+      <div class="landing-morning-calm-visual">
+        <div class="landing-morning-calm-image-card">
+          <img 
+            src="{{ 'veaskin-morning-calm.jpg' | asset_url }}" 
+            alt="Uvolněná žena v županu se šálkem čaje při ranním slunci – ranní klid s VeaSkin" 
+            loading="lazy"
+            width="800"
+            height="600"
+            class="landing-morning-calm-img"
+          >
+          <div class="landing-morning-calm-badge-float">
+            <span class="landing-morning-calm-badge-icon">☕</span>
+            <div class="landing-morning-calm-badge-text">
+              <strong>Váš ranní rituál</strong>
+              <span>Pouhé 3–5 minut pro sebe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text & Emotion Column -->
+      <div class="landing-morning-calm-content">
+        <div class="landing-morning-calm-kicker">
+          <span class="landing-morning-calm-kicker-dot"></span>
+          {{ section.settings.kicker | default: 'Více než péče o pleť — váš ranní klid' }}
+        </div>
+
+        <h2 class="landing-morning-calm-title">
+          {{ section.settings.heading | default: 'Probuďte se do dne s pocitem, že se na sebe v zrcadle ráda usmějete.' }}
+        </h2>
+
+        <div class="landing-morning-calm-body">
+          <p class="landing-morning-calm-lead">
+            {{ section.settings.paragraph_1 | default: 'Znáte ta rána, kdy se cítíte plná energie, ale pohled do zrcadla vypráví jiný příběh? Unavené oči, napuchlá víčka a pocit, že bez vrstvy korektoru nemůžete vyjít ze dveří.' }}
+          </p>
+
+          <p class="landing-morning-calm-highlight">
+            {{ section.settings.paragraph_2 | default: 'VeaSkin nevznikl proto, aby měnil to, kým jste. Vznikl proto, aby vám vrátil svěžest, lehkost a ten příjemný pocit, kdy se cítíte krásná i v úplně obyčejný den – přirozeně a bez líčení.' }}
+          </p>
+        </div>
+
+        <div class="landing-morning-calm-features">
+          <div class="landing-morning-calm-feature-item">
+            <div class="landing-morning-calm-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c98a7d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </div>
+            <div class="landing-morning-calm-feature-label">
+              <strong>Pocit opravdového sebevědomí</strong>
+              <span>Už žádné maskování vrstvami líčidel hned po probuzení</span>
+            </div>
+          </div>
+
+          <div class="landing-morning-calm-feature-item">
+            <div class="landing-morning-calm-feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c98a7d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+            <div class="landing-morning-calm-feature-label">
+              <strong>Zářivý, odpočatý pohled</strong>
+              <span>Okolí si všimne, jak odpočatě a svěže působíte</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="landing-morning-calm-actions">
+          <a href="#MainContent" class="zm-btn" data-zm-scroll style="background-color: #c98a7d !important; color: #ffffff !important;">
+            <span>{{ section.settings.cta_text | default: 'Dopřejte si svůj ranní klid s VeaSkin' }}</span>
+            <svg class="zm-icon zm-icon--arrow_down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+          </a>
+          <p class="landing-morning-calm-guarantee-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7bc18a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Vyzkoušejte na 90 dní bez rizika • Vrácení 100 % peněz</span>
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing: Ranní klid",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí sekce",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Podtitul / Kicker",
+      "default": "Více než péče o pleť — váš ranní klid"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hlavní nadpis",
+      "default": "Probuďte se do dne s pocitem, že se na sebe v zrcadle ráda usmějete."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_1",
+      "label": "1. odstavec",
+      "default": "Znáte ta rána, kdy se cítíte plná energie, ale pohled do zrcadla vypráví jiný příběh? Unavené oči, napuchlá víčka a pocit, že bez vrstvy korektoru nemůžete vyjít ze dveří."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2",
+      "label": "2. odstavec (zvýrazněný)",
+      "default": "VeaSkin nevznikl proto, aby měnil to, kým jste. Vznikl proto, aby vám vrátil svěžest, lehkost a ten příjemný pocit, kdy se cítíte krásná i v úplně obyčejný den – přirozeně a bez líčení."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text tlačítka CTA",
+      "default": "Dopřejte si svůj ranní klid s VeaSkin"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing: Ranní klid"
+    }
+  ]
+}
+{% endschema %}

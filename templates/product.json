@@ -2296,6 +2296,17 @@
         "subtitle": "Můžete dál bojovat s unaveným výrazem a maskovat vrásky, nebo si dopřát 10 minut péče, díky které budete zářit sebevědomím.",
         "cta_text": "Zvolit sebevědomí a zářit s Veaskin"
       }
+    },
+    "landing_morning_calm": {
+      "type": "landing-morning-calm",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "kicker": "Více než péče o pleť — váš ranní klid",
+        "heading": "Probuďte se do dne s pocitem, že se na sebe v zrcadle ráda usmějete.",
+        "paragraph_1": "Znáte ta rána, kdy se cítíte plná energie, ale pohled do zrcadla vypráví jiný příběh? Unavené oči, napuchlá víčka a pocit, že bez vrstvy korektoru nemůžete vyjít ze dveří.",
+        "paragraph_2": "VeaSkin nevznikl proto, aby měnil to, kým jste. Vznikl proto, aby vám vrátil svěžest, lehkost a ten příjemný pocit, kdy se cítíte krásná i v úplně obyčejný den – přirozeně a bez líčení.",
+        "cta_text": "Dopřejte si svůj ranní klid s VeaSkin"
+      }
     }
   },
   "order": [
@@ -2305,6 +2316,7 @@
     "landing_symptom_checklist",
     "landing_timeline_wait",
     "landing_solutions_compare",
+    "landing_morning_calm",
     "section_Kny7xc",
     "section_technology_benefits",
     "section_pNEVnp",
