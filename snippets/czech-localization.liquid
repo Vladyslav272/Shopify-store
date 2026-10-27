@@ -234,6 +234,146 @@
       faqSection.parentNode.insertBefore(container, faqSection);
     }
 
+
+    function injectProductShowcase() {
+      var existing = document.getElementById('shopify-section-product-showcase') || document.querySelector('.product-showcase-section');
+      if (existing) return;
+
+      var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
+      if (!faqSection) {
+        var allSections = document.querySelectorAll('.shopify-section');
+        for (var i = 0; i < allSections.length; i++) {
+          if (allSections[i].textContent.includes('Časté dotazy') || allSections[i].textContent.includes('Caste dotazy')) {
+            faqSection = allSections[i];
+            break;
+          }
+        }
+      }
+
+      if (!faqSection || !faqSection.parentNode) return;
+
+      var prodImg = '{{ product.featured_image | image_url: width: 800 }}';
+      var galleryImg = document.querySelector('.product-media-gallery img, .product-gallery img, media-gallery img');
+      if (galleryImg && galleryImg.src) {
+        prodImg = galleryImg.src;
+      }
+
+      var container = document.createElement('div');
+      container.className = 'shopify-section';
+      container.id = 'shopify-section-product-showcase';
+      container.innerHTML = `
+        <div class="product-showcase-section">
+          <div class="product-showcase-wrapper">
+            <div class="product-showcase-grid">
+
+              <!-- Visual Card (Image + Rating Badge) -->
+              <div class="product-showcase-visual">
+                <div class="product-showcase-card">
+                  <img
+                    src="${prodImg}"
+                    alt="VeaSkin Brýle proti otokům"
+                    class="product-showcase-img"
+                    loading="lazy"
+                  />
+                  <div class="product-showcase-badge">
+                    <span class="product-showcase-stars">★★★★★</span>
+                    <div class="product-showcase-badge-text">
+                      <strong>4.9 / 5</strong>
+                      <span>Hodnoceno 2 400+ zákazníky</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content & CTA -->
+              <div class="product-showcase-content">
+                <div class="product-showcase-kicker">
+                  <span class="product-showcase-kicker-dot"></span>
+                  <span>Poslední krok k vaší ranní proměně</span>
+                </div>
+
+                <h2 class="product-showcase-heading">
+                  Dopřejte svým očím péči, kterou si zamilujete.
+                  <em>Každé ráno se svěžím úsměvem.</em>
+                </h2>
+
+                <p class="product-showcase-desc">
+                  Stačí 10 minut denně v pohodlí domova. Kombinace červeného světla a jemných mikroproudů redukuje ranní otoky, kruhy pod očima i jemné vrásky – bez bolesti, jehel a zbytečného maskování.
+                </p>
+
+                <!-- Value Features -->
+                <ul class="product-showcase-features">
+                  <li class="product-showcase-feature-item">
+                    <div class="product-showcase-feature-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="#c98a7d" fill-opacity="0.15"/>
+                        <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#c98a7d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="product-showcase-feature-text">
+                      <strong>Viditelné výsledky již do 2 týdnů</strong>
+                      <p>91 % uživatelek potvrdilo svěžejší, odpočatější a pevnější oční okolí.</p>
+                    </div>
+                  </li>
+
+                  <li class="product-showcase-feature-item">
+                    <div class="product-showcase-feature-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="#c98a7d" fill-opacity="0.15"/>
+                        <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#c98a7d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="product-showcase-feature-text">
+                      <strong>60denní garance vrácení peněz</strong>
+                      <p>Vyzkoušejte brýle VeaSkin bez jakéhokoliv rizika. Pokud neuvidíte změnu, vrátíme vám 100 % částky.</p>
+                    </div>
+                  </li>
+
+                  <li class="product-showcase-feature-item">
+                    <div class="product-showcase-feature-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="#c98a7d" fill-opacity="0.15"/>
+                        <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#c98a7d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="product-showcase-feature-text">
+                      <strong>Doprava zdarma & odeslání do 24 h</strong>
+                      <p>Bleskové a bezpečné doručení přímo k vašim dveřím s českou zákaznickou podporou.</p>
+                    </div>
+                  </li>
+                </ul>
+
+                <!-- Action CTA -->
+                <div class="product-showcase-actions">
+                  <a href="#MainContent" class="product-showcase-btn" onclick="document.querySelector('#MainContent, .product-information, .product__info-container, form[action*='/cart/add']')?.scrollIntoView({ behavior: 'smooth' }); return false;">
+                    <span>Objednat VeaSkin s 60denní garancí</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                  <p class="product-showcase-guarantee-note">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Bezpečný nákup • Garance vrácení peněz 60 dní • Česká značka</span>
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (faqSection.nextSibling) {
+        faqSection.parentNode.insertBefore(container, faqSection.nextSibling);
+      } else {
+        faqSection.parentNode.appendChild(container);
+      }
+    }
+
     function injectAnnouncementBar() {
       var existing = document.querySelector('.veaskin-announcement-bar');
       if (existing) {
@@ -321,6 +461,7 @@
       injectAnnouncementBar();
       updateTransformationStats();
       injectTechnologyBenefits();
+      injectProductShowcase();
 
       // Carousel title
       document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
