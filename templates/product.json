@@ -721,8 +721,8 @@
         "gap": 12,
         "enable_sticky_add_to_cart": true,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 5
+        "padding-block-start": 36,
+        "padding-block-end": 44
       }
     },
     "1792698193c2bc235e": {
@@ -1880,7 +1880,7 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 48,
+        "padding-block-start": 52,
         "padding-block-end": 56
       },
       "blocks": {
@@ -2227,8 +2227,8 @@
         "custom_liquid": "<section class=\"veaskin-benefits-section\" id=\"veaskin-technology-benefits\">\n  <div class=\"veaskin-benefits-container\">\n    <div class=\"veaskin-benefits-card\">\n      <h2 class=\"veaskin-benefits-title\">\n        Proč je <span class=\"veaskin-benefits-highlight\">terapie červeným světlem +</span><br>\n        <span class=\"veaskin-benefits-highlight\">mikroproudy</span> tak účinná\n      </h2>\n\n      <div class=\"veaskin-benefits-list\">\n        <div class=\"veaskin-benefits-item\">\n          <div class=\"veaskin-benefits-icon\">\n            <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <circle cx=\"12\" cy=\"12\" r=\"11\" fill=\"#ffffff\" />\n              <path d=\"M7 12.2L10.2 15.4L17 8.6\" stroke=\"#1d1617\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </svg>\n          </div>\n          <p class=\"veaskin-benefits-text\">\n            <span class=\"veaskin-benefits-prefix\">Červené světlo (630–660 nm) proniká 2–3 mm hluboko</span>\n            <span class=\"veaskin-benefits-sep\">–</span>\n            stimuluje tvorbu kolagenu a zrychluje mikrocirkulaci tam, kam běžné krémy nedosáhnou\n          </p>\n        </div>\n\n        <div class=\"veaskin-benefits-item\">\n          <div class=\"veaskin-benefits-icon\">\n            <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <circle cx=\"12\" cy=\"12\" r=\"11\" fill=\"#ffffff\" />\n              <path d=\"M7 12.2L10.2 15.4L17 8.6\" stroke=\"#1d1617\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </svg>\n          </div>\n          <p class=\"veaskin-benefits-text\">\n            <span class=\"veaskin-benefits-prefix\">Mikroproudy aktivují lymfatickou drenáž</span>\n            <span class=\"veaskin-benefits-sep\">–</span>\n            eliminují hromadění tekutiny, která způsobuje ranní otoky a váčky pod očima\n          </p>\n        </div>\n\n        <div class=\"veaskin-benefits-item\">\n          <div class=\"veaskin-benefits-icon\">\n            <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <circle cx=\"12\" cy=\"12\" r=\"11\" fill=\"#ffffff\" />\n              <path d=\"M7 12.2L10.2 15.4L17 8.6\" stroke=\"#1d1617\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </svg>\n          </div>\n          <p class=\"veaskin-benefits-text\">\n            <span class=\"veaskin-benefits-prefix\">Řeší všechny 3 hlavní příčiny problémů</span>\n            <span class=\"veaskin-benefits-sep\">–</span>\n            slabou cirkulaci (tmavé kruhy), zadržování vody (otoky) a úbytek kolagenu (vrásky)\n          </p>\n        </div>\n\n        <div class=\"veaskin-benefits-item\">\n          <div class=\"veaskin-benefits-icon\">\n            <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <circle cx=\"12\" cy=\"12\" r=\"11\" fill=\"#ffffff\" />\n              <path d=\"M7 12.2L10.2 15.4L17 8.6\" stroke=\"#1d1617\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </svg>\n          </div>\n          <p class=\"veaskin-benefits-text\">\n            <span class=\"veaskin-benefits-prefix\">Klinicky ověřená medicínská technologie</span>\n            <span class=\"veaskin-benefits-sep\">–</span>\n            původ v rehabilitační medicíně a výzkumu NASA, podloženo desítkami let studií\n          </p>\n        </div>\n\n        <div class=\"veaskin-benefits-item\">\n          <div class=\"veaskin-benefits-icon\">\n            <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <circle cx=\"12\" cy=\"12\" r=\"11\" fill=\"#ffffff\" />\n              <path d=\"M7 12.2L10.2 15.4L17 8.6\" stroke=\"#1d1617\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </svg>\n          </div>\n          <p class=\"veaskin-benefits-text\">\n            <span class=\"veaskin-benefits-prefix\">Neinvazivní a bezpečné bez rekonvalescence</span>\n            <span class=\"veaskin-benefits-sep\">–</span>\n            dosahuje dlouhodobého zlepšení pleti bez jehel, bolesti a operací\n          </p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>",
         "background_color": "{{ settings.color_palette.background }}",
         "section_width": "page-width",
-        "padding-block-start": 0,
-        "padding-block-end": 20
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     },
     "landing_hero_hook": {
@@ -2271,7 +2271,7 @@
     "landing_timeline_results": {
       "type": "landing-timeline-results",
       "settings": {
-        "background_color": "#FAF5F5",
+        "background_color": "#ffffff",
         "heading": "Co můžete očekávat? <em>Viditelné výsledky krok za krokem.</em>",
         "subtitle": "Pouhých 10 minut denně v pohodlí domova stačí k postupné obnově mladistvého očního okolí.",
         "cta_text": "Chci začít s proměnou ještě dnes"
@@ -2290,7 +2290,7 @@
     "landing_two_paths": {
       "type": "landing-two-paths",
       "settings": {
-        "background_color": "#FAF5F5",
+        "background_color": "#ffffff",
         "heading": "Teď máte na výběr. <em>Kterou cestou se vydáte?</em>",
         "subtitle": "Můžete pokračovat v tom, co nefunguje, nebo vyzkoušet klinicky inspirovanou péči v pohodlí domova.",
         "cta_text": "Zvolit omlazení s Veaskin"

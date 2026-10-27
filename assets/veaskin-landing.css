@@ -98,3 +98,100 @@
 /* === section-two-paths.css === */
 .zm-paths__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1.6rem;max-width:96rem;margin:0 auto}.zm-paths__col{padding:2.4rem 2rem;border:.2rem solid transparent;border-radius:2rem}.zm-paths__col--bad{border-width:.1rem;border-color:var(--zm-line);background:var(--zm-card)}.zm-paths__col--good{border-color:var(--zm-accent);background:color-mix(in srgb,var(--zm-accent) 7%,var(--zm-bg));box-shadow:0 1.6rem 3.2rem -2rem color-mix(in srgb,var(--zm-accent) 80%,transparent)}.zm-paths__title{display:flex;align-items:center;gap:1rem;margin:0 0 1.8rem;font-size:2.4rem;line-height:1.2;letter-spacing:.01em}.zm-paths__title .zm-icon{width:3rem;height:3rem}.zm-paths__col--bad .zm-paths__title{color:color-mix(in srgb,var(--zm-text) 70%,var(--zm-card))}.zm-paths__col--bad .zm-paths__title .zm-icon{color:var(--zm-bad)}.zm-paths__col--good .zm-paths__title{color:var(--zm-accent)}.zm-paths__col--good .zm-paths__title .zm-icon{color:var(--zm-good)}.zm-paths__list{display:grid;gap:1.4rem;margin:0;padding:0;list-style:none}.zm-paths__item{display:flex;align-items:flex-start;gap:1.2rem;font-size:1.7rem;line-height:1.45}.zm-paths__item .zm-icon{width:2.2rem;height:2.2rem;margin-top:.1rem;stroke-width:2.6}.zm-paths__col--bad .zm-paths__item{color:color-mix(in srgb,var(--zm-text) 75%,var(--zm-card))}.zm-paths__col--bad .zm-paths__item .zm-icon{color:var(--zm-bad)}.zm-paths__col--good .zm-paths__item{color:var(--zm-text)}.zm-paths__col--good .zm-paths__item .zm-icon{color:var(--zm-good)}.zm-paths__price{max-width:64rem;margin:3.2rem auto 0;font-size:1.8rem;font-weight:700;line-height:1.35;letter-spacing:.01em;text-align:center;color:var(--zm-text);text-wrap:balance}.zm-paths__price p{margin:0}.zm-paths__price+.zm-actions{margin-top:2.4rem}.zm-paths .zm-btn{min-height:6.4rem}@media screen and (min-width:750px){.zm-paths__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:2.4rem}.zm-paths__col{padding:3.2rem}.zm-paths__title{font-size:2.8rem}.zm-paths__item{font-size:1.8rem}.zm-paths__price{margin-top:4.8rem;font-size:2rem}.zm-paths .zm-btn{min-height:7rem;padding:2rem 4.8rem;font-size:2rem}}
 /*# sourceMappingURL=/cdn/shop/t/8/assets/section-two-paths.css.map */
+
+
+/* ==========================================================================
+   Generous Spacing Between Sections & Content Breathing Room
+   ========================================================================== */
+.zm-section {
+  padding: 85px 0 !important;
+  box-sizing: border-box !important;
+}
+
+.custom_guarantee-section {
+  padding: 85px 20px !important;
+}
+
+/* Margin and separation around review carousel and product */
+.shopify-section:has([id*="1792698193c2bc235e"]),
+#shopify-section-1792698193c2bc235e {
+  padding-top: 36px !important;
+  padding-bottom: 44px !important;
+}
+
+/* ==========================================================================
+   Mobile Optimization: Mobile Container Width & Spacing Fixes
+   ========================================================================== */
+@media screen and (max-width: 749px) {
+  /* Generous section padding on mobile */
+  .zm-section {
+    padding: 58px 0 !important;
+  }
+  
+  .custom_guarantee-section {
+    padding: 58px 16px !important;
+  }
+
+  /* Content container width on mobile: narrower, comfortable margins */
+  .zm-container {
+    width: 100% !important;
+    max-width: 410px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .zm-container--narrow {
+    max-width: 380px !important;
+  }
+
+  .zm-head {
+    max-width: 370px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 2.2rem !important;
+    padding: 0 4px !important;
+  }
+
+  .zm-heading {
+    font-size: clamp(2.4rem, 1.8rem + 2vw, 3.2rem) !important;
+    line-height: 1.22 !important;
+  }
+
+  /* Guarantee card container on mobile */
+  .custom_guarantee-container {
+    max-width: 380px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 40px 18px !important;
+    border-radius: 26px !important;
+  }
+
+  /* Grids and cards centered with contained width */
+  .zm-paths__grid,
+  .zm-compare__grid,
+  .zm-symptoms__list,
+  .zm-tl__list {
+    max-width: 380px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Hero hook content width on mobile */
+  .zm-hero__inner {
+    max-width: 380px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .zm-hero .zm-hero__text {
+    max-width: 340px !important;
+  }
+
+  .zm-btn {
+    max-width: 340px !important;
+    width: 100% !important;
+  }
+}

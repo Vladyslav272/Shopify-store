@@ -2109,7 +2109,16 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 
 @media (max-width: 749px) {
   .veaskin-benefits-section {
-    padding: 10px 16px 40px;
+    padding: 24px 16px 50px;
+  }
+  .veaskin-benefits-container {
+    max-width: 380px !important;
+    margin: 0 auto !important;
+  }
+  .shopify-section:has([id*="section_faq"]) .group-block,
+  [id*="section_faq"] .group-block {
+    max-width: 380px !important;
+    margin: 0 auto !important;
   }
   .veaskin-benefits-card {
     padding: 34px 20px 38px;
