@@ -2039,7 +2039,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 .veaskin-benefits-title {
-  font-family: var(--font-heading--family, 'Montserrat', sans-serif);
+  font-family: var(--font-heading--family, 'Tenor Sans', sans-serif);
   font-size: clamp(1.65rem, 2.7vw, 2.35rem);
   font-weight: 700;
   line-height: 1.28;
@@ -2335,7 +2335,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 .product-showcase-heading {
-  font-family: var(--font-heading--family, 'Montserrat', sans-serif);
+  font-family: var(--font-heading--family, 'Tenor Sans', sans-serif);
   font-size: clamp(2rem, 1.6rem + 1.5vw, 2.85rem);
   font-weight: 800;
   line-height: 1.22;
@@ -2629,4 +2629,50 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
     max-width: 100% !important;
     box-sizing: border-box;
   }
+}
+
+
+/* Brand Typography: Tenor Sans (Headings) + DM Sans (Body & UI) */
+:root {
+  --font-heading--family: 'Tenor Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-body--family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-subheading--family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-accent--family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+p,
+span,
+a {
+  font-family: var(--font-body--family);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.product-showcase-heading,
+.veaskin-benefits-title,
+.veaskin-transformation-title {
+  font-family: var(--font-heading--family) !important;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+}
+
+.product-showcase-heading em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: 400;
 }
