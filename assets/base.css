@@ -2383,7 +2383,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .product-showcase-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .product-showcase-kicker {
@@ -2417,6 +2417,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   color: #2b2325;
   margin: 0 0 16px 0;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .product-showcase-heading em {
@@ -2431,16 +2432,18 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   line-height: 1.6;
   color: #554446;
   margin: 0 0 26px 0;
+  text-align: center;
 }
 
 .product-showcase-features {
   list-style: none;
-  margin: 0 0 32px 0;
+  margin: 0 auto 32px;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
+  max-width: 460px;
 }
 
 .product-showcase-feature-item {
@@ -2472,6 +2475,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .product-showcase-actions {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
   width: 100%;
 }
