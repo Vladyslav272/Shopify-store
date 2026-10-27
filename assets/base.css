@@ -2551,7 +2551,8 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   }
   .product-showcase-card {
     padding: 0;
-    max-width: 440px;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 auto;
     min-height: auto;
   }
@@ -2581,5 +2582,51 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   .product-showcase-guarantee-note {
     text-align: center;
     font-size: 0.76rem;
+  }
+}
+
+/* Unified mobile section widths */
+@media screen and (max-width: 749px) {
+  .product-information__media {
+    grid-column: 2 / 3 !important;
+    width: 100% !important;
+  }
+  .product-information__media .media-gallery__item {
+    border-radius: 18px !important;
+    overflow: hidden !important;
+  }
+  .product-information__media .product-media__image {
+    border-radius: 18px !important;
+  }
+
+  .product-showcase-section {
+    padding-left: var(--page-margin, 16px) !important;
+    padding-right: var(--page-margin, 16px) !important;
+    box-sizing: border-box;
+  }
+  .product-showcase-wrapper,
+  .product-showcase-card,
+  .product-showcase-header,
+  .product-showcase-body,
+  .product-showcase-visual,
+  .product-showcase-details,
+  .product-showcase-actions,
+  .product-showcase-btn,
+  .product-showcase-features {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .veaskin-benefits-section {
+    padding-left: var(--page-margin, 16px) !important;
+    padding-right: var(--page-margin, 16px) !important;
+    box-sizing: border-box;
+  }
+  .veaskin-benefits-container,
+  .veaskin-benefits-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
   }
 }
