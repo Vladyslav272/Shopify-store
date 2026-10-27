@@ -236,21 +236,16 @@
 
 
     function injectProductShowcase() {
+      var main = document.querySelector('main#MainContent, main');
       var existing = document.getElementById('shopify-section-product-showcase') || document.querySelector('.product-showcase-section');
-      if (existing) return;
-
-      var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
-      if (!faqSection) {
-        var allSections = document.querySelectorAll('.shopify-section');
-        for (var i = 0; i < allSections.length; i++) {
-          if (allSections[i].textContent.includes('Časté dotazy') || allSections[i].textContent.includes('Caste dotazy')) {
-            faqSection = allSections[i];
-            break;
-          }
+      if (existing) {
+        if (main && main.firstElementChild && main.firstElementChild !== existing) {
+          main.insertBefore(existing, main.firstElementChild);
         }
+        return;
       }
 
-      if (!faqSection || !faqSection.parentNode) return;
+      if (!main) return;
 
       var prodImg = '{{ product.featured_image | image_url: width: 800 }}';
       var galleryImg = document.querySelector('.product-media-gallery img, .product-gallery img, media-gallery img');
@@ -289,7 +284,7 @@
               <div class="product-showcase-content">
                 <div class="product-showcase-kicker">
                   <span class="product-showcase-kicker-dot"></span>
-                  <span>Poslední krok k vaší ranní proměně</span>
+                  <span>První krok k vaší ranní proměně</span>
                 </div>
 
                 <h2 class="product-showcase-heading">
@@ -348,7 +343,7 @@
 
                 <!-- Action CTA -->
                 <div class="product-showcase-actions">
-                  <a href="#MainContent" class="product-showcase-btn" onclick="document.querySelector('#MainContent, .product-information, .product__info-container, form[action*='/cart/add']')?.scrollIntoView({ behavior: 'smooth' }); return false;">
+                  <a href="#MainContent" class="product-showcase-btn" onclick="document.querySelector('.product-information, .product__info-container, form[action*='/cart/add']')?.scrollIntoView({ behavior: 'smooth' }); return false;">
                     <span>Objednat VeaSkin s 30denní garancí</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -370,10 +365,10 @@
         </div>
       `;
 
-      if (faqSection.nextSibling) {
-        faqSection.parentNode.insertBefore(container, faqSection.nextSibling);
+      if (main.firstElementChild) {
+        main.insertBefore(container, main.firstElementChild);
       } else {
-        faqSection.parentNode.appendChild(container);
+        main.appendChild(container);
       }
     }
 
