@@ -21,7 +21,7 @@
   --vs-border: #EADBDA;
   --vs-shadow: 0 10px 30px -10px rgba(43, 35, 37, 0.08);
   --vs-shadow-lg: 0 20px 45px -15px rgba(43, 35, 37, 0.14);
-  --vs-heading: 'Tenor Sans', Georgia, serif;
+  --vs-heading: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --vs-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --vs-container: 1140px;
 }
@@ -191,6 +191,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-logo__text {
   font-family: var(--vs-heading);
+  font-weight: 700;
   font-size: 22px;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -518,16 +519,17 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 .vs-heading {
   font-family: var(--vs-heading);
   font-size: 29px;
-  line-height: 1.24;
+  line-height: 1.22;
   color: var(--vs-text);
   margin: 0 0 8px;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: none;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .vs-heading em {
   font-style: italic;
+  font-weight: 700;
   color: var(--vs-accent);
 }
 
@@ -698,12 +700,12 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 .vs-product-title {
   font-family: var(--vs-heading);
   font-size: 33px;
-  line-height: 1.18;
+  line-height: 1.16;
   color: var(--vs-text);
   margin: 0 0 10px;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: none;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .vs-product-lead {
@@ -1395,6 +1397,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-stat-num {
   font-family: var(--vs-heading);
+  font-weight: 700;
   font-size: 24px;
   color: var(--vs-accent);
   line-height: 1.1;
@@ -1581,6 +1584,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-reframe-amount {
   font-family: var(--vs-heading);
+  font-weight: 700;
   font-size: 26px;
   color: var(--vs-text);
   line-height: 1.2;
@@ -1725,6 +1729,13 @@ main.vs-product-main > [id*="17926947644e416e5d"] .jdgm-rev-widg {
   box-shadow: var(--vs-shadow);
   margin: 0;
   font-family: var(--vs-body);
+}
+
+main.vs-product-main .jdgm-rev-widg__title {
+  font-family: var(--vs-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--vs-text);
 }
 
 main.vs-product-main .jdgm-star {
