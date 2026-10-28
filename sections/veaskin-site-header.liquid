@@ -27,11 +27,60 @@
 ></script>
 
 <div class="vs-site-header-shell" data-vs-header-root>
-  <div class="vs-topbar" role="region" aria-label="Důležité informace o dopravě a slevě">
+  <div
+    class="vs-topbar"
+    role="region"
+    aria-label="Důležité informace o dopravě a slevě"
+    data-vs-topbar-rotator
+  >
     <div class="vs-topbar__inner">
-      <span>🚚 {{ section.settings.shipping_text }}</span>
-      <span class="vs-topbar__pill">{{ section.settings.promo_pill }}</span>
-      <span class="vs-topbar__hide-sm">🛡️ {{ section.settings.guarantee_text }}</span>
+      <div class="vs-topbar__stage">
+        <div class="vs-topbar__slide is-active" data-vs-topbar-slide aria-hidden="false">
+          <svg
+            class="vs-topbar__icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="1" y="3" width="15" height="13" rx="1"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <span>{{ section.settings.shipping_text }}</span>
+        </div>
+
+        <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
+          <a href="{{ anchor_prefix }}#nabidka-box" class="vs-topbar__pill-link" tabindex="-1">
+            <span class="vs-topbar__pill">{{ section.settings.promo_pill }}</span>
+          </a>
+        </div>
+
+        <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
+          <svg
+            class="vs-topbar__icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <polyline points="9 12 11 14 15 10"></polyline>
+          </svg>
+          <span>{{ section.settings.guarantee_text }}</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -294,6 +343,61 @@
 
 {% javascript %}
   (() => {
+    // 1. Rotating Top Announcement Bar
+    const initTopbarRotator = () => {
+      document.querySelectorAll('[data-vs-topbar-rotator]').forEach((bar) => {
+        if (bar.hasAttribute('data-rotator-ready')) return;
+        bar.setAttribute('data-rotator-ready', 'true');
+        const slides = Array.from(bar.querySelectorAll('[data-vs-topbar-slide]'));
+        if (slides.length < 2) return;
+
+        let index = 0;
+        let paused = false;
+
+        const showSlide = (nextIdx) => {
+          const prevIdx = index;
+          index = (nextIdx + slides.length) % slides.length;
+          slides.forEach((slide, i) => {
+            const active = i === index;
+            const leaving = i === prevIdx && prevIdx !== index;
+            slide.classList.toggle('is-active', active);
+            slide.classList.toggle('is-leaving', leaving);
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+            const link = slide.querySelector('a');
+            if (link) {
+              link.setAttribute('tabindex', active ? '0' : '-1');
+            }
+          });
+        };
+
+        let timer = window.setInterval(() => {
+          if (!paused && !document.hidden) {
+            showSlide(index + 1);
+          }
+        }, 3500);
+
+        bar.addEventListener('mouseenter', () => {
+          paused = true;
+        });
+        bar.addEventListener('mouseleave', () => {
+          paused = false;
+        });
+        bar.addEventListener('focusin', () => {
+          paused = true;
+        });
+        bar.addEventListener('focusout', () => {
+          paused = false;
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTopbarRotator, { once: true });
+    } else {
+      initTopbarRotator();
+    }
+
+    // 2. Mobile Drawer & Live Cart Count Sync
     const syncExpanded = (open) => {
       document.querySelectorAll('[data-vs-menu-open]').forEach((btn) => {
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
