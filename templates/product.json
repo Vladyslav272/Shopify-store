@@ -2240,16 +2240,150 @@
         "text": "Probuďte se do dne bez otoků a unavených očí. VeaSkin vám během pár minut vrátí svěžest a ten příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky make-upu.",
         "cta_text": "Chci se cítit svěže každé ráno"
       }
+    },
+    "product_quiz_diagnostic": {
+      "type": "product-quiz-diagnostic",
+      "blocks": {
+        "symptom_1": {
+          "type": "symptom",
+          "settings": {
+            "text": "Ranní otoky očních víček a váčky po probuzení",
+            "checked_by_default": true
+          }
+        },
+        "symptom_2": {
+          "type": "symptom",
+          "settings": {
+            "text": "Tmavé kruhy pod očima, které nezakryje ani korektor",
+            "checked_by_default": true
+          }
+        },
+        "symptom_3": {
+          "type": "symptom",
+          "settings": {
+            "text": "Jemné vrásky a unavená, dehydratovaná pleť očního okolí",
+            "checked_by_default": false
+          }
+        },
+        "symptom_4": {
+          "type": "symptom",
+          "settings": {
+            "text": "Pocit pálení, těžkosti a suchých očí po práci u obrazovky",
+            "checked_by_default": true
+          }
+        },
+        "symptom_5": {
+          "type": "symptom",
+          "settings": {
+            "text": "Běžné oční krémy přinášejí jen krátkodobý nebo nulový efekt",
+            "checked_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "symptom_1",
+        "symptom_2",
+        "symptom_3",
+        "symptom_4",
+        "symptom_5"
+      ],
+      "settings": {
+        "background_color": "#FAF5F5",
+        "badge": "Rychlá sebadiagnostika",
+        "heading": "Trápí vás některý z těchto projevů?",
+        "subtitle": "Označte příznaky, které u sebe pozorujete, a zjistěte, kde je jejich skutečný fyziologický původ.",
+        "diagnosis_title": "Proč běžné krémy samy o sobě nestačí:",
+        "diagnosis_text": "Problém není ve svrchní vrstvě kůže, ale v zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mechanická mikromasáž a jemné prohřátí."
+      }
+    },
+    "product_comparison_table": {
+      "type": "product-comparison-table",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "badge": "Upřímné srovnání",
+        "heading": "Proč je VeaSkin nejchytřejší volba?",
+        "subtitle": "Přehledné srovnání přístupu, výsledků a nákladů běžných metod vs. VeaSkin.",
+        "col1_title": "Běžné oční krémy",
+        "col1_price": "cca 1 500 Kč",
+        "col1_price_sub": "/ 2 měsíce",
+        "col2_title": "VeaSkin Přístroj",
+        "col2_price": "1 200 Kč",
+        "col2_price_sub": "/ jednorázově",
+        "col3_title": "Klinické zákroky",
+        "col3_price": "8 000 – 15 000 Kč",
+        "col3_price_sub": "/ sezení"
+      }
+    },
+    "product_timeline_results": {
+      "type": "product-timeline-results",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Okamžitě po 1. použití",
+            "time_tag": "Den 1",
+            "description": "Příjemné uvolnění očního tlaku a okamžitý pocit svěžesti. Nastartovaný krevní oběh pomáhá stáhnout ranní otoky víček už během 15 minut."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Po 14 dnech pravidelné péče",
+            "time_tag": "Týden 2",
+            "description": "Obnovení správného odtoku lymfy. Tmavé stíny způsobené městnáním krve viditelně blednou a oční okolí působí pevněji a odpočatě."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Dlouhodobá prevence a regenerace",
+            "time_tag": "Týden 5+",
+            "description": "Pravidelná stimulace zabraňuje nočnímu hromadění tekutiny. Pokožka si zachovává pružnost a vy se probouzíte se svěžím, mladistvým pohledem každé ráno."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "background_color": "#FAF5F5",
+        "badge": "Realistický harmonogram",
+        "heading": "Co můžete očekávat den po dni?",
+        "subtitle": "Žádné nereálné zázraky přes noc. Takhle vypadá proces při pravidelném 10minutovém ranním rituálu:"
+      }
+    },
+    "product_price_reframing": {
+      "type": "product-price-reframing",
+      "settings": {
+        "background_color": "#FAF5F5",
+        "badge": "Chytrá investice do sebe",
+        "heading": "Kolik vás skutečně stojí boj s únavou očí?",
+        "subtitle": "Spočítejte si, jak se jednorázová péče vyplatí oproti neustálému dokupování povrchových krémů.",
+        "card1_label": "Roční útrata za krémy a séra",
+        "card1_amount": "cca 6 000 Kč",
+        "card1_note": "bez řešení stagnující lymfy",
+        "card2_label": "VeaSkin na celý rok",
+        "card2_amount": "3,30 Kč / den",
+        "card2_note": "(1 200 Kč jednorázově na roky péče)",
+        "guarantee_text": "Vyzkoušejte si přístroj na 30 dní v pohodlí domova. Pokud neuvidíte viditelný rozdíl, jednoduše vám vrátíme peníze bez zbytečných otázek.",
+        "button_text": "Vyzkoušet na 30 dní bez rizika"
+      }
     }
   },
   "order": [
     "product_showcase",
     "product-information",
     "1792698193c2bc235e",
+    "product_quiz_diagnostic",
     "section_pNEVnp",
     "section_n6Btmh",
-    "section_Kny7xc",
     "section_technology_benefits",
+    "section_Kny7xc",
+    "product_comparison_table",
+    "product_timeline_results",
+    "product_price_reframing",
     "section_faq",
     "17926947644e416e5d"
   ]

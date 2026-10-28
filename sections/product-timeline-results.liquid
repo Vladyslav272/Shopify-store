@@ -1,0 +1,320 @@
+{% liquid
+  assign bg_color = section.settings.background_color | default: '#FAF5F5'
+%}
+
+<div class="product-timeline-section section-{{ section.id }}" style="background-color: {{ bg_color }};">
+  <div class="product-timeline-container">
+    <div class="product-timeline-card">
+      <div class="product-timeline-header">
+        {% if section.settings.badge != blank %}
+          <span class="product-timeline-badge">
+            <span class="product-timeline-badge-icon">⏱️</span>
+            {{ section.settings.badge }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="product-timeline-title">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p class="product-timeline-subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+
+      <div class="product-timeline-track">
+        {% for block in section.blocks %}
+          {% if block.type == 'step' %}
+            <div class="timeline-step-row" {{ block.shopify_attributes }}>
+              <div class="timeline-step-marker">
+                <span class="timeline-step-dot"></span>
+              </div>
+              <div class="timeline-step-content">
+                <div class="timeline-step-head">
+                  <h3 class="timeline-step-title">{{ block.settings.title }}</h3>
+                  {% if block.settings.time_tag != blank %}
+                    <span class="timeline-step-tag">{{ block.settings.time_tag }}</span>
+                  {% endif %}
+                </div>
+                <div class="timeline-step-desc">
+                  <p>{{ block.settings.description }}</p>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .product-timeline-section {
+    padding: 40px 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-timeline-container {
+    max-width: 780px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .product-timeline-card {
+    background: #FFFFFF;
+    border: 1px solid #EADBDA;
+    border-radius: 24px;
+    padding: 36px 30px;
+    box-shadow: 0 4px 24px rgba(43, 35, 37, 0.05);
+    box-sizing: border-box;
+  }
+
+  .product-timeline-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .product-timeline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FBEFEE;
+    color: #BB6966;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .product-timeline-title {
+    font-family: var(--font-heading-family, 'Tenor Sans', serif);
+    font-size: clamp(22px, 3.5vw, 30px);
+    line-height: 1.25;
+    color: #2B2325;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .product-timeline-subtitle {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 15px;
+    color: #6B6264;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .product-timeline-track {
+    position: relative;
+    padding-left: 28px;
+    margin-top: 20px;
+  }
+
+  .product-timeline-track::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: #EADBDA;
+  }
+
+  .timeline-step-row {
+    position: relative;
+    margin-bottom: 26px;
+  }
+
+  .timeline-step-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-step-marker {
+    position: absolute;
+    left: -28px;
+    top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-step-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 3.5px solid #BB6966;
+    box-shadow: 0 0 0 4px #FBEFEE;
+    box-sizing: border-box;
+  }
+
+  .timeline-step-content {
+    background: #FAF8F8;
+    border: 1px solid #EADBDA;
+    border-radius: 16px;
+    padding: 18px 20px;
+    transition: all 0.2s ease;
+  }
+
+  .timeline-step-content:hover {
+    border-color: #BB6966;
+    background: #FFFDFD;
+  }
+
+  .timeline-step-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .timeline-step-title {
+    font-family: var(--font-heading-family, 'Tenor Sans', serif);
+    font-size: 17px;
+    color: #2B2325;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .timeline-step-tag {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 11.5px;
+    font-weight: 700;
+    background: #FBEFEE;
+    color: #BB6966;
+    padding: 3px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .timeline-step-desc p {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 14px;
+    color: #5C5254;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .product-timeline-section {
+      padding: 30px 14px;
+    }
+    .product-timeline-card {
+      padding: 24px 16px;
+      border-radius: 18px;
+    }
+    .product-timeline-track {
+      padding-left: 24px;
+    }
+    .timeline-step-marker {
+      left: -24px;
+    }
+    .timeline-step-content {
+      padding: 14px 16px;
+    }
+    .timeline-step-title {
+      font-size: 15.5px;
+    }
+    .timeline-step-desc p {
+      font-size: 13.5px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Časová osa výsledků",
+  "tag": "section",
+  "class": "product-timeline-results",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí sekce",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Horní odznak",
+      "default": "Realistický harmonogram"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Co můžete očekávat den po dni?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Podnadpis",
+      "default": "Žádné nereálné zázraky přes noc. Takhle vypadá proces při pravidelném 10minutovém ranním rituálu:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Krok harmonogramu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulek kroku",
+          "default": "Okamžitě po 1. použití"
+        },
+        {
+          "type": "text",
+          "id": "time_tag",
+          "label": "Štítek času",
+          "default": "Den 1"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Popis účinku",
+          "default": "Příjemné uvolnění očního tlaku a okamžitý pocit svěžesti. Nastartovaný krevní oběh pomáhá stáhnout ranní otoky víček už během 15 minut."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Časová osa výsledků",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Okamžitě po 1. použití",
+            "time_tag": "Den 1",
+            "description": "Příjemné uvolnění očního tlaku a okamžitý pocit svěžesti. Nastartovaný krevní oběh pomáhá stáhnout ranní otoky víček už během 15 minut."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Po 14 dnech pravidelné péče",
+            "time_tag": "Týden 2",
+            "description": "Obnovení správného odtoku lymfy. Tmavé stíny způsobené městnáním krve viditelně blednou a oční okolí působí pevněji a odpočatě."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Dlouhodobá prevence a regenerace",
+            "time_tag": "Týden 5+",
+            "description": "Pravidelná stimulace zabraňuje nočnímu hromadění tekutiny. Pokožka si zachovává pružnost a vy se probouzíte se svěžím, mladistvým pohledem každé ráno."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

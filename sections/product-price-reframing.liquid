@@ -1,0 +1,372 @@
+{% liquid
+  assign bg_color = section.settings.background_color | default: '#FAF5F5'
+%}
+
+<div class="product-price-reframe-section section-{{ section.id }}" style="background-color: {{ bg_color }};">
+  <div class="product-price-reframe-container">
+    <div class="product-price-reframe-card">
+      <div class="product-price-reframe-header">
+        {% if section.settings.badge != blank %}
+          <span class="product-price-reframe-badge">
+            <span class="product-price-reframe-badge-icon">💡</span>
+            {{ section.settings.badge }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="product-price-reframe-title">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p class="product-price-reframe-subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+
+      <div class="product-reframe-grid">
+        <div class="reframe-calc-box">
+          <div class="reframe-calc-label">{{ section.settings.card1_label | default: 'Roční útrata za krémy a séra' }}</div>
+          <div class="reframe-calc-amount">{{ section.settings.card1_amount | default: 'cca 6 000 Kč' }}</div>
+          <div class="reframe-calc-note">{{ section.settings.card1_note | default: 'bez řešení stagnující lymfy' }}</div>
+        </div>
+
+        <div class="reframe-vs-pill">VS</div>
+
+        <div class="reframe-calc-box is-hero">
+          <div class="reframe-calc-label reframe-hero-label">{{ section.settings.card2_label | default: 'VeaSkin na celý rok' }}</div>
+          <div class="reframe-calc-amount reframe-hero-amount">{{ section.settings.card2_amount | default: '3,30 Kč / den' }}</div>
+          <div class="reframe-calc-note">{{ section.settings.card2_note | default: '(1 200 Kč jednorázově na roky péče)' }}</div>
+        </div>
+      </div>
+
+      {% if section.settings.guarantee_text != blank %}
+        <div class="product-reframe-guarantee">
+          <span class="reframe-guarantee-shield">🛡️</span>
+          <p>{{ section.settings.guarantee_text }}</p>
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_text != blank %}
+        <div class="product-reframe-cta">
+          <a href="#product-information" class="product-reframe-btn" id="reframeCtaBtn-{{ section.id }}">
+            {{ section.settings.button_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .product-price-reframe-section {
+    padding: 40px 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-price-reframe-container {
+    max-width: 780px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .product-price-reframe-card {
+    background: linear-gradient(135deg, #FFF9F8 0%, #FFFFFF 100%);
+    border: 1.5px solid #F0DDDA;
+    border-radius: 24px;
+    padding: 38px 28px;
+    box-shadow: 0 4px 24px rgba(43, 35, 37, 0.05);
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .product-price-reframe-header {
+    margin-bottom: 24px;
+  }
+
+  .product-price-reframe-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FBEFEE;
+    color: #BB6966;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .product-price-reframe-title {
+    font-family: var(--font-heading-family, 'Tenor Sans', serif);
+    font-size: clamp(22px, 3.5vw, 30px);
+    line-height: 1.25;
+    color: #2B2325;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .product-price-reframe-subtitle {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 15px;
+    color: #6B6264;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .product-reframe-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .reframe-calc-box {
+    background: #FFFFFF;
+    border: 1.5px solid #EADBDA;
+    border-radius: 16px;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+  }
+
+  .reframe-calc-box.is-hero {
+    background: #FBEFEE;
+    border: 2px solid #BB6966;
+    box-shadow: 0 6px 20px rgba(187, 105, 102, 0.12);
+  }
+
+  .reframe-calc-label {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 13.5px;
+    color: #6B6264;
+    margin-bottom: 6px;
+  }
+
+  .reframe-hero-label {
+    color: #BB6966;
+    font-weight: 600;
+  }
+
+  .reframe-calc-amount {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: #2B2325;
+    margin-bottom: 6px;
+  }
+
+  .reframe-hero-amount {
+    color: #BB6966;
+  }
+
+  .reframe-calc-note {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 12px;
+    color: #8A7F81;
+  }
+
+  .reframe-vs-pill {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-weight: 800;
+    font-size: 16px;
+    color: #BB6966;
+    background: #FFFFFF;
+    border: 1px solid #EADBDA;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .product-reframe-guarantee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 520px;
+    margin: 18px auto 0;
+    font-size: 13.5px;
+    color: #5C5254;
+    line-height: 1.5;
+  }
+
+  .reframe-guarantee-shield {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .product-reframe-guarantee p {
+    margin: 0;
+  }
+
+  .product-reframe-cta {
+    margin-top: 24px;
+  }
+
+  .product-reframe-btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 380px;
+    background: #BB6966;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-weight: 600;
+    font-size: 15.5px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(187, 105, 102, 0.32);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+  }
+
+  .product-reframe-btn:hover {
+    background: #9e5350;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(187, 105, 102, 0.4);
+  }
+
+  @media (max-width: 600px) {
+    .product-price-reframe-section {
+      padding: 30px 14px;
+    }
+    .product-price-reframe-card {
+      padding: 24px 16px;
+      border-radius: 18px;
+    }
+    .product-reframe-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .reframe-vs-pill {
+      display: none;
+    }
+    .product-reframe-btn {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('reframeCtaBtn-{{ section.id }}');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector('.product-information__media') ||
+                     document.querySelector('img[src*="zenabilepozadi"]') ||
+                     document.getElementById('product-information') ||
+                     document.querySelector('.product-showcase-visual');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Cenové přerámování",
+  "tag": "section",
+  "class": "product-price-reframing",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí sekce",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Horní odznak",
+      "default": "Chytrá investice do sebe"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Kolik vás skutečně stojí boj s únavou očí?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Podnadpis",
+      "default": "Spočítejte si, jak se jednorázová péče vyplatí oproti neustálému dokupování povrchových krémů."
+    },
+    {
+      "type": "header",
+      "content": "Karta 1: Běžné krémy"
+    },
+    {
+      "type": "text",
+      "id": "card1_label",
+      "label": "Popis",
+      "default": "Roční útrata za krémy a séra"
+    },
+    {
+      "type": "text",
+      "id": "card1_amount",
+      "label": "Částka",
+      "default": "cca 6 000 Kč"
+    },
+    {
+      "type": "text",
+      "id": "card1_note",
+      "label": "Poznámka",
+      "default": "bez řešení stagnující lymfy"
+    },
+    {
+      "type": "header",
+      "content": "Karta 2: VeaSkin"
+    },
+    {
+      "type": "text",
+      "id": "card2_label",
+      "label": "Popis",
+      "default": "VeaSkin na celý rok"
+    },
+    {
+      "type": "text",
+      "id": "card2_amount",
+      "label": "Částka",
+      "default": "3,30 Kč / den"
+    },
+    {
+      "type": "text",
+      "id": "card2_note",
+      "label": "Poznámka",
+      "default": "(1 200 Kč jednorázově na roky péče)"
+    },
+    {
+      "type": "header",
+      "content": "Garance & CTA"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Text garance",
+      "default": "Vyzkoušejte si přístroj na 30 dní v pohodlí domova. Pokud neuvidíte viditelný rozdíl, jednoduše vám vrátíme peníze bez zbytečných otázek."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Text tlačítka",
+      "default": "Vyzkoušet na 30 dní bez rizika"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cenové přerámování"
+    }
+  ]
+}
+{% endschema %}

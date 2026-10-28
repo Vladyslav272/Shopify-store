@@ -1,0 +1,356 @@
+{% liquid
+  assign bg_color = section.settings.background_color | default: '#FAF5F5'
+%}
+
+<div class="product-quiz-section section-{{ section.id }}" style="background-color: {{ bg_color }};">
+  <div class="product-quiz-container">
+    <div class="product-quiz-card">
+      <div class="product-quiz-header">
+        {% if section.settings.badge != blank %}
+          <span class="product-quiz-badge">
+            <span class="product-quiz-badge-icon">✨</span>
+            {{ section.settings.badge }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="product-quiz-title">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p class="product-quiz-subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+
+      <div class="product-quiz-list" id="productQuizList-{{ section.id }}">
+        {% for block in section.blocks %}
+          {% if block.type == 'symptom' %}
+            <div
+              class="product-quiz-item{% if block.settings.checked_by_default %} is-checked{% endif %}"
+              onclick="toggleQuizItem(this, '{{ section.id }}')"
+              {{ block.shopify_attributes }}
+            >
+              <div class="product-quiz-checkbox">
+                <span class="product-quiz-check-mark">{% if block.settings.checked_by_default %}✓{% endif %}</span>
+              </div>
+              <div class="product-quiz-item-text">{{ block.settings.text }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="product-quiz-result" id="productQuizResult-{{ section.id }}">
+        <div class="product-quiz-result-heading">
+          <span class="product-quiz-result-icon">🔍</span>
+          <span>Diagnostika: Označeno <strong id="productQuizCount-{{ section.id }}">3</strong> z {{ section.blocks.size }} projevů</span>
+        </div>
+        <div class="product-quiz-result-body">
+          <strong>{{ section.settings.diagnosis_title | default: 'Proč běžné krémy samy o sobě nestačí:' }}</strong>
+          <p>{{ section.settings.diagnosis_text | default: 'Problém není ve svrchní vrstvě kůže, ale v zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mechanická mikromasáž a jemné prohřátí.' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .product-quiz-section {
+    padding: 40px 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-quiz-container {
+    max-width: 780px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .product-quiz-card {
+    background: #FFFFFF;
+    border: 1px solid #EADBDA;
+    border-radius: 24px;
+    padding: 36px 28px;
+    box-shadow: 0 4px 24px rgba(43, 35, 37, 0.05);
+    box-sizing: border-box;
+  }
+
+  .product-quiz-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .product-quiz-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FBEFEE;
+    color: #BB6966;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .product-quiz-title {
+    font-family: var(--font-heading-family, 'Tenor Sans', serif);
+    font-size: clamp(22px, 3.5vw, 30px);
+    line-height: 1.25;
+    color: #2B2325;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .product-quiz-subtitle {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 15px;
+    color: #6B6264;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .product-quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .product-quiz-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: #FAF8F8;
+    border: 1.5px solid #EADBDA;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  .product-quiz-item:hover {
+    border-color: #BB6966;
+    background: #FFFDFD;
+  }
+
+  .product-quiz-item.is-checked {
+    background: #FBEFEE;
+    border-color: #BB6966;
+  }
+
+  .product-quiz-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid #C4B6B6;
+    margin-right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #FFFFFF;
+    transition: all 0.2s ease;
+  }
+
+  .product-quiz-item.is-checked .product-quiz-checkbox {
+    background: #BB6966;
+    border-color: #BB6966;
+  }
+
+  .product-quiz-check-mark {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .product-quiz-item-text {
+    font-family: var(--font-body-family, 'DM Sans', sans-serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: #2B2325;
+    flex: 1;
+  }
+
+  .product-quiz-result {
+    margin-top: 24px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: #FAF3F2;
+    border-left: 4px solid #BB6966;
+    transition: all 0.3s ease;
+  }
+
+  .product-quiz-result-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #BB6966;
+    margin-bottom: 8px;
+  }
+
+  .product-quiz-result-body strong {
+    display: block;
+    font-size: 14px;
+    color: #2B2325;
+    margin-bottom: 4px;
+  }
+
+  .product-quiz-result-body p {
+    font-size: 13.5px;
+    color: #5C5254;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .product-quiz-section {
+      padding: 30px 14px;
+    }
+    .product-quiz-card {
+      padding: 24px 16px;
+      border-radius: 18px;
+    }
+    .product-quiz-item {
+      padding: 12px 14px;
+    }
+    .product-quiz-item-text {
+      font-size: 14px;
+    }
+  }
+{% endstyle %}
+
+<script>
+  function toggleQuizItem(el, sectionId) {
+    el.classList.toggle('is-checked');
+    const mark = el.querySelector('.product-quiz-check-mark');
+    if (el.classList.contains('is-checked')) {
+      mark.textContent = '✓';
+    } else {
+      mark.textContent = '';
+    }
+    const container = document.getElementById('productQuizList-' + sectionId);
+    if (!container) return;
+    const count = container.querySelectorAll('.product-quiz-item.is-checked').length;
+    const countEl = document.getElementById('productQuizCount-' + sectionId);
+    if (countEl) countEl.textContent = count;
+    const resBox = document.getElementById('productQuizResult-' + sectionId);
+    if (resBox) {
+      resBox.style.display = count === 0 ? 'none' : 'block';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Kvíz sebadiagnostiky",
+  "tag": "section",
+  "class": "product-quiz-diagnostic",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Barva pozadí sekce",
+      "default": "#FAF5F5"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Horní odznak",
+      "default": "Rychlá sebadiagnostika"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis",
+      "default": "Trápí vás některý z těchto projevů?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Podnadpis",
+      "default": "Označte příznaky, které u sebe pozorujete, a zjistěte, kde je jejich skutečný fyziologický původ."
+    },
+    {
+      "type": "text",
+      "id": "diagnosis_title",
+      "label": "Titulek diagnózy",
+      "default": "Proč běžné krémy samy o sobě nestačí:"
+    },
+    {
+      "type": "textarea",
+      "id": "diagnosis_text",
+      "label": "Text vysvětlení diagnózy",
+      "default": "Problém není ve svrchní vrstvě kůže, ale v zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mechanická mikromasáž a jemné prohřátí."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "symptom",
+      "name": "Příznak",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text příznaku",
+          "default": "Ranní otoky očních víček a váčky po probuzení"
+        },
+        {
+          "type": "checkbox",
+          "id": "checked_by_default",
+          "label": "Ve výchozím stavu zaškrtnuto",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kvíz sebadiagnostiky",
+      "blocks": [
+        {
+          "type": "symptom",
+          "settings": {
+            "text": "Ranní otoky očních víček a váčky po probuzení",
+            "checked_by_default": true
+          }
+        },
+        {
+          "type": "symptom",
+          "settings": {
+            "text": "Tmavé kruhy pod očima, které nezakryje ani korektor",
+            "checked_by_default": true
+          }
+        },
+        {
+          "type": "symptom",
+          "settings": {
+            "text": "Jemné vrásky a unavená, dehydratovaná pleť očního okolí",
+            "checked_by_default": false
+          }
+        },
+        {
+          "type": "symptom",
+          "settings": {
+            "text": "Pocit pálení, těžkosti a suchých očí po práci u obrazovky",
+            "checked_by_default": true
+          }
+        },
+        {
+          "type": "symptom",
+          "settings": {
+            "text": "Běžné oční krémy přinášejí jen krátkodobý nebo nulový efekt",
+            "checked_by_default": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
