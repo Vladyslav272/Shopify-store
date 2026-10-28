@@ -8,37 +8,57 @@
 {% render 'text-component-shimmer-styles' %}
 {% render 'cart-typography-styles' %}
 
+{%- liquid
+  assign summary_compare_total = 0
+  for item in cart.items
+    if item.variant.compare_at_price > item.original_price
+      assign item_cmp = item.variant.compare_at_price
+    else
+      assign item_cmp = item.original_price
+    endif
+    assign item_cmp_line = item_cmp | times: item.quantity
+    assign summary_compare_total = summary_compare_total | plus: item_cmp_line
+  endfor
+
+  assign summary_savings_raw = summary_compare_total | minus: cart.total_price
+  assign summary_savings_rounded = summary_savings_raw | divided_by: 100.0 | round | times: 100
+
+  assign summary_compare_fmt = summary_compare_total | money_without_trailing_zeros | replace: '.', ' '
+  assign summary_savings_fmt = summary_savings_rounded | money_without_trailing_zeros | replace: '.', ' '
+  assign total_price = cart.total_price | money_without_trailing_zeros | replace: '.', ' '
+-%}
+
 <div class="cart-totals">
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart-totals__original-container cart-primary-typography">
-    {%- if cart.cart_level_discount_applications.size > 0 -%}
+    {%- if summary_compare_total > cart.total_price -%}
       <span class="cart-totals__item cart-totals__original">
-        <span class="cart-totals__original-label">{{ 'content.cart_subtotal' | t }}</span>
-        <span
-          class="cart-totals__original-value cart-secondary-typography"
+        <span class="cart-totals__original-label">Původní cena</span>
+        <s
+          class="cart-totals__original-value cart-secondary-typography vs-summary-old"
           data-testid="cart-subtotal-value"
         >
-          <bdi>{{- cart.items_subtotal_price | money -}}</bdi>
+          <bdi>{{- summary_compare_fmt -}}</bdi>
+        </s>
+      </span>
+      <span class="cart-totals__item vs-summary-savings-row">
+        <span class="cart-discounts__label vs-summary-savings-label">
+          {{- 'icon-discount.svg' | inline_asset_content -}}
+          {%- if cart.cart_level_discount_applications.size > 0 -%}
+            <bdi>Ušetříte ({{ cart.cart_level_discount_applications.first.title | escape }})</bdi>
+          {%- else -%}
+            <bdi>Ušetříte</bdi>
+          {%- endif -%}
+        </span>
+        <span class="cart-discounts__value cart-secondary-typography vs-summary-savings-value">
+          <bdi>−{{ summary_savings_fmt }}</bdi>
         </span>
       </span>
-      <ul
-        class="cart-discounts"
-        role="list"
-        aria-label="{{ 'content.discounts' | t }}"
-      >
-        {%- for discount in cart.cart_level_discount_applications -%}
-          <li class="cart-discounts__item">
-            <span class="cart-discounts__label">
-              {{- 'icon-discount.svg' | inline_asset_content -}}
-              <bdi>{{ discount.title | escape }}</bdi>
-            </span>
-            <span class="cart-discounts__value cart-secondary-typography"
-              ><bdi>-{{ discount.total_allocated_amount | money }}</bdi>
-            </span>
-          </li>
-        {%- endfor -%}
-      </ul>
     {%- endif -%}
+    <span class="cart-totals__item vs-summary-shipping-row">
+      <span class="cart-totals__original-label">Doprava</span>
+      <span class="cart-secondary-typography vs-summary-free-ship">Zdarma</span>
+    </span>
   </div>
 
   {% if settings.show_cart_note or settings.show_add_discount_code %}
@@ -103,7 +123,6 @@
 
           assign discount_codes = discount_codes | uniq
 
-          # Evaluate the boolean expression for the disclosure state
           if discount_codes.size == 0
             assign disclosure_expanded = false
           else
@@ -214,24 +233,16 @@
     </div>
   {% endif %}
 
-  {%- liquid
-    if settings.currency_code_enabled_cart_total
-      assign total_price = cart.total_price | money_with_currency
-    else
-      assign total_price = cart.total_price | money
-    endif
-  -%}
-
   <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
     <span
       class="cart-totals__item cart-totals__total"
       role="status"
     >
-      <span class="cart-totals__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
+      <span class="cart-totals__total-label cart-primary-typography">Celkem k úhradě</span>
       <text-component
         ref="cartTotal"
         value="{{ total_price | strip_html }}"
-        class="cart-totals__total-value cart-secondary-typography"
+        class="cart-totals__total-value cart-secondary-typography vs-summary-total"
         {% comment %} Used by payment_terms web component {% endcomment %}
         data-testid="cart-total-value"
         data-cart-subtotal
@@ -352,6 +363,31 @@
   .cart-totals__container {
     display: flex;
     flex-direction: column;
+  }
+
+  .cart-totals__original-container {
+    row-gap: 6px;
+  }
+
+  .vs-summary-old {
+    color: var(--vs-subtle, #8F8084);
+    text-decoration: line-through;
+  }
+
+  .vs-summary-savings-label,
+  .vs-summary-savings-value {
+    color: var(--vs-green, #3B7D56);
+    font-weight: 600;
+  }
+
+  .vs-summary-free-ship {
+    color: var(--vs-green, #3B7D56);
+    font-weight: 700;
+  }
+
+  .vs-summary-total {
+    color: var(--vs-accent, #BB6966);
+    font-weight: 700;
   }
 
   .cart-totals__container {
