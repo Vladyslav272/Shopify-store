@@ -57,9 +57,22 @@
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
-          <a href="{{ anchor_prefix }}#nabidka-box" class="vs-topbar__pill-link" tabindex="-1">
-            <span class="vs-topbar__pill">{{ section.settings.promo_pill }}</span>
-          </a>
+          <svg
+            class="vs-topbar__icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+          </svg>
+          <span>{{ section.settings.promo_text }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -497,9 +510,9 @@
     },
     {
       "type": "text",
-      "id": "promo_pill",
-      "label": "Zvýrazněný štítek akce",
-      "default": "SLEVA AŽ 42 % NA SADY"
+      "id": "promo_text",
+      "label": "Text akce",
+      "default": "Sleva a\u017e 42 % na sady"
     },
     {
       "type": "text",
