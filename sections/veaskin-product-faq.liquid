@@ -1,0 +1,101 @@
+<div class="vs-shell">
+  <section class="vs-section" id="dotazy">
+    <div class="vs-center-head">
+      <span class="vs-kicker">💬 Vše, co potřebujete vědět</span>
+      <h2 class="vs-heading">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="vs-faq-wrap" data-vs-faq-group>
+      <details class="vs-faq-card" open>
+        <summary class="vs-faq-summary">
+          <span>Jak se přístroj používá?</span>
+          <span class="vs-faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="vs-faq-body">
+          <p>Důkladně si očistěte obličej a na oblast pod očima naneste malé množství oblíbeného očního krému nebo séra. Nasaďte si brýle, zapněte je stisknutím tlačítka a zvolte požadovaný režim a intenzitu. Přístroj nechte působit 10 minut – po uplynutí této doby se automaticky sám vypne.</p>
+        </div>
+      </details>
+
+      <details class="vs-faq-card">
+        <summary class="vs-faq-summary">
+          <span>Za jak dlouho uvidím výsledky?</span>
+          <span class="vs-faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="vs-faq-body">
+          <p>Pocit osvěžení, uvolnění očního okolí a zmírnění ranních otoků pocítíte již po prvním 10minutovém ošetření. Dlouhodobé a viditelné výsledky, jako je redukce tmavých kruhů a vyhlazení jemných vrásek, se obvykle dostavují po 2 až 3 týdnech pravidelného každodenního používání.</p>
+        </div>
+      </details>
+
+      <details class="vs-faq-card">
+        <summary class="vs-faq-summary">
+          <span>Poškozuje červené světlo moje oči?</span>
+          <span class="vs-faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="vs-faq-body">
+          <p>Ne, červené světlo přístroje je zcela bezpečné a splňuje přísné bezpečnostní normy. Přístroj je speciálně zkonstruován pro citlivou oblast kolem očí a světlo působí cíleně na pokožku, nikoli přímo do zornice. Během ošetření můžete mít oči otevřené a pohodlně se věnovat čtení nebo relaxaci.</p>
+        </div>
+      </details>
+
+      <details class="vs-faq-card">
+        <summary class="vs-faq-summary">
+          <span>Jak často bych měl/a používat přístroj?</span>
+          <span class="vs-faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="vs-faq-body">
+          <p>Pro optimální výsledky doporučujeme přístroj používat jednou denně po dobu 10 minut (například ráno pro rychlé odstranění otoků nebo večer v rámci relaxační rutiny). Pravidelnost je klíčem k dlouhodobým výsledkům.</p>
+        </div>
+      </details>
+
+      <details class="vs-faq-card">
+        <summary class="vs-faq-summary">
+          <span>Mohu jej používat spolu s jinými produkty pro péči o pleť?</span>
+          <span class="vs-faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="vs-faq-body">
+          <p>Ano, dokonce to vřele doporučujeme! Použití hydratačního očního krému nebo séra na vodní bázi před ošetřením zajišťuje správnou vodivost EMS mikroproudů a pomáhá aktivním látkám proniknout hlouběji do pokožky.</p>
+        </div>
+      </details>
+
+      <details class="vs-faq-card">
+        <summary class="vs-faq-summary">
+          <span>Je přístroj vhodný pro všechny typy pleti?</span>
+          <span class="vs-faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="vs-faq-body">
+          <p>Ano, přístroj je navržen tak, aby byl šetrný a bezpečný pro všechny typy pleti, včetně suché, mastné, smíšené i citlivé pokožky. Intenzitu mikroproudů si jednoduše nastavíte podle své citlivosti.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+</div>
+
+{% javascript %}
+  document.addEventListener('toggle', (event) => {
+    const details = event.target instanceof HTMLDetailsElement ? event.target : null;
+    if (!details || !details.open) return;
+    const group = details.closest('[data-vs-faq-group]');
+    if (!group) return;
+    group.querySelectorAll('details.vs-faq-card[open]').forEach((item) => {
+      if (item !== details) item.open = false;
+    });
+  }, true);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "VeaSkin Časté dotazy",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nadpis sekce",
+      "default": "Časté dotazy"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VeaSkin Časté dotazy"
+    }
+  ]
+}
+{% endschema %}

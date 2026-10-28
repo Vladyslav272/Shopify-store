@@ -1,11 +1,18 @@
+{% doc %}
+  Translates dynamic third-party Judge.me widget strings and backend product title into Czech.
+
+  @example
+  {% render 'czech-localization' %}
+{% enddoc %}
+
 <script>
-  (function() {
+  (function () {
     function translateNode(node) {
       if (node.nodeType === Node.TEXT_NODE) {
-        let val = node.nodeValue;
-        if (!val) return;
-        
-        let newVal = val
+        const val = node.nodeValue;
+        if (!val || !val.trim()) return;
+
+        const newVal = val
           .replace(/Let customers speak for us/gi, 'Co o nás říkají naši zákazníci')
           .replace(/Nechte zákazníky mluvit za nás/gi, 'Co o nás říkají naši zákazníci')
           .replace(/Customer Reviews/gi, 'Hodnocení zákazníků')
@@ -25,15 +32,13 @@
           .replace(/\bVerified Buyer\b/gi, 'Ověřený nákup')
           .replace(/\bVerified\b/gi, 'Ověřeno')
           .replace(/\bReview Title\b/gi, 'Předmět recenze')
-          .replace(/\bReview\b/gi, 'Recenze')
           .replace(/\bSubmit Review\b/gi, 'Odeslat recenzi')
           .replace(/\bEye Care Machine\b/gi, 'Brýle proti otokům');
-          
+
         if (newVal !== val) {
           node.nodeValue = newVal;
         }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
-        // Translate placeholders
         if (node.placeholder) {
           node.placeholder = node.placeholder
             .replace(/Write your review here/gi, 'Napište svou recenzi zde...')
@@ -41,790 +46,30 @@
             .replace(/Enter your name/gi, 'Vaše jméno')
             .replace(/Enter your email/gi, 'Váš e-mail');
         }
-        
+
         for (let i = 0; i < node.childNodes.length; i++) {
           translateNode(node.childNodes[i]);
         }
       }
     }
 
-    function updateTransformationStats() {
-      var slider = document.querySelector('comparison-slider-component, .comparison-slider');
-      if (!slider) return;
-
-      var parentWrapper = slider.closest('.section-content-wrapper, [data-testid="section-content"]');
-      if (!parentWrapper) return;
-
-      var leftCol = parentWrapper.firstElementChild;
-      if (!leftCol || leftCol === slider) return;
-
-      // Ensure responsive layout classes are present and clear hardcoded inline widths
-      parentWrapper.classList.add('veaskin-transformation-wrapper');
-      leftCol.classList.add('veaskin-transformation-col');
-      leftCol.style.width = '';
-      leftCol.style.maxWidth = '';
-
-      if (leftCol.querySelector('.veaskin-transformation-badge-v2')) return;
-
-      leftCol.innerHTML = `
-        <div class="veaskin-transformation-stats">
-          <h2 class="veaskin-transformation-title">
-            Viditelná proměna už během několika týdnů
-          </h2>
-
-          <div class="veaskin-transformation-list">
-            <div class="veaskin-transformation-item">
-              <div class="veaskin-transformation-badge veaskin-transformation-badge-v2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="60" height="60">
-                  <circle cx="600" cy="600" r="482.5" fill="none" stroke="#bb6966" stroke-width="95" />
-                  <circle cx="600" cy="600" r="395" fill="#bb6966" />
-                  <text x="600" y="608" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Montserrat', 'Segoe UI', -apple-system, sans-serif" font-weight="800" font-size="295" letter-spacing="-5">82%</text>
-                </svg>
-              </div>
-              <p class="veaskin-transformation-desc">
-                Zaznamenalo zesvětlení tmavých kruhů a sjednocení tónu pleti již po 2 týdnech.
-              </p>
-            </div>
-
-            <div class="veaskin-transformation-item">
-              <div class="veaskin-transformation-badge veaskin-transformation-badge-v2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="60" height="60">
-                  <circle cx="600" cy="600" r="482.5" fill="none" stroke="#bb6966" stroke-width="95" />
-                  <circle cx="600" cy="600" r="395" fill="#bb6966" />
-                  <text x="600" y="608" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Montserrat', 'Segoe UI', -apple-system, sans-serif" font-weight="800" font-size="295" letter-spacing="-5">87%</text>
-                </svg>
-              </div>
-              <p class="veaskin-transformation-desc">
-                Potvrdilo výraznou redukci ranních otoků a váčků pod očima po 2 týdnech.
-              </p>
-            </div>
-
-            <div class="veaskin-transformation-item">
-              <div class="veaskin-transformation-badge veaskin-transformation-badge-v2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="60" height="60">
-                  <circle cx="600" cy="600" r="482.5" fill="none" stroke="#bb6966" stroke-width="95" />
-                  <circle cx="600" cy="600" r="395" fill="#bb6966" />
-                  <text x="600" y="608" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Montserrat', 'Segoe UI', -apple-system, sans-serif" font-weight="800" font-size="295" letter-spacing="-5">91%</text>
-                </svg>
-              </div>
-              <p class="veaskin-transformation-desc">
-                Zaznamenalo vyhlazení jemných vrásek a pevnou pokožku během 5 týdnů.
-              </p>
-            </div>
-          </div>
-
-          <p class="veaskin-transformation-note">
-            *Výsledky založené na nezávislém spotřebitelském testování při pravidelném používání 10 minut denně.
-          </p>
-        </div>
-      `;
-    }
-
-    
-    window.toggleVeaSkinQuiz = function(el) {
-      el.classList.toggle('is-checked');
-      var mark = el.querySelector('.product-quiz-check-mark');
-      if (el.classList.contains('is-checked')) {
-        mark.textContent = '✓';
-      } else {
-        mark.textContent = '';
-      }
-      var parent = el.closest('.product-quiz-card');
-      if (!parent) return;
-      var count = parent.querySelectorAll('.product-quiz-item.is-checked').length;
-      var countEl = parent.querySelector('.quiz-live-count');
-      if (countEl) countEl.textContent = count;
-      var resBox = parent.querySelector('.product-quiz-result');
-      if (resBox) {
-        resBox.style.display = count === 0 ? 'none' : 'block';
-      }
-    };
-
-    function injectQuizDiagnostic() {
-      if (document.getElementById('shopify-section-product-quiz-diagnostic') || document.querySelector('.product-quiz-section')) return;
-
-      var anchor = document.getElementById('shopify-section-template--30716979773814__1792698193c2bc235e') ||
-                   document.querySelector('[id*="1792698193c2bc235e"]') ||
-                   document.querySelector('.jdgm-carousel-wrapper') ||
-                   document.getElementById('shopify-section-template--30716979773814__product-information') ||
-                   document.querySelector('.product-information');
-      if (!anchor || !anchor.parentNode) return;
-
-      var container = document.createElement('div');
-      container.className = 'shopify-section';
-      container.id = 'shopify-section-product-quiz-diagnostic';
-      container.innerHTML = `
-        <div class="product-quiz-section">
-          <div class="product-quiz-container">
-            <div class="product-quiz-card">
-              <div class="product-quiz-header">
-                <span class="product-quiz-badge">
-                  <span class="product-quiz-badge-icon">✨</span>
-                  Rychlá sebediagnostika
-                </span>
-                <h2 class="product-quiz-title">Trápí vás některý z těchto projevů?</h2>
-                <p class="product-quiz-subtitle">Označte příznaky, které u sebe pozorujete, a zjistěte, kde je jejich skutečný fyziologický původ.</p>
-              </div>
-
-              <div class="product-quiz-list">
-                <div class="product-quiz-item is-checked" onclick="window.toggleVeaSkinQuiz(this)">
-                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark">✓</span></div>
-                  <div class="product-quiz-item-text">Ranní otoky očních víček a váčky po probuzení</div>
-                </div>
-                <div class="product-quiz-item is-checked" onclick="window.toggleVeaSkinQuiz(this)">
-                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark">✓</span></div>
-                  <div class="product-quiz-item-text">Tmavé kruhy pod očima, které nezakryje ani korektor</div>
-                </div>
-                <div class="product-quiz-item" onclick="window.toggleVeaSkinQuiz(this)">
-                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark"></span></div>
-                  <div class="product-quiz-item-text">Jemné vrásky a unavená, dehydratovaná pleť očního okolí</div>
-                </div>
-                <div class="product-quiz-item is-checked" onclick="window.toggleVeaSkinQuiz(this)">
-                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark">✓</span></div>
-                  <div class="product-quiz-item-text">Pocit pálení, těžkosti a suchých očí po práci u obrazovky</div>
-                </div>
-                <div class="product-quiz-item" onclick="window.toggleVeaSkinQuiz(this)">
-                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark"></span></div>
-                  <div class="product-quiz-item-text">Běžné oční krémy přinášejí jen krátkodobý nebo nulový efekt</div>
-                </div>
-              </div>
-
-              <div class="product-quiz-result">
-                <div class="product-quiz-result-heading">
-                  <span class="product-quiz-result-icon">🔍</span>
-                  <span>Diagnostika: Označeno <strong class="quiz-live-count">3</strong> z 5 projevů</span>
-                </div>
-                <div class="product-quiz-result-body">
-                  <strong>Proč běžné krémy samy o sobě nestačí:</strong>
-                  <p>Problém není ve svrchní vrstvě kůže, ale v zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mechanická mikromasáž a jemné prohřátí.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      anchor.parentNode.insertBefore(container, anchor.nextSibling);
-    }
-
-    function injectComparisonTable() {
-      if (document.getElementById('shopify-section-product-comparison-table') || document.querySelector('.product-comparison-section')) return;
-
-      var anchor = document.getElementById('shopify-section-template--30716979773814__section_Kny7xc') ||
-                   document.querySelector('[id*="section_Kny7xc"]') ||
-                   document.getElementById('shopify-section-technology-benefits') ||
-                   document.querySelector('#veaskin-technology-benefits');
-      if (!anchor || !anchor.parentNode) return;
-
-      var container = document.createElement('div');
-      container.className = 'shopify-section';
-      container.id = 'shopify-section-product-comparison-table';
-      container.innerHTML = `
-        <div class="product-comparison-section">
-          <div class="product-comparison-container">
-            <div class="product-comparison-card">
-              <div class="product-comparison-header">
-                <span class="product-comparison-badge">
-                  <span class="product-comparison-badge-icon">⚖️</span>
-                  Upřímné srovnání
-                </span>
-                <h2 class="product-comparison-title">Proč je VeaSkin nejchytřejší volba?</h2>
-                <p class="product-comparison-subtitle">Přehledné srovnání přístupu, výsledků a nákladů běžných metod vs. VeaSkin.</p>
-              </div>
-
-              <div class="product-comparison-grid">
-                <div class="comp-card-col">
-                  <h3 class="comp-col-heading">Běžné oční krémy</h3>
-                  <div class="comp-col-price comp-muted-price">cca 1 500 Kč <span class="comp-col-sub">/ 2 měsíce</span></div>
-                  <ul class="comp-col-features">
-                    <li><span class="comp-icon comp-cross">✕</span> Působí pouze na povrchu epidermis</li>
-                    <li><span class="comp-icon comp-cross">✕</span> Nerozhýbou stagnující lymfu</li>
-                    <li><span class="comp-icon comp-cross">✕</span> Nutnost neustálého dokupování zásob</li>
-                    <li><span class="comp-icon comp-check">✓</span> Snadná domácí aplikace</li>
-                  </ul>
-                </div>
-
-                <div class="comp-card-col is-winner">
-                  <div class="comp-winner-ribbon">Chytrá volba</div>
-                  <h3 class="comp-col-heading">VeaSkin Přístroj</h3>
-                  <div class="comp-col-price comp-hero-price">1 200 Kč <span class="comp-col-sub">/ jednorázově</span></div>
-                  <ul class="comp-col-features">
-                    <li><span class="comp-icon comp-check">✓</span> <strong>Cílená lymfatická masáž a prohřátí</strong></li>
-                    <li><span class="comp-icon comp-check">✓</span> <strong>Viditelná úleva od otoků už po 10 min.</strong></li>
-                    <li><span class="comp-icon comp-check">✓</span> <strong>Dlouholetá péče bez dalších investic</strong></li>
-                    <li><span class="comp-icon comp-check">✓</span> <strong>30 dní na vyzkoušení bez rizika</strong></li>
-                  </ul>
-                </div>
-
-                <div class="comp-card-col">
-                  <h3 class="comp-col-heading">Klinické zákroky</h3>
-                  <div class="comp-col-price comp-muted-price">8 000 – 15 000 Kč <span class="comp-col-sub">/ sezení</span></div>
-                  <ul class="comp-col-features">
-                    <li><span class="comp-icon comp-check">✓</span> Výrazný okamžitý vizuální efekt</li>
-                    <li><span class="comp-icon comp-cross">✕</span> Jehly, modřinky a čas na zotavení</li>
-                    <li><span class="comp-icon comp-cross">✕</span> Nutnost opakování každých 6-12 měsíců</li>
-                    <li><span class="comp-icon comp-cross">✕</span> Extrémně vysoké finanční náklady</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      anchor.parentNode.insertBefore(container, anchor.nextSibling);
-    }
-
-    function injectTimelineResults() {
-      if (document.getElementById('shopify-section-product-timeline-results') || document.querySelector('.product-timeline-section')) return;
-
-      var anchor = document.getElementById('shopify-section-product-comparison-table') ||
-                   document.querySelector('.product-comparison-section');
-      if (!anchor || !anchor.parentNode) return;
-
-      var container = document.createElement('div');
-      container.className = 'shopify-section';
-      container.id = 'shopify-section-product-timeline-results';
-      container.innerHTML = `
-        <div class="product-timeline-section">
-          <div class="product-timeline-container">
-            <div class="product-timeline-card">
-              <div class="product-timeline-header">
-                <span class="product-timeline-badge">
-                  <span class="product-timeline-badge-icon">⏱️</span>
-                  Realistický harmonogram
-                </span>
-                <h2 class="product-timeline-title">Co můžete očekávat den po dni?</h2>
-                <p class="product-timeline-subtitle">Žádné nereálné zázraky přes noc. Takhle vypadá proces při pravidelném 10minutovém ranním rituálu:</p>
-              </div>
-
-              <div class="product-timeline-track">
-                <div class="timeline-step-row">
-                  <div class="timeline-step-marker"><span class="timeline-step-dot"></span></div>
-                  <div class="timeline-step-content">
-                    <div class="timeline-step-head">
-                      <h3 class="timeline-step-title">Okamžitě po 1. použití</h3>
-                      <span class="timeline-step-tag">Den 1</span>
-                    </div>
-                    <div class="timeline-step-desc">
-                      <p>Příjemné uvolnění očního tlaku a okamžitý pocit svěžesti. Nastartovaný krevní oběh pomáhá stáhnout ranní otoky víček už během 15 minut.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="timeline-step-row">
-                  <div class="timeline-step-marker"><span class="timeline-step-dot"></span></div>
-                  <div class="timeline-step-content">
-                    <div class="timeline-step-head">
-                      <h3 class="timeline-step-title">Po 14 dnech pravidelné péče</h3>
-                      <span class="timeline-step-tag">Týden 2</span>
-                    </div>
-                    <div class="timeline-step-desc">
-                      <p>Obnovení správného odtoku lymfy. Tmavé stíny způsobené městnáním krve viditelně blednou a oční okolí působí pevněji a odpočatě.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="timeline-step-row">
-                  <div class="timeline-step-marker"><span class="timeline-step-dot"></span></div>
-                  <div class="timeline-step-content">
-                    <div class="timeline-step-head">
-                      <h3 class="timeline-step-title">Dlouhodobá prevence a regenerace</h3>
-                      <span class="timeline-step-tag">Týden 5+</span>
-                    </div>
-                    <div class="timeline-step-desc">
-                      <p>Pravidelná stimulace zabraňuje nočnímu hromadění tekutiny. Pokožka si zachovává pružnost a vy se probouzíte se svěžím, mladistvým pohledem každé ráno.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      anchor.parentNode.insertBefore(container, anchor.nextSibling);
-    }
-
-    function injectPriceReframing() {
-      if (document.getElementById('shopify-section-product-price-reframing') || document.querySelector('.product-price-reframe-section')) return;
-
-      var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
-      if (!faqSection) {
-        var allSections = document.querySelectorAll('.shopify-section');
-        for (var i = 0; i < allSections.length; i++) {
-          if (allSections[i].textContent.includes('Časté dotazy') || allSections[i].textContent.includes('Caste dotazy')) {
-            faqSection = allSections[i];
-            break;
-          }
-        }
-      }
-
-      if (!faqSection || !faqSection.parentNode) return;
-
-      var container = document.createElement('div');
-      container.className = 'shopify-section';
-      container.id = 'shopify-section-product-price-reframing';
-      container.innerHTML = `
-        <div class="product-price-reframe-section">
-          <div class="product-price-reframe-container">
-            <div class="product-price-reframe-card">
-              <div class="product-price-reframe-header">
-                <span class="product-price-reframe-badge">
-                  <span class="product-price-reframe-badge-icon">💡</span>
-                  Chytrá investice do sebe
-                </span>
-                <h2 class="product-price-reframe-title">Kolik vás skutečně stojí boj s únavou očí?</h2>
-                <p class="product-price-reframe-subtitle">Spočítejte si, jak se jednorázová péče vyplatí oproti neustálému dokupování povrchových krémů.</p>
-              </div>
-
-              <div class="product-reframe-grid">
-                <div class="reframe-calc-box">
-                  <div class="reframe-calc-label">Roční útrata za krémy a séra</div>
-                  <div class="reframe-calc-amount">cca 6 000 Kč</div>
-                  <div class="reframe-calc-note">bez řešení stagnující lymfy</div>
-                </div>
-
-                <div class="reframe-vs-pill">VS</div>
-
-                <div class="reframe-calc-box is-hero">
-                  <div class="reframe-calc-label reframe-hero-label">VeaSkin na celý rok</div>
-                  <div class="reframe-calc-amount reframe-hero-amount">3,30 Kč / den</div>
-                  <div class="reframe-calc-note">(1 200 Kč jednorázově na roky péče)</div>
-                </div>
-              </div>
-
-              <div class="product-reframe-guarantee">
-                <span class="reframe-guarantee-shield">🛡️</span>
-                <p>Vyzkoušejte si přístroj na 30 dní v pohodlí domova. Pokud neuvidíte viditelný rozdíl, jednoduše vám vrátíme peníze bez zbytečných otázek.</p>
-              </div>
-
-              <div class="product-reframe-cta">
-                <a href="#product-information" class="product-reframe-btn" onclick="var t = document.querySelector('.product-information img[src*=\'zenabilepozadi\']') || document.querySelector('.product-information__media') || document.querySelector('.product-information') || document.querySelector('[id*=\'product-information\']'); if (t) { var offset = 16; var top = t.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: top, behavior: 'smooth' }); return false; }">
-                  Vyzkoušet na 30 dní bez rizika
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      faqSection.parentNode.insertBefore(container, faqSection);
-    }
-
-    
-    function decorateOldSections() {
-      // 1. Steps heading section_pNEVnp
-      var stepsHeadingSec = document.querySelector('[id*="section_pNEVnp"]');
-      if (stepsHeadingSec && !stepsHeadingSec.querySelector('.section-badge')) {
-        var targetWrapper = stepsHeadingSec.querySelector('.section-content-wrapper') || stepsHeadingSec.querySelector('.custom-section-content') || stepsHeadingSec;
-        var badge = document.createElement('div');
-        badge.className = 'section-badge-wrapper';
-        badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">✨</span> 4 jednoduché kroky</span>';
-        targetWrapper.insertBefore(badge, targetWrapper.firstChild);
-      }
-
-      // 2. Comparison slider section_Kny7xc
-      var sliderSec = document.querySelector('[id*="section_Kny7xc"]');
-      if (sliderSec && !sliderSec.querySelector('.section-badge')) {
-        var sTitle = sliderSec.querySelector('h2, h3, h4, rte-formatter');
-        if (sTitle) {
-          var badge = document.createElement('div');
-          badge.className = 'section-badge-wrapper';
-          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">✨</span> Viditelné výsledky</span>';
-          sTitle.parentNode.insertBefore(badge, sTitle);
-        }
-      }
-
-      // 3. FAQ section_faq
-      var faqSec = document.querySelector('[id*="section_faq"]');
-      if (faqSec && !faqSec.querySelector('.section-badge')) {
-        var fTitle = faqSec.querySelector('h2, h3, h4, .text-block');
-        if (fTitle) {
-          var badge = document.createElement('div');
-          badge.className = 'section-badge-wrapper';
-          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">💬</span> Vše, co potřebujete vědět</span>';
-          fTitle.parentNode.insertBefore(badge, fTitle);
-        }
-      }
-
-      // 4. Judge.me review carousel
-      var revCarousel = document.querySelector('.jdgm-carousel-wrapper');
-      if (revCarousel && !revCarousel.querySelector('.section-badge')) {
-        var cTitle = revCarousel.querySelector('.jdgm-carousel-title');
-        if (cTitle) {
-          var badge = document.createElement('div');
-          badge.className = 'section-badge-wrapper';
-          badge.style.textAlign = 'center';
-          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">⭐</span> Skutečné zkušenosti</span>';
-          cTitle.parentNode.insertBefore(badge, cTitle);
-        }
-      }
-    }
-
-    function injectTechnologyBenefits() {
-      var existing = document.querySelector('.veaskin-benefits-card');
-      var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
-      if (!faqSection) {
-        var allSections = document.querySelectorAll('.shopify-section');
-        for (var i = 0; i < allSections.length; i++) {
-          if (allSections[i].textContent.includes('Časté dotazy') || allSections[i].textContent.includes('Caste dotazy')) {
-            faqSection = allSections[i];
-            break;
-          }
-        }
-      }
-
-      if (!faqSection || !faqSection.parentNode) return;
-
-      if (existing) {
-        var existingContainer = existing.closest('.shopify-section') || existing.closest('#veaskin-technology-benefits') || existing;
-        if (existingContainer && existingContainer !== faqSection && (faqSection.compareDocumentPosition(existingContainer) & Node.DOCUMENT_POSITION_FOLLOWING)) {
-          faqSection.parentNode.insertBefore(existingContainer, faqSection);
-        }
-        return;
-      }
-
-      var container = document.createElement('div');
-      container.className = 'shopify-section';
-      container.id = 'shopify-section-technology-benefits';
-      container.innerHTML = `
-        <section class="veaskin-benefits-section" id="veaskin-technology-benefits">
-          <div class="veaskin-benefits-container">
-            <div class="veaskin-benefits-card">
-              <span class="section-badge"><span class="section-badge-icon">🔬</span> Vědecky ověřená technologie</span>
-              <h2 class="veaskin-benefits-title">
-                Proč je <span class="veaskin-benefits-highlight">terapie červeným světlem +</span><br>
-                <span class="veaskin-benefits-highlight">mikroproudy</span> tak účinná
-              </h2>
-
-              <div class="veaskin-benefits-list">
-                <div class="veaskin-benefits-item">
-                  <div class="veaskin-benefits-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
-                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <p class="veaskin-benefits-text">
-                    <span class="veaskin-benefits-prefix">Červené světlo (630–660 nm) proniká 2–3 mm hluboko</span>
-                    <span class="veaskin-benefits-sep">–</span>
-                    stimuluje tvorbu kolagenu a zrychluje mikrocirkulaci tam, kam běžné krémy nedosáhnou
-                  </p>
-                </div>
-
-                <div class="veaskin-benefits-item">
-                  <div class="veaskin-benefits-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
-                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <p class="veaskin-benefits-text">
-                    <span class="veaskin-benefits-prefix">Mikroproudy aktivují lymfatickou drenáž</span>
-                    <span class="veaskin-benefits-sep">–</span>
-                    eliminují hromadění tekutiny, která způsobuje ranní otoky a váčky pod očima
-                  </p>
-                </div>
-
-                <div class="veaskin-benefits-item">
-                  <div class="veaskin-benefits-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
-                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <p class="veaskin-benefits-text">
-                    <span class="veaskin-benefits-prefix">Řeší všechny 3 hlavní příčiny problémů</span>
-                    <span class="veaskin-benefits-sep">–</span>
-                    slabou cirkulaci (tmavé kruhy), zadržování vody (otoky) a úbytek kolagenu (vrásky)
-                  </p>
-                </div>
-
-                <div class="veaskin-benefits-item">
-                  <div class="veaskin-benefits-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
-                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <p class="veaskin-benefits-text">
-                    <span class="veaskin-benefits-prefix">Klinicky ověřená medicínská technologie</span>
-                    <span class="veaskin-benefits-sep">–</span>
-                    původ v rehabilitační medicíně a výzkumu NASA, podloženo desítkami let studií
-                  </p>
-                </div>
-
-                <div class="veaskin-benefits-item">
-                  <div class="veaskin-benefits-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="11" fill="#ffffff" />
-                      <path d="M7 12.2L10.2 15.4L17 8.6" stroke="#1d1617" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <p class="veaskin-benefits-text">
-                    <span class="veaskin-benefits-prefix">Neinvazivní a bezpečné bez rekonvalescence</span>
-                    <span class="veaskin-benefits-sep">–</span>
-                    dosahuje dlouhodobého zlepšení pleti bez jehel, bolesti a operací
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
-
-      faqSection.parentNode.insertBefore(container, faqSection);
-    }
-
-
-    function injectProductShowcase() {
-      var main = document.querySelector('main#MainContent, main');
-      var existing = document.getElementById('shopify-section-product-showcase') || document.querySelector('.product-showcase-section');
-      if (existing) {
-        if (main && main.firstElementChild && main.firstElementChild !== existing) {
-          main.insertBefore(existing, main.firstElementChild);
-        }
-        return;
-      }
-
-      if (!main) return;
-
-      var showcaseImg = '{{ "rannikafe.jpg" | asset_url }}';
-
-      var container = document.createElement('div');
-      container.className = 'shopify-section';
-      container.id = 'shopify-section-product-showcase';
-      container.innerHTML = `
-        <div class="product-showcase-section">
-          <div class="product-showcase-wrapper">
-
-            <!-- Heading and text ABOVE image -->
-            <div class="product-showcase-header">
-              <div class="product-showcase-kicker">
-                <span class="product-showcase-kicker-dot"></span>
-                <span>První krok k vaší ranní proměně</span>
-              </div>
-
-              <h2 class="product-showcase-heading">
-                Vykročte do rána s úsměvem.
-                <em>Stačí jen 10 minut péče.</em>
-              </h2>
-
-              <p class="product-showcase-desc">
-                Probuďte se do dne bez otoků a unavených očí. VeaSkin vám během pár minut vrátí svěžest a ten příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky make-upu.
-              </p>
-            </div>
-
-            <!-- Body: Image on left, features + CTA on right -->
-            <div class="product-showcase-body">
-
-              <!-- Visual Card (Image + Rating Badge) -->
-              <div class="product-showcase-visual">
-                <div class="product-showcase-card">
-                  <img
-                    src="${showcaseImg}"
-                    alt="VeaSkin ranní káva a péče"
-                    class="product-showcase-img"
-                    loading="lazy"
-                  />
-                  <div class="product-showcase-badge">
-                    <span class="product-showcase-stars">★★★★★</span>
-                    <div class="product-showcase-badge-text">
-                      <strong>4.9 / 5</strong>
-                      <span>Hodnoceno 2 400+ zákazníky</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Value Features & Action CTA -->
-              <div class="product-showcase-details">
-                <ul class="product-showcase-features">
-                  <li class="product-showcase-feature-item">
-                    <div class="product-showcase-feature-icon">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" fill="#BB6966" fill-opacity="0.15"/>
-                        <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#BB6966" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <div class="product-showcase-feature-text">
-                      <strong>Viditelné výsledky již do 2 týdnů</strong>
-                      <p>91 % uživatelek potvrdilo svěžejší, odpočatější a pevnější oční okolí.</p>
-                    </div>
-                  </li>
-
-                  <li class="product-showcase-feature-item">
-                    <div class="product-showcase-feature-icon">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" fill="#BB6966" fill-opacity="0.15"/>
-                        <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#BB6966" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <div class="product-showcase-feature-text">
-                      <strong>30denní garance vrácení zboží</strong>
-                      <p>Vyzkoušejte brýle VeaSkin v klidu domova zcela bez rizika se zárukou 30 dní na vrácení zboží.</p>
-                    </div>
-                  </li>
-
-                  <li class="product-showcase-feature-item">
-                    <div class="product-showcase-feature-icon">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" fill="#BB6966" fill-opacity="0.15"/>
-                        <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#BB6966" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <div class="product-showcase-feature-text">
-                      <strong>Doprava zdarma & odeslání do 24 h</strong>
-                      <p>Bleskové a bezpečné doručení přímo k vašim dveřím s českou zákaznickou podporou.</p>
-                    </div>
-                  </li>
-                </ul>
-
-                <div class="product-showcase-actions">
-                  <a href="#shopify-section-template--30716979773814__product-information" class="product-showcase-btn">
-                    <span>Chci se cítit svěže každé ráno</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </a>
-                  <p class="product-showcase-guarantee-note">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                    <span>Bezpečný nákup • Garance vrácení zboží 30 dní • Česká značka</span>
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      `;
-
-      if (main.firstElementChild) {
-        main.insertBefore(container, main.firstElementChild);
-      } else {
-        main.appendChild(container);
-      }
-    }
-
-    function injectAnnouncementBar() {
-      var existing = document.querySelector('.veaskin-announcement-bar');
-      if (existing) {
-        // If it doesn't have track/slides yet, upgrade its innerHTML
-        if (!existing.querySelector('.veaskin-announcement-track')) {
-          existing.innerHTML = `
-            <div class="veaskin-announcement-track">
-              <div class="veaskin-announcement-slide active">
-                <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                  <rect x="1" y="3" width="15" height="13"></rect>
-                  <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
-                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                </svg>
-                <span>Doprava zdarma na všechny objednávky</span>
-              </div>
-              <div class="veaskin-announcement-slide">
-                <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
-                </svg>
-                <span>Sleva 30 % na celou objednávku</span>
-              </div>
-            </div>
-          `;
-        }
-        initAnnouncementTimer();
-        return;
-      }
-
-      if (document.querySelector('.announcement-bar:not(.veaskin-announcement-bar)')) return;
-
-      var headerGroup = document.querySelector('#header-group');
-      var bar = document.createElement('div');
-      bar.className = 'veaskin-announcement-bar';
-      bar.innerHTML = `
-        <div class="veaskin-announcement-track">
-          <div class="veaskin-announcement-slide active">
-            <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-              <rect x="1" y="3" width="15" height="13"></rect>
-              <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
-              <circle cx="5.5" cy="18.5" r="2.5"></circle>
-              <circle cx="18.5" cy="18.5" r="2.5"></circle>
-            </svg>
-            <span>Doprava zdarma na všechny objednávky</span>
-          </div>
-          <div class="veaskin-announcement-slide">
-            <svg class="veaskin-shipping-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-              <line x1="7" y1="7" x2="7.01" y2="7"></line>
-            </svg>
-            <span>Sleva 30 % na celou objednávku</span>
-          </div>
-        </div>
-      `;
-
-      if (headerGroup) {
-        headerGroup.insertBefore(bar, headerGroup.firstChild);
-      } else {
-        var headerSection = document.querySelector('.header-section, #header-component, header');
-        if (headerSection && headerSection.parentNode) {
-          headerSection.parentNode.insertBefore(bar, headerSection);
-        }
-      }
-
-      initAnnouncementTimer();
-    }
-
-    function initAnnouncementTimer() {
-      if (window._veaskinAnnounceTimer) return;
-      window._veaskinAnnounceTimer = setInterval(function() {
-        var slides = document.querySelectorAll('.veaskin-announcement-slide');
-        if (slides.length < 2) return;
-        var activeIdx = -1;
-        slides.forEach(function(s, idx) {
-          if (s.classList.contains('active')) activeIdx = idx;
-          s.classList.remove('active');
-        });
-        var nextIdx = (activeIdx + 1) % slides.length;
-        slides[nextIdx].classList.add('active');
-      }, 3500);
-    }
-
+    let scheduled = false;
     function runTranslations() {
-      injectAnnouncementBar();
-      updateTransformationStats();
-      injectTechnologyBenefits();
-      injectProductShowcase();
-      injectQuizDiagnostic();
-      injectComparisonTable();
-      injectTimelineResults();
-      injectPriceReframing();
-      decorateOldSections();
+      scheduled = false;
 
-      // Carousel title
-      document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
-        if (el.textContent.includes('speak for us') || el.textContent.includes('Nechte zákazníky')) {
-          el.textContent = 'Co o nás říkají naši zákazníci';
-        }
-      });
-
-      // Widget title
-      document.querySelectorAll('.jdgm-rev-widg__title').forEach(el => {
+      document.querySelectorAll('.jdgm-rev-widg__title').forEach((el) => {
         if (el.textContent.includes('Customer Reviews')) {
           el.textContent = 'Hodnocení zákazníků';
         }
       });
 
-      // Badge texts
-      document.querySelectorAll('.jdgm-prev-badge__text, .jdgm-carousel-title-and-link, .jdgm-rev-widg__summary-text').forEach(el => {
-        translateNode(el);
-      });
+      document
+        .querySelectorAll(
+          '.jdgm-rev-widg, .cart-drawer__inner, .cart-items-component, main[data-template="cart"]'
+        )
+        .forEach((el) => translateNode(el));
 
-      // Sort dropdown
-      document.querySelectorAll('.jdgm-sort-dropdown option').forEach(opt => {
+      document.querySelectorAll('.jdgm-sort-dropdown option').forEach((opt) => {
         if (opt.textContent.includes('Most Recent')) opt.textContent = 'Nejnovější';
         if (opt.textContent.includes('Highest Rating')) opt.textContent = 'Nejvyšší hodnocení';
         if (opt.textContent.includes('Lowest Rating')) opt.textContent = 'Nejnižší hodnocení';
@@ -832,45 +77,25 @@
         if (opt.textContent.includes('Pictures First')) opt.textContent = 'Nejprve s fotkami';
       });
 
-      // Form labels
-      document.querySelectorAll('.jdgm-form__label').forEach(el => {
+      document.querySelectorAll('.jdgm-form__label').forEach((el) => {
         if (el.textContent.includes('Name')) el.textContent = 'Jméno (zobrazí se veřejně)';
         if (el.textContent.includes('Email')) el.textContent = 'E-mail';
         if (el.textContent.includes('Rating')) el.textContent = 'Hodnocení';
         if (el.textContent.includes('Review Title')) el.textContent = 'Název recenze';
-        if (el.textContent.includes('Review') && !el.textContent.includes('Title')) el.textContent = 'Vaše recenze';
+        if (el.textContent.includes('Review') && !el.textContent.includes('Title')) {
+          el.textContent = 'Vaše recenze';
+        }
       });
 
-      // Submit button
-      document.querySelectorAll('.jdgm-submit-rev').forEach(el => {
+      document.querySelectorAll('.jdgm-submit-rev').forEach((el) => {
         if (el.value && el.value.includes('Submit')) el.value = 'Odeslat recenzi';
       });
+    }
 
-      // Hide carousel navigation arrows & handle mobile layout
-      document.querySelectorAll('.jdgm-carousel__arrows, .jdgm-carousel__left-arrow, .jdgm-carousel__right-arrow').forEach(el => {
-        el.style.display = 'none';
-      });
-      if (window.innerWidth <= 749) {
-        document.querySelectorAll('.jdgm-carousel__item-wrapper').forEach(el => {
-          el.style.transform = 'none';
-        });
-      }
-
-      // Ensure product image in sticky add-to-cart bar
-      var stickyBar = document.querySelector('.sticky-add-to-cart__bar');
-      if (stickyBar && !stickyBar.querySelector('.sticky-add-to-cart__image')) {
-        var galleryImg = document.querySelector('.product-media-gallery img, .product-gallery img, media-gallery img');
-        if (galleryImg && galleryImg.src) {
-          var imgDiv = document.createElement('div');
-          imgDiv.className = 'sticky-add-to-cart__image';
-          imgDiv.innerHTML = '<img src="' + galleryImg.src + '" class="sticky-add-to-cart__image-img" alt="Product" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />';
-          var info = stickyBar.querySelector('.sticky-add-to-cart__info');
-          if (info) {
-            info.setAttribute('data-has-image', 'true');
-            stickyBar.insertBefore(imgDiv, info);
-          }
-        }
-      }
+    function scheduleTranslations() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(runTranslations);
     }
 
     if (document.readyState === 'loading') {
@@ -879,35 +104,11 @@
       runTranslations();
     }
 
-    // Smooth scroll for CTA button directly to product image
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('.product-showcase-btn');
-      if (btn) {
-        e.preventDefault();
-        e.stopPropagation();
-        var target = document.querySelector('.product-information img[src*="zenabilepozadi"]') ||
-                     document.querySelector('.product-information__media') ||
-                     document.querySelector('#shopify-section-template--30716979773814__product-information') ||
-                     document.querySelector('.product-information');
-        if (target) {
-          var offset = 16;
-          var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({ top: top, behavior: 'smooth' });
-        }
-      }
-    }, true);
-
-    // Observer for asynchronously injected widgets and DOM updates
-    const observer = new MutationObserver(function() {
-      runTranslations();
-    });
-
+    const observer = new MutationObserver(scheduleTranslations);
     if (document.body) {
       observer.observe(document.body, { childList: true, subtree: true });
     } else {
-      document.addEventListener('DOMContentLoaded', function() {
-
-
+      document.addEventListener('DOMContentLoaded', () => {
         observer.observe(document.body, { childList: true, subtree: true });
       });
     }

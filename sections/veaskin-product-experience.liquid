@@ -1,0 +1,810 @@
+{% liquid
+  assign target_product = product
+  if target_product == blank
+    assign target_product = all_products['eye-care-machine-household-eye-massager']
+  endif
+  if target_product == blank
+    assign target_product = collections.all.products.first
+  endif
+
+  assign first_variant = target_product.selected_or_first_available_variant
+  assign v1_id = first_variant.id
+  assign v1_qty = 1
+
+  if target_product.variants.size >= 3
+    assign v2_id = target_product.variants[1].id
+    assign v2_qty = 1
+    assign v3_id = target_product.variants[2].id
+    assign v3_qty = 1
+  else
+    assign v2_id = first_variant.id
+    assign v2_qty = 2
+    assign v3_id = first_variant.id
+    assign v3_qty = 3
+  endif
+
+  if images['zenabilepozadi.jpg'] != blank
+    assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
+  elsif target_product.featured_image != blank
+    assign hero_img_url = target_product.featured_image | image_url: width: 1200
+  else
+    assign hero_img_url = '/cdn/shop/files/zenabilepozadi.jpg'
+  endif
+
+  assign morning_img_url = 'rannikafe.jpg' | asset_url
+
+  if images['krok_1.gif'] != blank
+    assign step1_gif_url = images['krok_1.gif'] | image_url
+  else
+    assign step1_gif_url = '/cdn/shop/files/krok_1.gif'
+  endif
+
+  if images['krok_2.gif'] != blank
+    assign step2_gif_url = images['krok_2.gif'] | image_url
+  else
+    assign step2_gif_url = '/cdn/shop/files/krok_2.gif'
+  endif
+
+  if images['krok_3.gif'] != blank
+    assign step3_gif_url = images['krok_3.gif'] | image_url
+  else
+    assign step3_gif_url = '/cdn/shop/files/krok_3.gif'
+  endif
+
+  if images['krok_4.gif'] != blank
+    assign step4_gif_url = images['krok_4.gif'] | image_url
+  else
+    assign step4_gif_url = '/cdn/shop/files/krok_4.gif'
+  endif
+
+  if images['pred.jpg'] != blank
+    assign before_img_url = images['pred.jpg'] | image_url: width: 1000
+  else
+    assign before_img_url = '/cdn/shop/files/pred.jpg'
+  endif
+
+  if images['po.jpg'] != blank
+    assign after_img_url = images['po.jpg'] | image_url: width: 1000
+  else
+    assign after_img_url = '/cdn/shop/files/po.jpg'
+  endif
+
+  assign product_form_id = 'VeaSkinBundleForm-' | append: section.id
+%}
+
+{% render 'theme-drawer-styles' %}
+<script
+  src="{{ 'product-form.js' | asset_url }}"
+  type="module"
+></script>
+
+{%- if target_product != blank -%}
+  <script type="application/ld+json">
+    {{ target_product | structured_data }}
+  </script>
+{%- endif -%}
+
+<div class="vs-shell" id="veaskin-pdp-v2" data-vs-experience>
+  <!-- 1. HERO GALLERY + TIERED BUNDLE OFFER -->
+  <section class="vs-section vs-section--hero" id="top">
+    <div class="vs-hero-grid">
+      <!-- Left: Product Gallery -->
+      <div class="vs-gallery-card">
+        <div class="vs-main-media">
+          <img
+            src="{{ hero_img_url }}"
+            alt="Brýle proti otokům VeaSkin"
+            class="vs-main-media__img"
+            width="900"
+            height="900"
+            loading="eager"
+            fetchpriority="high"
+            data-vs-main-img
+          >
+          <div class="vs-media-badge-top">
+            <span class="vs-dot-live" aria-hidden="true"></span>
+            <span>630–660 nm Červené LED + EMS</span>
+          </div>
+          <div class="vs-media-badge-bottom">
+            ⏱️ Automatické vypnutí po 10 min
+          </div>
+        </div>
+
+        <div class="vs-thumbs" role="group" aria-label="Galerie obrázků produktu">
+          <button
+            type="button"
+            class="vs-thumb-btn is-active"
+            aria-pressed="true"
+            aria-label="Zobrazit hlavní fotografii Brýle proti otokům"
+            data-vs-thumb="{{ hero_img_url }}"
+          >
+            <img src="{{ hero_img_url }}" alt="Brýle proti otokům" width="180" height="180" loading="eager">
+          </button>
+          <button
+            type="button"
+            class="vs-thumb-btn"
+            aria-pressed="false"
+            aria-label="Zobrazit ranní rituál s kávou"
+            data-vs-thumb="{{ morning_img_url }}"
+          >
+            <img src="{{ morning_img_url }}" alt="Ranní rituál s kávou" width="180" height="180" loading="lazy">
+          </button>
+          <button
+            type="button"
+            class="vs-thumb-btn"
+            aria-pressed="false"
+            aria-label="Zobrazit ukázku použití"
+            data-vs-thumb="{{ step4_gif_url }}"
+          >
+            <img src="{{ step4_gif_url }}" alt="Ukázka použití" width="180" height="180" loading="lazy">
+          </button>
+          <button
+            type="button"
+            class="vs-thumb-btn"
+            aria-pressed="false"
+            aria-label="Zobrazit výsledek péče"
+            data-vs-thumb="{{ after_img_url }}"
+          >
+            <img src="{{ after_img_url }}" alt="Výsledek péče" width="180" height="180" loading="lazy">
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Buy Box & Tiered Bundle Selector -->
+      <div class="vs-buy-panel" id="nabidka-box">
+        <a href="#recenze-sekce" class="vs-review-pill" aria-label="Hodnocení 4,9 z 5 hvězdiček na základě 159 recenzí">
+          <span class="vs-stars" aria-hidden="true">★★★★★</span>
+          <span class="vs-review-pill__text">4,9 / 5 • 159 ověřených recenzí (2 000+ spokojených žen)</span>
+        </a>
+
+        <h1 class="vs-product-title">{{ section.settings.product_heading }}</h1>
+        <p class="vs-product-lead">
+          Probuďte se do dne bez ranních otoků, váčků a tmavých kruhů pod očima. Cílené červené světlo a jemné EMS mikroproudy rozhýbou lymfu a zpevní oční okolí za pouhých <strong>10 minut denně</strong> — bez jehel a rekonvalescence.
+        </p>
+
+        <div class="vs-quick-tags">
+          <span class="vs-quick-tag">✓ Redukce ranních otoků a váčků</span>
+          <span class="vs-quick-tag">✓ Zesvětlení tmavých kruhů</span>
+          <span class="vs-quick-tag">✓ Vyhlazení jemných vrásek</span>
+        </div>
+
+        <div class="vs-offer-head">
+          <span class="vs-offer-head__title">Vyberte si zvýhodněnou nabídku:</span>
+          <span class="vs-offer-head__badge">🔥 Sleva až 42 % dnes</span>
+        </div>
+
+        <div class="vs-offer-list" role="radiogroup" aria-label="Zvýhodněné sady Brýlí proti otokům">
+          <!-- Option 1 -->
+          <button
+            type="button"
+            class="vs-offer-option"
+            role="radio"
+            aria-checked="false"
+            data-vs-offer
+            data-variant-id="{{ v1_id }}"
+            data-qty="{{ v1_qty }}"
+            data-bundle-label="1× Brýle — Ranní péče"
+            data-cta-label="PŘIDAT DO KOŠÍKU — 1 200 KČ (DOPRAVA ZDARMA)"
+          >
+            <div class="vs-offer-left">
+              <span class="vs-radio-dot" aria-hidden="true"></span>
+              <div>
+                <div class="vs-offer-name">1× Brýle proti otokům — Ranní péče</div>
+                <div class="vs-offer-sub">Kompletní balení s USB nabíjením a českým návodem</div>
+                <span class="vs-offer-perk">Sleva 30 % • Doprava zdarma</span>
+              </div>
+            </div>
+            <div class="vs-offer-right">
+              <div class="vs-offer-price">1 200 Kč</div>
+              <div class="vs-offer-old">1 710 Kč</div>
+              <div class="vs-offer-day">jen 3,30 Kč / den</div>
+            </div>
+          </button>
+
+          <!-- Option 2 (Default Selected) -->
+          <button
+            type="button"
+            class="vs-offer-option is-selected"
+            role="radio"
+            aria-checked="true"
+            data-vs-offer
+            data-variant-id="{{ v2_id }}"
+            data-qty="{{ v2_qty }}"
+            data-bundle-label="2× Brýle — Rituál ve dvou"
+            data-cta-label="PŘIDAT DO KOŠÍKU — 1 990 KČ (UŠETŘÍTE 1 430 KČ)"
+          >
+            <span class="vs-offer-ribbon">Nejoblíbenější • Pro dva</span>
+            <div class="vs-offer-left">
+              <span class="vs-radio-dot" aria-hidden="true"></span>
+              <div>
+                <div class="vs-offer-name">2× Brýle proti otokům — Rituál ve dvou</div>
+                <div class="vs-offer-sub">Relaxujte sami i ve dvou, nebo potěšte maminku či partnerku</div>
+                <span class="vs-offer-perk">+ Ušetříte 1 430 Kč • 995 Kč / kus</span>
+              </div>
+            </div>
+            <div class="vs-offer-right">
+              <div class="vs-offer-price">1 990 Kč</div>
+              <div class="vs-offer-old">3 420 Kč</div>
+              <div class="vs-offer-day">2,70 Kč / den na osobu</div>
+            </div>
+          </button>
+
+          <!-- Option 3 -->
+          <button
+            type="button"
+            class="vs-offer-option"
+            role="radio"
+            aria-checked="false"
+            data-vs-offer
+            data-variant-id="{{ v3_id }}"
+            data-qty="{{ v3_qty }}"
+            data-bundle-label="3× Brýle — Rodinná & dárková sada"
+            data-cta-label="PŘIDAT DO KOŠÍKU — 2 690 KČ (UŠETŘÍTE 2 440 KČ)"
+          >
+            <span class="vs-offer-ribbon vs-offer-ribbon--dark">Nejvýhodnější −42 %</span>
+            <div class="vs-offer-left">
+              <span class="vs-radio-dot" aria-hidden="true"></span>
+              <div>
+                <div class="vs-offer-name">3× Brýle proti otokům — Rodinná &amp; dárková sada</div>
+                <div class="vs-offer-sub">Ideální zásoba dárků s maximální množstevní slevou</div>
+                <span class="vs-offer-perk">+ Ušetříte 2 440 Kč • 897 Kč / kus</span>
+              </div>
+            </div>
+            <div class="vs-offer-right">
+              <div class="vs-offer-price">2 690 Kč</div>
+              <div class="vs-offer-old">5 130 Kč</div>
+              <div class="vs-offer-day">Prioritní odeslání do 24 h</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="vs-bonus-bar">
+          <span>🎁 <strong>Součástí nabídky:</strong> Doprava zdarma + 30denní garance vrácení peněz</span>
+          <span class="vs-bonus-tag">ZDARMA</span>
+        </div>
+
+        {%- if target_product != blank -%}
+          <product-form-component
+            data-section-id="{{ section.id }}"
+            data-product-id="{{ target_product.id }}"
+            data-product-url="{{ target_product.url }}"
+            on:submit="/handleSubmit"
+            data-quantity-default="{{ v2_qty }}"
+            data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
+          >
+            <div
+              class="visually-hidden"
+              aria-live="assertive"
+              role="status"
+              aria-atomic="true"
+              ref="liveRegion"
+            ></div>
+            {%- form 'product', target_product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+              <input
+                type="hidden"
+                name="id"
+                ref="variantId"
+                value="{{ v2_id }}"
+                data-vs-form-id
+              >
+              <input
+                type="hidden"
+                name="quantity"
+                value="{{ v2_qty }}"
+                data-vs-form-qty
+              >
+              <input
+                type="hidden"
+                name="properties[Nabídka]"
+                value="2× Brýle — Rituál ve dvou"
+                data-vs-form-bundle
+              >
+              <span class="product-form-text__error hidden" ref="addToCartTextError">
+                <span class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+              </span>
+              <button
+                type="submit"
+                name="add"
+                class="vs-cta-btn"
+                data-vs-cta-btn
+                {% unless first_variant.available %}disabled{% endunless %}
+              >
+                {%- if first_variant.available -%}
+                  PŘIDAT DO KOŠÍKU — 1 990 KČ (UŠETŘÍTE 1 430 KČ)
+                {%- else -%}
+                  VYPRODÁNO
+                {%- endif -%}
+              </button>
+            {%- endform -%}
+          </product-form-component>
+        {%- endif -%}
+
+        <div class="vs-usp-grid">
+          <div class="vs-usp-item"><span class="vs-usp-item__icon" aria-hidden="true">⚡</span>LED &amp; EMS PÉČE</div>
+          <div class="vs-usp-item"><span class="vs-usp-item__icon" aria-hidden="true">⏱️</span>10 MIN DENNĚ</div>
+          <div class="vs-usp-item"><span class="vs-usp-item__icon" aria-hidden="true">🌿</span>100% BEZPEČNÉ</div>
+          <div class="vs-usp-item"><span class="vs-usp-item__icon" aria-hidden="true">📦</span>DOPRAVA ZDARMA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. RANNÍ PROMĚNA -->
+  <section class="vs-section">
+    <div class="vs-morning-card">
+      <div class="vs-morning-media">
+        <img
+          src="{{ morning_img_url }}"
+          alt="Ranní káva a VeaSkin péče"
+          width="800"
+          height="600"
+          loading="lazy"
+        >
+      </div>
+      <div>
+        <span class="vs-kicker">☕ První krok k vaší ranní proměně</span>
+        <h2 class="vs-heading">Vykročte do rána s úsměvem. <em>Stačí jen 10 minut péče.</em></h2>
+        <p class="vs-morning-lead">
+          VeaSkin vám během ranní kávy vrátí svěžest a příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky korektoru a make-upu.
+        </p>
+        <ul class="vs-morning-list">
+          <li>
+            <span class="vs-check-bullet" aria-hidden="true">✓</span>
+            <div><strong>Viditelné výsledky již za 14 dní</strong> — zjemnění ranních otoků, tmavých kruhů a vyhlazenější oční okolí bez jehel.</div>
+          </li>
+          <li>
+            <span class="vs-check-bullet" aria-hidden="true">✓</span>
+            <div><strong>30denní garance vrácení zboží</strong> — vyzkoušejte v klidu domova. Pokud neuvidíte změnu, vrátíme vám 100 % peněz.</div>
+          </li>
+          <li>
+            <span class="vs-check-bullet" aria-hidden="true">✓</span>
+            <div><strong>Doprava zdarma &amp; odeslání do 24 h</strong> — bleskové doručení s českou zákaznickou podporou.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. RYCHLÁ SEBEDIAGNOSTIKA -->
+  <section class="vs-section">
+    <div class="vs-quiz-card" data-vs-quiz>
+      <div class="vs-center-head">
+        <span class="vs-kicker">🩺 Rychlá sebediagnostika</span>
+        <h2 class="vs-heading">Trápí vás některý z těchto projevů?</h2>
+        <p class="vs-sub">Označte příznaky, které u sebe pozorujete, a zjistěte, kde je jejich skutečný fyziologický původ.</p>
+      </div>
+
+      <div class="vs-symptom-grid">
+        <button type="button" class="vs-symptom-btn is-checked" role="checkbox" aria-checked="true" data-vs-symptom>
+          <span class="vs-symptom-box" aria-hidden="true">✓</span>
+          <span>Ranní otoky očních víček a váčky po probuzení</span>
+        </button>
+        <button type="button" class="vs-symptom-btn is-checked" role="checkbox" aria-checked="true" data-vs-symptom>
+          <span class="vs-symptom-box" aria-hidden="true">✓</span>
+          <span>Tmavé kruhy pod očima, které nezakryje ani korektor</span>
+        </button>
+        <button type="button" class="vs-symptom-btn" role="checkbox" aria-checked="false" data-vs-symptom>
+          <span class="vs-symptom-box" aria-hidden="true">✓</span>
+          <span>Jemné vrásky a unavená, dehydratovaná pleť očního okolí</span>
+        </button>
+        <button type="button" class="vs-symptom-btn is-checked" role="checkbox" aria-checked="true" data-vs-symptom>
+          <span class="vs-symptom-box" aria-hidden="true">✓</span>
+          <span>Pocit pálení, těžkosti a suchých očí po práci u obrazovky</span>
+        </button>
+        <button type="button" class="vs-symptom-btn vs-symptom-btn--wide" role="checkbox" aria-checked="false" data-vs-symptom>
+          <span class="vs-symptom-box" aria-hidden="true">✓</span>
+          <span>Běžné oční krémy přinášejí jen krátkodobý nebo nulový efekt</span>
+        </button>
+      </div>
+
+      <div class="vs-diagnosis-banner" aria-live="polite">
+        <strong data-vs-diag-headline>Označeno 3 z 5 příznaků — Proč běžné krémy samy o sobě nestačí:</strong>
+        <span>Problém není ve svrchní vrstvě kůže, ale ve zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mikromasáž EMS pulzy a červené světlo.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. NÁVOD NA POUŽITÍ — 4 KROKY S REÁLNÝMI GIFY -->
+  <section class="vs-section" id="jak-funguje">
+    <div class="vs-center-head">
+      <span class="vs-kicker">✨ Snadná 10minutová péče</span>
+      <h2 class="vs-heading">Bez zákroků a bez rekonvalescence</h2>
+      <p class="vs-sub">Stačí nasadit, zvolit intenzitu a nechat přístroj pracovat za vás — po 10 minutách se sám vypne.</p>
+    </div>
+
+    <div class="vs-steps-grid">
+      <article class="vs-step-card">
+        <div class="vs-step-media">
+          <img src="{{ step1_gif_url }}" alt="Krok 1 — Čistá pleť" width="400" height="400" loading="lazy">
+          <span class="vs-step-pill">Krok 1</span>
+        </div>
+        <div class="vs-step-body">
+          <strong>Čistá pleť</strong>
+          Začněte s čistou pletí — důkladně si umyjte obličej, abyste odstranili mastnotu i nečistoty pro maximální účinek.
+        </div>
+      </article>
+
+      <article class="vs-step-card">
+        <div class="vs-step-media">
+          <img src="{{ step2_gif_url }}" alt="Krok 2 — Kapka séra či krému" width="400" height="400" loading="lazy">
+          <span class="vs-step-pill">Krok 2</span>
+        </div>
+        <div class="vs-step-body">
+          <strong>Kapka séra či krému</strong>
+          Naneste pod oči množství očního krému nebo séra na vodní bázi o velikosti hrášku pro zesílení vodivosti mikroproudů.
+        </div>
+      </article>
+
+      <article class="vs-step-card">
+        <div class="vs-step-media">
+          <img src="{{ step3_gif_url }}" alt="Krok 3 — Volba režimu" width="400" height="400" loading="lazy">
+          <span class="vs-step-pill">Krok 3</span>
+        </div>
+        <div class="vs-step-body">
+          <strong>Volba režimu</strong>
+          Zapněte přístroj a pomocí tlačítek zvolte požadovaný režim pulzů a příjemnou intenzitu mikroproudů.
+        </div>
+      </article>
+
+      <article class="vs-step-card">
+        <div class="vs-step-media">
+          <img src="{{ step4_gif_url }}" alt="Krok 4 — 10 minut relaxace" width="400" height="400" loading="lazy">
+          <span class="vs-step-pill">Krok 4</span>
+        </div>
+        <div class="vs-step-body">
+          <strong>10 minut relaxace</strong>
+          Pohodlně se usaďte, čtěte si nebo relaxujte — sami i ve dvou — zatímco přístroj pracuje za vás!
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 5. TECHNOLOGIE + INTERAKTIVNÍ PŘED / PO SLIDER & 82/87/91 % -->
+  <section class="vs-section" id="technologie">
+    <div class="vs-science-grid" id="vysledky">
+      <!-- Left: Clinical Benefits -->
+      <div class="vs-science-card">
+        <div>
+          <span class="vs-kicker vs-kicker--dark">🔬 Klinicky ověřená synergie</span>
+          <h2 class="vs-heading">Proč je <span class="vs-science-highlight">terapie červeným světlem + mikroproudy</span> tak účinná</h2>
+
+          <ul class="vs-science-list">
+            <li>
+              <span class="vs-science-dot" aria-hidden="true">✓</span>
+              <div><strong>Červené světlo (630–660 nm) proniká 2–3 mm hluboko</strong> – stimuluje tvorbu kolagenu a zrychluje mikrocirkulaci tam, kam běžné krémy nedosáhnou.</div>
+            </li>
+            <li>
+              <span class="vs-science-dot" aria-hidden="true">✓</span>
+              <div><strong>Mikroproudy aktivují lymfatickou drenáž</strong> – eliminují hromadění tekutiny, která způsobuje ranní otoky a váčky pod očima.</div>
+            </li>
+            <li>
+              <span class="vs-science-dot" aria-hidden="true">✓</span>
+              <div><strong>Řeší všechny 3 hlavní příčiny problémů</strong> – slabou cirkulaci (tmavé kruhy), zadržování vody (otoky) a úbytek kolagenu (vrásky).</div>
+            </li>
+            <li>
+              <span class="vs-science-dot" aria-hidden="true">✓</span>
+              <div><strong>Původ v rehabilitační medicíně a výzkumu NASA</strong> – podloženo desítkami let studií, 100% neinvazivní bez bolesti a operací.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Before / After Slider + 3 Stats -->
+      <div class="vs-ba-card">
+        <div>
+          <div class="vs-ba-top">
+            <strong>Viditelná proměna už během několika týdnů</strong>
+            <span class="vs-ba-hint">↔ Posuňte pro srovnání</span>
+          </div>
+
+          <div class="vs-ba-viewer" data-vs-ba-viewer>
+            <img src="{{ after_img_url }}" alt="Po používání VeaSkin" width="800" height="550" loading="lazy">
+            <img src="{{ before_img_url }}" alt="Před používáním VeaSkin" class="vs-ba-before" width="800" height="550" loading="lazy" data-vs-ba-before>
+            <div class="vs-ba-line" data-vs-ba-line></div>
+            <div class="vs-ba-knob" aria-hidden="true" data-vs-ba-knob>↔</div>
+            <span class="vs-ba-tag vs-ba-tag--left">PŘED</span>
+            <span class="vs-ba-tag vs-ba-tag--right">PO KÚŘE</span>
+            <input
+              type="range"
+              min="5"
+              max="95"
+              value="50"
+              class="vs-ba-range"
+              aria-label="Posuvník pro porovnání fotografie před a po kúře"
+              data-vs-ba-range
+            >
+          </div>
+        </div>
+
+        <div class="vs-stats-row">
+          <div class="vs-stat-box">
+            <div class="vs-stat-num">82 %</div>
+            <div class="vs-stat-txt">zesvětlení tmavých kruhů již po 2 týdnech</div>
+          </div>
+          <div class="vs-stat-box">
+            <div class="vs-stat-num">87 %</div>
+            <div class="vs-stat-txt">výrazná redukce ranních otoků a váčků</div>
+          </div>
+          <div class="vs-stat-box">
+            <div class="vs-stat-num">91 %</div>
+            <div class="vs-stat-txt">vyhlazení jemných vrásek během 5 týdnů</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. REALISTICKÝ HARMONOGRAM -->
+  <section class="vs-section">
+    <div class="vs-center-head">
+      <span class="vs-kicker">⏱️ Realistický harmonogram</span>
+      <h2 class="vs-heading">Co můžete očekávat den po dni?</h2>
+      <p class="vs-sub">Žádné nereálné zázraky přes noc. Takhle probíhá přirozená obnova při 10minutovém rituálu:</p>
+    </div>
+
+    <div class="vs-timeline-grid">
+      <article class="vs-tl-card">
+        <span class="vs-tl-tag">Den 1</span>
+        <h3>Okamžitě po 1. použití</h3>
+        <p>Příjemné uvolnění očního tlaku a okamžitý pocit svěžesti. Nastartovaný krevní oběh pomáhá stáhnout ranní otoky víček už během 15 minut.</p>
+      </article>
+      <article class="vs-tl-card">
+        <span class="vs-tl-tag">Týden 2</span>
+        <h3>Po 14 dnech pravidelné péče</h3>
+        <p>Obnovení správného odtoku lymfy. Tmavé stíny způsobené městnáním krve viditelně blednou a oční okolí působí pevněji a odpočatě.</p>
+      </article>
+      <article class="vs-tl-card">
+        <span class="vs-tl-tag">Týden 5+</span>
+        <h3>Dlouhodobá prevence a regenerace</h3>
+        <p>Pravidelná stimulace zabraňuje nočnímu hromadění tekutiny. Pokožka si zachovává pružnost a probouzíte se se svěžím pohledem každé ráno.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 7. SROVNÁNÍ + CHYTRÁ INVESTICE -->
+  <section class="vs-section" id="srovnani">
+    <div class="vs-center-head">
+      <span class="vs-kicker">⚖️ Upřímné srovnání</span>
+      <h2 class="vs-heading">Proč je VeaSkin nejchytřejší volba?</h2>
+    </div>
+
+    <div class="vs-comp-grid">
+      <div class="vs-comp-box">
+        <h3>Běžné oční krémy</h3>
+        <div class="vs-comp-price">cca 1 500 Kč <small>/ 2 měsíce</small></div>
+        <ul class="vs-comp-list">
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Působí pouze na povrchu epidermis</li>
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nerozhýbou stagnující lymfu</li>
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost neustálého dokupování</li>
+          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Snadná domácí aplikace</li>
+        </ul>
+      </div>
+
+      <div class="vs-comp-box vs-comp-box--winner">
+        <span class="vs-winner-badge">Chytrá volba</span>
+        <h3>VeaSkin Brýle proti otokům</h3>
+        <div class="vs-comp-price">od 995 Kč <small>/ ks v sadě (1 200 Kč solo)</small></div>
+        <ul class="vs-comp-list">
+          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Cílená lymfatická masáž + 660 nm LED</strong></li>
+          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Úleva od ranních otoků už po 10 min.</strong></li>
+          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Roky péče bez dalších investic</strong></li>
+          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>30 dní na vyzkoušení bez rizika</strong></li>
+        </ul>
+      </div>
+
+      <div class="vs-comp-box">
+        <h3>Klinické zákroky</h3>
+        <div class="vs-comp-price">8 000 – 15 000 Kč <small>/ sezení</small></div>
+        <ul class="vs-comp-list">
+          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Výrazný vizuální efekt</li>
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Jehly, modřinky a čas na zotavení</li>
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost opakování každých 6–12 měsíců</li>
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Vysoké finanční náklady</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="vs-reframe-banner">
+      <div>
+        <div class="vs-reframe-kicker">Roční útrata za krémy a séra</div>
+        <div class="vs-reframe-amount">cca 6 000 Kč</div>
+        <div class="vs-reframe-note">bez řešení stagnující lymfy</div>
+      </div>
+      <div class="vs-vs-circle" aria-hidden="true">VS</div>
+      <div>
+        <div class="vs-reframe-kicker vs-reframe-kicker--accent">VeaSkin na celý rok</div>
+        <div class="vs-reframe-amount vs-reframe-amount--accent">3,30 Kč / den</div>
+        <div class="vs-reframe-note">nebo <strong>2,70 Kč / den</strong> ve zvýhodněné sadě pro dva</div>
+      </div>
+      <div>
+        <a href="#nabidka-box" class="vs-cta-btn vs-reframe-cta">
+          Vybrat nabídku se slevou →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. VYBRANÉ OVĚŘENÉ RECENZE -->
+  <section class="vs-section" id="recenze-sekce">
+    <div class="vs-center-head">
+      <span class="vs-kicker">★ 4,9 / 5 z 159 hodnocení</span>
+      <h2 class="vs-heading">Od unavených očí k zářivému pohledu</h2>
+      <p class="vs-sub">86 % pětihvězdičkových a 14 % čtyřhvězdičkových recenzí od českých zákaznic a zákazníků.</p>
+    </div>
+
+    <div class="vs-reviews-grid">
+      <article class="vs-rev-card">
+        <div>
+          <div class="vs-rev-top">
+            <div class="vs-rev-user">
+              <div class="vs-rev-avatar" aria-hidden="true">KP</div>
+              <div>
+                <div class="vs-rev-name">Klára P.</div>
+                <div class="vs-rev-verified">✓ Ověřený nákup</div>
+              </div>
+            </div>
+            <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
+          </div>
+          <p class="vs-rev-text">
+            „Ranní káva a VeaSkin brýle je skvělá kombinace. Oči jsou po ránu hned otevřené a svěží, kruhy jsou světlejší už po deseti dnech a korektor už skoro nepotřebuji.“
+          </p>
+        </div>
+        <div class="vs-rev-meta">Zakoupeno: 1× Brýle proti otokům</div>
+      </article>
+
+      <article class="vs-rev-card">
+        <div>
+          <div class="vs-rev-top">
+            <div class="vs-rev-user">
+              <div class="vs-rev-avatar" aria-hidden="true">MN</div>
+              <div>
+                <div class="vs-rev-name">Martin N.</div>
+                <div class="vs-rev-verified">✓ Ověřený nákup</div>
+              </div>
+            </div>
+            <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
+          </div>
+          <p class="vs-rev-text">
+            „Objednal jsem manželce a je nadšená – nakonec jsme vzali druhé i pro mě k počítači. Nasadím a nemusím nic hlídat, samo se vypne a baterie vydrží déle než týden.“
+          </p>
+        </div>
+        <div class="vs-rev-meta">Zakoupeno: Sada 2× Brýle pro dva</div>
+      </article>
+
+      <article class="vs-rev-card">
+        <div>
+          <div class="vs-rev-top">
+            <div class="vs-rev-user">
+              <div class="vs-rev-avatar" aria-hidden="true">HV</div>
+              <div>
+                <div class="vs-rev-name">Hana V.</div>
+                <div class="vs-rev-verified">✓ Ověřený nákup</div>
+              </div>
+            </div>
+            <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
+          </div>
+          <p class="vs-rev-text">
+            „Mikroproudy jsou velmi jemné, držení je lehké a příjemné na dotek. Dlouhodobější efekt než jednorázové polštářky pod oči a zlepšení je viditelné i na fotkách.“
+          </p>
+        </div>
+        <div class="vs-rev-meta">Zakoupeno: 1× Brýle proti otokům</div>
+      </article>
+    </div>
+  </section>
+</div>
+
+{% javascript %}
+  document.addEventListener('click', (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+
+    // 1. Thumbnail switcher
+    const thumbBtn = target.closest('[data-vs-thumb]');
+    if (thumbBtn) {
+      const root = thumbBtn.closest('[data-vs-experience]');
+      const mainImg = root?.querySelector('[data-vs-main-img]');
+      const url = thumbBtn.getAttribute('data-vs-thumb');
+      if (mainImg && url) {
+        mainImg.setAttribute('src', url);
+        root.querySelectorAll('[data-vs-thumb]').forEach((btn) => {
+          const active = btn === thumbBtn;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+      }
+      return;
+    }
+
+    // 2. Bundle Offer selector
+    const offerBtn = target.closest('[data-vs-offer]');
+    if (offerBtn) {
+      const root = offerBtn.closest('[data-vs-experience]');
+      if (!root) return;
+      root.querySelectorAll('[data-vs-offer]').forEach((opt) => {
+        const selected = opt === offerBtn;
+        opt.classList.toggle('is-selected', selected);
+        opt.setAttribute('aria-checked', selected ? 'true' : 'false');
+      });
+
+      const variantId = offerBtn.getAttribute('data-variant-id');
+      const qty = offerBtn.getAttribute('data-qty');
+      const bundleLabel = offerBtn.getAttribute('data-bundle-label');
+      const ctaLabel = offerBtn.getAttribute('data-cta-label');
+
+      const idInput = root.querySelector('[data-vs-form-id]');
+      const qtyInput = root.querySelector('[data-vs-form-qty]');
+      const bundleInput = root.querySelector('[data-vs-form-bundle]');
+      const ctaBtn = root.querySelector('[data-vs-cta-btn]');
+
+      if (idInput && variantId) idInput.value = variantId;
+      if (qtyInput && qty) qtyInput.value = qty;
+      if (bundleInput && bundleLabel) bundleInput.value = bundleLabel;
+      if (ctaBtn && ctaLabel && !ctaBtn.hasAttribute('disabled')) {
+        ctaBtn.textContent = ctaLabel;
+      }
+      return;
+    }
+
+    // 3. Symptom Diagnostic checkboxes
+    const symptomBtn = target.closest('[data-vs-symptom]');
+    if (symptomBtn) {
+      const quizCard = symptomBtn.closest('[data-vs-quiz]');
+      if (!quizCard) return;
+      const nowChecked = !symptomBtn.classList.contains('is-checked');
+      symptomBtn.classList.toggle('is-checked', nowChecked);
+      symptomBtn.setAttribute('aria-checked', nowChecked ? 'true' : 'false');
+
+      const count = quizCard.querySelectorAll('[data-vs-symptom].is-checked').length;
+      const headline = quizCard.querySelector('[data-vs-diag-headline]');
+      if (headline) {
+        if (count === 0) {
+          headline.textContent = 'Vyberte alespoň jeden příznak pro zobrazení vysvětlení:';
+        } else {
+          headline.textContent = `Označeno ${count} z 5 příznaků — Proč běžné krémy samy o sobě nestačí:`;
+        }
+      }
+    }
+  });
+
+  // 4. Interactive Before / After range slider
+  document.addEventListener('input', (event) => {
+    const input = event.target instanceof HTMLInputElement ? event.target : null;
+    if (!input || !input.hasAttribute('data-vs-ba-range')) return;
+    const viewer = input.closest('[data-vs-ba-viewer]');
+    if (!viewer) return;
+    const val = Number(input.value);
+    const beforeImg = viewer.querySelector('[data-vs-ba-before]');
+    const line = viewer.querySelector('[data-vs-ba-line]');
+    const knob = viewer.querySelector('[data-vs-ba-knob]');
+    if (beforeImg instanceof HTMLElement) {
+      beforeImg.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
+    }
+    if (line instanceof HTMLElement) {
+      line.style.left = `${val}%`;
+    }
+    if (knob instanceof HTMLElement) {
+      knob.style.left = `${val}%`;
+    }
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "VeaSkin Produktová Sekce",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_heading",
+      "label": "Hlavní nadpis produktu",
+      "default": "Brýle proti otokům"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VeaSkin Produktová Sekce"
+    }
+  ]
+}
+{% endschema %}

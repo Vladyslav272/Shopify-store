@@ -1,0 +1,134 @@
+{% liquid
+  assign main_product = all_products['eye-care-machine-household-eye-massager']
+  if main_product != blank and main_product.url != blank
+    assign base_product_url = main_product.url
+  else
+    assign base_product_url = '/products/eye-care-machine-household-eye-massager'
+  endif
+
+  if request.page_type == 'product'
+    assign anchor_prefix = ''
+    assign logo_href = '#top'
+  else
+    assign anchor_prefix = base_product_url
+    assign logo_href = base_product_url
+  endif
+
+  assign logo_image = images['90.png']
+%}
+
+<script
+  type="module"
+  src="{{ 'cart-icon.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+<script
+  type="module"
+  src="{{ 'header-actions.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+
+<div class="vs-site-header-shell">
+  <div class="vs-topbar" role="region" aria-label="Důležité informace o dopravě a slevě">
+    <div class="vs-topbar__inner">
+      <span>🚚 {{ section.settings.shipping_text }}</span>
+      <span class="vs-topbar__pill">{{ section.settings.promo_pill }}</span>
+      <span class="vs-topbar__hide-sm">🛡️ {{ section.settings.guarantee_text }}</span>
+    </div>
+  </div>
+
+  <div class="vs-header-sticky">
+    <header class="vs-header">
+      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }}">
+        {%- if logo_image != blank -%}
+          <img
+            src="{{ logo_image | image_url: width: 160 }}"
+            alt="{{ shop.name | default: 'VeaSkin' | escape }}"
+            class="vs-logo__img"
+            width="28"
+            height="28"
+          >
+        {%- endif -%}
+        <span class="vs-logo__text">VeaSkin</span>
+      </a>
+
+      <nav aria-label="Hlavní navigace">
+        <ul class="vs-nav">
+          <li><a href="{{ anchor_prefix }}#jak-funguje" class="vs-nav__link">4 kroky péče</a></li>
+          <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">LED &amp; EMS</a></li>
+          <li><a href="{{ anchor_prefix }}#vysledky" class="vs-nav__link">Před a po</a></li>
+          <li><a href="{{ anchor_prefix }}#srovnani" class="vs-nav__link">Srovnání</a></li>
+          <li><a href="{{ anchor_prefix }}#dotazy" class="vs-nav__link">Časté dotazy</a></li>
+        </ul>
+      </nav>
+
+      <div class="vs-header__actions">
+        <header-actions>
+          {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+            <button
+              type="button"
+              class="vs-cart-chip button-unstyled"
+              on:click="#cart-drawer/toggle"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="cart-drawer"
+              aria-label="{{ 'accessibility.cart' | t }}"
+              aria-describedby="cart-bubble-text"
+              data-testid="vs-cart-drawer-trigger"
+            >
+              <span aria-hidden="true">🛍️</span>
+              <span>Košík</span>
+              <cart-icon class="header-actions__cart-icon" data-testid="cart-icon">
+                {% render 'cart-bubble', limit: 100 %}
+              </cart-icon>
+            </button>
+          {%- else -%}
+            <a
+              href="{{ routes.cart_url }}"
+              class="vs-cart-chip"
+              aria-label="{{ 'accessibility.cart' | t }}"
+            >
+              <span aria-hidden="true">🛍️</span>
+              <span>Košík</span>
+              <cart-icon class="header-actions__cart-icon" data-testid="cart-icon">
+                {% render 'cart-bubble', limit: 100 %}
+              </cart-icon>
+            </a>
+          {%- endif -%}
+          <span
+            ref="liveRegion"
+            class="visually-hidden"
+            role="status"
+            data-testid="cart-count-live-region"
+          ></span>
+        </header-actions>
+      </div>
+    </header>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "VeaSkin Hlavička",
+  "settings": [
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Text dopravy",
+      "default": "Doprava zdarma na všechny objednávky"
+    },
+    {
+      "type": "text",
+      "id": "promo_pill",
+      "label": "Zvýrazněný štítek akce",
+      "default": "SLEVA AŽ 42 % NA SADY"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Text garance",
+      "default": "30 dní na vyzkoušení bez rizika"
+    }
+  ]
+}
+{% endschema %}

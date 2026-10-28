@@ -1,0 +1,33 @@
+<footer class="vs-site-footer" role="contentinfo">
+  <div class="vs-site-footer__inner">
+    <nav aria-label="Právní informace a obchodní podmínky">
+      <ul class="vs-footer-links">
+        <li><a href="/policies/refund-policy">Vrácení zboží &amp; Reklamace</a></li>
+        <li><a href="/policies/shipping-policy">Doprava &amp; Dodání</a></li>
+        <li><a href="/policies/contact-information">Kontaktní Údaje</a></li>
+        <li><a href="/policies/terms-of-service">Obchodní Podmínky</a></li>
+        <li><a href="/policies/privacy-policy">Ochrana Osobních Údajů</a></li>
+      </ul>
+    </nav>
+
+    <ul class="vs-footer-payments" aria-label="Platební metody">
+      {%- assign payment_types = 'apple_pay,google_pay,visa,master,paypal' | split: ',' -%}
+      {%- for type in payment_types -%}
+        <li>
+          {{ type | payment_type_svg_tag: class: 'vs-footer-payment-svg' }}
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <p class="vs-footer-copy">
+      Apple Pay &bull; Google Pay &bull; Visa &bull; Mastercard &bull; PayPal &mdash; &copy; {{ 'now' | date: '%Y' }} {{ shop.name | default: 'Veaskin' }}
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "VeaSkin Patička",
+  "settings": []
+}
+{% endschema %}
