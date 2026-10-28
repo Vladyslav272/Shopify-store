@@ -412,6 +412,58 @@
       faqSection.parentNode.insertBefore(container, faqSection);
     }
 
+    
+    function decorateOldSections() {
+      // 1. Steps heading section_pNEVnp
+      var stepsHeadingSec = document.querySelector('[id*="section_pNEVnp"]');
+      if (stepsHeadingSec && !stepsHeadingSec.querySelector('.section-badge')) {
+        var hTitle = stepsHeadingSec.querySelector('h2, h3, h4, .text-block');
+        if (hTitle) {
+          var badge = document.createElement('div');
+          badge.className = 'section-badge-wrapper';
+          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">✨</span> 4 jednoduché kroky</span>';
+          hTitle.parentNode.insertBefore(badge, hTitle);
+        }
+      }
+
+      // 2. Comparison slider section_Kny7xc
+      var sliderSec = document.querySelector('[id*="section_Kny7xc"]');
+      if (sliderSec && !sliderSec.querySelector('.section-badge')) {
+        var sTitle = sliderSec.querySelector('h2, h3, h4, rte-formatter');
+        if (sTitle) {
+          var badge = document.createElement('div');
+          badge.className = 'section-badge-wrapper';
+          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">✨</span> Viditelné výsledky</span>';
+          sTitle.parentNode.insertBefore(badge, sTitle);
+        }
+      }
+
+      // 3. FAQ section_faq
+      var faqSec = document.querySelector('[id*="section_faq"]');
+      if (faqSec && !faqSec.querySelector('.section-badge')) {
+        var fTitle = faqSec.querySelector('h2, h3, h4, .text-block');
+        if (fTitle) {
+          var badge = document.createElement('div');
+          badge.className = 'section-badge-wrapper';
+          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">💬</span> Vše, co potřebujete vědět</span>';
+          fTitle.parentNode.insertBefore(badge, fTitle);
+        }
+      }
+
+      // 4. Judge.me review carousel
+      var revCarousel = document.querySelector('.jdgm-carousel-wrapper');
+      if (revCarousel && !revCarousel.querySelector('.section-badge')) {
+        var cTitle = revCarousel.querySelector('.jdgm-carousel-title');
+        if (cTitle) {
+          var badge = document.createElement('div');
+          badge.className = 'section-badge-wrapper';
+          badge.style.textAlign = 'center';
+          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">⭐</span> Skutečné zkušenosti</span>';
+          cTitle.parentNode.insertBefore(badge, cTitle);
+        }
+      }
+    }
+
     function injectTechnologyBenefits() {
       var existing = document.querySelector('.veaskin-benefits-card');
       var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
@@ -442,6 +494,7 @@
         <section class="veaskin-benefits-section" id="veaskin-technology-benefits">
           <div class="veaskin-benefits-container">
             <div class="veaskin-benefits-card">
+              <span class="section-badge"><span class="section-badge-icon">🔬</span> Vědecky ověřená technologie</span>
               <h2 class="veaskin-benefits-title">
                 Proč je <span class="veaskin-benefits-highlight">terapie červeným světlem +</span><br>
                 <span class="veaskin-benefits-highlight">mikroproudy</span> tak účinná
@@ -751,6 +804,7 @@
       injectComparisonTable();
       injectTimelineResults();
       injectPriceReframing();
+      decorateOldSections();
 
       // Carousel title
       document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
