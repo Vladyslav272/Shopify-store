@@ -14,7 +14,7 @@
     if item.variant.compare_at_price > item.original_price
       assign item_cmp = item.variant.compare_at_price
     else
-      assign item_cmp = item.original_price
+      assign item_cmp = item.original_price | times: 148 | divided_by: 100
     endif
     assign item_cmp_line = item_cmp | times: item.quantity
     assign summary_compare_total = summary_compare_total | plus: item_cmp_line

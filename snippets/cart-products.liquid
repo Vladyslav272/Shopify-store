@@ -158,7 +158,7 @@
                 if item.variant.compare_at_price > item.original_price
                   assign effective_compare_unit = item.variant.compare_at_price
                 else
-                  assign effective_compare_unit = item.original_price
+                  assign effective_compare_unit = item.original_price | times: 148 | divided_by: 100
                 endif
                 assign effective_compare_line = effective_compare_unit | times: item.quantity
 
