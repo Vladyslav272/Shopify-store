@@ -2563,13 +2563,16 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 
-/* Brand Typography: Playfair Display Bold (Headings) + DM Sans (Body & UI) */
+/* Brand Typography: Lora Bold (Headings) + Plus Jakarta Sans (Body & UI) */
 :root {
-  --font-heading--family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
+  --font-heading--family: 'Lora', Georgia, 'Times New Roman', serif !important;
   --font-heading--weight: 700 !important;
-  --font-body--family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  --font-subheading--family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  --font-accent--family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-body--family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-paragraph--family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-subheading--family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --font-accent--family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --cart-primary-font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  --cart-secondary-font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 body,
@@ -2687,7 +2690,7 @@ h6,
 .product-comparison-title,
 .product-timeline-title,
 .product-price-reframe-title {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: clamp(22px, 3.5vw, 30px);
   line-height: 1.25;
   color: #2B2325;
@@ -2700,7 +2703,7 @@ h6,
 .product-comparison-subtitle,
 .product-timeline-subtitle,
 .product-price-reframe-subtitle {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 15px;
   color: #6B6264;
   max-width: 580px;
@@ -2765,7 +2768,7 @@ h6,
 }
 
 .product-quiz-item-text {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 15px;
   font-weight: 500;
   color: #2B2325;
@@ -2849,7 +2852,7 @@ h6,
 }
 
 .comp-col-heading {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: 18px;
   color: #2B2325;
   margin: 0 0 8px;
@@ -2857,7 +2860,7 @@ h6,
 }
 
 .comp-col-price {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 16px;
@@ -2984,7 +2987,7 @@ h6,
 }
 
 .timeline-step-title {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: 17px;
   color: #2B2325;
   margin: 0;
@@ -2992,7 +2995,7 @@ h6,
 }
 
 .timeline-step-tag {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 11.5px;
   font-weight: 700;
   background: #FBEFEE;
@@ -3004,7 +3007,7 @@ h6,
 }
 
 .timeline-step-desc p {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 14px;
   color: #5C5254;
   line-height: 1.55;
@@ -3046,7 +3049,7 @@ h6,
 }
 
 .reframe-calc-label {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 13.5px;
   color: #6B6264;
   margin-bottom: 6px;
@@ -3058,7 +3061,7 @@ h6,
 }
 
 .reframe-calc-amount {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 24px;
   font-weight: 700;
   color: #2B2325;
@@ -3070,13 +3073,13 @@ h6,
 }
 
 .reframe-calc-note {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 12px;
   color: #8A7F81;
 }
 
 .reframe-vs-pill {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-weight: 800;
   font-size: 16px;
   color: #BB6966;
@@ -3123,7 +3126,7 @@ h6,
   background: #BB6966;
   color: #FFFFFF !important;
   text-decoration: none !important;
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-weight: 600;
   font-size: 15.5px;
   padding: 16px 26px;
@@ -3283,7 +3286,7 @@ button[name="add"]:not([class*="secondary"]):hover {
   color: #BB6966;
   padding: 5px 14px;
   border-radius: 999px;
-  font-family: var(--font-body--family, 'DM Sans', sans-serif);
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -3334,7 +3337,7 @@ button[name="add"]:not([class*="secondary"]):hover {
 
 .shopify-section[id*="section_pNEVnp"] h4,
 .shopify-section[id*="section_pNEVnp"] .h4 {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: clamp(22px, 3.2vw, 30px) !important;
   color: #2B2325 !important;
   font-weight: 700 !important;
@@ -3417,7 +3420,7 @@ button[name="add"]:not([class*="secondary"]):hover {
 .shopify-section[id*="section_n6Btmh"] h5,
 .shopify-section[id*="section_n6Btmh"] .h5 {
   display: inline-block !important;
-  font-family: var(--font-body--family, 'DM Sans', sans-serif) !important;
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif) !important;
   font-size: 11.5px !important;
   font-weight: 700 !important;
   background: #FBEFEE !important;
@@ -3442,7 +3445,7 @@ button[name="add"]:not([class*="secondary"]):hover {
 
 /* Step Paragraph Text */
 .shopify-section[id*="section_n6Btmh"] p {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif) !important;
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif) !important;
   font-size: 13px !important;
   color: #5C5254 !important;
   line-height: 1.45 !important;
@@ -3527,7 +3530,7 @@ button[name="add"]:not([class*="secondary"]):hover {
 
 .veaskin-benefits-title {
   color: #2B2325 !important;
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: clamp(22px, 3.5vw, 30px) !important;
   line-height: 1.25 !important;
   margin: 10px auto 26px !important;
@@ -3592,7 +3595,7 @@ button[name="add"]:not([class*="secondary"]):hover {
 
 .veaskin-benefits-text {
   color: #3D3536 !important;
-  font-family: var(--font-body--family, 'DM Sans', sans-serif) !important;
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif) !important;
   font-size: 14px !important;
   line-height: 1.55 !important;
 }
@@ -3625,7 +3628,7 @@ button[name="add"]:not([class*="secondary"]):hover {
 
 .shopify-section[id*="section_Kny7xc"] h4,
 .shopify-section[id*="section_Kny7xc"] .h4 {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: clamp(22px, 3.5vw, 30px) !important;
   color: #2B2325 !important;
   font-weight: 700 !important;
@@ -3687,7 +3690,7 @@ comparison-slider-component {
 
 .shopify-section[id*="section_faq"] h3,
 .shopify-section[id*="section_faq"] .h3 {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-size: clamp(22px, 3.5vw, 30px) !important;
   color: #2B2325 !important;
   font-weight: 700 !important;
@@ -3733,7 +3736,7 @@ comparison-slider-component {
 }
 
 .shopify-section[id*="section_faq"] summary.details__header {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif) !important;
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif) !important;
   font-size: 15.5px !important;
   font-weight: 600 !important;
   color: #2B2325 !important;
@@ -3753,7 +3756,7 @@ comparison-slider-component {
 }
 
 .shopify-section[id*="section_faq"] .details__content {
-  font-family: var(--font-body--family, 'DM Sans', sans-serif) !important;
+  font-family: var(--font-body--family, 'Plus Jakarta Sans', sans-serif) !important;
   font-size: 14px !important;
   color: #5C5254 !important;
   line-height: 1.6 !important;
@@ -3806,7 +3809,7 @@ comparison-slider-component {
 }
 
 .jdgm-carousel-title {
-  font-family: var(--font-heading--family, 'Playfair Display', Georgia, serif) !important;
+  font-family: var(--font-heading--family, 'Lora', Georgia, serif) !important;
   font-weight: 700 !important;
   color: #2B2325 !important;
   font-size: clamp(20px, 3vw, 26px) !important;
