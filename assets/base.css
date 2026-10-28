@@ -2210,76 +2210,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 
-/* Judge.me Reviews Carousel - Mobile 2 reviews side-by-side */
-@media (max-width: 749px) {
-  .jdgm-carousel,
-  .jdgm-carousel[data-arrows-on-sides="true"] {
-    margin: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 !important;
-  }
-  .jdgm-carousel__item-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-    padding: 8px 16px 18px !important;
-    box-sizing: border-box !important;
-  }
-  .jdgm-carousel__item-container::-webkit-scrollbar {
-    display: none !important;
-  }
-  .jdgm-carousel__item-wrapper {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    width: max-content !important;
-    transform: none !important;
-    gap: 12px !important;
-  }
-  .jdgm-carousel-item {
-    width: calc((100vw - 44px) / 2) !important;
-    min-width: calc((100vw - 44px) / 2) !important;
-    max-width: calc((100vw - 44px) / 2) !important;
-    box-sizing: border-box !important;
-    scroll-snap-align: start !important;
-    padding: 14px 12px !important;
-    white-space: normal !important;
-    min-height: 185px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    border-radius: 12px !important;
-  }
-  .jdgm-carousel-item__inner-wrapper {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    justify-content: space-between !important;
-  }
-  .jdgm-carousel-item__review-title {
-    font-size: 0.86rem !important;
-    line-height: 1.25 !important;
-    font-weight: 700 !important;
-    margin-bottom: 4px !important;
-  }
-  .jdgm-carousel-item__review-body {
-    font-size: 0.78rem !important;
-    line-height: 1.35 !important;
-  }
-  .jdgm-carousel-item__reviewer-name {
-    font-size: 0.78rem !important;
-    font-weight: 600 !important;
-  }
-  .jdgm-carousel-item__timestamp {
-    font-size: 0.72rem !important;
-  }
-  .jdgm-carousel-item .jdgm-star {
-    font-size: 13px !important;
-  }
-}
+/* Note: Judge.me Carousel styles consolidated in Section 5 */
 
 /* Space after colon in care heading */
 [class*="text_j7Rzrc"] {
@@ -3664,7 +3595,35 @@ comparison-slider-component {
   padding: 0 20px 18px 20px !important;
 }
 
-/* 5. Review Carousel Card */
+/* 5. Review Carousel Card & Judge.me Overrides */
+
+/* Remove Judge.me star square/boxed background and set warm golden amber */
+.jdgm-carousel-wrapper .jdgm-star.jdgm-star,
+.jdgm-carousel .jdgm-star.jdgm-star,
+.jdgm-carousel-item .jdgm-star,
+.jdgm-star,
+.jdgm-star.jdgm--on,
+.jdgm-star.jdgm--off {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 1.5px !important;
+}
+
+.jdgm-carousel-wrapper .jdgm-star.jdgm-star:before,
+.jdgm-carousel .jdgm-star.jdgm-star:before,
+.jdgm-carousel-item .jdgm-star:before,
+.jdgm-star.jdgm--on:before {
+  color: #E59866 !important;
+}
+
+.jdgm-star.jdgm--off:before {
+  color: #EADBDA !important;
+}
+
 .shopify-section[id*="1792698193c2bc235e"] {
   background-color: #FAF5F5 !important;
   padding: 30px 16px !important;
@@ -3690,25 +3649,138 @@ comparison-slider-component {
 }
 
 .jdgm-carousel__item-wrapper {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;
+  width: max-content !important;
+}
+
+.jdgm-carousel-item__inner-wrapper {
   background: #FAF8F8 !important;
   border: 1.5px solid #EADBDA !important;
-  border-radius: 14px !important;
-  padding: 16px !important;
+  border-radius: 16px !important;
+  padding: 18px 16px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  justify-content: space-between !important;
   transition: all 0.2s ease !important;
 }
 
-.jdgm-carousel__item-wrapper:hover {
+.jdgm-carousel-item:hover .jdgm-carousel-item__inner-wrapper {
   border-color: #BB6966 !important;
   background: #FFFDFD !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(187, 105, 102, 0.08);
 }
 
-/* Responsive Overrides */
+/* Mobile: Exactly 2 reviews side-by-side with no horizontal cutoff */
+@media (max-width: 749px) {
+  .shopify-section[id*="1792698193c2bc235e"] {
+    padding: 24px 12px !important;
+  }
+  .jdgm-carousel-wrapper {
+    padding: 20px 12px !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .jdgm-carousel,
+  .jdgm-carousel[data-arrows-on-sides="true"] {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .jdgm-carousel__item-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 4px 0 14px 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .jdgm-carousel__item-container::-webkit-scrollbar {
+    display: none !important;
+  }
+  .jdgm-carousel__item-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    transform: none !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .jdgm-carousel-item {
+    width: calc((100vw - 61px) / 2) !important;
+    min-width: calc((100vw - 61px) / 2) !important;
+    max-width: calc((100vw - 61px) / 2) !important;
+    box-sizing: border-box !important;
+    scroll-snap-align: start !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .jdgm-carousel-item__inner-wrapper {
+    background: #FAF8F8 !important;
+    border: 1.5px solid #EADBDA !important;
+    border-radius: 14px !important;
+    padding: 14px 10px !important;
+    box-sizing: border-box !important;
+    min-height: 175px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  .jdgm-carousel-item__review-title {
+    font-size: 0.84rem !important;
+    line-height: 1.25 !important;
+    font-weight: 700 !important;
+    margin: 6px 0 4px 0 !important;
+    color: #2B2325 !important;
+  }
+  .jdgm-carousel-item__review-body {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+    color: #5C5254 !important;
+    margin-bottom: 8px !important;
+  }
+  .jdgm-carousel-item__reviewer-name {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #2B2325 !important;
+  }
+  .jdgm-carousel-item__timestamp {
+    font-size: 0.7rem !important;
+    color: #8A7E80 !important;
+  }
+  .jdgm-carousel-item .jdgm-star {
+    font-size: 13px !important;
+  }
+}
+
+/* Responsive Overrides for Other Sections */
 @media (max-width: 749px) {
   .shopify-section[id*="section_n6Btmh"] .custom-section-content,
   .shopify-section[id*="section_Kny7xc"] .custom-section-content,
   .shopify-section[id*="section_faq"] .custom-section-content,
-  .veaskin-benefits-card,
-  .jdgm-carousel-wrapper {
+  .veaskin-benefits-card {
     padding: 24px 16px !important;
     border-radius: 18px !important;
     width: 100% !important;
