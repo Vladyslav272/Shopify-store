@@ -1,9 +1,12 @@
 {% liquid
-  assign main_product = all_products['eye-care-machine-household-eye-massager']
+  assign main_product = all_products['led-ems-bryle-na-ocni-okoli']
+  if main_product == blank
+    assign main_product = collections.all.products.first
+  endif
   if main_product != blank and main_product.url != blank
     assign base_product_url = main_product.url
   else
-    assign base_product_url = '/products/eye-care-machine-household-eye-massager'
+    assign base_product_url = '/products/led-ems-bryle-na-ocni-okoli'
   endif
 
   if request.page_type == 'product'

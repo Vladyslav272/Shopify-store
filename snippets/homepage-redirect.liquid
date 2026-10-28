@@ -4,7 +4,7 @@
   Zachovává všechny UTM a reklamní parametry (?utm_source=... fbclid=...) i kotvy (#).
 {%- endcomment -%}
 {%- liquid
-  assign target_product = all_products['eye-care-machine-household-eye-massager']
+  assign target_product = all_products['led-ems-bryle-na-ocni-okoli']
   if target_product != blank and target_product.url != blank
     assign target_url = target_product.url
   elsif settings.homepage_redirect_product != blank and settings.homepage_redirect_product.url != blank
@@ -12,7 +12,7 @@
   elsif collections.all.products.first != blank
     assign target_url = collections.all.products.first.url
   else
-    assign fallback_path = '/products/eye-care-machine-household-eye-massager'
+    assign fallback_path = '/products/led-ems-bryle-na-ocni-okoli'
     if routes.root_url != '/'
       assign target_url = routes.root_url | append: fallback_path
     else
