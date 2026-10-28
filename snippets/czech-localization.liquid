@@ -417,13 +417,11 @@
       // 1. Steps heading section_pNEVnp
       var stepsHeadingSec = document.querySelector('[id*="section_pNEVnp"]');
       if (stepsHeadingSec && !stepsHeadingSec.querySelector('.section-badge')) {
-        var hTitle = stepsHeadingSec.querySelector('h2, h3, h4, .text-block');
-        if (hTitle) {
-          var badge = document.createElement('div');
-          badge.className = 'section-badge-wrapper';
-          badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">✨</span> 4 jednoduché kroky</span>';
-          hTitle.parentNode.insertBefore(badge, hTitle);
-        }
+        var targetWrapper = stepsHeadingSec.querySelector('.section-content-wrapper') || stepsHeadingSec.querySelector('.custom-section-content') || stepsHeadingSec;
+        var badge = document.createElement('div');
+        badge.className = 'section-badge-wrapper';
+        badge.innerHTML = '<span class="section-badge"><span class="section-badge-icon">✨</span> 4 jednoduché kroky</span>';
+        targetWrapper.insertBefore(badge, targetWrapper.firstChild);
       }
 
       // 2. Comparison slider section_Kny7xc
