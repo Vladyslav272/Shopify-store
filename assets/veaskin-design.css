@@ -1006,6 +1006,17 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   display: block;
 }
 
+
+.vs-morning-actions {
+  margin-top: 20px;
+}
+
+.vs-morning-cta {
+  width: auto;
+  min-width: 260px;
+  display: inline-flex;
+}
+
 .vs-morning-lead {
   font-size: 14.5px;
   color: var(--vs-muted);
