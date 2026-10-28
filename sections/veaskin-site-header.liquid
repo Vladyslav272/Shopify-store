@@ -9,6 +9,34 @@
     assign base_product_url = '/products/led-ems-bryle-na-ocni-okoli'
   endif
 
+  assign hdr_variant = main_product.selected_or_first_available_variant
+  assign hdr_price = hdr_variant.price | default: 125400
+  if hdr_price <= 0
+    assign hdr_price = 125400
+  endif
+  assign hdr_compare = hdr_variant.compare_at_price | default: 0
+  if hdr_compare <= hdr_price
+    assign hdr_compare = hdr_price | times: 148 | divided_by: 100
+  endif
+
+  if main_product.variants.size >= 3
+    assign hdr_p3 = main_product.variants[2].price
+    assign hdr_c3 = main_product.variants[2].compare_at_price | default: 0
+    if hdr_c3 <= hdr_p3
+      assign hdr_c3 = hdr_compare | times: 3
+    endif
+  else
+    assign hdr_p3 = hdr_price | times: 3 | times: 85 | divided_by: 100
+    assign hdr_c3 = hdr_compare | times: 3
+  endif
+
+  assign max_discount_pct = hdr_c3 | minus: hdr_p3 | times: 100.0 | divided_by: hdr_c3 | round
+
+  assign promo_label = section.settings.promo_text
+  if promo_label == blank or promo_label == 'Sleva až 42 % na sady' or promo_label == 'Sleva až 43 % na sady'
+    assign promo_label = 'Sleva až ' | append: max_discount_pct | append: ' % na sady'
+  endif
+
   if request.page_type == 'product'
     assign anchor_prefix = ''
     assign logo_href = '#top'
@@ -75,7 +103,7 @@
             <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
             <line x1="7" y1="7" x2="7.01" y2="7"></line>
           </svg>
-          <span>{{ section.settings.promo_text }}</span>
+          <span>{{ promo_label }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -302,7 +330,7 @@
           <li>
             <a href="{{ anchor_prefix }}#nabidka-box" class="vs-mobile-drawer__link vs-mobile-drawer__link--highlight" data-vs-drawer-link>
               <span>Zvýhodněné sady</span>
-              <span class="vs-mobile-drawer__badge">AŽ −42 %</span>
+              <span class="vs-mobile-drawer__badge">AŽ −{{ max_discount_pct }} %</span>
             </a>
           </li>
           <li>
@@ -515,7 +543,7 @@
       "type": "text",
       "id": "promo_text",
       "label": "Text akce",
-      "default": "Sleva a\u017e 42 % na sady"
+      "default": "Sleva až 43 % na sady"
     },
     {
       "type": "text",

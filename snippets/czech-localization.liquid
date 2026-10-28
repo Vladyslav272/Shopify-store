@@ -1,5 +1,5 @@
 {% doc %}
-  Translates dynamic third-party Judge.me widget strings and backend product title into Czech.
+  Translates dynamic third-party Judge.me widget strings and backend variant labels into Czech.
 
   @example
   {% render 'czech-localization' %}
@@ -33,7 +33,9 @@
           .replace(/\bVerified\b/gi, 'Ověřeno')
           .replace(/\bReview Title\b/gi, 'Předmět recenze')
           .replace(/\bSubmit Review\b/gi, 'Odeslat recenzi')
-          .replace(/\bEye Care Machine\b/gi, 'Brýle proti otokům');
+          .replace(/\bEye Care Machine\b/gi, 'Brýle proti otokům')
+          .replace(/\bColor:\s*White\b/gi, 'Barva: Bílá')
+          .replace(/\bWhite\b/g, 'Bílá');
 
         if (newVal !== val) {
           node.nodeValue = newVal;

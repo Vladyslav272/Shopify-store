@@ -15,13 +15,13 @@
 
 {% liquid
   assign block_settings = block.settings
-  assign primary_product = all_products['eye-care-machine-household-eye-massager']
+  assign primary_product = all_products['led-ems-bryle-na-ocni-okoli']
   if primary_product != blank and primary_product.url != blank
     assign target_product_url = primary_product.url
   elsif settings.homepage_redirect_product != blank and settings.homepage_redirect_product.url != blank
     assign target_product_url = settings.homepage_redirect_product.url
   else
-    assign target_product_url = '/products/eye-care-machine-household-eye-massager'
+    assign target_product_url = '/products/led-ems-bryle-na-ocni-okoli'
   endif
   assign max_featured_items = 4
   assign image_border_radius = block_settings.image_border_radius

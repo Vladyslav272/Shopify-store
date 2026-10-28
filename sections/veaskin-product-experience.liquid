@@ -1,7 +1,7 @@
 {% liquid
   assign target_product = product
   if target_product == blank
-    assign target_product = all_products['eye-care-machine-household-eye-massager']
+    assign target_product = all_products['led-ems-bryle-na-ocni-okoli']
   endif
   if target_product == blank
     assign target_product = collections.all.products.first
@@ -11,17 +11,92 @@
   assign v1_id = first_variant.id
   assign v1_qty = 1
 
+  assign base_price = first_variant.price | default: 125400
+  if base_price <= 0
+    assign base_price = 125400
+  endif
+  assign base_compare = first_variant.compare_at_price | default: 0
+  if base_compare <= base_price
+    assign base_compare = base_price | times: 148 | divided_by: 100
+  endif
+
   if target_product.variants.size >= 3
     assign v2_id = target_product.variants[1].id
     assign v2_qty = 1
     assign v3_id = target_product.variants[2].id
     assign v3_qty = 1
+
+    assign p1 = target_product.variants[0].price
+    assign c1 = target_product.variants[0].compare_at_price | default: 0
+    if c1 <= p1
+      assign c1 = p1 | times: 148 | divided_by: 100
+    endif
+
+    assign p2 = target_product.variants[1].price
+    assign c2 = target_product.variants[1].compare_at_price | default: 0
+    if c2 <= p2
+      assign c2 = c1 | times: 2
+    endif
+
+    assign p3 = target_product.variants[2].price
+    assign c3 = target_product.variants[2].compare_at_price | default: 0
+    if c3 <= p3
+      assign c3 = c1 | times: 3
+    endif
   else
     assign v2_id = first_variant.id
     assign v2_qty = 2
     assign v3_id = first_variant.id
     assign v3_qty = 3
+
+    assign p1 = base_price
+    assign c1 = base_compare
+
+    assign p2 = base_price | times: 2 | times: 90 | divided_by: 100
+    assign c2 = base_compare | times: 2
+
+    assign p3 = base_price | times: 3 | times: 85 | divided_by: 100
+    assign c3 = base_compare | times: 3
   endif
+
+  assign p1_fmt = p1 | money_without_trailing_zeros | replace: '.', ' '
+  assign c1_fmt = c1 | money_without_trailing_zeros | replace: '.', ' '
+  assign p2_fmt = p2 | money_without_trailing_zeros | replace: '.', ' '
+  assign c2_fmt = c2 | money_without_trailing_zeros | replace: '.', ' '
+  assign p3_fmt = p3 | money_without_trailing_zeros | replace: '.', ' '
+  assign c3_fmt = c3 | money_without_trailing_zeros | replace: '.', ' '
+
+  assign save1_raw = c1 | minus: p1
+  assign save2_raw = c2 | minus: p2
+  assign save3_raw = c3 | minus: p3
+
+  assign d1_pct = save1_raw | times: 100.0 | divided_by: c1 | round
+  assign d3_pct = save3_raw | times: 100.0 | divided_by: c3 | round
+
+  assign save2_rounded = save2_raw | divided_by: 100.0 | round | times: 100
+  assign save3_rounded = save3_raw | divided_by: 100.0 | round | times: 100
+  assign save2_fmt = save2_rounded | money_without_trailing_zeros | replace: '.', ' '
+  assign save3_fmt = save3_rounded | money_without_trailing_zeros | replace: '.', ' '
+
+  assign unit2_rounded = p2 | divided_by: 2.0 | divided_by: 100.0 | round | times: 100
+  assign unit3_rounded = p3 | divided_by: 3.0 | divided_by: 100.0 | round | times: 100
+  assign unit2_fmt = unit2_rounded | money_without_trailing_zeros | replace: '.', ' '
+  assign unit3_fmt = unit3_rounded | money_without_trailing_zeros | replace: '.', ' '
+
+  assign day1_cents = p1 | divided_by: 365.0 | divided_by: 10.0 | round | times: 10
+  assign day2_cents = p2 | divided_by: 2.0 | divided_by: 365.0 | divided_by: 10.0 | round | times: 10
+  assign day1_fmt = day1_cents | money | replace: '.', ' '
+  assign day2_fmt = day2_cents | money | replace: '.', ' '
+
+  assign p1_cta = p1_fmt | replace: 'Kč', 'KČ'
+  assign p2_cta = p2_fmt | replace: 'Kč', 'KČ'
+  assign p3_cta = p3_fmt | replace: 'Kč', 'KČ'
+  assign save2_cta = save2_fmt | replace: 'Kč', 'KČ'
+  assign save3_cta = save3_fmt | replace: 'Kč', 'KČ'
+
+  assign cta1_label = 'PŘIDAT DO KOŠÍKU — ' | append: p1_cta | append: ' (DOPRAVA ZDARMA)'
+  assign cta2_label = 'PŘIDAT DO KOŠÍKU — ' | append: p2_cta | append: ' (UŠETŘÍTE ' | append: save2_cta | append: ')'
+  assign cta3_label = 'PŘIDAT DO KOŠÍKU — ' | append: p3_cta | append: ' (UŠETŘÍTE ' | append: save3_cta | append: ')'
 
   if images['zenabilepozadi.jpg'] != blank
     assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
@@ -167,7 +242,7 @@
 
         <div class="vs-offer-head">
           <span class="vs-offer-head__title">Vyberte si zvýhodněnou nabídku:</span>
-          <span class="vs-offer-head__badge">🔥 Sleva až 42 % dnes</span>
+          <span class="vs-offer-head__badge">🔥 Sleva až {{ d3_pct }} % dnes</span>
         </div>
 
         <div class="vs-offer-list" role="radiogroup" aria-label="Zvýhodněné sady Brýlí proti otokům">
@@ -181,20 +256,20 @@
             data-variant-id="{{ v1_id }}"
             data-qty="{{ v1_qty }}"
             data-bundle-label="1× Brýle — Ranní péče"
-            data-cta-label="PŘIDAT DO KOŠÍKU — 1 200 KČ (DOPRAVA ZDARMA)"
+            data-cta-label="{{ cta1_label | escape }}"
           >
             <div class="vs-offer-left">
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
                 <div class="vs-offer-name">1× Brýle proti otokům — Ranní péče</div>
                 <div class="vs-offer-sub">Kompletní balení s USB nabíjením a českým návodem</div>
-                <span class="vs-offer-perk">Sleva 30 % • Doprava zdarma</span>
+                <span class="vs-offer-perk">Sleva {{ d1_pct }} % • Doprava zdarma</span>
               </div>
             </div>
             <div class="vs-offer-right">
-              <div class="vs-offer-price">1 200 Kč</div>
-              <div class="vs-offer-old">1 710 Kč</div>
-              <div class="vs-offer-day">jen 3,30 Kč / den</div>
+              <div class="vs-offer-price">{{ p1_fmt }}</div>
+              <div class="vs-offer-old">{{ c1_fmt }}</div>
+              <div class="vs-offer-day">jen {{ day1_fmt }} / den</div>
             </div>
           </button>
 
@@ -208,7 +283,7 @@
             data-variant-id="{{ v2_id }}"
             data-qty="{{ v2_qty }}"
             data-bundle-label="2× Brýle — Rituál ve dvou"
-            data-cta-label="PŘIDAT DO KOŠÍKU — 1 990 KČ (UŠETŘÍTE 1 430 KČ)"
+            data-cta-label="{{ cta2_label | escape }}"
           >
             <span class="vs-offer-ribbon">Nejoblíbenější • Pro dva</span>
             <div class="vs-offer-left">
@@ -216,13 +291,13 @@
               <div>
                 <div class="vs-offer-name">2× Brýle proti otokům — Rituál ve dvou</div>
                 <div class="vs-offer-sub">Relaxujte sami i ve dvou, nebo potěšte maminku či partnerku</div>
-                <span class="vs-offer-perk">+ Ušetříte 1 430 Kč • 995 Kč / kus</span>
+                <span class="vs-offer-perk">+ Ušetříte {{ save2_fmt }} • {{ unit2_fmt }} / kus</span>
               </div>
             </div>
             <div class="vs-offer-right">
-              <div class="vs-offer-price">1 990 Kč</div>
-              <div class="vs-offer-old">3 420 Kč</div>
-              <div class="vs-offer-day">2,70 Kč / den na osobu</div>
+              <div class="vs-offer-price">{{ p2_fmt }}</div>
+              <div class="vs-offer-old">{{ c2_fmt }}</div>
+              <div class="vs-offer-day">{{ day2_fmt }} / den na osobu</div>
             </div>
           </button>
 
@@ -236,20 +311,20 @@
             data-variant-id="{{ v3_id }}"
             data-qty="{{ v3_qty }}"
             data-bundle-label="3× Brýle — Rodinná & dárková sada"
-            data-cta-label="PŘIDAT DO KOŠÍKU — 2 690 KČ (UŠETŘÍTE 2 440 KČ)"
+            data-cta-label="{{ cta3_label | escape }}"
           >
-            <span class="vs-offer-ribbon vs-offer-ribbon--dark">Nejvýhodnější −42 %</span>
+            <span class="vs-offer-ribbon vs-offer-ribbon--dark">Nejvýhodnější −{{ d3_pct }} %</span>
             <div class="vs-offer-left">
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
                 <div class="vs-offer-name">3× Brýle proti otokům — Rodinná &amp; dárková sada</div>
                 <div class="vs-offer-sub">Ideální zásoba dárků s maximální množstevní slevou</div>
-                <span class="vs-offer-perk">+ Ušetříte 2 440 Kč • 897 Kč / kus</span>
+                <span class="vs-offer-perk">+ Ušetříte {{ save3_fmt }} • {{ unit3_fmt }} / kus</span>
               </div>
             </div>
             <div class="vs-offer-right">
-              <div class="vs-offer-price">2 690 Kč</div>
-              <div class="vs-offer-old">5 130 Kč</div>
+              <div class="vs-offer-price">{{ p3_fmt }}</div>
+              <div class="vs-offer-old">{{ c3_fmt }}</div>
               <div class="vs-offer-day">Prioritní odeslání do 24 h</div>
             </div>
           </button>
@@ -309,7 +384,7 @@
                 {% unless first_variant.available %}disabled{% endunless %}
               >
                 {%- if first_variant.available -%}
-                  PŘIDAT DO KOŠÍKU — 1 990 KČ (UŠETŘÍTE 1 430 KČ)
+                  {{ cta2_label }}
                 {%- else -%}
                   VYPRODÁNO
                 {%- endif -%}
@@ -582,7 +657,7 @@
       <div class="vs-comp-box vs-comp-box--winner">
         <span class="vs-winner-badge">Chytrá volba</span>
         <h3>VeaSkin Brýle proti otokům</h3>
-        <div class="vs-comp-price">od 995 Kč <small>/ ks v sadě (1 200 Kč solo)</small></div>
+        <div class="vs-comp-price">od {{ unit3_fmt }} <small>/ ks v sadě ({{ p1_fmt }} solo)</small></div>
         <ul class="vs-comp-list">
           <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Cílená lymfatická masáž + 660 nm LED</strong></li>
           <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Úleva od ranních otoků už po 10 min.</strong></li>
@@ -612,8 +687,8 @@
       <div class="vs-vs-circle" aria-hidden="true">VS</div>
       <div>
         <div class="vs-reframe-kicker vs-reframe-kicker--accent">VeaSkin na celý rok</div>
-        <div class="vs-reframe-amount vs-reframe-amount--accent">3,30 Kč / den</div>
-        <div class="vs-reframe-note">nebo <strong>2,70 Kč / den</strong> ve zvýhodněné sadě pro dva</div>
+        <div class="vs-reframe-amount vs-reframe-amount--accent">{{ day1_fmt }} / den</div>
+        <div class="vs-reframe-note">nebo <strong>{{ day2_fmt }} / den</strong> ve zvýhodněné sadě pro dva</div>
       </div>
       <div>
         <a href="#nabidka-box" class="vs-cta-btn vs-reframe-cta">
