@@ -120,6 +120,298 @@
       `;
     }
 
+    
+    window.toggleVeaSkinQuiz = function(el) {
+      el.classList.toggle('is-checked');
+      var mark = el.querySelector('.product-quiz-check-mark');
+      if (el.classList.contains('is-checked')) {
+        mark.textContent = '✓';
+      } else {
+        mark.textContent = '';
+      }
+      var parent = el.closest('.product-quiz-card');
+      if (!parent) return;
+      var count = parent.querySelectorAll('.product-quiz-item.is-checked').length;
+      var countEl = parent.querySelector('.quiz-live-count');
+      if (countEl) countEl.textContent = count;
+      var resBox = parent.querySelector('.product-quiz-result');
+      if (resBox) {
+        resBox.style.display = count === 0 ? 'none' : 'block';
+      }
+    };
+
+    function injectQuizDiagnostic() {
+      if (document.getElementById('shopify-section-product-quiz-diagnostic') || document.querySelector('.product-quiz-section')) return;
+
+      var anchor = document.getElementById('shopify-section-template--30716979773814__1792698193c2bc235e') ||
+                   document.querySelector('[id*="1792698193c2bc235e"]') ||
+                   document.querySelector('.jdgm-carousel-wrapper') ||
+                   document.getElementById('shopify-section-template--30716979773814__product-information') ||
+                   document.querySelector('.product-information');
+      if (!anchor || !anchor.parentNode) return;
+
+      var container = document.createElement('div');
+      container.className = 'shopify-section';
+      container.id = 'shopify-section-product-quiz-diagnostic';
+      container.innerHTML = `
+        <div class="product-quiz-section">
+          <div class="product-quiz-container">
+            <div class="product-quiz-card">
+              <div class="product-quiz-header">
+                <span class="product-quiz-badge">
+                  <span class="product-quiz-badge-icon">✨</span>
+                  Rychlá sebediagnostika
+                </span>
+                <h2 class="product-quiz-title">Trápí vás některý z těchto projevů?</h2>
+                <p class="product-quiz-subtitle">Označte příznaky, které u sebe pozorujete, a zjistěte, kde je jejich skutečný fyziologický původ.</p>
+              </div>
+
+              <div class="product-quiz-list">
+                <div class="product-quiz-item is-checked" onclick="window.toggleVeaSkinQuiz(this)">
+                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark">✓</span></div>
+                  <div class="product-quiz-item-text">Ranní otoky očních víček a váčky po probuzení</div>
+                </div>
+                <div class="product-quiz-item is-checked" onclick="window.toggleVeaSkinQuiz(this)">
+                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark">✓</span></div>
+                  <div class="product-quiz-item-text">Tmavé kruhy pod očima, které nezakryje ani korektor</div>
+                </div>
+                <div class="product-quiz-item" onclick="window.toggleVeaSkinQuiz(this)">
+                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark"></span></div>
+                  <div class="product-quiz-item-text">Jemné vrásky a unavená, dehydratovaná pleť očního okolí</div>
+                </div>
+                <div class="product-quiz-item is-checked" onclick="window.toggleVeaSkinQuiz(this)">
+                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark">✓</span></div>
+                  <div class="product-quiz-item-text">Pocit pálení, těžkosti a suchých očí po práci u obrazovky</div>
+                </div>
+                <div class="product-quiz-item" onclick="window.toggleVeaSkinQuiz(this)">
+                  <div class="product-quiz-checkbox"><span class="product-quiz-check-mark"></span></div>
+                  <div class="product-quiz-item-text">Běžné oční krémy přinášejí jen krátkodobý nebo nulový efekt</div>
+                </div>
+              </div>
+
+              <div class="product-quiz-result">
+                <div class="product-quiz-result-heading">
+                  <span class="product-quiz-result-icon">🔍</span>
+                  <span>Diagnostika: Označeno <strong class="quiz-live-count">3</strong> z 5 projevů</span>
+                </div>
+                <div class="product-quiz-result-body">
+                  <strong>Proč běžné krémy samy o sobě nestačí:</strong>
+                  <p>Problém není ve svrchní vrstvě kůže, ale v zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mechanická mikromasáž a jemné prohřátí.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      anchor.parentNode.insertBefore(container, anchor.nextSibling);
+    }
+
+    function injectComparisonTable() {
+      if (document.getElementById('shopify-section-product-comparison-table') || document.querySelector('.product-comparison-section')) return;
+
+      var anchor = document.getElementById('shopify-section-template--30716979773814__section_Kny7xc') ||
+                   document.querySelector('[id*="section_Kny7xc"]') ||
+                   document.getElementById('shopify-section-technology-benefits') ||
+                   document.querySelector('#veaskin-technology-benefits');
+      if (!anchor || !anchor.parentNode) return;
+
+      var container = document.createElement('div');
+      container.className = 'shopify-section';
+      container.id = 'shopify-section-product-comparison-table';
+      container.innerHTML = `
+        <div class="product-comparison-section">
+          <div class="product-comparison-container">
+            <div class="product-comparison-card">
+              <div class="product-comparison-header">
+                <span class="product-comparison-badge">
+                  <span class="product-comparison-badge-icon">⚖️</span>
+                  Upřímné srovnání
+                </span>
+                <h2 class="product-comparison-title">Proč je VeaSkin nejchytřejší volba?</h2>
+                <p class="product-comparison-subtitle">Přehledné srovnání přístupu, výsledků a nákladů běžných metod vs. VeaSkin.</p>
+              </div>
+
+              <div class="product-comparison-grid">
+                <div class="comp-card-col">
+                  <h3 class="comp-col-heading">Běžné oční krémy</h3>
+                  <div class="comp-col-price comp-muted-price">cca 1 500 Kč <span class="comp-col-sub">/ 2 měsíce</span></div>
+                  <ul class="comp-col-features">
+                    <li><span class="comp-icon comp-cross">✕</span> Působí pouze na povrchu epidermis</li>
+                    <li><span class="comp-icon comp-cross">✕</span> Nerozhýbou stagnující lymfu</li>
+                    <li><span class="comp-icon comp-cross">✕</span> Nutnost neustálého dokupování zásob</li>
+                    <li><span class="comp-icon comp-check">✓</span> Snadná domácí aplikace</li>
+                  </ul>
+                </div>
+
+                <div class="comp-card-col is-winner">
+                  <div class="comp-winner-ribbon">Chytrá volba</div>
+                  <h3 class="comp-col-heading">VeaSkin Přístroj</h3>
+                  <div class="comp-col-price comp-hero-price">1 200 Kč <span class="comp-col-sub">/ jednorázově</span></div>
+                  <ul class="comp-col-features">
+                    <li><span class="comp-icon comp-check">✓</span> <strong>Cílená lymfatická masáž a prohřátí</strong></li>
+                    <li><span class="comp-icon comp-check">✓</span> <strong>Viditelná úleva od otoků už po 10 min.</strong></li>
+                    <li><span class="comp-icon comp-check">✓</span> <strong>Dlouholetá péče bez dalších investic</strong></li>
+                    <li><span class="comp-icon comp-check">✓</span> <strong>30 dní na vyzkoušení bez rizika</strong></li>
+                  </ul>
+                </div>
+
+                <div class="comp-card-col">
+                  <h3 class="comp-col-heading">Klinické zákroky</h3>
+                  <div class="comp-col-price comp-muted-price">8 000 – 15 000 Kč <span class="comp-col-sub">/ sezení</span></div>
+                  <ul class="comp-col-features">
+                    <li><span class="comp-icon comp-check">✓</span> Výrazný okamžitý vizuální efekt</li>
+                    <li><span class="comp-icon comp-cross">✕</span> Jehly, modřinky a čas na zotavení</li>
+                    <li><span class="comp-icon comp-cross">✕</span> Nutnost opakování každých 6-12 měsíců</li>
+                    <li><span class="comp-icon comp-cross">✕</span> Extrémně vysoké finanční náklady</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      anchor.parentNode.insertBefore(container, anchor.nextSibling);
+    }
+
+    function injectTimelineResults() {
+      if (document.getElementById('shopify-section-product-timeline-results') || document.querySelector('.product-timeline-section')) return;
+
+      var anchor = document.getElementById('shopify-section-product-comparison-table') ||
+                   document.querySelector('.product-comparison-section');
+      if (!anchor || !anchor.parentNode) return;
+
+      var container = document.createElement('div');
+      container.className = 'shopify-section';
+      container.id = 'shopify-section-product-timeline-results';
+      container.innerHTML = `
+        <div class="product-timeline-section">
+          <div class="product-timeline-container">
+            <div class="product-timeline-card">
+              <div class="product-timeline-header">
+                <span class="product-timeline-badge">
+                  <span class="product-timeline-badge-icon">⏱️</span>
+                  Realistický harmonogram
+                </span>
+                <h2 class="product-timeline-title">Co můžete očekávat den po dni?</h2>
+                <p class="product-timeline-subtitle">Žádné nereálné zázraky přes noc. Takhle vypadá proces při pravidelném 10minutovém ranním rituálu:</p>
+              </div>
+
+              <div class="product-timeline-track">
+                <div class="timeline-step-row">
+                  <div class="timeline-step-marker"><span class="timeline-step-dot"></span></div>
+                  <div class="timeline-step-content">
+                    <div class="timeline-step-head">
+                      <h3 class="timeline-step-title">Okamžitě po 1. použití</h3>
+                      <span class="timeline-step-tag">Den 1</span>
+                    </div>
+                    <div class="timeline-step-desc">
+                      <p>Příjemné uvolnění očního tlaku a okamžitý pocit svěžesti. Nastartovaný krevní oběh pomáhá stáhnout ranní otoky víček už během 15 minut.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-step-row">
+                  <div class="timeline-step-marker"><span class="timeline-step-dot"></span></div>
+                  <div class="timeline-step-content">
+                    <div class="timeline-step-head">
+                      <h3 class="timeline-step-title">Po 14 dnech pravidelné péče</h3>
+                      <span class="timeline-step-tag">Týden 2</span>
+                    </div>
+                    <div class="timeline-step-desc">
+                      <p>Obnovení správného odtoku lymfy. Tmavé stíny způsobené městnáním krve viditelně blednou a oční okolí působí pevněji a odpočatě.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-step-row">
+                  <div class="timeline-step-marker"><span class="timeline-step-dot"></span></div>
+                  <div class="timeline-step-content">
+                    <div class="timeline-step-head">
+                      <h3 class="timeline-step-title">Dlouhodobá prevence a regenerace</h3>
+                      <span class="timeline-step-tag">Týden 5+</span>
+                    </div>
+                    <div class="timeline-step-desc">
+                      <p>Pravidelná stimulace zabraňuje nočnímu hromadění tekutiny. Pokožka si zachovává pružnost a vy se probouzíte se svěžím, mladistvým pohledem každé ráno.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      anchor.parentNode.insertBefore(container, anchor.nextSibling);
+    }
+
+    function injectPriceReframing() {
+      if (document.getElementById('shopify-section-product-price-reframing') || document.querySelector('.product-price-reframe-section')) return;
+
+      var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
+      if (!faqSection) {
+        var allSections = document.querySelectorAll('.shopify-section');
+        for (var i = 0; i < allSections.length; i++) {
+          if (allSections[i].textContent.includes('Časté dotazy') || allSections[i].textContent.includes('Caste dotazy')) {
+            faqSection = allSections[i];
+            break;
+          }
+        }
+      }
+
+      if (!faqSection || !faqSection.parentNode) return;
+
+      var container = document.createElement('div');
+      container.className = 'shopify-section';
+      container.id = 'shopify-section-product-price-reframing';
+      container.innerHTML = `
+        <div class="product-price-reframe-section">
+          <div class="product-price-reframe-container">
+            <div class="product-price-reframe-card">
+              <div class="product-price-reframe-header">
+                <span class="product-price-reframe-badge">
+                  <span class="product-price-reframe-badge-icon">💡</span>
+                  Chytrá investice do sebe
+                </span>
+                <h2 class="product-price-reframe-title">Kolik vás skutečně stojí boj s únavou očí?</h2>
+                <p class="product-price-reframe-subtitle">Spočítejte si, jak se jednorázová péče vyplatí oproti neustálému dokupování povrchových krémů.</p>
+              </div>
+
+              <div class="product-reframe-grid">
+                <div class="reframe-calc-box">
+                  <div class="reframe-calc-label">Roční útrata za krémy a séra</div>
+                  <div class="reframe-calc-amount">cca 6 000 Kč</div>
+                  <div class="reframe-calc-note">bez řešení stagnující lymfy</div>
+                </div>
+
+                <div class="reframe-vs-pill">VS</div>
+
+                <div class="reframe-calc-box is-hero">
+                  <div class="reframe-calc-label reframe-hero-label">VeaSkin na celý rok</div>
+                  <div class="reframe-calc-amount reframe-hero-amount">3,30 Kč / den</div>
+                  <div class="reframe-calc-note">(1 200 Kč jednorázově na roky péče)</div>
+                </div>
+              </div>
+
+              <div class="product-reframe-guarantee">
+                <span class="reframe-guarantee-shield">🛡️</span>
+                <p>Vyzkoušejte si přístroj na 30 dní v pohodlí domova. Pokud neuvidíte viditelný rozdíl, jednoduše vám vrátíme peníze bez zbytečných otázek.</p>
+              </div>
+
+              <div class="product-reframe-cta">
+                <a href="#product-information" class="product-reframe-btn" onclick="var t = document.querySelector('.product-information img[src*=\'zenabilepozadi\']') || document.querySelector('.product-information__media') || document.querySelector('.product-information') || document.querySelector('[id*=\'product-information\']'); if (t) { var offset = 16; var top = t.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: top, behavior: 'smooth' }); return false; }">
+                  Vyzkoušet na 30 dní bez rizika
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      faqSection.parentNode.insertBefore(container, faqSection);
+    }
+
     function injectTechnologyBenefits() {
       var existing = document.querySelector('.veaskin-benefits-card');
       var faqSection = document.querySelector('[id*="section_faq"], .shopify-section:has(accordion-custom)');
@@ -455,6 +747,10 @@
       updateTransformationStats();
       injectTechnologyBenefits();
       injectProductShowcase();
+      injectQuizDiagnostic();
+      injectComparisonTable();
+      injectTimelineResults();
+      injectPriceReframing();
 
       // Carousel title
       document.querySelectorAll('.jdgm-carousel-title').forEach(el => {
