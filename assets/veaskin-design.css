@@ -41,8 +41,9 @@ body {
 
 /* Hide legacy auto-generated header/footer groups & unsynced product template blocks
    when the unified VeaSkin sections are rendered */
-body:has(.vs-site-header-shell) #header-group {
-  display: none;
+body:has(.vs-site-header-shell) #header-group,
+body:has(.vs-site-header-shell) #header-group > * {
+  display: none !important;
 }
 
 body:has(.vs-site-footer) .page-wrapper > footer {
@@ -1466,7 +1467,10 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 /* Judge.me Full Widget Harmonization inside 1140px layout */
 main.vs-product-main > [id*="17926947644e416e5d"] {
+  display: block;
+  width: 100%;
   max-width: var(--vs-container);
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 8px 26px 28px;
   background: transparent;
@@ -1477,8 +1481,11 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
 }
 
 main.vs-product-main > [id*="17926947644e416e5d"] .section {
+  display: block;
+  width: 100%;
   max-width: 100%;
   padding: 0;
+  margin: 0;
   background: transparent;
 }
 
@@ -1502,7 +1509,8 @@ main.vs-product-main .jdgm-star {
    ========================================================================== */
 
 .vs-faq-wrap {
-  max-width: 820px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   display: grid;
   gap: 10px;
