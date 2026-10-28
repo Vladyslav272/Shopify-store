@@ -17,7 +17,7 @@
   endif
   assign base_compare = first_variant.compare_at_price | default: 0
   if base_compare <= base_price
-    assign base_compare = base_price | times: 148 | divided_by: 100
+    assign base_compare = base_price
   endif
 
   if target_product.variants.size >= 3
@@ -29,7 +29,7 @@
     assign p1 = target_product.variants[0].price
     assign c1 = target_product.variants[0].compare_at_price | default: 0
     if c1 <= p1
-      assign c1 = p1 | times: 148 | divided_by: 100
+      assign c1 = p1
     endif
 
     assign p2 = target_product.variants[1].price
@@ -71,17 +71,16 @@
   assign save3_raw = c3 | minus: p3
 
   assign d1_pct = save1_raw | times: 100.0 | divided_by: c1 | round
+  assign d2_pct = save2_raw | times: 100.0 | divided_by: c2 | round
   assign d3_pct = save3_raw | times: 100.0 | divided_by: c3 | round
 
-  assign save2_rounded = save2_raw | divided_by: 100.0 | round | times: 100
-  assign save3_rounded = save3_raw | divided_by: 100.0 | round | times: 100
-  assign save2_fmt = save2_rounded | money_without_trailing_zeros | replace: '.', ' '
-  assign save3_fmt = save3_rounded | money_without_trailing_zeros | replace: '.', ' '
+  assign save2_fmt = save2_raw | money_without_trailing_zeros | replace: '.', ' '
+  assign save3_fmt = save3_raw | money_without_trailing_zeros | replace: '.', ' '
 
-  assign unit2_rounded = p2 | divided_by: 2.0 | divided_by: 100.0 | round | times: 100
-  assign unit3_rounded = p3 | divided_by: 3.0 | divided_by: 100.0 | round | times: 100
-  assign unit2_fmt = unit2_rounded | money_without_trailing_zeros | replace: '.', ' '
-  assign unit3_fmt = unit3_rounded | money_without_trailing_zeros | replace: '.', ' '
+  assign unit2_raw = p2 | divided_by: 2
+  assign unit3_raw = p3 | divided_by: 3
+  assign unit2_fmt = unit2_raw | money_without_trailing_zeros | replace: '.', ' '
+  assign unit3_fmt = unit3_raw | money_without_trailing_zeros | replace: '.', ' '
 
   assign day1_cents = p1 | divided_by: 365.0 | divided_by: 10.0 | round | times: 10
   assign day2_cents = p2 | divided_by: 2.0 | divided_by: 365.0 | divided_by: 10.0 | round | times: 10
@@ -242,7 +241,7 @@
 
         <div class="vs-offer-head">
           <span class="vs-offer-head__title">Vyberte si zvýhodněnou nabídku:</span>
-          <span class="vs-offer-head__badge">🔥 Sleva až {{ d3_pct }} % dnes</span>
+          <span class="vs-offer-head__badge">🔥 Sleva až {{ d3_pct }} % na sady</span>
         </div>
 
         <div class="vs-offer-list" role="radiogroup" aria-label="Zvýhodněné sady Brýlí proti otokům">
@@ -263,12 +262,18 @@
               <div>
                 <div class="vs-offer-name">1× Brýle proti otokům — Ranní péče</div>
                 <div class="vs-offer-sub">Kompletní balení s USB nabíjením a českým návodem</div>
-                <span class="vs-offer-perk">Sleva {{ d1_pct }} % • Doprava zdarma</span>
+                {%- if d1_pct > 0 -%}
+                  <span class="vs-offer-perk">Sleva {{ d1_pct }} % • Doprava zdarma</span>
+                {%- else -%}
+                  <span class="vs-offer-perk">✓ Doprava zdarma • 30 dní na vyzkoušení</span>
+                {%- endif -%}
               </div>
             </div>
             <div class="vs-offer-right">
               <div class="vs-offer-price">{{ p1_fmt }}</div>
-              <div class="vs-offer-old">{{ c1_fmt }}</div>
+              {%- if c1 > p1 -%}
+                <div class="vs-offer-old">{{ c1_fmt }}</div>
+              {%- endif -%}
               <div class="vs-offer-day">jen {{ day1_fmt }} / den</div>
             </div>
           </button>
@@ -285,7 +290,7 @@
             data-bundle-label="2× Brýle — Rituál ve dvou"
             data-cta-label="{{ cta2_label | escape }}"
           >
-            <span class="vs-offer-ribbon">Nejoblíbenější • Pro dva</span>
+            <span class="vs-offer-ribbon">Nejoblíbenější • −{{ d2_pct }} %</span>
             <div class="vs-offer-left">
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
@@ -296,7 +301,9 @@
             </div>
             <div class="vs-offer-right">
               <div class="vs-offer-price">{{ p2_fmt }}</div>
-              <div class="vs-offer-old">{{ c2_fmt }}</div>
+              {%- if c2 > p2 -%}
+                <div class="vs-offer-old">{{ c2_fmt }}</div>
+              {%- endif -%}
               <div class="vs-offer-day">{{ day2_fmt }} / den na osobu</div>
             </div>
           </button>
@@ -324,7 +331,9 @@
             </div>
             <div class="vs-offer-right">
               <div class="vs-offer-price">{{ p3_fmt }}</div>
-              <div class="vs-offer-old">{{ c3_fmt }}</div>
+              {%- if c3 > p3 -%}
+                <div class="vs-offer-old">{{ c3_fmt }}</div>
+              {%- endif -%}
               <div class="vs-offer-day">Prioritní odeslání do 24 h</div>
             </div>
           </button>

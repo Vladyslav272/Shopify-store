@@ -158,15 +158,14 @@
                 if item.variant.compare_at_price > item.original_price
                   assign effective_compare_unit = item.variant.compare_at_price
                 else
-                  assign effective_compare_unit = item.original_price | times: 148 | divided_by: 100
+                  assign effective_compare_unit = item.original_price
                 endif
                 assign effective_compare_line = effective_compare_unit | times: item.quantity
 
                 assign line_save_raw = effective_compare_line | minus: effective_line_price
-                assign line_save_rounded = line_save_raw | divided_by: 100.0 | round | times: 100
-                assign unit_rounded = effective_line_price | divided_by: item.quantity | divided_by: 100.0 | round | times: 100
+                assign unit_raw = effective_line_price | divided_by: item.quantity
 
-                if effective_compare_line > 0
+                if effective_compare_line > 0 and line_save_raw > 0
                   assign line_discount_pct = line_save_raw | times: 100.0 | divided_by: effective_compare_line | round
                 else
                   assign line_discount_pct = 0
@@ -174,8 +173,8 @@
 
                 assign effective_line_fmt = effective_line_price | money_without_trailing_zeros | replace: '.', ' '
                 assign effective_compare_line_fmt = effective_compare_line | money_without_trailing_zeros | replace: '.', ' '
-                assign line_save_fmt = line_save_rounded | money_without_trailing_zeros | replace: '.', ' '
-                assign unit_fmt = unit_rounded | money_without_trailing_zeros | replace: '.', ' '
+                assign line_save_fmt = line_save_raw | money_without_trailing_zeros | replace: '.', ' '
+                assign unit_fmt = unit_raw | money_without_trailing_zeros | replace: '.', ' '
                 assign unit_price_fmt = item.unit_price | money_without_trailing_zeros | replace: '.', ' '
 
                 if item.quantity == 1

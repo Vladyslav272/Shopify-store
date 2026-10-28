@@ -16,7 +16,7 @@
   endif
   assign hdr_compare = hdr_variant.compare_at_price | default: 0
   if hdr_compare <= hdr_price
-    assign hdr_compare = hdr_price | times: 148 | divided_by: 100
+    assign hdr_compare = hdr_price
   endif
 
   if main_product.variants.size >= 3
@@ -33,7 +33,7 @@
   assign max_discount_pct = hdr_c3 | minus: hdr_p3 | times: 100.0 | divided_by: hdr_c3 | round
 
   assign promo_label = section.settings.promo_text
-  if promo_label == blank or promo_label == 'Sleva až 42 % na sady' or promo_label == 'Sleva až 43 % na sady'
+  if promo_label == blank or promo_label == 'Sleva až 42 % na sady' or promo_label == 'Sleva až 43 % na sady' or promo_label == 'Sleva až 15 % na sady'
     assign promo_label = 'Sleva až ' | append: max_discount_pct | append: ' % na sady'
   endif
 
@@ -543,7 +543,7 @@
       "type": "text",
       "id": "promo_text",
       "label": "Text akce",
-      "default": "Sleva až 43 % na sady"
+      "default": "Sleva až 15 % na sady"
     },
     {
       "type": "text",

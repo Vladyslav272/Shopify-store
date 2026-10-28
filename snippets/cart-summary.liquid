@@ -14,17 +14,16 @@
     if item.variant.compare_at_price > item.original_price
       assign item_cmp = item.variant.compare_at_price
     else
-      assign item_cmp = item.original_price | times: 148 | divided_by: 100
+      assign item_cmp = item.original_price
     endif
     assign item_cmp_line = item_cmp | times: item.quantity
     assign summary_compare_total = summary_compare_total | plus: item_cmp_line
   endfor
 
   assign summary_savings_raw = summary_compare_total | minus: cart.total_price
-  assign summary_savings_rounded = summary_savings_raw | divided_by: 100.0 | round | times: 100
 
   assign summary_compare_fmt = summary_compare_total | money_without_trailing_zeros | replace: '.', ' '
-  assign summary_savings_fmt = summary_savings_rounded | money_without_trailing_zeros | replace: '.', ' '
+  assign summary_savings_fmt = summary_savings_raw | money_without_trailing_zeros | replace: '.', ' '
   assign total_price = cart.total_price | money_without_trailing_zeros | replace: '.', ' '
 -%}
 
