@@ -339,7 +339,7 @@
                 </ul>
 
                 <div class="product-showcase-actions">
-                  <a href="#ProductInformation-template--30716979773814__product-information" class="product-showcase-btn" onclick="var t = document.querySelector('.product-details') || document.querySelector('[id*=\'ProductInformation\']') || document.querySelector('.product-information'); if (t) { var offset = 20; var top = t.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: top, behavior: 'smooth' }); } return false;">
+                  <a href="#shopify-section-template--30716979773814__product-information" class="product-showcase-btn">
                     <span>Chci se cítit svěže každé ráno</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -529,21 +529,25 @@
       document.addEventListener('DOMContentLoaded', runTranslations);
     } else {
       runTranslations();
+    }
 
-  document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.product-showcase-btn');
-    if (btn) {
-      e.preventDefault();
-      var t = document.querySelector('.product-information img[src*="zenabilepozadi"]') || document.querySelector('.product-information__media') || document.querySelector('.product-information') || document.querySelector('[id*="product-information"]');
-      if (t) {
-        var offset = 16;
-        var top = t.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
+    // Smooth scroll for CTA button directly to product image
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.product-showcase-btn');
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        var target = document.querySelector('.product-information img[src*="zenabilepozadi"]') ||
+                     document.querySelector('.product-information__media') ||
+                     document.querySelector('#shopify-section-template--30716979773814__product-information') ||
+                     document.querySelector('.product-information');
+        if (target) {
+          var offset = 16;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
       }
-    }
-  });
-
-    }
+    }, true);
 
     // Observer for asynchronously injected widgets and DOM updates
     const observer = new MutationObserver(function() {
