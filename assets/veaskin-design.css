@@ -178,17 +178,18 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-cart-chip {
+  height: 40px;
+  padding: 0 13px;
   background: var(--vs-surface);
   border: 1px solid var(--vs-border);
   border-radius: 999px;
-  padding: 7px 14px;
   font-family: var(--vs-body);
   font-size: 12.5px;
   font-weight: 700;
   color: var(--vs-text);
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   cursor: pointer;
   text-decoration: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -196,53 +197,33 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-cart-chip:hover {
   border-color: var(--vs-accent);
-  box-shadow: 0 4px 12px rgba(43, 35, 37, 0.06);
+  box-shadow: 0 4px 12px rgba(43, 35, 37, 0.08);
 }
 
-.vs-cart-chip cart-icon {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.vs-cart-chip__bag {
+  flex-shrink: 0;
+  display: block;
 }
 
-.vs-cart-chip .cart-bubble {
-  position: static;
-  width: auto;
+.vs-cart-chip__count {
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
   background: var(--vs-accent);
   color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: auto;
+  flex-shrink: 0;
 }
 
-.vs-cart-chip .cart-bubble.visually-hidden {
-  position: static;
-  width: 20px;
-  height: 20px;
-  clip: auto;
-  clip-path: none;
-  overflow: visible;
-  white-space: nowrap;
-}
-
-.vs-cart-chip .cart-bubble__background {
-  background-color: var(--vs-accent);
-  border-radius: 999px;
-}
-
-.vs-cart-chip .cart-bubble__text-count.hidden {
-  display: inline;
-}
-
-.vs-cart-chip .cart-bubble__text {
-  font-size: 11px;
-  font-weight: 700;
-  color: #FFFFFF;
+.vs-cart-chip__count.is-empty {
+  background: var(--vs-blush);
+  color: var(--vs-accent);
 }
 
 .vs-header__mobile-left {
@@ -1996,18 +1977,16 @@ main.vs-product-main .jdgm-star {
     padding: 18px 14px;
   }
 
-  .vs-site-footer {
-    padding: 26px 16px;
+  .vs-cart-chip {
+    padding: 0 10px;
+    gap: 6px;
   }
-}
 
-@media screen and (max-width: 440px) {
   .vs-cart-chip__label {
     display: none;
   }
 
-  .vs-cart-chip {
-    padding: 7px 11px;
-    min-height: 40px;
+  .vs-site-footer {
+    padding: 26px 16px;
   }
 }

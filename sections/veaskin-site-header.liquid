@@ -111,9 +111,29 @@
               aria-describedby="cart-bubble-text"
               data-testid="vs-cart-drawer-trigger"
             >
-              <span aria-hidden="true">🛍️</span>
+              <svg
+                class="vs-cart-chip__bag"
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
               <span class="vs-cart-chip__label">Košík</span>
-              <cart-icon class="header-actions__cart-icon" data-testid="cart-icon">
+              <span
+                class="vs-cart-chip__count{% if cart.item_count == 0 %} is-empty{% endif %}"
+                data-vs-cart-count
+                aria-hidden="true"
+              >{{ cart.item_count }}</span>
+              <cart-icon class="visually-hidden" data-testid="cart-icon">
                 {% render 'cart-bubble', limit: 100 %}
               </cart-icon>
             </button>
@@ -123,9 +143,29 @@
               class="vs-cart-chip"
               aria-label="{{ 'accessibility.cart' | t }}"
             >
-              <span aria-hidden="true">🛍️</span>
+              <svg
+                class="vs-cart-chip__bag"
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
               <span class="vs-cart-chip__label">Košík</span>
-              <cart-icon class="header-actions__cart-icon" data-testid="cart-icon">
+              <span
+                class="vs-cart-chip__count{% if cart.item_count == 0 %} is-empty{% endif %}"
+                data-vs-cart-count
+                aria-hidden="true"
+              >{{ cart.item_count }}</span>
+              <cart-icon class="visually-hidden" data-testid="cart-icon">
                 {% render 'cart-bubble', limit: 100 %}
               </cart-icon>
             </a>
@@ -260,6 +300,43 @@
       });
       document.documentElement.style.overflow = open ? 'hidden' : '';
     };
+
+    const syncCartCountBadges = (count) => {
+      const n = Number.isFinite(count) && count >= 0 ? count : 0;
+      document.querySelectorAll('[data-vs-cart-count]').forEach((badge) => {
+        badge.textContent = String(n);
+        badge.classList.toggle('is-empty', n === 0);
+      });
+    };
+
+    const observeNativeCartBubble = () => {
+      const bubbleCount = document.querySelector('.vs-site-header-shell cart-icon [ref="cartBubbleCount"]');
+      if (!bubbleCount) return;
+      const readCount = () => {
+        const raw = (bubbleCount.textContent || '').trim();
+        const parsed = parseInt(raw, 10);
+        if (!Number.isNaN(parsed)) {
+          syncCartCountBadges(bubbleCount.classList.contains('hidden') ? 0 : parsed);
+        }
+      };
+      const obs = new MutationObserver(readCount);
+      obs.observe(bubbleCount, { childList: true, characterData: true, subtree: true, attributes: true });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', observeNativeCartBubble, { once: true });
+    } else {
+      observeNativeCartBubble();
+    }
+
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        fetch('/cart.js')
+          .then((r) => r.json())
+          .then((c) => syncCartCountBadges(c.item_count))
+          .catch(() => {});
+      }
+    });
 
     document.addEventListener('click', (event) => {
       const target = event.target instanceof Element ? event.target : null;
