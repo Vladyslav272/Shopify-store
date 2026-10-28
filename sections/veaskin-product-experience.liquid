@@ -352,25 +352,6 @@
               ref="liveRegion"
             ></div>
             {%- form 'product', target_product, id: product_form_id, data-type: 'add-to-cart-form' -%}
-              <input
-                type="hidden"
-                name="id"
-                ref="variantId"
-                value="{{ v2_id }}"
-                data-vs-form-id
-              >
-              <input
-                type="hidden"
-                name="quantity"
-                value="{{ v2_qty }}"
-                data-vs-form-qty
-              >
-              <input
-                type="hidden"
-                name="properties[Nabídka]"
-                value="2× Brýle — Rituál ve dvou"
-                data-vs-form-bundle
-              >
               <span class="product-form-text__error hidden" ref="addToCartTextError">
                 <span class="svg-wrapper">
                   {{- 'icon-error.svg' | inline_asset_content -}}
