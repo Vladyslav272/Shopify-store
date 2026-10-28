@@ -26,7 +26,7 @@
   fetchpriority="low"
 ></script>
 
-<div class="vs-site-header-shell">
+<div class="vs-site-header-shell" data-vs-header-root>
   <div class="vs-topbar" role="region" aria-label="Důležité informace o dopravě a slevě">
     <div class="vs-topbar__inner">
       <span>🚚 {{ section.settings.shipping_text }}</span>
@@ -37,6 +37,32 @@
 
   <div class="vs-header-sticky">
     <header class="vs-header">
+      <div class="vs-header__mobile-left">
+        <button
+          type="button"
+          class="vs-menu-btn"
+          aria-label="Otevřít navigaci"
+          aria-controls="vs-mobile-nav-drawer"
+          aria-expanded="false"
+          data-vs-menu-open
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="3.5" y1="6.5" x2="20.5" y2="6.5"></line>
+            <line x1="3.5" y1="12" x2="20.5" y2="12"></line>
+            <line x1="3.5" y1="17.5" x2="15.5" y2="17.5"></line>
+          </svg>
+        </button>
+      </div>
+
       <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} – Domů">
         {%- if settings.logo != blank -%}
           <img
@@ -61,7 +87,7 @@
         {%- endif -%}
       </a>
 
-      <nav aria-label="Hlavní navigace">
+      <nav class="vs-desktop-nav" aria-label="Hlavní navigace">
         <ul class="vs-nav">
           <li><a href="{{ anchor_prefix }}#jak-funguje" class="vs-nav__link">4 kroky péče</a></li>
           <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">LED &amp; EMS</a></li>
@@ -86,7 +112,7 @@
               data-testid="vs-cart-drawer-trigger"
             >
               <span aria-hidden="true">🛍️</span>
-              <span>Košík</span>
+              <span class="vs-cart-chip__label">Košík</span>
               <cart-icon class="header-actions__cart-icon" data-testid="cart-icon">
                 {% render 'cart-bubble', limit: 100 %}
               </cart-icon>
@@ -98,7 +124,7 @@
               aria-label="{{ 'accessibility.cart' | t }}"
             >
               <span aria-hidden="true">🛍️</span>
-              <span>Košík</span>
+              <span class="vs-cart-chip__label">Košík</span>
               <cart-icon class="header-actions__cart-icon" data-testid="cart-icon">
                 {% render 'cart-bubble', limit: 100 %}
               </cart-icon>
@@ -114,7 +140,169 @@
       </div>
     </header>
   </div>
+
+  <dialog
+    id="vs-mobile-nav-drawer"
+    class="vs-mobile-drawer"
+    aria-label="Mobilní navigace"
+    data-vs-mobile-drawer
+  >
+    <div class="vs-mobile-drawer__panel">
+      <div class="vs-mobile-drawer__head">
+        <a href="{{ logo_href }}" class="vs-logo" data-vs-drawer-link aria-label="{{ shop.name | default: 'VeaSkin' }} – Domů">
+          {%- if settings.logo != blank -%}
+            <img
+              src="{{ settings.logo | image_url: width: 320 }}"
+              alt="{{ shop.name | default: 'VeaSkin' | escape }}"
+              class="vs-logo__img"
+              width="96"
+              height="32"
+              loading="lazy"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'logo.png' | asset_url }}"
+              alt="{{ shop.name | default: 'VeaSkin' | escape }}"
+              class="vs-logo__img"
+              width="96"
+              height="32"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </a>
+        <button
+          type="button"
+          class="vs-mobile-drawer__close"
+          aria-label="Zavřít navigaci"
+          data-vs-menu-close
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="vs-mobile-drawer__nav" aria-label="Sekce stránky">
+        <ul class="vs-mobile-drawer__list">
+          <li>
+            <a href="{{ anchor_prefix }}#nabidka-box" class="vs-mobile-drawer__link vs-mobile-drawer__link--highlight" data-vs-drawer-link>
+              <span>Zvýhodněné sady</span>
+              <span class="vs-mobile-drawer__badge">AŽ −42 %</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#jak-funguje" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>4 kroky péče</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#technologie" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>LED &amp; EMS technologie</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#vysledky" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Výsledky Před a po</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#srovnani" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Srovnání s krémy</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#recenze-sekce" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Ověřené recenze (4,9 ★)</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#dotazy" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Časté dotazy</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="vs-mobile-drawer__foot">
+        <div class="vs-mobile-drawer__perks">
+          <span>🚚 Doprava zdarma na vše</span>
+          <span>🛡️ 30 dní na vyzkoušení bez rizika</span>
+        </div>
+        <a href="{{ anchor_prefix }}#nabidka-box" class="vs-cta-btn vs-mobile-drawer__cta" data-vs-drawer-link>
+          Vybrat sadu se slevou →
+        </a>
+      </div>
+    </div>
+  </dialog>
 </div>
+
+{% javascript %}
+  (() => {
+    const syncExpanded = (open) => {
+      document.querySelectorAll('[data-vs-menu-open]').forEach((btn) => {
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+
+    document.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
+
+      const openBtn = target.closest('[data-vs-menu-open]');
+      if (openBtn) {
+        const dialog = document.querySelector('[data-vs-mobile-drawer]');
+        if (dialog instanceof HTMLDialogElement && !dialog.open) {
+          dialog.showModal();
+          syncExpanded(true);
+        }
+        return;
+      }
+
+      const closeBtn = target.closest('[data-vs-menu-close]');
+      const navLink = target.closest('[data-vs-drawer-link]');
+      if (closeBtn || navLink) {
+        const dialog = document.querySelector('[data-vs-mobile-drawer]');
+        if (dialog instanceof HTMLDialogElement && dialog.open) {
+          dialog.close();
+          syncExpanded(false);
+        }
+        return;
+      }
+
+      if (target instanceof HTMLDialogElement && target.hasAttribute('data-vs-mobile-drawer')) {
+        target.close();
+        syncExpanded(false);
+      }
+    });
+
+    document.addEventListener(
+      'close',
+      (event) => {
+        if (event.target instanceof HTMLDialogElement && event.target.hasAttribute('data-vs-mobile-drawer')) {
+          syncExpanded(false);
+        }
+      },
+      true
+    );
+  })();
+{% endjavascript %}
 
 {% schema %}
 {
