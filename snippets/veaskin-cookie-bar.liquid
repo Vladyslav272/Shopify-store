@@ -1,0 +1,333 @@
+{% doc %}
+  Renders the VeaSkin slim horizontal GDPR cookie consent bar (Variant B),
+  integrated with the native Shopify Customer Privacy API.
+
+  @example
+  {% render 'veaskin-cookie-bar' %}
+{% enddoc %}
+
+<aside
+  id="vs-cookie-bar"
+  class="vs-cookie-shell"
+  role="region"
+  aria-label="Souhlas se soubory cookies"
+  hidden
+  data-vs-cookie-bar
+>
+  <div class="vs-cookie-bar">
+    <div class="vs-cookie-bar__main">
+      <div class="vs-cookie-bar__left">
+        <span class="vs-cookie-bar__icon" aria-hidden="true">
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
+            <circle cx="8.5" cy="8.5" r="1"></circle>
+            <circle cx="15" cy="15" r="1"></circle>
+            <circle cx="10" cy="14" r="1"></circle>
+          </svg>
+        </span>
+        <div>
+          <div class="vs-cookie-bar__title">Používáme soubory cookies</div>
+          <p class="vs-cookie-bar__desc">
+            Pro správné fungování nákupu, měření a přizpůsobení nabídek (<a
+              href="/policies/privacy-policy"
+              class="vs-cookie-bar__link"
+              >Zásady soukromí</a
+            >).
+          </p>
+        </div>
+      </div>
+
+      <div class="vs-cookie-bar__btns">
+        <button
+          type="button"
+          class="vs-cookie-btn-prefs"
+          aria-expanded="false"
+          aria-controls="vs-cookie-prefs-panel"
+          data-vs-cookie-toggle-prefs
+        >
+          Nastavení
+        </button>
+        <button
+          type="button"
+          class="vs-cookie-btn-decline"
+          data-vs-cookie-decline
+        >
+          Pouze nezbytné
+        </button>
+        <button
+          type="button"
+          class="vs-cookie-btn-accept"
+          data-vs-cookie-accept
+        >
+          Přijmout vše
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="vs-cookie-prefs-panel"
+      class="vs-cookie-prefs"
+      hidden
+      data-vs-cookie-prefs
+    >
+      <div class="vs-cookie-pref-row">
+        <div>
+          <span>Nezbytné cookies</span>
+          <small>Vždy aktivní pro chod košíku a pokladny</small>
+        </div>
+        <button
+          type="button"
+          class="vs-cookie-switch is-on"
+          role="switch"
+          aria-checked="true"
+          aria-label="Nezbytné cookies vždy aktivní"
+          disabled
+        ></button>
+      </div>
+
+      <div class="vs-cookie-pref-row">
+        <div>
+          <span>Analytické &amp; výkonnostní</span>
+          <small>Pomáhají nám zlepšovat rychlost a přehlednost e-shopu</small>
+        </div>
+        <button
+          type="button"
+          class="vs-cookie-switch is-on"
+          role="switch"
+          aria-checked="true"
+          aria-label="Analytické a výkonnostní cookies"
+          data-vs-cookie-switch="analytics"
+        ></button>
+      </div>
+
+      <div class="vs-cookie-pref-row">
+        <div>
+          <span>Marketingové</span>
+          <small>Zobrazování relevantních slev a sad VeaSkin</small>
+        </div>
+        <button
+          type="button"
+          class="vs-cookie-switch is-on"
+          role="switch"
+          aria-checked="true"
+          aria-label="Marketingové cookies"
+          data-vs-cookie-switch="marketing"
+        ></button>
+      </div>
+
+      <div class="vs-cookie-prefs__foot">
+        <button
+          type="button"
+          class="vs-cookie-btn-save"
+          data-vs-cookie-save
+        >
+          Uložit vybrané nastavení
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'vs_cookie_consent_v1';
+    var shell = document.querySelector('[data-vs-cookie-bar]');
+    if (!shell) return;
+
+    var prefsPanel = shell.querySelector('[data-vs-cookie-prefs]');
+    var togglePrefsBtn = shell.querySelector('[data-vs-cookie-toggle-prefs]');
+    var analyticsSwitch = shell.querySelector('[data-vs-cookie-switch="analytics"]');
+    var marketingSwitch = shell.querySelector('[data-vs-cookie-switch="marketing"]');
+
+    function readSaved() {
+      try {
+        var raw = window.localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function setSwitchState(btn, on) {
+      if (!btn) return;
+      btn.classList.toggle('is-on', !!on);
+      btn.setAttribute('aria-checked', on ? 'true' : 'false');
+    }
+
+    function setPrefsExpanded(open) {
+      if (!prefsPanel || !togglePrefsBtn) return;
+      if (open) {
+        prefsPanel.removeAttribute('hidden');
+      } else {
+        prefsPanel.setAttribute('hidden', '');
+      }
+      togglePrefsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    function showBar(expandPrefs) {
+      var saved = readSaved();
+      if (saved) {
+        setSwitchState(analyticsSwitch, saved.analytics !== false);
+        setSwitchState(marketingSwitch, saved.marketing !== false);
+      }
+      setPrefsExpanded(!!expandPrefs);
+      shell.removeAttribute('hidden');
+    }
+
+    function hideBar() {
+      shell.setAttribute('hidden', '');
+      setPrefsExpanded(false);
+    }
+
+    function applyConsent(consentObj) {
+      var payload = {
+        analytics: !!consentObj.analytics,
+        marketing: !!consentObj.marketing,
+        preferences: !!consentObj.preferences,
+        sale_of_data: !!consentObj.marketing
+      };
+
+      try {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            analytics: payload.analytics,
+            marketing: payload.marketing,
+            preferences: payload.preferences,
+            ts: Date.now()
+          })
+        );
+      } catch (e) {}
+
+      hideBar();
+
+      function sendToShopify() {
+        if (
+          window.Shopify &&
+          window.Shopify.customerPrivacy &&
+          typeof window.Shopify.customerPrivacy.setTrackingConsent === 'function'
+        ) {
+          try {
+            window.Shopify.customerPrivacy.setTrackingConsent(payload, function () {});
+          } catch (e) {}
+        }
+      }
+
+      if (
+        window.Shopify &&
+        window.Shopify.customerPrivacy &&
+        typeof window.Shopify.customerPrivacy.setTrackingConsent === 'function'
+      ) {
+        sendToShopify();
+      } else if (window.Shopify && typeof window.Shopify.loadFeatures === 'function') {
+        window.Shopify.loadFeatures(
+          [{ name: 'consent-tracking-api', version: '0.1' }],
+          function (err) {
+            if (!err) sendToShopify();
+          }
+        );
+      }
+    }
+
+    shell.addEventListener('click', function (event) {
+      var target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
+
+      if (target.closest('[data-vs-cookie-toggle-prefs]')) {
+        var isHidden = prefsPanel && prefsPanel.hasAttribute('hidden');
+        setPrefsExpanded(!!isHidden);
+        return;
+      }
+
+      var sw = target.closest('[data-vs-cookie-switch]');
+      if (sw && !sw.hasAttribute('disabled')) {
+        var nextOn = !sw.classList.contains('is-on');
+        setSwitchState(sw, nextOn);
+        return;
+      }
+
+      if (target.closest('[data-vs-cookie-accept]')) {
+        applyConsent({ analytics: true, marketing: true, preferences: true });
+        return;
+      }
+
+      if (target.closest('[data-vs-cookie-decline]')) {
+        applyConsent({ analytics: false, marketing: false, preferences: false });
+        return;
+      }
+
+      if (target.closest('[data-vs-cookie-save]')) {
+        var analyticsOn = analyticsSwitch ? analyticsSwitch.classList.contains('is-on') : false;
+        var marketingOn = marketingSwitch ? marketingSwitch.classList.contains('is-on') : false;
+        applyConsent({
+          analytics: analyticsOn,
+          marketing: marketingOn,
+          preferences: analyticsOn
+        });
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      var target = event.target instanceof Element ? event.target : null;
+      if (target && target.closest('[data-vs-open-cookies]')) {
+        event.preventDefault();
+        showBar(true);
+      }
+    });
+
+    function initBannerVisibility() {
+      var saved = readSaved();
+      if (saved) return;
+
+      if (
+        window.Shopify &&
+        window.Shopify.customerPrivacy &&
+        typeof window.Shopify.customerPrivacy.shouldShowBanner === 'function'
+      ) {
+        if (window.Shopify.customerPrivacy.shouldShowBanner()) {
+          showBar(false);
+        }
+        return;
+      }
+
+      if (window.Shopify && typeof window.Shopify.loadFeatures === 'function') {
+        window.Shopify.loadFeatures(
+          [{ name: 'consent-tracking-api', version: '0.1' }],
+          function (error) {
+            if (error) {
+              showBar(false);
+              return;
+            }
+            if (
+              window.Shopify.customerPrivacy &&
+              typeof window.Shopify.customerPrivacy.shouldShowBanner === 'function'
+            ) {
+              if (window.Shopify.customerPrivacy.shouldShowBanner()) {
+                showBar(false);
+              }
+            } else {
+              showBar(false);
+            }
+          }
+        );
+      } else {
+        showBar(false);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBannerVisibility, { once: true });
+    } else {
+      initBannerVisibility();
+    }
+  })();
+</script>

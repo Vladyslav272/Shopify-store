@@ -46,7 +46,7 @@
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
-    {% endif %}
+    {% endif -%}
 
     {{ content_for_header }}
   </head>
@@ -98,6 +98,7 @@
       {% render 'quick-add-modal' %}
     {% endif %}
 
+    {% render 'veaskin-cookie-bar' %}
     {% render 'czech-localization' %}
     {% render 'czech-policies' %}
   </body>
