@@ -2677,8 +2677,8 @@ h6,
   font-weight: 400;
 }
 
-.product-details,
-[id*="ProductInformation"],
-.product-information {
-  scroll-margin-top: 24px;
+.product-information__media,
+.product-information,
+[id*="product-information"] {
+  scroll-margin-top: 16px;
 }

@@ -101,7 +101,7 @@
 
         <!-- Action CTA -->
         <div class="product-showcase-actions">
-          <a href="{{ section.settings.cta_link | default: '#ProductInformation-template--30716979773814__product-information' }}" class="product-showcase-btn" onclick="var t = document.querySelector('.product-details') || document.querySelector('[id*=\'ProductInformation\']') || document.querySelector('.product-information'); if (t) { var offset = 20; var top = t.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: top, behavior: 'smooth' }); return false; }">
+          <a href="{{ section.settings.cta_link | default: '#shopify-section-template--30716979773814__product-information' }}" class="product-showcase-btn" onclick="var t = document.querySelector('.product-information img[src*=\'zenabilepozadi\']') || document.querySelector('.product-information__media') || document.querySelector('.product-information') || document.querySelector('[id*=\'product-information\']'); if (t) { var offset = 16; var top = t.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: top, behavior: 'smooth' }); return false; }">
             <span>{{ section.settings.cta_text | default: 'Chci se cítit svěže každé ráno' }}</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>

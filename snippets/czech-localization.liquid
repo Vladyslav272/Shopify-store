@@ -529,6 +529,20 @@
       document.addEventListener('DOMContentLoaded', runTranslations);
     } else {
       runTranslations();
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.product-showcase-btn');
+    if (btn) {
+      e.preventDefault();
+      var t = document.querySelector('.product-information img[src*="zenabilepozadi"]') || document.querySelector('.product-information__media') || document.querySelector('.product-information') || document.querySelector('[id*="product-information"]');
+      if (t) {
+        var offset = 16;
+        var top = t.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    }
+  });
+
     }
 
     // Observer for asynchronously injected widgets and DOM updates
@@ -540,18 +554,7 @@
       observer.observe(document.body, { childList: true, subtree: true });
     } else {
       document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('.product-showcase-btn');
-      if (btn) {
-        e.preventDefault();
-        var t = document.querySelector('.product-details') || document.querySelector('[id*="ProductInformation"]') || document.querySelector('.product-information');
-        if (t) {
-          var offset = 20;
-          var top = t.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({ top: top, behavior: 'smooth' });
-        }
-      }
-    });
+
 
         observer.observe(document.body, { childList: true, subtree: true });
       });
