@@ -13,8 +13,6 @@
     assign anchor_prefix = base_product_url
     assign logo_href = base_product_url
   endif
-
-  assign logo_image = images['90.png']
 %}
 
 <script
@@ -39,17 +37,28 @@
 
   <div class="vs-header-sticky">
     <header class="vs-header">
-      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }}">
-        {%- if logo_image != blank -%}
+      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} – Domů">
+        {%- if settings.logo != blank -%}
           <img
-            src="{{ logo_image | image_url: width: 160 }}"
+            src="{{ settings.logo | image_url: width: 320 }}"
             alt="{{ shop.name | default: 'VeaSkin' | escape }}"
             class="vs-logo__img"
-            width="28"
-            height="28"
+            width="114"
+            height="38"
+            loading="eager"
+            fetchpriority="high"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'logo.png' | asset_url }}"
+            alt="{{ shop.name | default: 'VeaSkin' | escape }}"
+            class="vs-logo__img"
+            width="114"
+            height="38"
+            loading="eager"
+            fetchpriority="high"
           >
         {%- endif -%}
-        <span class="vs-logo__text">VeaSkin</span>
       </a>
 
       <nav aria-label="Hlavní navigace">

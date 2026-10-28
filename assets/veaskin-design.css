@@ -130,7 +130,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-logo__img {
-  height: 28px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -1681,6 +1681,10 @@ main.vs-product-main .jdgm-star {
 
   .vs-header {
     padding: 12px 16px;
+  }
+
+  .vs-logo__img {
+    height: 30px;
   }
 
   .vs-logo__text {
