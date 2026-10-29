@@ -1029,6 +1029,11 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   position: relative;
   aspect-ratio: 4 / 3;
   background: var(--vs-blush);
+  order: 1;
+}
+
+.vs-morning-content {
+  order: 2;
 }
 
 .vs-morning-media img {
@@ -1959,6 +1964,14 @@ main.vs-product-main .jdgm-star {
   .vs-science-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .vs-morning-content {
+    order: 1;
+  }
+
+  .vs-morning-media {
+    order: 2;
   }
 
   .vs-timeline-grid,
