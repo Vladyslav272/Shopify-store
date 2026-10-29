@@ -1795,7 +1795,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] {
   max-width: var(--vs-container);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 8px 26px 28px;
+  padding: 8px 26px 48px;
   background: transparent;
 }
 
@@ -2166,7 +2166,7 @@ main.vs-product-main .jdgm-star {
   }
 
   main.vs-product-main > [id*="17926947644e416e5d"] {
-    padding: 4px 16px 20px;
+    padding: 4px 16px 34px;
   }
 
   main.vs-product-main > [id*="17926947644e416e5d"] .jdgm-rev-widg {

@@ -73,13 +73,10 @@
       >
         {%- if request.page_type == 'product' -%}
           {% section 'veaskin-product-experience' %}
+          {% section 'veaskin-product-faq' %}
         {%- endif -%}
 
         {{ content_for_layout }}
-
-        {%- if request.page_type == 'product' -%}
-          {% section 'veaskin-product-faq' %}
-        {%- endif -%}
       </main>
 
       <footer>
