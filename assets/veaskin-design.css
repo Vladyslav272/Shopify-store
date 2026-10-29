@@ -1820,50 +1820,199 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   color: var(--vs-subtle);
 }
 
-/* Judge.me Full Widget Harmonization inside 1140px layout */
+/* ==========================================================================
+   Judge.me Full Widget Harmonization (New .jm- Revamp + Legacy .jdgm-)
+   ========================================================================== */
+
+/* Outer section container */
 main.vs-product-main > [id*="17926947644e416e5d"] {
   display: block;
   width: 100%;
-  max-width: var(--vs-container);
+  max-width: var(--vs-container, 1140px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 8px 26px 48px;
+  padding: 16px 20px 48px;
   background: transparent;
 }
 
 main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
-  display: none;
+  display: none !important;
 }
 
 main.vs-product-main > [id*="17926947644e416e5d"] .section {
   display: block;
   width: 100%;
   max-width: 100%;
-  padding: 0;
-  margin: 0;
-  background: transparent;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
 }
 
-main.vs-product-main > [id*="17926947644e416e5d"] .jdgm-rev-widg {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 24px;
-  padding: 28px;
-  box-shadow: var(--vs-shadow);
-  margin: 0;
-  font-family: var(--vs-body);
+/* Typography & Root Variables */
+.jm-review-widget,
+.jdgm-rev-widg {
+  font-family: var(--vs-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif) !important;
+  color: var(--vs-text, #2D2426) !important;
+  --jm-review-widget-star-and-histogram-color: var(--vs-amber, #E5A93C) !important;
+  --jm-review-widget-button-color: var(--vs-accent, #BB6966) !important;
+  --jm-review-widget-text-color: var(--vs-text, #2D2426) !important;
+  --jm-review-widget-lighter-text-color: var(--vs-muted, #685B5E) !important;
+  --jm-widget-primary-color: var(--vs-accent, #BB6966) !important;
 }
 
-main.vs-product-main .jdgm-rev-widg__title {
-  font-family: var(--vs-heading);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--vs-text);
+/* Header Section */
+.jm-review-widget-minimal-header__title,
+.jdgm-rev-widg__title {
+  font-family: var(--vs-heading, 'Lora', Georgia, serif) !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--vs-text, #2D2426) !important;
 }
 
-main.vs-product-main .jdgm-star {
-  color: var(--vs-amber);
-  background: transparent;
+.jm-average-rating-display {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Stars styling */
+.jm-star-rating__font-icon,
+.jdgm-star {
+  color: var(--vs-amber, #E5A93C) !important;
+  background: transparent !important;
+}
+
+/* Primary "Napsat recenzi" button */
+.jm-review-widget .jm-button--primary.jm-action-buttons__button,
+.jm-review-widget .jm-action-buttons__button,
+.jdgm-write-rev-link {
+  background: var(--vs-accent, #BB6966) !important;
+  color: #FFFFFF !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 13.5px !important;
+  padding: 10px 22px !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(187, 105, 102, 0.28) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.jm-review-widget .jm-button--primary.jm-action-buttons__button:hover,
+.jm-review-widget .jm-action-buttons__button:hover,
+.jdgm-write-rev-link:hover {
+  background: var(--vs-accent-hover, #A85956) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(187, 105, 102, 0.35) !important;
+}
+
+/* Filter / sort secondary buttons */
+.jm-review-widget .jm-button--secondary,
+.jm-review-widget .jm-custom-answer-filter,
+.jm-review-widget .jm-filters button {
+  border-radius: 999px !important;
+  border: 1px solid rgba(104, 91, 94, 0.18) !important;
+  background: #FFFFFF !important;
+  color: var(--vs-text, #2D2426) !important;
+  transition: all 0.2s ease !important;
+}
+
+.jm-review-widget .jm-button--secondary:hover,
+.jm-review-widget .jm-custom-answer-filter:hover {
+  border-color: var(--vs-accent, #BB6966) !important;
+  color: var(--vs-accent, #BB6966) !important;
+}
+
+/* Review Cards */
+.jm-review-item,
+.jdgm-rev {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(104, 91, 94, 0.12) !important;
+  border-radius: 18px !important;
+  padding: 22px 24px !important;
+  box-shadow: 0 4px 18px -4px rgba(43, 35, 37, 0.05) !important;
+  margin-bottom: 16px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.jm-review-item:hover,
+.jdgm-rev:hover {
+  box-shadow: 0 8px 24px -4px rgba(43, 35, 37, 0.08) !important;
+}
+
+/* Remove plain divider lines */
+.jm-review-widget hr,
+.jm-review-widget .jm-divider,
+.jm-review-widget [class*="divider"],
+.jdgm-divider-top {
+  display: none !important;
+}
+
+/* Reviewer Avatar */
+.jm-reviewer-avatar,
+.jm-reviewer-avatar--with-initial,
+.jdgm-rev__author-avatar {
+  background: var(--vs-blush, #F4EAE6) !important;
+  color: var(--vs-accent, #BB6966) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border-radius: 50% !important;
+  border: none !important;
+}
+
+/* Reviewer Name */
+.jm-reviewer-info__name,
+.jdgm-rev__author {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--vs-text, #2D2426) !important;
+}
+
+/* Review Date */
+.jm-reviewer-info .jm-text:not(.jm-reviewer-info__name),
+.jdgm-rev__timestamp {
+  font-size: 12px !important;
+  color: var(--vs-subtle, #96888B) !important;
+}
+
+/* Review Title */
+.jm-review-content__title,
+.jdgm-rev__title {
+  font-family: var(--vs-heading, 'Lora', Georgia, serif) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: var(--vs-text, #2D2426) !important;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+}
+
+/* Review Body */
+.jm-review-content__body,
+.jdgm-rev__body {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: var(--vs-muted, #524648) !important;
+}
+
+/* Pagination controls */
+.jm-pagination-controls__button {
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.jm-pagination-controls__button--active {
+  background: var(--vs-accent, #BB6966) !important;
+  color: #FFFFFF !important;
+  border-color: var(--vs-accent, #BB6966) !important;
+}
+
+/* Modal review dialog styling */
+.jdgm-write-review-modal,
+.jdgm-modal__content {
+  border-radius: 20px !important;
 }
 
 /* ==========================================================================
