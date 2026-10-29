@@ -1185,12 +1185,37 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-diagnosis-banner {
   background: linear-gradient(135deg, #FAF3F2 0%, #FFFFFF 100%);
+  border: 1px solid var(--vs-border);
   border-left: 4px solid var(--vs-accent);
   border-radius: 14px;
   padding: 16px 18px;
   font-size: 13.5px;
   color: var(--vs-muted);
   line-height: 1.55;
+  transition: all 0.2s ease;
+}
+
+.vs-diagnosis-banner.is-empty {
+  background: rgba(247, 236, 234, 0.4);
+  border: 1px dashed var(--vs-border);
+  border-left: 4px solid var(--vs-blush-border);
+  padding: 14px 16px;
+}
+
+.vs-diag-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--vs-muted);
+  text-align: center;
+}
+
+.vs-diag-prompt__icon {
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .vs-diagnosis-banner strong {

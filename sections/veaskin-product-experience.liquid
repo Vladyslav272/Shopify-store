@@ -457,11 +457,11 @@
       </div>
 
       <div class="vs-symptom-grid">
-        <button type="button" class="vs-symptom-btn is-checked" role="checkbox" aria-checked="true" data-vs-symptom>
+        <button type="button" class="vs-symptom-btn" role="checkbox" aria-checked="false" data-vs-symptom>
           <span class="vs-symptom-box" aria-hidden="true">✓</span>
           <span>Ranní otoky očních víček a váčky po probuzení</span>
         </button>
-        <button type="button" class="vs-symptom-btn is-checked" role="checkbox" aria-checked="true" data-vs-symptom>
+        <button type="button" class="vs-symptom-btn" role="checkbox" aria-checked="false" data-vs-symptom>
           <span class="vs-symptom-box" aria-hidden="true">✓</span>
           <span>Tmavé kruhy pod očima, které nezakryje ani korektor</span>
         </button>
@@ -469,7 +469,7 @@
           <span class="vs-symptom-box" aria-hidden="true">✓</span>
           <span>Jemné vrásky a unavená, dehydratovaná pleť očního okolí</span>
         </button>
-        <button type="button" class="vs-symptom-btn is-checked" role="checkbox" aria-checked="true" data-vs-symptom>
+        <button type="button" class="vs-symptom-btn" role="checkbox" aria-checked="false" data-vs-symptom>
           <span class="vs-symptom-box" aria-hidden="true">✓</span>
           <span>Pocit pálení, těžkosti a suchých očí po práci u obrazovky</span>
         </button>
@@ -479,9 +479,15 @@
         </button>
       </div>
 
-      <div class="vs-diagnosis-banner" aria-live="polite">
-        <strong data-vs-diag-headline>Označeno 3 z 5 příznaků - Proč běžné krémy samy o sobě nestačí:</strong>
-        <span>Problém není ve svrchní vrstvě kůže, ale ve zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe - k tomu je nutná cílená mikromasáž EMS pulzy a červené světlo.</span>
+      <div class="vs-diagnosis-banner is-empty" aria-live="polite">
+        <div class="vs-diag-prompt" data-vs-diag-prompt>
+          <span class="vs-diag-prompt__icon" aria-hidden="true">👆</span>
+          <span>Pro zobrazení výsledků a příčiny zaškrtněte alespoň jeden projev výše</span>
+        </div>
+        <div class="vs-diag-result" data-vs-diag-result hidden>
+          <strong data-vs-diag-headline>Proč běžné krémy samy o sobě nestačí:</strong>
+          <span>Problém není ve svrchní vrstvě kůže, ale ve zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe - k tomu je nutná cílená mikromasáž EMS pulzy a červené světlo.</span>
+        </div>
       </div>
     </div>
   </section>
@@ -845,12 +851,29 @@
       symptomBtn.setAttribute('aria-checked', nowChecked ? 'true' : 'false');
 
       const count = quizCard.querySelectorAll('[data-vs-symptom].is-checked').length;
+      const banner = quizCard.querySelector('.vs-diagnosis-banner');
+      const promptEl = quizCard.querySelector('[data-vs-diag-prompt]');
+      const resultEl = quizCard.querySelector('[data-vs-diag-result]');
       const headline = quizCard.querySelector('[data-vs-diag-headline]');
-      if (headline) {
+
+      if (banner && promptEl && resultEl) {
         if (count === 0) {
-          headline.textContent = 'Vyberte alespoň jeden příznak pro zobrazení vysvětlení:';
+          banner.classList.add('is-empty');
+          promptEl.hidden = false;
+          resultEl.hidden = true;
         } else {
-          headline.textContent = `Označeno ${count} z 5 příznaků - Proč běžné krémy samy o sobě nestačí:`;
+          banner.classList.remove('is-empty');
+          promptEl.hidden = true;
+          resultEl.hidden = false;
+          if (headline) {
+            if (count === 1) {
+              headline.textContent = 'Označen 1 z 5 projevů - Proč běžné krémy samy o sobě nestačí:';
+            } else if (count < 5) {
+              headline.textContent = `Označeny ${count} z 5 projevů - Proč běžné krémy samy o sobě nestačí:`;
+            } else {
+              headline.textContent = 'Označeno 5 z 5 projevů - Proč běžné krémy samy o sobě nestačí:';
+            }
+          }
         }
       }
     }
