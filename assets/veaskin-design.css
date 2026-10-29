@@ -816,6 +816,8 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .vs-radio-dot {
@@ -847,6 +849,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   font-weight: 700;
   color: var(--vs-text);
   line-height: 1.25;
+  overflow-wrap: break-word;
 }
 
 .vs-offer-sub {
@@ -1944,9 +1947,11 @@ main.vs-product-main .jdgm-star {
 }
 
 @media screen and (max-width: 749px) {
-  .vs-morning-cta {
+  .vs-morning-cta,
+  .vs-reframe-cta {
     width: 100%;
     justify-content: center;
+    white-space: normal;
   }
 
   .vs-topbar {
@@ -2072,6 +2077,40 @@ main.vs-product-main .jdgm-star {
     padding: 26px 16px;
   }
 }
+
+@media screen and (max-width: 360px) {
+  .vs-section {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .vs-morning-card,
+  .vs-buy-panel,
+  .vs-quiz-card,
+  .vs-science-card,
+  .vs-ba-card {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .vs-offer-option {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .vs-offer-price {
+    font-size: 14.5px;
+  }
+
+  .vs-product-title {
+    font-size: 23px;
+  }
+
+  .vs-heading {
+    font-size: 20px;
+  }
+}
+
 
 /* ==========================================================================
    SLIM HORIZONTAL GDPR COOKIE BAR (APPROVED VARIANT B)
