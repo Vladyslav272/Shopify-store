@@ -1036,16 +1036,21 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-morning-content {
   order: 2;
+  text-align: center;
 }
 
 .vs-morning-content .vs-kicker {
   background: #ffffff;
   border: 1px solid var(--vs-border);
   box-shadow: 0 2px 8px rgba(43, 35, 37, 0.05);
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .vs-morning-content .vs-heading {
   font-weight: 700;
+  text-align: center;
 }
 
 .vs-morning-content .vs-heading em {
@@ -1062,19 +1067,23 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-morning-actions {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .vs-morning-cta {
   width: auto;
   min-width: 260px;
   display: inline-flex;
+  justify-content: center;
 }
 
 .vs-morning-lead {
   font-size: 14.5px;
   color: var(--vs-muted);
-  margin: 0;
+  margin: 0 auto;
   line-height: 1.55;
+  text-align: center;
 }
 
 .vs-morning-list {
