@@ -106,9 +106,9 @@
 
 <title>
   {{ page_title | replace: 'Eye Care Machine', 'Brýle proti otokům' }}
-  {%- if current_tags %} &ndash; se štítkem "{{ current_tags | join: ', ' }}"{% endif -%}
-  {%- if current_page != 1 %} &ndash; Strana {{ current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- if current_tags %} - se štítkem "{{ current_tags | join: ', ' }}"{% endif -%}
+  {%- if current_page != 1 %} - Strana {{ current_page }}{% endif -%}
+  {%- unless page_title contains shop.name %} - {{ shop.name }}{% endunless -%}
 </title>
 
 <link
