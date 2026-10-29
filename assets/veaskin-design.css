@@ -1944,6 +1944,11 @@ main.vs-product-main .jdgm-star {
 }
 
 @media screen and (max-width: 749px) {
+  .vs-morning-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
   .vs-topbar {
     padding: 8px 12px;
     font-size: 11.5px;
