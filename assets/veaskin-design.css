@@ -1145,9 +1145,14 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   text-align: center;
 }
 
+.vs-morning-title span {
+  font-family: inherit !important;
+}
+
 .vs-morning-title .vs-highlight {
+  font-family: inherit !important;
   color: var(--vs-accent);
-  font-style: italic;
+  font-style: normal;
 }
 
 .vs-morning-subtitle {
