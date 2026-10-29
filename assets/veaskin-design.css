@@ -1012,28 +1012,44 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
    ========================================================================== */
 
 .vs-morning-card {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 24px;
-  padding: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
-  gap: 28px;
+  gap: 32px;
   align-items: center;
-  box-shadow: var(--vs-shadow);
+  box-shadow: none;
 }
 
 .vs-morning-media {
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   position: relative;
   aspect-ratio: 4 / 3;
   background: var(--vs-blush);
   order: 1;
+  box-shadow: 0 12px 30px -8px rgba(43, 35, 37, 0.12);
+  border: 1px solid rgba(234, 219, 218, 0.7);
 }
 
 .vs-morning-content {
   order: 2;
+}
+
+.vs-morning-content .vs-kicker {
+  background: #ffffff;
+  border: 1px solid var(--vs-border);
+  box-shadow: 0 2px 8px rgba(43, 35, 37, 0.05);
+}
+
+.vs-morning-content .vs-heading {
+  font-weight: 700;
+}
+
+.vs-morning-content .vs-heading em {
+  font-weight: 700;
 }
 
 .vs-morning-media img {
@@ -2088,7 +2104,6 @@ main.vs-product-main .jdgm-star {
     gap: 10px 8px;
   }
 
-  .vs-morning-card,
   .vs-quiz-card,
   .vs-science-card,
   .vs-ba-card {
@@ -2161,7 +2176,6 @@ main.vs-product-main .jdgm-star {
     padding-right: 12px;
   }
 
-  .vs-morning-card,
   .vs-buy-panel,
   .vs-quiz-card,
   .vs-science-card,
