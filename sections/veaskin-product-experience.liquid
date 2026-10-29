@@ -304,9 +304,17 @@
               <div>
                 <div class="vs-offer-name">1× Brýle proti otokům - Ranní péče</div>
                 {%- if d1_pct > 0 -%}
-                  <span class="vs-offer-perk">Sleva {{ d1_pct }} % • Doprava zdarma</span>
+                  <span class="vs-offer-perk">
+                    <span class="vs-perk-line">Sleva {{ d1_pct }}&nbsp;%</span>
+                    <span class="vs-perk-sep">•</span>
+                    <span class="vs-perk-line">Doprava zdarma</span>
+                  </span>
                 {%- else -%}
-                  <span class="vs-offer-perk">✓ Doprava zdarma • 30 dní na vyzkoušení</span>
+                  <span class="vs-offer-perk">
+                    <span class="vs-perk-line">✓ Doprava zdarma</span>
+                    <span class="vs-perk-sep">•</span>
+                    <span class="vs-perk-line">30&nbsp;dní na&nbsp;vyzkoušení</span>
+                  </span>
                 {%- endif -%}
               </div>
             </div>
@@ -337,7 +345,11 @@
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
                 <div class="vs-offer-name">2× Brýle proti otokům - Rituál ve dvou</div>
-                <span class="vs-offer-perk">+ Ušetříte {{ save2_fmt }} • {{ unit2_fmt }} / kus</span>
+                <span class="vs-offer-perk">
+                  <span class="vs-perk-line">+ Ušetříte {{ save2_fmt | replace: ' ', '&nbsp;' }}</span>
+                  <span class="vs-perk-sep">•</span>
+                  <span class="vs-perk-line">{{ unit2_fmt | replace: ' ', '&nbsp;' }}&nbsp;/&nbsp;kus</span>
+                </span>
               </div>
             </div>
             <div class="vs-offer-right">
@@ -367,7 +379,11 @@
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
                 <div class="vs-offer-name">3× Brýle proti otokům - Rodinná &amp; dárková sada</div>
-                <span class="vs-offer-perk">+ Ušetříte {{ save3_fmt }} • {{ unit3_fmt }} / kus</span>
+                <span class="vs-offer-perk">
+                  <span class="vs-perk-line">+ Ušetříte {{ save3_fmt | replace: ' ', '&nbsp;' }}</span>
+                  <span class="vs-perk-sep">•</span>
+                  <span class="vs-perk-line">{{ unit3_fmt | replace: ' ', '&nbsp;' }}&nbsp;/&nbsp;kus</span>
+                </span>
               </div>
             </div>
             <div class="vs-offer-right">
