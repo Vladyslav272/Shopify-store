@@ -1187,6 +1187,8 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-morning-cta {
+  width: auto !important;
+  max-width: max-content;
   background: var(--vs-accent);
   color: #ffffff;
   font-size: 14.5px;
@@ -2345,7 +2347,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-morning-cta {
-    width: 100%;
+    width: 100% !important;
     max-width: 320px;
     padding: 14px 24px;
     font-size: 13.5px;
