@@ -93,9 +93,17 @@
   assign save2_cta = save2_fmt | replace: 'Kč', 'KČ'
   assign save3_cta = save3_fmt | replace: 'Kč', 'KČ'
 
-  assign cta1_label = 'PŘIDAT DO KOŠÍKU - ' | append: p1_cta | append: ' (DOPRAVA ZDARMA)'
-  assign cta2_label = 'PŘIDAT DO KOŠÍKU - ' | append: p2_cta | append: ' (UŠETŘÍTE ' | append: save2_cta | append: ')'
-  assign cta3_label = 'PŘIDAT DO KOŠÍKU - ' | append: p3_cta | append: ' (UŠETŘÍTE ' | append: save3_cta | append: ')'
+  assign cta1_main = 'PŘIDAT DO KOŠÍKU - ' | append: p1_cta
+  assign cta1_sub = '(DOPRAVA ZDARMA)'
+  assign cta1_label = cta1_main | append: ' ' | append: cta1_sub
+
+  assign cta2_main = 'PŘIDAT DO KOŠÍKU - ' | append: p2_cta
+  assign cta2_sub = '(UŠETŘÍTE ' | append: save2_cta | append: ')'
+  assign cta2_label = cta2_main | append: ' ' | append: cta2_sub
+
+  assign cta3_main = 'PŘIDAT DO KOŠÍKU - ' | append: p3_cta
+  assign cta3_sub = '(UŠETŘÍTE ' | append: save3_cta | append: ')'
+  assign cta3_label = cta3_main | append: ' ' | append: cta3_sub
 
   if images['zenabilepozadi.jpg'] != blank
     assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
@@ -287,6 +295,8 @@
             data-variant-id="{{ v1_id }}"
             data-qty="{{ v1_qty }}"
             data-bundle-label="1× Brýle - Ranní péče"
+            data-cta-main="{{ cta1_main | escape }}"
+            data-cta-sub="{{ cta1_sub | escape }}"
             data-cta-label="{{ cta1_label | escape }}"
           >
             <div class="vs-offer-left">
@@ -318,6 +328,8 @@
             data-variant-id="{{ v2_id }}"
             data-qty="{{ v2_qty }}"
             data-bundle-label="2× Brýle - Rituál ve dvou"
+            data-cta-main="{{ cta2_main | escape }}"
+            data-cta-sub="{{ cta2_sub | escape }}"
             data-cta-label="{{ cta2_label | escape }}"
           >
             <span class="vs-offer-ribbon">Nejoblíbenější • −{{ d2_pct }} %</span>
@@ -346,6 +358,8 @@
             data-variant-id="{{ v3_id }}"
             data-qty="{{ v3_qty }}"
             data-bundle-label="3× Brýle - Rodinná & dárková sada"
+            data-cta-main="{{ cta3_main | escape }}"
+            data-cta-sub="{{ cta3_sub | escape }}"
             data-cta-label="{{ cta3_label | escape }}"
           >
             <span class="vs-offer-ribbon vs-offer-ribbon--dark">Nejvýhodnější −{{ d3_pct }} %</span>
@@ -413,9 +427,10 @@
                 {% unless first_variant.available %}disabled{% endunless %}
               >
                 {%- if first_variant.available -%}
-                  {{ cta2_label }}
+                  <span class="vs-cta-btn__main" data-vs-cta-main>{{ cta2_main }}</span>
+                  <span class="vs-cta-btn__sub" data-vs-cta-sub>{{ cta2_sub }}</span>
                 {%- else -%}
-                  VYPRODÁNO
+                  <span class="vs-cta-btn__main">VYPRODÁNO</span>
                 {%- endif -%}
               </button>
             {%- endform -%}
@@ -803,8 +818,19 @@
 
       if (idInput && variantId) idInput.value = variantId;
       if (qtyInput && qty) qtyInput.value = qty;
-      if (ctaBtn && ctaLabel && !ctaBtn.hasAttribute('disabled')) {
-        ctaBtn.textContent = ctaLabel;
+      if (ctaBtn && !ctaBtn.hasAttribute('disabled')) {
+        const ctaMain = offerBtn.getAttribute('data-cta-main');
+        const ctaSub = offerBtn.getAttribute('data-cta-sub');
+        const ctaMainEl = root.querySelector('[data-vs-cta-main]');
+        const ctaSubEl = root.querySelector('[data-vs-cta-sub]');
+        if (ctaMainEl && ctaMain) {
+          ctaMainEl.textContent = ctaMain;
+        } else if (ctaBtn && ctaLabel) {
+          ctaBtn.textContent = ctaLabel;
+        }
+        if (ctaSubEl) {
+          ctaSubEl.textContent = ctaSub || '';
+        }
       }
       return;
     }

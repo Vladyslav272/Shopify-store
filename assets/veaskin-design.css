@@ -948,6 +948,31 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   text-align: center;
 }
 
+
+[data-vs-cta-btn] {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1.25;
+}
+
+[data-vs-cta-btn] .vs-cta-btn__main {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+[data-vs-cta-btn] .vs-cta-btn__sub {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  opacity: 0.92;
+  white-space: nowrap;
+}
+
 .vs-cta-btn:hover {
   background: var(--vs-accent-dark);
   color: #FFFFFF;
@@ -1951,6 +1976,20 @@ main.vs-product-main .jdgm-star {
 }
 
 @media screen and (max-width: 749px) {
+  [data-vs-cta-btn] {
+    flex-direction: column;
+    gap: 3px;
+    padding: 13px 14px;
+  }
+
+  [data-vs-cta-btn] .vs-cta-btn__main {
+    font-size: 13.5px;
+  }
+
+  [data-vs-cta-btn] .vs-cta-btn__sub {
+    font-size: 11.5px;
+  }
+
   .vs-review-pill__extra {
     display: none;
   }
@@ -2096,6 +2135,14 @@ main.vs-product-main .jdgm-star {
 }
 
 @media screen and (max-width: 360px) {
+  [data-vs-cta-btn] .vs-cta-btn__main {
+    font-size: 12px;
+  }
+
+  [data-vs-cta-btn] .vs-cta-btn__sub {
+    font-size: 10.5px;
+  }
+
   .vs-section {
     padding-left: 12px;
     padding-right: 12px;
