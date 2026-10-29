@@ -168,8 +168,26 @@
 
 <div class="vs-shell" id="veaskin-pdp-v2" data-vs-experience>
 
+  {%- if section.settings.show_trust_bar != false -%}
+    {%- assign t_rating = section.settings.trust_rating | default: '4,9/5' -%}
+    {%- assign t_count = section.settings.trust_count | default: '2 000+ zákaznic' -%}
+    {%- assign t_tagline = section.settings.trust_tagline | default: 'česká značka' -%}
+    <aside class="vs-trust-bar">
+      <a href="#recenze-sekce" class="vs-trust-bar__link" aria-label="Hodnocení {{ t_rating }} z 5 hvězdiček, {{ t_count }}, {{ t_tagline }}">
+        <div class="vs-trust-bar__stars" aria-hidden="true">★★★★★</div>
+        <div class="vs-trust-bar__text">
+          <span class="vs-trust-bar__rating">{{ t_rating }}</span>
+          <span class="vs-trust-bar__dot" aria-hidden="true">·</span>
+          <span class="vs-trust-bar__count">{{ t_count }}</span>
+          <span class="vs-trust-bar__dot" aria-hidden="true">·</span>
+          <span class="vs-trust-bar__origin">{{ t_tagline }}</span>
+        </div>
+      </a>
+    </aside>
+  {%- endif -%}
+
   <!-- 1. RANNÍ PROMĚNA -->
-  <section class="vs-section vs-section--hero" id="top">
+  <section class="vs-section vs-section--hero{% if section.settings.show_trust_bar != false %} has-trust-bar{% endif %}" id="top">
     <div class="vs-morning-card">
       <div class="vs-morning-media">
         <img
@@ -926,6 +944,34 @@
       "id": "product_heading",
       "label": "Hlavní nadpis produktu",
       "default": "Brýle proti otokům"
+    },
+    {
+      "type": "header",
+      "content": "Pruh důvěryhodnosti (hvězdičky nad 1. sekcí)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Zobrazit pruh s hodnocením nad 1. sekcí",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_rating",
+      "label": "Hodnocení",
+      "default": "4,9/5"
+    },
+    {
+      "type": "text",
+      "id": "trust_count",
+      "label": "Počet zákaznic / recenzí",
+      "default": "2 000+ zákaznic"
+    },
+    {
+      "type": "text",
+      "id": "trust_tagline",
+      "label": "Doplňující text",
+      "default": "česká značka"
     }
   ],
   "presets": [
