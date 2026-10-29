@@ -65,11 +65,16 @@
       else
         assign continue_shopping_url = '/products/led-ems-bryle-na-ocni-okoli'
       endif
+
+      assign empty_cart_target_url = continue_shopping_url
+      if settings.empty_cart_button_link != blank and settings.empty_cart_button_link != '/collections/all' and settings.empty_cart_button_link != routes.all_products_collection_url
+        assign empty_cart_target_url = settings.empty_cart_button_link
+      endif
     -%}
 
     <a
       class="button cart-items__empty-button"
-      href="{{ settings.empty_cart_button_link | default: continue_shopping_url }}"
+      href="{{ empty_cart_target_url }}"
       {% if context == 'drawer' %}
         on:click="#cart-drawer/close"
       {% endif %}
