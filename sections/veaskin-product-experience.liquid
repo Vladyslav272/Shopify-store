@@ -186,31 +186,37 @@
     </aside>
   {%- endif -%}
 
-  <!-- 1. RANNÍ PROMĚNA -->
+  <!-- 1. RANNÍ PROMĚNA (CENTERED VERTICAL HERO) -->
   <section class="vs-section vs-section--hero{% if section.settings.show_trust_bar != false %} has-trust-bar{% endif %}" id="top">
     <div class="vs-morning-card">
+      <div class="vs-morning-content">
+        <h1 class="vs-morning-title">Vykročte do rána <span class="vs-highlight">s úsměvem.*</span></h1>
+        <h2 class="vs-morning-subtitle">Stačí jen 10 minut péče u ranní kávy.</h2>
+        <p class="vs-morning-lead">
+          VeaSkin vám během ranní kávy vrátí <strong>svěžest a příjemný pocit</strong>, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky korektoru a make-upu.<br>
+          <strong>Šetrně a v pohodlí domova.</strong>
+        </p>
+        <div class="vs-morning-actions">
+          <a href="#nabidka-box" class="vs-cta-btn vs-morning-cta">
+            Dopřát si svěží pohled ↓
+          </a>
+        </div>
+        <div class="vs-morning-guarantee">
+          <span class="vs-guarantee-icon" aria-hidden="true">🛡️</span>
+          <span>30 dní na vyzkoušení – nepomůže, vrátíme peníze</span>
+        </div>
+      </div>
       <div class="vs-morning-media">
         <img
           src="{{ morning_img_url }}"
           alt="Ranní káva a VeaSkin péče"
-          width="800"
+          width="900"
           height="600"
           loading="eager"
           fetchpriority="high"
         >
       </div>
-      <div class="vs-morning-content">
-        <span class="vs-kicker">☕ První krok k vaší ranní proměně</span>
-        <h2 class="vs-heading">Vykročte do rána s úsměvem. <em>Stačí jen 10 minut péče.</em></h2>
-        <p class="vs-morning-lead">
-          VeaSkin vám během ranní kávy vrátí svěžest a příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete - i bez kapky korektoru a make-upu.
-        </p>
-        <div class="vs-morning-actions">
-          <a href="#nabidka-box" class="vs-cta-btn vs-morning-cta">
-            Dopřát si svěží pohled →
-          </a>
-        </div>
-      </div>
+      <div class="vs-morning-footnote">*Výsledky se mohou lišit.</div>
     </div>
   </section>
 
