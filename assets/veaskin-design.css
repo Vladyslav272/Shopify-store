@@ -815,6 +815,53 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   border-radius: 999px;
 }
 
+/* Product Key Features in Buy Box */
+.vs-product-features {
+  display: grid;
+  gap: 12px;
+  margin: 6px 0 20px;
+}
+
+.vs-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.vs-feature-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--vs-blush);
+  color: var(--vs-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.vs-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vs-feature-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vs-text);
+  line-height: 1.3;
+}
+
+.vs-feature-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--vs-muted);
+}
+
 /* Tiered Bundle Selector */
 .vs-offer-head {
   display: flex;
