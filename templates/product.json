@@ -8,7 +8,7 @@
           "settings": {
             "review_data": "sample_data",
             "max_width": 1140,
-            "show_shop_reviews": false,
+            "show_shop_reviews": true,
             "empty_state": "empty_widget"
           }
         }
