@@ -93,9 +93,9 @@
   assign save2_cta = save2_fmt | replace: 'Kč', 'KČ'
   assign save3_cta = save3_fmt | replace: 'Kč', 'KČ'
 
-  assign cta1_label = 'PŘIDAT DO KOŠÍKU — ' | append: p1_cta | append: ' (DOPRAVA ZDARMA)'
-  assign cta2_label = 'PŘIDAT DO KOŠÍKU — ' | append: p2_cta | append: ' (UŠETŘÍTE ' | append: save2_cta | append: ')'
-  assign cta3_label = 'PŘIDAT DO KOŠÍKU — ' | append: p3_cta | append: ' (UŠETŘÍTE ' | append: save3_cta | append: ')'
+  assign cta1_label = 'PŘIDAT DO KOŠÍKU - ' | append: p1_cta | append: ' (DOPRAVA ZDARMA)'
+  assign cta2_label = 'PŘIDAT DO KOŠÍKU - ' | append: p2_cta | append: ' (UŠETŘÍTE ' | append: save2_cta | append: ')'
+  assign cta3_label = 'PŘIDAT DO KOŠÍKU - ' | append: p3_cta | append: ' (UŠETŘÍTE ' | append: save3_cta | append: ')'
 
   if images['zenabilepozadi.jpg'] != blank
     assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
@@ -177,7 +177,7 @@
         <span class="vs-kicker">☕ První krok k vaší ranní proměně</span>
         <h2 class="vs-heading">Vykročte do rána s úsměvem. <em>Stačí jen 10 minut péče.</em></h2>
         <p class="vs-morning-lead">
-          VeaSkin vám během ranní kávy vrátí svěžest a příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky korektoru a make-upu.
+          VeaSkin vám během ranní kávy vrátí svěžest a příjemný pocit, kdy se na sebe do zrcadla s chutí usmějete - i bez kapky korektoru a make-upu.
         </p>
         <div class="vs-morning-actions">
           <a href="#nabidka-box" class="vs-cta-btn vs-morning-cta">
@@ -206,7 +206,7 @@
           >
           <div class="vs-media-badge-top">
             <span class="vs-dot-live" aria-hidden="true"></span>
-            <span>630–660 nm Červené LED + EMS</span>
+            <span>630-660 nm Červené LED + EMS</span>
           </div>
         </div>
 
@@ -259,7 +259,7 @@
 
         <h1 class="vs-product-title">{{ section.settings.product_heading }}</h1>
         <p class="vs-product-lead">
-          Probuďte se do dne bez ranních otoků, váčků a tmavých kruhů pod očima. Cílené červené světlo a jemné EMS mikroproudy rozhýbou lymfu a zpevní oční okolí za pouhých <strong>10 minut denně</strong> — bez jehel a rekonvalescence.
+          Probuďte se do dne bez ranních otoků, váčků a tmavých kruhů pod očima. Cílené červené světlo a jemné EMS mikroproudy rozhýbou lymfu a zpevní oční okolí za pouhých <strong>10 minut denně</strong> - bez jehel a rekonvalescence.
         </p>
 
         <div class="vs-quick-tags">
@@ -283,13 +283,13 @@
             data-vs-offer
             data-variant-id="{{ v1_id }}"
             data-qty="{{ v1_qty }}"
-            data-bundle-label="1× Brýle — Ranní péče"
+            data-bundle-label="1× Brýle - Ranní péče"
             data-cta-label="{{ cta1_label | escape }}"
           >
             <div class="vs-offer-left">
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
-                <div class="vs-offer-name">1× Brýle proti otokům — Ranní péče</div>
+                <div class="vs-offer-name">1× Brýle proti otokům - Ranní péče</div>
                 {%- if d1_pct > 0 -%}
                   <span class="vs-offer-perk">Sleva {{ d1_pct }} % • Doprava zdarma</span>
                 {%- else -%}
@@ -314,14 +314,14 @@
             data-vs-offer
             data-variant-id="{{ v2_id }}"
             data-qty="{{ v2_qty }}"
-            data-bundle-label="2× Brýle — Rituál ve dvou"
+            data-bundle-label="2× Brýle - Rituál ve dvou"
             data-cta-label="{{ cta2_label | escape }}"
           >
             <span class="vs-offer-ribbon">Nejoblíbenější • −{{ d2_pct }} %</span>
             <div class="vs-offer-left">
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
-                <div class="vs-offer-name">2× Brýle proti otokům — Rituál ve dvou</div>
+                <div class="vs-offer-name">2× Brýle proti otokům - Rituál ve dvou</div>
                 <span class="vs-offer-perk">+ Ušetříte {{ save2_fmt }} • {{ unit2_fmt }} / kus</span>
               </div>
             </div>
@@ -342,14 +342,14 @@
             data-vs-offer
             data-variant-id="{{ v3_id }}"
             data-qty="{{ v3_qty }}"
-            data-bundle-label="3× Brýle — Rodinná & dárková sada"
+            data-bundle-label="3× Brýle - Rodinná & dárková sada"
             data-cta-label="{{ cta3_label | escape }}"
           >
             <span class="vs-offer-ribbon vs-offer-ribbon--dark">Nejvýhodnější −{{ d3_pct }} %</span>
             <div class="vs-offer-left">
               <span class="vs-radio-dot" aria-hidden="true"></span>
               <div>
-                <div class="vs-offer-name">3× Brýle proti otokům — Rodinná &amp; dárková sada</div>
+                <div class="vs-offer-name">3× Brýle proti otokům - Rodinná &amp; dárková sada</div>
                 <span class="vs-offer-perk">+ Ušetříte {{ save3_fmt }} • {{ unit3_fmt }} / kus</span>
               </div>
             </div>
@@ -462,35 +462,35 @@
       </div>
 
       <div class="vs-diagnosis-banner" aria-live="polite">
-        <strong data-vs-diag-headline>Označeno 3 z 5 příznaků — Proč běžné krémy samy o sobě nestačí:</strong>
-        <span>Problém není ve svrchní vrstvě kůže, ale ve zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe — k tomu je nutná cílená mikromasáž EMS pulzy a červené světlo.</span>
+        <strong data-vs-diag-headline>Označeno 3 z 5 příznaků - Proč běžné krémy samy o sobě nestačí:</strong>
+        <span>Problém není ve svrchní vrstvě kůže, ale ve zpomalené lymfatické cirkulaci a zhoršeném mikrokrevním oběhu kolem očí. Samotný krém lymfu nerozhýbe - k tomu je nutná cílená mikromasáž EMS pulzy a červené světlo.</span>
       </div>
     </div>
   </section>
 
-  <!-- 4. NÁVOD NA POUŽITÍ — 4 KROKY S REÁLNÝMI GIFY -->
+  <!-- 4. NÁVOD NA POUŽITÍ - 4 KROKY S REÁLNÝMI GIFY -->
   <section class="vs-section" id="jak-funguje">
     <div class="vs-center-head">
       <span class="vs-kicker">✨ Snadná 10minutová péče</span>
       <h2 class="vs-heading">Bez zákroků a bez rekonvalescence</h2>
-      <p class="vs-sub">Stačí nasadit, zvolit intenzitu a nechat přístroj pracovat za vás — po 10 minutách se sám vypne.</p>
+      <p class="vs-sub">Stačí nasadit, zvolit intenzitu a nechat přístroj pracovat za vás - po 10 minutách se sám vypne.</p>
     </div>
 
     <div class="vs-steps-grid">
       <article class="vs-step-card">
         <div class="vs-step-media">
-          <img src="{{ step1_gif_url }}" alt="Krok 1 — Čistá pleť" width="400" height="400" loading="lazy">
+          <img src="{{ step1_gif_url }}" alt="Krok 1 - Čistá pleť" width="400" height="400" loading="lazy">
           <span class="vs-step-pill">Krok 1</span>
         </div>
         <div class="vs-step-body">
           <strong>Čistá pleť</strong>
-          Začněte s čistou pletí — důkladně si umyjte obličej, abyste odstranili mastnotu i nečistoty pro maximální účinek.
+          Začněte s čistou pletí - důkladně si umyjte obličej, abyste odstranili mastnotu i nečistoty pro maximální účinek.
         </div>
       </article>
 
       <article class="vs-step-card">
         <div class="vs-step-media">
-          <img src="{{ step2_gif_url }}" alt="Krok 2 — Kapka séra či krému" width="400" height="400" loading="lazy">
+          <img src="{{ step2_gif_url }}" alt="Krok 2 - Kapka séra či krému" width="400" height="400" loading="lazy">
           <span class="vs-step-pill">Krok 2</span>
         </div>
         <div class="vs-step-body">
@@ -501,7 +501,7 @@
 
       <article class="vs-step-card">
         <div class="vs-step-media">
-          <img src="{{ step3_gif_url }}" alt="Krok 3 — Volba režimu" width="400" height="400" loading="lazy">
+          <img src="{{ step3_gif_url }}" alt="Krok 3 - Volba režimu" width="400" height="400" loading="lazy">
           <span class="vs-step-pill">Krok 3</span>
         </div>
         <div class="vs-step-body">
@@ -512,12 +512,12 @@
 
       <article class="vs-step-card">
         <div class="vs-step-media">
-          <img src="{{ step4_gif_url }}" alt="Krok 4 — 10 minut relaxace" width="400" height="400" loading="lazy">
+          <img src="{{ step4_gif_url }}" alt="Krok 4 - 10 minut relaxace" width="400" height="400" loading="lazy">
           <span class="vs-step-pill">Krok 4</span>
         </div>
         <div class="vs-step-body">
           <strong>10 minut relaxace</strong>
-          Pohodlně se usaďte, čtěte si nebo relaxujte — sami i ve dvou — zatímco přístroj pracuje za vás!
+          Pohodlně se usaďte, čtěte si nebo relaxujte - sami i ve dvou - zatímco přístroj pracuje za vás!
         </div>
       </article>
     </div>
@@ -535,19 +535,19 @@
           <ul class="vs-science-list">
             <li>
               <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>Červené světlo (630–660 nm) proniká 2–3 mm hluboko</strong> – stimuluje tvorbu kolagenu a zrychluje mikrocirkulaci tam, kam běžné krémy nedosáhnou.</div>
+              <div><strong>Červené světlo (630-660 nm) proniká 2-3 mm hluboko</strong> - stimuluje tvorbu kolagenu a zrychluje mikrocirkulaci tam, kam běžné krémy nedosáhnou.</div>
             </li>
             <li>
               <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>Mikroproudy aktivují lymfatickou drenáž</strong> – eliminují hromadění tekutiny, která způsobuje ranní otoky a váčky pod očima.</div>
+              <div><strong>Mikroproudy aktivují lymfatickou drenáž</strong> - eliminují hromadění tekutiny, která způsobuje ranní otoky a váčky pod očima.</div>
             </li>
             <li>
               <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>Řeší všechny 3 hlavní příčiny problémů</strong> – slabou cirkulaci (tmavé kruhy), zadržování vody (otoky) a úbytek kolagenu (vrásky).</div>
+              <div><strong>Řeší všechny 3 hlavní příčiny problémů</strong> - slabou cirkulaci (tmavé kruhy), zadržování vody (otoky) a úbytek kolagenu (vrásky).</div>
             </li>
             <li>
               <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>Původ v rehabilitační medicíně a výzkumu NASA</strong> – podloženo desítkami let studií, 100% neinvazivní bez bolesti a operací.</div>
+              <div><strong>Původ v rehabilitační medicíně a výzkumu NASA</strong> - podloženo desítkami let studií, 100% neinvazivní bez bolesti a operací.</div>
             </li>
           </ul>
         </div>
@@ -658,11 +658,11 @@
 
       <div class="vs-comp-box">
         <h3>Klinické zákroky</h3>
-        <div class="vs-comp-price">8 000 – 15 000 Kč <small>/ sezení</small></div>
+        <div class="vs-comp-price">8 000 - 15 000 Kč <small>/ sezení</small></div>
         <ul class="vs-comp-list">
           <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Výrazný vizuální efekt</li>
           <li><span class="vs-mark-no" aria-hidden="true">✕</span> Jehly, modřinky a čas na zotavení</li>
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost opakování každých 6–12 měsíců</li>
+          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost opakování každých 6-12 měsíců</li>
           <li><span class="vs-mark-no" aria-hidden="true">✕</span> Vysoké finanční náklady</li>
         </ul>
       </div>
@@ -729,7 +729,7 @@
             <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
           </div>
           <p class="vs-rev-text">
-            „Objednal jsem manželce a je nadšená – nakonec jsme vzali druhé i pro mě k počítači. Nasadím a nemusím nic hlídat, samo se vypne a baterie vydrží déle než týden.“
+            „Objednal jsem manželce a je nadšená - nakonec jsme vzali druhé i pro mě k počítači. Nasadím a nemusím nic hlídat, samo se vypne a baterie vydrží déle než týden.“
           </p>
         </div>
         <div class="vs-rev-meta">Zakoupeno: Sada 2× Brýle pro dva</div>
@@ -821,7 +821,7 @@
         if (count === 0) {
           headline.textContent = 'Vyberte alespoň jeden příznak pro zobrazení vysvětlení:';
         } else {
-          headline.textContent = `Označeno ${count} z 5 příznaků — Proč běžné krémy samy o sobě nestačí:`;
+          headline.textContent = `Označeno ${count} z 5 příznaků - Proč běžné krémy samy o sobě nestačí:`;
         }
       }
     }

@@ -156,7 +156,7 @@
         </button>
       </div>
 
-      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} – Domů">
+      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} - Domů">
         {%- if settings.logo != blank -%}
           <img
             src="{{ settings.logo | image_url: width: 320 }}"
@@ -282,7 +282,7 @@
   >
     <div class="vs-mobile-drawer__panel">
       <div class="vs-mobile-drawer__head">
-        <a href="{{ logo_href }}" class="vs-logo" data-vs-drawer-link aria-label="{{ shop.name | default: 'VeaSkin' }} – Domů">
+        <a href="{{ logo_href }}" class="vs-logo" data-vs-drawer-link aria-label="{{ shop.name | default: 'VeaSkin' }} - Domů">
           {%- if settings.logo != blank -%}
             <img
               src="{{ settings.logo | image_url: width: 320 }}"

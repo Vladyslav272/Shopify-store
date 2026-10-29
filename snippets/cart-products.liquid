@@ -5,7 +5,7 @@
 
   @param {boolean} [force_empty] - Force render empty cart state
   @param {block} [block] - The block object providing settings and editor attributes.
-  @param {string} [context] - Render context — pass `'drawer'` when rendered inside the cart drawer to enable drawer-specific styles.
+  @param {string} [context] - Render context - pass `'drawer'` when rendered inside the cart drawer to enable drawer-specific styles.
 
   @example
   {% render 'cart-products', force_empty: true %}
@@ -178,11 +178,11 @@
                 assign unit_price_fmt = item.unit_price | money_without_trailing_zeros | replace: '.', ' '
 
                 if item.quantity == 1
-                  assign dynamic_bundle_name = '1× Brýle — Ranní péče'
+                  assign dynamic_bundle_name = '1× Brýle - Ranní péče'
                 elsif item.quantity == 2
-                  assign dynamic_bundle_name = '2× Brýle — Rituál ve dvou'
+                  assign dynamic_bundle_name = '2× Brýle - Rituál ve dvou'
                 else
-                  assign dynamic_bundle_name = item.quantity | append: '× Brýle — Rodinná & dárková sada'
+                  assign dynamic_bundle_name = item.quantity | append: '× Brýle - Rodinná & dárková sada'
                 endif
               -%}
               <tr
