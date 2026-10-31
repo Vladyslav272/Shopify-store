@@ -635,21 +635,22 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-gallery-card {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 22px;
-  padding: 14px;
-  box-shadow: var(--vs-shadow);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   position: sticky;
   top: 84px;
 }
 
 .vs-main-media {
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   background: #FFFFFF;
   aspect-ratio: 1 / 1;
+  box-shadow: 0 8px 26px rgba(43, 35, 37, 0.08);
 }
 
 .vs-main-media__img {
@@ -733,11 +734,11 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 /* Buy Panel */
 .vs-buy-panel {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: var(--vs-shadow);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   scroll-margin-top: 84px;
 }
 
@@ -1341,11 +1342,11 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
    ========================================================================== */
 
 .vs-quiz-card {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 24px;
-  padding: 30px;
-  box-shadow: var(--vs-shadow);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 10px 0;
+  box-shadow: none;
 }
 
 .vs-symptom-grid {
@@ -1459,11 +1460,11 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-step-card {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--vs-shadow);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
 }
@@ -1473,6 +1474,8 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   aspect-ratio: 1 / 1;
   background: var(--vs-blush);
   overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(43, 35, 37, 0.06);
 }
 
 .vs-step-media img {
@@ -1495,7 +1498,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-step-body {
-  padding: 14px 15px 16px;
+  padding: 14px 2px 0;
   font-size: 13px;
   color: var(--vs-muted);
   line-height: 1.5;
@@ -1949,11 +1952,12 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-rev-card {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: var(--vs-shadow);
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(187, 105, 102, 0.22);
+  border-radius: 0;
+  padding: 20px 4px 0;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2119,18 +2123,19 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 /* Review Cards */
 .jm-review-item,
 .jdgm-rev {
-  background: #FFFFFF !important;
-  border: 1px solid rgba(104, 91, 94, 0.12) !important;
-  border-radius: 18px !important;
-  padding: 22px 24px !important;
-  box-shadow: 0 4px 18px -4px rgba(43, 35, 37, 0.05) !important;
-  margin-bottom: 16px !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(187, 105, 102, 0.18) !important;
+  border-radius: 0 !important;
+  padding: 22px 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  transition: none !important;
 }
 
 .jm-review-item:hover,
 .jdgm-rev:hover {
-  box-shadow: 0 8px 24px -4px rgba(43, 35, 37, 0.08) !important;
+  box-shadow: none !important;
 }
 
 /* Remove plain divider lines */
@@ -2215,22 +2220,24 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   max-width: 100%;
   margin: 0 auto;
   display: grid;
-  gap: 10px;
+  gap: 0;
+  border-top: 1px solid rgba(187, 105, 102, 0.2);
 }
 
 .vs-faq-card {
-  background: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px -8px rgba(43, 35, 37, 0.06);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(187, 105, 102, 0.2);
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
 }
 
 .vs-faq-summary {
   list-style: none;
-  padding: 16px 18px;
+  padding: 18px 4px;
   font-family: var(--vs-body);
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--vs-text);
   display: flex;
@@ -2239,6 +2246,11 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   gap: 12px;
   cursor: pointer;
   user-select: none;
+  transition: color 0.2s ease;
+}
+
+.vs-faq-summary:hover {
+  color: var(--vs-accent);
 }
 
 .vs-faq-summary::-webkit-details-marker {
@@ -2259,10 +2271,10 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 }
 
 .vs-faq-body {
-  padding: 0 18px 16px;
-  font-size: 13.5px;
+  padding: 0 4px 18px;
+  font-size: 14px;
   color: var(--vs-muted);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .vs-faq-body p {
@@ -2497,7 +2509,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-buy-panel {
-    padding: 18px 16px;
+    padding: 0;
   }
 
   .vs-product-title {
@@ -2528,7 +2540,10 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     gap: 10px 8px;
   }
 
-  .vs-quiz-card,
+  .vs-quiz-card {
+    padding: 10px 0;
+  }
+
   .vs-science-card,
   .vs-ba-card {
     padding: 20px 16px;
@@ -2544,7 +2559,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-step-body {
-    padding: 12px;
+    padding: 10px 2px 0;
     font-size: 12.5px;
   }
 
@@ -2601,7 +2616,11 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-buy-panel,
-  .vs-quiz-card,
+  .vs-quiz-card {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .vs-science-card,
   .vs-ba-card {
     padding-left: 12px;
