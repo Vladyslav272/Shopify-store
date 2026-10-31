@@ -2441,16 +2441,17 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 }
 
 @media screen and (max-width: 749px) {
-  /* Global typography scale on phones */
+  /* Global typography scale on phones (Extra Large & Highly Readable) */
   .vs-shell {
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   /* Top Announcement Bar */
   .vs-topbar {
-    padding: 9px 12px;
-    font-size: 12px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    font-weight: 700;
   }
 
   .vs-topbar__hide-sm {
@@ -2458,19 +2459,19 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-header {
-    padding: 12px 16px;
+    padding: 14px 18px;
   }
 
   .vs-logo__img {
-    height: 32px;
+    height: 34px;
   }
 
   .vs-logo__text {
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .vs-section {
-    padding: 32px 16px;
+    padding: 34px 18px;
   }
 
   .vs-section--hero {
@@ -2479,31 +2480,31 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
   /* Trust Rating Bar */
   .vs-trust-bar {
-    padding: 12px 12px 0;
+    padding: 14px 14px 2px;
   }
 
   .vs-trust-bar__stars {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .vs-trust-bar__text {
-    font-size: 13.5px;
+    font-size: 14.5px;
     font-weight: 700;
   }
 
   /* Review rating pill in buy panel */
   .vs-review-pill {
-    padding: 6px 14px;
-    margin-bottom: 12px;
+    padding: 7px 16px;
+    margin-bottom: 14px;
   }
 
   .vs-review-pill__text {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
   }
 
   .vs-stars {
-    font-size: 13px;
+    font-size: 14.5px;
     letter-spacing: 1.5px;
   }
 
@@ -2513,131 +2514,134 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
   /* Product Title */
   .vs-product-title {
-    font-size: clamp(26px, 6.5vw, 30px);
-    line-height: 1.18;
-    margin-bottom: 14px;
+    font-size: clamp(28px, 7.5vw, 34px);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
-  /* Features List */
+  /* Features List (Jemná masáž, Tepelná terapie...) */
   .vs-product-features {
-    gap: 13px;
-    margin: 4px 0 20px;
+    gap: 15px;
+    margin: 6px 0 24px;
   }
 
   .vs-feature-item {
-    gap: 12px;
+    gap: 14px;
   }
 
   .vs-feature-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    margin-top: 1px;
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+    margin-top: 2px;
   }
 
   .vs-feature-title {
-    font-size: 15.5px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 1.3;
     color: var(--vs-text);
   }
 
   .vs-feature-desc {
-    font-size: 14px;
-    line-height: 1.45;
+    font-size: 15px;
+    line-height: 1.48;
     color: var(--vs-muted);
   }
 
   /* Offer selector */
   .vs-offer-head {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .vs-offer-head__title {
-    font-size: 13.5px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.02em;
   }
 
   .vs-offer-head__badge {
-    font-size: 11.5px;
+    font-size: 12.5px;
     font-weight: 700;
     white-space: nowrap;
-    padding: 3px 9px;
+    padding: 4px 10px;
   }
 
   .vs-offer-list {
-    gap: 9px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 18px;
   }
 
   .vs-offer-option {
-    padding: 13px 14px;
-    border-radius: 14px;
+    padding: 15px 16px;
+    border-radius: 16px;
     align-items: center;
+    gap: 12px;
   }
 
   .vs-offer-name {
-    font-size: 14.5px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 800;
     line-height: 1.3;
   }
 
   .vs-offer-perk {
-    font-size: 12.5px;
-    line-height: 1.35;
-    margin-top: 3px;
+    font-size: 13.5px;
+    line-height: 1.4;
+    margin-top: 4px;
   }
 
   .vs-offer-price {
-    font-size: 17.5px;
+    font-size: 19.5px;
     font-weight: 800;
   }
 
   .vs-offer-old {
-    font-size: 12.5px;
+    font-size: 13.5px;
   }
 
   /* CTA Button */
   [data-vs-cta-btn] {
     flex-direction: column;
     gap: 4px;
-    padding: 16px 18px;
+    padding: 18px 20px;
     border-radius: 999px;
-    box-shadow: 0 6px 22px rgba(187, 105, 102, 0.36);
+    box-shadow: 0 6px 24px rgba(187, 105, 102, 0.38);
   }
 
   [data-vs-cta-btn] .vs-cta-btn__main {
-    font-size: 15.5px;
+    font-size: 17px;
     font-weight: 800;
     letter-spacing: 0.04em;
   }
 
   [data-vs-cta-btn] .vs-cta-btn__sub {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
   }
 
   .vs-bonus-bar {
-    font-size: 13px;
-    padding: 10px 12px;
+    font-size: 14px;
+    padding: 11px 14px;
   }
 
   .vs-cta-btn {
-    font-size: 14.5px;
-    padding: 16px 18px;
+    font-size: 15.5px;
+    padding: 18px 22px;
   }
 
   .vs-usp-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px 8px;
-    margin-top: 16px;
+    gap: 12px 10px;
+    margin-top: 18px;
   }
 
   .vs-usp-item {
-    font-size: 12.5px;
+    font-size: 13.5px;
     font-weight: 700;
-    padding: 7px 10px;
+    padding: 9px 12px;
   }
 
   .vs-buy-panel {
@@ -2650,40 +2654,42 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     width: 100%;
     justify-content: center;
     white-space: normal;
+    font-size: 15.5px;
+    padding: 17px 24px;
   }
 
   .vs-morning-title {
-    font-size: 28px;
-    line-height: 1.2;
-    margin-bottom: 10px;
+    font-size: clamp(28px, 7vw, 34px);
+    line-height: 1.18;
+    margin-bottom: 12px;
   }
 
   .vs-morning-subtitle {
-    font-size: 18px;
-    line-height: 1.3;
-    margin-bottom: 14px;
+    font-size: 19px;
+    line-height: 1.35;
+    margin-bottom: 15px;
   }
 
   .vs-morning-lead {
-    font-size: 15px;
-    line-height: 1.55;
-    margin-bottom: 18px;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
   }
 
   .vs-morning-guarantee {
-    font-size: 13px;
-    margin-bottom: 22px;
+    font-size: 14px;
+    margin-bottom: 24px;
   }
 
   /* Headings & Subtitles */
   .vs-heading {
-    font-size: clamp(22px, 5.5vw, 26px);
+    font-size: clamp(24px, 6vw, 28px);
     line-height: 1.25;
   }
 
   .vs-sub {
-    font-size: 14.5px;
-    line-height: 1.5;
+    font-size: 15.5px;
+    line-height: 1.55;
   }
 
   /* Diagnostic quiz */
@@ -2692,114 +2698,114 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-symptom-btn {
-    font-size: 14px;
-    line-height: 1.4;
-    padding: 12px 14px;
+    font-size: 15px;
+    line-height: 1.45;
+    padding: 14px 16px;
   }
 
   .vs-symptom-grid {
     grid-template-columns: 1fr;
-    gap: 9px;
+    gap: 10px;
   }
 
   .vs-science-card,
   .vs-ba-card {
-    padding: 22px 18px;
+    padding: 24px 20px;
   }
 
   .vs-science-list li {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.55;
   }
 
   /* 4-step routine */
   .vs-steps-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 16px;
   }
 
   .vs-step-media {
-    border-radius: 16px;
+    border-radius: 18px;
   }
 
   .vs-step-body {
-    padding: 12px 2px 0;
-    font-size: 13.5px;
-    line-height: 1.45;
+    padding: 14px 2px 0;
+    font-size: 14.5px;
+    line-height: 1.5;
   }
 
   .vs-step-body strong {
-    font-size: 15.5px;
+    font-size: 17px;
     margin-bottom: 4px;
   }
 
   .vs-stats-row {
-    gap: 8px;
+    gap: 9px;
   }
 
   .vs-stat-box {
-    padding: 12px 8px;
+    padding: 14px 10px;
   }
 
   .vs-stat-num {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .vs-stat-txt {
-    font-size: 11.5px;
+    font-size: 12.5px;
   }
 
   /* FAQ Accordion */
   .vs-faq-summary {
-    font-size: 16px;
-    padding: 18px 4px;
+    font-size: 17px;
+    padding: 20px 4px;
   }
 
   .vs-faq-icon {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .vs-faq-body {
-    font-size: 14.5px;
-    line-height: 1.6;
-    padding: 0 4px 18px;
+    font-size: 15.5px;
+    line-height: 1.65;
+    padding: 0 4px 20px;
   }
 
   /* Reviews */
   .vs-rev-card {
-    padding: 18px 4px 0;
+    padding: 20px 4px 0;
   }
 
   .vs-rev-name {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .vs-rev-text {
-    font-size: 14.5px;
-    line-height: 1.55;
+    font-size: 15.5px;
+    line-height: 1.6;
   }
 
   .vs-rev-meta {
-    font-size: 12.5px;
+    font-size: 13.5px;
   }
 
   main.vs-product-main > [id*="17926947644e416e5d"] {
-    padding: 4px 16px 34px;
+    padding: 6px 18px 36px;
   }
 
   main.vs-product-main > [id*="17926947644e416e5d"] .jdgm-rev-widg {
-    padding: 18px 0;
+    padding: 20px 0;
   }
 
   .jm-review-content__title,
   .jdgm-rev__title {
-    font-size: 16.5px !important;
+    font-size: 17.5px !important;
   }
 
   .jm-review-content__body,
   .jdgm-rev__body {
-    font-size: 14.5px !important;
-    line-height: 1.6 !important;
+    font-size: 15.5px !important;
+    line-height: 1.65 !important;
   }
 
   .vs-cart-chip {
@@ -2812,51 +2818,51 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-site-footer {
-    padding: 26px 16px;
+    padding: 28px 18px;
   }
 }
 
 /* Compact phones (iPhone SE, iPhone mini, <= 380px) */
 @media screen and (max-width: 380px) {
   .vs-product-title {
-    font-size: 25px;
+    font-size: 27px;
   }
 
   .vs-feature-title {
-    font-size: 14.5px;
+    font-size: 15.5px;
   }
 
   .vs-feature-desc {
-    font-size: 13px;
-  }
-
-  .vs-offer-option {
-    padding: 11px 10px;
-    gap: 8px;
-  }
-
-  .vs-offer-name {
-    font-size: 13.5px;
-  }
-
-  .vs-offer-perk {
-    font-size: 11.5px;
-  }
-
-  .vs-offer-price {
-    font-size: 16px;
-  }
-
-  [data-vs-cta-btn] {
-    padding: 14px 14px;
-  }
-
-  [data-vs-cta-btn] .vs-cta-btn__main {
     font-size: 14px;
   }
 
+  .vs-offer-option {
+    padding: 13px 12px;
+    gap: 10px;
+  }
+
+  .vs-offer-name {
+    font-size: 14.5px;
+  }
+
+  .vs-offer-perk {
+    font-size: 12.5px;
+  }
+
+  .vs-offer-price {
+    font-size: 17.5px;
+  }
+
+  [data-vs-cta-btn] {
+    padding: 16px 16px;
+  }
+
+  [data-vs-cta-btn] .vs-cta-btn__main {
+    font-size: 15px;
+  }
+
   [data-vs-cta-btn] .vs-cta-btn__sub {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .vs-steps-grid {
@@ -2865,19 +2871,19 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-step-body strong {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .vs-step-body {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .vs-faq-summary {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .vs-faq-body {
-    font-size: 13.5px;
+    font-size: 14.5px;
   }
 }
 
@@ -2901,7 +2907,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-heading {
-    font-size: 21px;
+    font-size: 22px;
   }
 }
 
