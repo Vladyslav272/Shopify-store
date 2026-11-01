@@ -17,7 +17,7 @@
   endif
   assign base_compare = first_variant.compare_at_price | default: 0
   if base_compare <= base_price
-    assign base_compare = base_price
+    assign base_compare = 189900
   endif
 
   if target_product.variants.size >= 3
@@ -93,8 +93,8 @@
   assign save2_cta = save2_fmt | replace: 'Kč', 'KČ'
   assign save3_cta = save3_fmt | replace: 'Kč', 'KČ'
 
-  assign cta1_main = 'PŘIDAT DO KOŠÍKU - ' | append: p1_cta
-  assign cta1_sub = '(DOPRAVA ZDARMA)'
+  assign cta1_main = 'PŘIDAT DO KOŠÍKU – ' | append: p1_cta
+  assign cta1_sub = '(DOPRAVA ZDARMA • SLEVA 30 % DO ZÍTŘEJŠÍ PŮLNOCI)'
   assign cta1_label = cta1_main | append: ' ' | append: cta1_sub
 
   assign cta2_main = 'PŘIDAT DO KOŠÍKU - ' | append: p2_cta
@@ -170,8 +170,11 @@
 
   {%- if section.settings.show_trust_bar != false -%}
     {%- assign t_rating = section.settings.trust_rating | default: '4,9/5' -%}
-    {%- assign t_count = section.settings.trust_count | default: '2 000+ zákaznic' -%}
-    {%- assign t_tagline = section.settings.trust_tagline | default: 'česká značka' -%}
+    {%- assign t_count = section.settings.trust_count | default: '2 000+ žen' -%}
+    {%- assign t_tagline = section.settings.trust_tagline | default: '📦 Odesíláme z ČR do 24h' -%}
+    {%- if t_tagline == 'česká značka' or t_tagline == blank -%}
+      {%- assign t_tagline = '📦 Odesíláme z ČR do 24h' -%}
+    {%- endif -%}
     <aside class="vs-trust-bar">
       <a href="#recenze-sekce" class="vs-trust-bar__link" aria-label="Hodnocení {{ t_rating }} z 5 hvězdiček, {{ t_count }}, {{ t_tagline }}">
         <div class="vs-trust-bar__stars" aria-hidden="true">★★★★★</div>
@@ -190,15 +193,17 @@
   <section class="vs-section vs-section--hero{% if section.settings.show_trust_bar != false %} has-trust-bar{% endif %}" id="top">
     <div class="vs-morning-card">
       <div class="vs-morning-content">
-        <h1 class="vs-morning-title">Vykročte do rána <span class="vs-highlight">s úsměvem.*</span></h1>
+        <span class="vs-hero-tagline">✨ Každodenní 10minutový rituál</span>
+        <h1 class="vs-morning-title">
+          Svěží pohled bez ranních otoků <span class="vs-highlight">a kruhů pod očima</span>
+        </h1>
         <h2 class="vs-morning-subtitle">Stačí jen 10 minut péče u ranní kávy.</h2>
         <p class="vs-morning-lead">
-          VeaSkin vám během ranní kávy vrátí <strong>svěžest a příjemný pocit</strong>, kdy se na sebe do zrcadla s chutí usmějete – i bez kapky korektoru a make-upu.<br>
-          <strong>Šetrně a v pohodlí domova.</strong>
+          Příjemná teplá komprese v kombinaci s lymfatickou mikromasáží a červeným světlem <strong>odvádí nahromaděnou tekutinu</strong> a probouzí unavené oční okolí. Výsledek? <strong>Viditelně odpočatý pohled</strong> bez nutnosti korektoru.
         </p>
         <div class="vs-morning-actions">
           <a href="#nabidka-box" class="vs-cta-btn vs-morning-cta">
-            Dopřát si svěží pohled ↓
+            Získat se slevou 30 % – {{ p1_fmt }} ↓
           </a>
         </div>
         <div class="vs-morning-guarantee">
@@ -216,7 +221,6 @@
           fetchpriority="high"
         >
       </div>
-      <div class="vs-morning-footnote">*Výsledky se mohou lišit.</div>
     </div>
   </section>
 
@@ -292,158 +296,54 @@
           </span>
         </a>
 
-        <h1 class="vs-product-title">{{ section.settings.product_heading }}</h1>
+        <h1 class="vs-product-title">{{ section.settings.product_heading | default: 'LED & EMS Brýle na oční okolí' }}</h1>
 
         <div class="vs-product-features">
           <div class="vs-feature-item">
             <span class="vs-feature-icon" aria-hidden="true">✓</span>
             <div class="vs-feature-text">
               <div class="vs-feature-title">Jemná kompresní a vibrační masáž</div>
-              <div class="vs-feature-desc">Uvolňuje napětí a redukuje ranní otoky.</div>
+              <div class="vs-feature-desc">Rozproudí stagnující lymfu a stahuje ranní váčky.</div>
             </div>
           </div>
           <div class="vs-feature-item">
             <span class="vs-feature-icon" aria-hidden="true">✓</span>
             <div class="vs-feature-text">
               <div class="vs-feature-title">Příjemná tepelná terapie</div>
-              <div class="vs-feature-desc">Ulevuje suchým očím a únavě z obrazovek.</div>
+              <div class="vs-feature-desc">Ulevuje suchým, pálícím očím a únavě z obrazovek.</div>
             </div>
           </div>
           <div class="vs-feature-item">
             <span class="vs-feature-icon" aria-hidden="true">✓</span>
             <div class="vs-feature-text">
-              <div class="vs-feature-title">Více režimů a intenzit</div>
-              <div class="vs-feature-desc">Péči si přizpůsobíte své aktuální potřebě.</div>
+              <div class="vs-feature-title">630-660 nm červené LED světlo</div>
+              <div class="vs-feature-desc">Podporuje tvorbu kolagenu a zesvětluje tmavé kruhy.</div>
             </div>
           </div>
           <div class="vs-feature-item">
             <span class="vs-feature-icon" aria-hidden="true">✓</span>
             <div class="vs-feature-text">
               <div class="vs-feature-title">Měkké ergonomické polstrování</div>
-              <div class="vs-feature-desc">Hebký materiál, který netlačí a padne každému.</div>
+              <div class="vs-feature-desc">Hebký materiál, který netlačí na oči a padne každému.</div>
             </div>
           </div>
         </div>
 
-        <div class="vs-offer-head">
-          <span class="vs-offer-head__title">Vyberte si nabídku:</span>
-          <span class="vs-offer-head__badge">🔥 Sleva až {{ d3_pct }} % na sady</span>
-        </div>
+        <div class="vs-single-offer-card">
+          <div class="vs-single-offer-badge-row">
+            <span class="vs-badge-discount">🔥 AKČNÍ SLEVA 30 %</span>
+            <span class="vs-stock-status"><span class="vs-stock-dot"></span> Skladem v ČR (odesíláme dnes)</span>
+          </div>
 
-        <div class="vs-offer-list" role="radiogroup" aria-label="Zvýhodněné sady Brýlí proti otokům">
-          <!-- Option 1 -->
-          <button
-            type="button"
-            class="vs-offer-option"
-            role="radio"
-            aria-checked="false"
-            data-vs-offer
-            data-variant-id="{{ v1_id }}"
-            data-qty="{{ v1_qty }}"
-            data-bundle-label="1× Brýle - Ranní péče"
-            data-cta-main="{{ cta1_main | escape }}"
-            data-cta-sub="{{ cta1_sub | escape }}"
-            data-cta-label="{{ cta1_label | escape }}"
-          >
-            <div class="vs-offer-left">
-              <span class="vs-radio-dot" aria-hidden="true"></span>
-              <div>
-                <div class="vs-offer-name">1× Brýle proti otokům - Ranní péče</div>
-                {%- if d1_pct > 0 -%}
-                  <span class="vs-offer-perk">
-                    <span class="vs-perk-line">Sleva {{ d1_pct }}&nbsp;%</span>
-                    <span class="vs-perk-sep">•</span>
-                    <span class="vs-perk-line">Doprava zdarma</span>
-                  </span>
-                {%- else -%}
-                  <span class="vs-offer-perk">
-                    <span class="vs-perk-line">✓ Doprava zdarma</span>
-                    <span class="vs-perk-sep">•</span>
-                    <span class="vs-perk-line">30&nbsp;dní na&nbsp;vyzkoušení</span>
-                  </span>
-                {%- endif -%}
-              </div>
-            </div>
-            <div class="vs-offer-right">
-              <div class="vs-offer-price">{{ p1_fmt }}</div>
-              {%- if c1 > p1 -%}
-                <div class="vs-offer-old">{{ c1_fmt }}</div>
-              {%- endif -%}
-            </div>
-          </button>
+          <div class="vs-offer-price-row">
+            <span class="vs-price-current">{{ p1_fmt }}</span>
+            <span class="vs-price-before">{{ c1_fmt }}</span>
+            <span class="vs-price-saving">Ušetříte {{ save1_fmt | replace: ' ', '&nbsp;' }}</span>
+          </div>
 
-          <!-- Option 2 (Default Selected) -->
-          <button
-            type="button"
-            class="vs-offer-option is-selected"
-            role="radio"
-            aria-checked="true"
-            data-vs-offer
-            data-variant-id="{{ v2_id }}"
-            data-qty="{{ v2_qty }}"
-            data-bundle-label="2× Brýle - Rituál ve dvou"
-            data-cta-main="{{ cta2_main | escape }}"
-            data-cta-sub="{{ cta2_sub | escape }}"
-            data-cta-label="{{ cta2_label | escape }}"
-          >
-            <span class="vs-offer-ribbon">Nejoblíbenější • −{{ d2_pct }} %</span>
-            <div class="vs-offer-left">
-              <span class="vs-radio-dot" aria-hidden="true"></span>
-              <div>
-                <div class="vs-offer-name">2× Brýle proti otokům - Rituál ve dvou</div>
-                <span class="vs-offer-perk">
-                  <span class="vs-perk-line">+ Ušetříte {{ save2_fmt | replace: ' ', '&nbsp;' }}</span>
-                  <span class="vs-perk-sep">•</span>
-                  <span class="vs-perk-line">{{ unit2_fmt | replace: ' ', '&nbsp;' }}&nbsp;/&nbsp;kus</span>
-                </span>
-              </div>
-            </div>
-            <div class="vs-offer-right">
-              <div class="vs-offer-price">{{ p2_fmt }}</div>
-              {%- if c2 > p2 -%}
-                <div class="vs-offer-old">{{ c2_fmt }}</div>
-              {%- endif -%}
-            </div>
-          </button>
-
-          <!-- Option 3 -->
-          <button
-            type="button"
-            class="vs-offer-option"
-            role="radio"
-            aria-checked="false"
-            data-vs-offer
-            data-variant-id="{{ v3_id }}"
-            data-qty="{{ v3_qty }}"
-            data-bundle-label="3× Brýle - Rodinná & dárková sada"
-            data-cta-main="{{ cta3_main | escape }}"
-            data-cta-sub="{{ cta3_sub | escape }}"
-            data-cta-label="{{ cta3_label | escape }}"
-          >
-            <span class="vs-offer-ribbon vs-offer-ribbon--dark">Nejvýhodnější −{{ d3_pct }} %</span>
-            <div class="vs-offer-left">
-              <span class="vs-radio-dot" aria-hidden="true"></span>
-              <div>
-                <div class="vs-offer-name">3× Brýle proti otokům - Rodinná &amp; dárková sada</div>
-                <span class="vs-offer-perk">
-                  <span class="vs-perk-line">+ Ušetříte {{ save3_fmt | replace: ' ', '&nbsp;' }}</span>
-                  <span class="vs-perk-sep">•</span>
-                  <span class="vs-perk-line">{{ unit3_fmt | replace: ' ', '&nbsp;' }}&nbsp;/&nbsp;kus</span>
-                </span>
-              </div>
-            </div>
-            <div class="vs-offer-right">
-              <div class="vs-offer-price">{{ p3_fmt }}</div>
-              {%- if c3 > p3 -%}
-                <div class="vs-offer-old">{{ c3_fmt }}</div>
-              {%- endif -%}
-            </div>
-          </button>
-        </div>
-
-        <div class="vs-bonus-bar">
-          <span>🎁 <strong>Součástí nabídky:</strong> Doprava zdarma + 30denní garance vrácení peněz</span>
-          <span class="vs-bonus-tag">ZDARMA</span>
+          <div class="vs-package-includes">
+            📦 <strong>Kompletní balení obsahuje:</strong> VeaSkin masážní brýle na oční okolí, USB-C nabíjecí kabel, prémiové pouzdro a český návod.
+          </div>
         </div>
 
         {%- if target_product != blank -%}
@@ -452,7 +352,7 @@
             data-product-id="{{ target_product.id }}"
             data-product-url="{{ target_product.url }}"
             on:submit="/handleSubmit"
-            data-quantity-default="{{ v2_qty }}"
+            data-quantity-default="1"
             data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
           >
             <div
@@ -467,13 +367,13 @@
                 type="hidden"
                 name="id"
                 ref="variantId"
-                value="{{ v2_id }}"
+                value="{{ v1_id }}"
                 data-vs-form-id
               >
               <input
                 type="hidden"
                 name="quantity"
-                value="{{ v2_qty }}"
+                value="1"
                 data-vs-form-qty
               >
               <span class="product-form-text__error hidden" ref="addToCartTextError">
@@ -484,13 +384,13 @@
               <button
                 type="submit"
                 name="add"
-                class="vs-cta-btn"
+                class="vs-cta-btn vs-cta-btn--single"
                 data-vs-cta-btn
                 {% unless first_variant.available %}disabled{% endunless %}
               >
                 {%- if first_variant.available -%}
-                  <span class="vs-cta-btn__main" data-vs-cta-main>{{ cta2_main }}</span>
-                  <span class="vs-cta-btn__sub" data-vs-cta-sub>{{ cta2_sub }}</span>
+                  <span class="vs-cta-btn__main" data-vs-cta-main>{{ cta1_main }}</span>
+                  <span class="vs-cta-btn__sub" data-vs-cta-sub>{{ cta1_sub }}</span>
                 {%- else -%}
                   <span class="vs-cta-btn__main">VYPRODÁNO</span>
                 {%- endif -%}
@@ -498,6 +398,12 @@
             {%- endform -%}
           </product-form-component>
         {%- endif -%}
+
+        <div class="vs-safety-pills">
+          <span>🛡️ 30 dní na vyzkoušení</span>
+          <span>⚡ 10 min denně</span>
+          <span>🚚 Doručení do 48h</span>
+        </div>
 
         <div class="vs-usp-grid">
           <div class="vs-usp-item"><span class="vs-usp-item__icon" aria-hidden="true">⚡</span>LED &amp; EMS PÉČE</div>
@@ -608,6 +514,17 @@
       </article>
     </div>
   </section>
+
+  <!-- MEZISEKČNÍ KONVERZNÍ BANNER -->
+  <aside class="vs-mid-page-cta" aria-label="Akční nabídka VeaSkin">
+    <div class="vs-mid-page-cta__inner">
+      <div class="vs-mid-page-cta__title">Chcete se probouzet se svěžíma očima bez otoků?</div>
+      <div class="vs-mid-page-cta__sub">Využijte časově omezenou slevu 30 % s dopravou ZDARMA do zítřejší půlnoci.</div>
+      <a href="#nabidka-box" class="vs-cta-btn vs-mid-page-cta__btn">
+        PŘIDAT DO KOŠÍKU SE SLEVOU 30 % →
+      </a>
+    </div>
+  </aside>
 
   <!-- 5. TECHNOLOGIE + INTERAKTIVNÍ PŘED / PO SLIDER & 82/87/91 % -->
   <section class="vs-section" id="technologie">
@@ -733,7 +650,7 @@
       <div class="vs-comp-box vs-comp-box--winner">
         <span class="vs-winner-badge">Chytrá volba</span>
         <h3>VeaSkin Brýle proti otokům</h3>
-        <div class="vs-comp-price">od {{ unit3_fmt }} <small>/ ks v sadě ({{ p1_fmt }} solo)</small></div>
+        <div class="vs-comp-price">{{ p1_fmt }} <small>/ jednorázová investice</small></div>
         <ul class="vs-comp-list">
           <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Cílená lymfatická masáž + 660 nm LED</strong></li>
           <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Úleva od ranních otoků už po 10 min.</strong></li>
@@ -764,11 +681,11 @@
       <div>
         <div class="vs-reframe-kicker vs-reframe-kicker--accent">VeaSkin na celý rok</div>
         <div class="vs-reframe-amount vs-reframe-amount--accent">{{ day1_fmt }} / den</div>
-        <div class="vs-reframe-note">nebo <strong>{{ day2_fmt }} / den</strong> ve zvýhodněné sadě pro dva</div>
+        <div class="vs-reframe-note"><strong>jednorázově {{ p1_fmt }}</strong> s dopravou zdarma</div>
       </div>
       <div>
         <a href="#nabidka-box" class="vs-cta-btn vs-reframe-cta">
-          Vybrat nabídku se slevou →
+          Získat se slevou 30 % →
         </a>
       </div>
     </div>
@@ -971,7 +888,7 @@
       "type": "text",
       "id": "product_heading",
       "label": "Hlavní nadpis produktu",
-      "default": "Brýle proti otokům"
+      "default": "LED & EMS Brýle na oční okolí"
     },
     {
       "type": "header",
@@ -993,13 +910,13 @@
       "type": "text",
       "id": "trust_count",
       "label": "Počet zákaznic / recenzí",
-      "default": "2 000+ zákaznic"
+      "default": "2 000+ žen"
     },
     {
       "type": "text",
       "id": "trust_tagline",
       "label": "Doplňující text",
-      "default": "česká značka"
+      "default": "📦 Odesíláme z ČR do 24h"
     }
   ],
   "presets": [

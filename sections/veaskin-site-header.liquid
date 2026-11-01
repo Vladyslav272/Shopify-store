@@ -67,24 +67,8 @@
     <div class="vs-topbar__inner">
       <div class="vs-topbar__stage">
         <div class="vs-topbar__slide is-active" data-vs-topbar-slide aria-hidden="false">
-          <svg
-            class="vs-topbar__icon"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.9"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <rect x="1" y="3" width="15" height="13" rx="1"></rect>
-            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-          </svg>
-          <span>{{ section.settings.shipping_text }}</span>
+          <span class="vs-topbar-fomo-badge" aria-hidden="true">Časově omezeno</span>
+          <span>{{ section.settings.shipping_text | default: 'Sleva 30 % + doprava ZDARMA do zítřejší půlnoci' }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -100,10 +84,12 @@
             stroke-linejoin="round"
             aria-hidden="true"
           >
-            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            <rect x="1" y="3" width="15" height="13" rx="1"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
           </svg>
-          <span>{{ promo_label }}</span>
+          <span>{{ section.settings.promo_text | default: '📦 Odesíláme z ČR do 24 hodin' }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -378,7 +364,7 @@
           <span>🛡️ 30 dní na vyzkoušení bez rizika</span>
         </div>
         <a href="{{ anchor_prefix }}#nabidka-box" class="vs-cta-btn vs-mobile-drawer__cta" data-vs-drawer-link>
-          Vybrat sadu se slevou →
+          Získat se slevou 30 % →
         </a>
       </div>
     </div>
@@ -537,19 +523,19 @@
       "type": "text",
       "id": "shipping_text",
       "label": "Text dopravy",
-      "default": "Doprava zdarma na všechny objednávky"
+      "default": "Sleva 30 % + doprava ZDARMA do zítřejší půlnoci"
     },
     {
       "type": "text",
       "id": "promo_text",
       "label": "Text akce",
-      "default": "Sleva až 15 % na sady"
+      "default": "📦 Odesíláme z ČR do 24 hodin"
     },
     {
       "type": "text",
       "id": "guarantee_text",
       "label": "Text garance",
-      "default": "30 dní na vyzkoušení bez rizika"
+      "default": "🛡️ 30 dní na vyzkoušení bez rizika"
     }
   ]
 }
