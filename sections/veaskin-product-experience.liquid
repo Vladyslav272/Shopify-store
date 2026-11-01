@@ -11,99 +11,40 @@
   assign v1_id = first_variant.id
   assign v1_qty = 1
 
-  assign base_price = first_variant.price | default: 125400
-  if base_price <= 0
-    assign base_price = 125400
-  endif
-  assign base_compare = first_variant.compare_at_price | default: 0
-  if base_compare <= base_price
-    assign base_compare = 189900
-  endif
+  assign raw_price = first_variant.price | default: 189900
+  assign raw_compare = first_variant.compare_at_price | default: 0
 
-  if target_product.variants.size >= 3
-    assign v2_id = target_product.variants[1].id
-    assign v2_qty = 1
-    assign v3_id = target_product.variants[2].id
-    assign v3_qty = 1
-
-    assign p1 = target_product.variants[0].price
-    assign c1 = target_product.variants[0].compare_at_price | default: 0
-    if c1 <= p1
-      assign c1 = p1
-    endif
-
-    assign p2 = target_product.variants[1].price
-    assign c2 = target_product.variants[1].compare_at_price | default: 0
-    if c2 <= p2
-      assign c2 = c1 | times: 2
-    endif
-
-    assign p3 = target_product.variants[2].price
-    assign c3 = target_product.variants[2].compare_at_price | default: 0
-    if c3 <= p3
-      assign c3 = c1 | times: 3
-    endif
+  if raw_compare > raw_price
+    assign c1 = raw_compare
+    assign p1 = raw_price
+  elsif raw_price >= 170000
+    assign c1 = raw_price
+    assign p1 = 129900
   else
-    assign v2_id = first_variant.id
-    assign v2_qty = 2
-    assign v3_id = first_variant.id
-    assign v3_qty = 3
+    assign p1 = raw_price
+    assign c1 = 189900
+  endif
 
-    assign p1 = base_price
-    assign c1 = base_compare
-
-    assign p2 = base_price | times: 2 | times: 90 | divided_by: 100
-    assign c2 = base_compare | times: 2
-
-    assign p3 = base_price | times: 3 | times: 85 | divided_by: 100
-    assign c3 = base_compare | times: 3
+  if p1 >= c1
+    assign c1 = 189900
+    assign p1 = 129900
   endif
 
   assign p1_fmt = p1 | money_without_trailing_zeros | replace: '.', ' '
   assign c1_fmt = c1 | money_without_trailing_zeros | replace: '.', ' '
-  assign p2_fmt = p2 | money_without_trailing_zeros | replace: '.', ' '
-  assign c2_fmt = c2 | money_without_trailing_zeros | replace: '.', ' '
-  assign p3_fmt = p3 | money_without_trailing_zeros | replace: '.', ' '
-  assign c3_fmt = c3 | money_without_trailing_zeros | replace: '.', ' '
 
   assign save1_raw = c1 | minus: p1
-  assign save2_raw = c2 | minus: p2
-  assign save3_raw = c3 | minus: p3
-
   assign d1_pct = save1_raw | times: 100.0 | divided_by: c1 | round
-  assign d2_pct = save2_raw | times: 100.0 | divided_by: c2 | round
-  assign d3_pct = save3_raw | times: 100.0 | divided_by: c3 | round
-
-  assign save2_fmt = save2_raw | money_without_trailing_zeros | replace: '.', ' '
-  assign save3_fmt = save3_raw | money_without_trailing_zeros | replace: '.', ' '
-
-  assign unit2_raw = p2 | divided_by: 2
-  assign unit3_raw = p3 | divided_by: 3
-  assign unit2_fmt = unit2_raw | money_without_trailing_zeros | replace: '.', ' '
-  assign unit3_fmt = unit3_raw | money_without_trailing_zeros | replace: '.', ' '
+  assign save1_fmt = save1_raw | money_without_trailing_zeros | replace: '.', ' '
 
   assign day1_cents = p1 | divided_by: 365.0 | divided_by: 10.0 | round | times: 10
-  assign day2_cents = p2 | divided_by: 2.0 | divided_by: 365.0 | divided_by: 10.0 | round | times: 10
   assign day1_fmt = day1_cents | money | replace: '.', ' '
-  assign day2_fmt = day2_cents | money | replace: '.', ' '
 
   assign p1_cta = p1_fmt | replace: 'Kč', 'KČ'
-  assign p2_cta = p2_fmt | replace: 'Kč', 'KČ'
-  assign p3_cta = p3_fmt | replace: 'Kč', 'KČ'
-  assign save2_cta = save2_fmt | replace: 'Kč', 'KČ'
-  assign save3_cta = save3_fmt | replace: 'Kč', 'KČ'
 
   assign cta1_main = 'PŘIDAT DO KOŠÍKU – ' | append: p1_cta
   assign cta1_sub = '(DOPRAVA ZDARMA • SLEVA 30 % DO ZÍTŘEJŠÍ PŮLNOCI)'
   assign cta1_label = cta1_main | append: ' ' | append: cta1_sub
-
-  assign cta2_main = 'PŘIDAT DO KOŠÍKU - ' | append: p2_cta
-  assign cta2_sub = '(UŠETŘÍTE ' | append: save2_cta | append: ')'
-  assign cta2_label = cta2_main | append: ' ' | append: cta2_sub
-
-  assign cta3_main = 'PŘIDAT DO KOŠÍKU - ' | append: p3_cta
-  assign cta3_sub = '(UŠETŘÍTE ' | append: save3_cta | append: ')'
-  assign cta3_label = cta3_main | append: ' ' | append: cta3_sub
 
   if images['zenabilepozadi.jpg'] != blank
     assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
