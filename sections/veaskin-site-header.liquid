@@ -61,7 +61,7 @@
   <div
     class="vs-topbar"
     role="region"
-    aria-label="Důležité informace o dopravě a slevě"
+    aria-label="Důležité informace o dopravě a garanci"
     data-vs-topbar-rotator
   >
     <div class="vs-topbar__inner">
@@ -82,7 +82,7 @@
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          <span>{{ section.settings.shipping_text | default: 'Sleva 30 % + doprava ZDARMA do zítřejší půlnoci' }}</span>
+          <span>{{ section.settings.shipping_text | default: 'Doprava ZDARMA v ČR & SR při nákupu nad 1 000 Kč' }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -103,7 +103,7 @@
             <circle cx="5.5" cy="18.5" r="2.5"></circle>
             <circle cx="18.5" cy="18.5" r="2.5"></circle>
           </svg>
-          <span>{{ section.settings.promo_text | default: 'Rychlá expedice do 24 hodin' | remove: '📦' | remove: '🚚' | strip }}</span>
+          <span>{{ section.settings.promo_text | default: 'Klinicky ověřená 660 nm LED & EMS péče' | remove: '📦' | remove: '🚚' | strip }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -122,7 +122,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             <polyline points="9 12 11 14 15 10"></polyline>
           </svg>
-          <span>{{ section.settings.guarantee_text | default: '30 dní na vyzkoušení bez rizika' | remove: '🛡️' | remove: '🛡' | strip }}</span>
+          <span>{{ section.settings.guarantee_text | default: '30 dní na vyzkoušení v klidu domova' | remove: '🛡️' | remove: '🛡' | strip }}</span>
         </div>
       </div>
     </div>
@@ -182,10 +182,10 @@
 
       <nav class="vs-desktop-nav" aria-label="Hlavní navigace">
         <ul class="vs-nav">
-          <li><a href="{{ anchor_prefix }}#jak-funguje" class="vs-nav__link">4 kroky péče</a></li>
-          <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">LED &amp; EMS</a></li>
-          <li><a href="{{ anchor_prefix }}#vysledky" class="vs-nav__link">Před a po</a></li>
-          <li><a href="{{ anchor_prefix }}#srovnani" class="vs-nav__link">Srovnání</a></li>
+          <li><a href="{{ anchor_prefix }}#jak-funguje" class="vs-nav__link">Rituál krásy</a></li>
+          <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">Technologie</a></li>
+          <li><a href="{{ anchor_prefix }}#vysledky" class="vs-nav__link">Klinické výsledky</a></li>
+          <li><a href="{{ anchor_prefix }}#srovnani" class="vs-nav__link">Proč VeaSkin</a></li>
           <li><a href="{{ anchor_prefix }}#dotazy" class="vs-nav__link">Časté dotazy</a></li>
         </ul>
       </nav>
@@ -329,13 +329,13 @@
         <ul class="vs-mobile-drawer__list">
           <li>
             <a href="{{ anchor_prefix }}#nabidka-box" class="vs-mobile-drawer__link vs-mobile-drawer__link--highlight" data-vs-drawer-link>
-              <span>Zvýhodněné sady</span>
-              <span class="vs-mobile-drawer__badge">AŽ −{{ max_discount_pct }} %</span>
+              <span>Výhodné sady</span>
+              <span class="vs-mobile-drawer__badge">DOPORUČENO</span>
             </a>
           </li>
           <li>
             <a href="{{ anchor_prefix }}#jak-funguje" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>4 kroky péče</span>
+              <span>Rituál krásy (3 kroky)</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
@@ -347,13 +347,13 @@
           </li>
           <li>
             <a href="{{ anchor_prefix }}#vysledky" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Výsledky Před a po</span>
+              <span>Klinické výsledky Před a po</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
             <a href="{{ anchor_prefix }}#srovnani" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Srovnání s krémy</span>
+              <span>Proč VeaSkin</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
@@ -374,11 +374,11 @@
 
       <div class="vs-mobile-drawer__foot">
         <div class="vs-mobile-drawer__perks">
-          <span>🚚 Doprava zdarma na vše</span>
-          <span>🛡️ 30 dní na vyzkoušení bez rizika</span>
+          <span>Doprava zdarma nad 1 000 Kč</span>
+          <span>30 dní na vyzkoušení bez rizika</span>
         </div>
         <a href="{{ anchor_prefix }}#nabidka-box" class="vs-cta-btn vs-mobile-drawer__cta" data-vs-drawer-link>
-          Získat se slevou 30 % →
+          Vyzkoušet na 30 dní bez rizika →
         </a>
       </div>
     </div>
@@ -537,19 +537,19 @@
       "type": "text",
       "id": "shipping_text",
       "label": "Text dopravy",
-      "default": "Sleva 30 % + doprava ZDARMA do zítřejší půlnoci"
+      "default": "Doprava ZDARMA v ČR & SR při nákupu nad 1 000 Kč"
     },
     {
       "type": "text",
       "id": "promo_text",
       "label": "Text akce",
-      "default": "Rychlá expedice do 24 hodin"
+      "default": "Klinicky ověřená 660 nm LED & EMS péče"
     },
     {
       "type": "text",
       "id": "guarantee_text",
       "label": "Text garance",
-      "default": "30 dní na vyzkoušení bez rizika"
+      "default": "30 dní na vyzkoušení v klidu domova"
     }
   ]
 }
