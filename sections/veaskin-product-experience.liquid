@@ -171,9 +171,9 @@
   {%- if section.settings.show_trust_bar != false -%}
     {%- assign t_rating = section.settings.trust_rating | default: '4,9/5' -%}
     {%- assign t_count = section.settings.trust_count | default: '2 000+ žen' -%}
-    {%- assign t_tagline = section.settings.trust_tagline | default: '📦 Odesíláme z ČR do 24h' -%}
-    {%- if t_tagline == 'česká značka' or t_tagline == blank -%}
-      {%- assign t_tagline = '📦 Odesíláme z ČR do 24h' -%}
+    {%- assign t_tagline = section.settings.trust_tagline | default: 'Doprava zdarma' -%}
+    {%- if t_tagline == 'česká značka' or t_tagline contains 'ČR' or t_tagline == blank -%}
+      {%- assign t_tagline = 'Doprava zdarma' -%}
     {%- endif -%}
     <aside class="vs-trust-bar">
       <a href="#recenze-sekce" class="vs-trust-bar__link" aria-label="Hodnocení {{ t_rating }} z 5 hvězdiček, {{ t_count }}, {{ t_tagline }}">
@@ -332,7 +332,7 @@
         <div class="vs-single-offer-card">
           <div class="vs-single-offer-badge-row">
             <span class="vs-badge-discount">🔥 AKČNÍ SLEVA 30 %</span>
-            <span class="vs-stock-status"><span class="vs-stock-dot"></span> Skladem v ČR (odesíláme dnes)</span>
+            <span class="vs-stock-status"><span class="vs-stock-dot"></span> Skladem (ihned k odeslání)</span>
           </div>
 
           <div class="vs-offer-price-row">
@@ -916,7 +916,7 @@
       "type": "text",
       "id": "trust_tagline",
       "label": "Doplňující text",
-      "default": "📦 Odesíláme z ČR do 24h"
+      "default": "Doprava zdarma"
     }
   ],
   "presets": [
