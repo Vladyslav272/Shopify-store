@@ -727,6 +727,30 @@
     </div>
   </section>
 
+
+  <!-- 10. FLOATING MOBILE STICKY BAR (Matching HaluFix pattern) -->
+  <aside class="vs-floating-sticky-bar" data-vs-sticky-bar aria-label="Rychlý nákup">
+    <div class="vs-floating-sticky-bar__inner">
+      <img
+        src="{{ hero_img_url }}"
+        alt="VeaSkin brýle"
+        class="vs-floating-sticky-bar__thumb"
+        width="96"
+        height="96"
+        loading="lazy"
+      >
+      <div class="vs-floating-sticky-bar__info">
+        <div class="vs-floating-sticky-bar__title">VeaSkin – LED &amp; EMS brýle</div>
+        <div class="vs-floating-sticky-bar__pricing">
+          <span class="vs-floating-sticky-bar__price" data-vs-sticky-price>{{ p_base_fmt }}</span>
+          <span class="vs-floating-sticky-bar__badge">-30 %</span>
+        </div>
+      </div>
+      <a href="#nabidka-box" class="vs-floating-sticky-bar__btn" data-vs-sticky-cta>
+        KOUPIT
+      </a>
+    </div>
+  </aside>
 </div>
 
 {% javascript %}
@@ -796,6 +820,8 @@
       if (priceDisplayEl) priceDisplayEl.textContent = fmt(totalCurrent);
       if (compareDisplayEl) compareDisplayEl.textContent = fmt(totalCompare);
       if (saveDisplayEl) saveDisplayEl.textContent = `Ušetříte ${fmt(totalSave)}`;
+      const stickyPriceEl = root.querySelector('[data-vs-sticky-price]');
+      if (stickyPriceEl) stickyPriceEl.textContent = fmt(totalCurrent);
 
       pills.forEach((pill) => {
         const pillVal = parseInt(pill.getAttribute('data-vs-qty-pill'), 10);
@@ -862,6 +888,40 @@
       knob.style.left = `${val}%`;
     }
   });
+  // 5. Floating Mobile Sticky Bar show/hide observer
+  const initStickyBar = () => {
+    const stickyBar = document.querySelector('[data-vs-sticky-bar]');
+    const buyBox = document.querySelector('#nabidka-box') || document.querySelector('.vs-single-offer-card');
+    if (!stickyBar || !buyBox) return;
+
+    const checkVisibility = () => {
+      const rect = buyBox.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!isInView && window.scrollY > 300) {
+        stickyBar.classList.add('is-visible');
+      } else {
+        stickyBar.classList.remove('is-visible');
+      }
+    };
+
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+    checkVisibility();
+
+    // Smooth scroll and gentle pulse on target when clicking KOUPIT
+    stickyBar.addEventListener('click', (e) => {
+      const cta = e.target.closest('[data-vs-sticky-cta]');
+      if (cta) {
+        e.preventDefault();
+        const targetEl = document.querySelector('#nabidka-box');
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          targetEl.classList.add('is-highlighted');
+          setTimeout(() => targetEl.classList.remove('is-highlighted'), 1200);
+        }
+      }
+    });
+  };
+  initStickyBar();
 {% endjavascript %}
 
 {% schema %}

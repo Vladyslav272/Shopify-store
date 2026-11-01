@@ -3973,3 +3973,136 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     font-size: 10px;
   }
 }
+
+
+/* ==========================================================================
+   FLOATING MOBILE STICKY BUY BAR (Matching Reference Design)
+   ========================================================================== */
+
+.vs-floating-sticky-bar {
+  position: fixed;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  left: 12px;
+  right: 12px;
+  max-width: 440px;
+  margin: 0 auto;
+  z-index: 999;
+  transform: translateY(140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.vs-floating-sticky-bar.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.vs-floating-sticky-bar__inner {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 8px 12px 8px 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vs-floating-sticky-bar__thumb {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #FAF8F5;
+  border: 1px solid var(--vs-border);
+  display: block;
+}
+
+.vs-floating-sticky-bar__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.vs-floating-sticky-bar__title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--vs-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.vs-floating-sticky-bar__pricing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vs-floating-sticky-bar__price {
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--vs-text);
+  line-height: 1;
+}
+
+.vs-floating-sticky-bar__badge {
+  background: #A83232;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.vs-floating-sticky-bar__btn {
+  background: #1565C0; /* Contrast rich blue matching user screenshot */
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(21, 101, 192, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vs-floating-sticky-bar__btn:active {
+  transform: scale(0.95);
+  background: #0D47A1;
+}
+
+/* Subtle highlight pulse when scrolled from sticky bar */
+#nabidka-box.is-highlighted {
+  animation: vsBuyBoxPulse 1.2s ease;
+}
+
+@keyframes vsBuyBoxPulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@media screen and (min-width: 769px) {
+  /* Keep active on desktop in compact form or hide */
+  .vs-floating-sticky-bar {
+    max-width: 460px;
+    bottom: 20px;
+  }
+}
