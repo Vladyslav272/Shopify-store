@@ -1155,7 +1155,16 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 
+.vs-buy-panel product-form-component,
+.vs-buy-panel form {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
 [data-vs-cta-btn] {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -3518,13 +3527,13 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     padding: 14px 15px;
   }
 
+  .vs-buy-panel product-form-component,
+  .vs-buy-panel form,
   .vs-cta-btn--single {
     width: 100%;
-  }
-
-  .vs-safety-pills {
-    width: 100%;
-    justify-content: center;
+    max-width: 100%;
+    display: block;
+    box-sizing: border-box;
   }
 
   .vs-morning-title {
