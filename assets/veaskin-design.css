@@ -3373,13 +3373,84 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 }
 
 @media screen and (max-width: 749px) {
-  .vs-morning-title {
-    font-size: clamp(27px, 7.5vw, 36px);
-    line-height: 1.16;
+  /* Perfect symmetrical alignment between hero and product buy section */
+  .vs-section--hero {
+    padding-bottom: 14px;
+  }
+
+  .vs-section#nabidka {
+    padding-top: 14px;
+  }
+
+  .vs-hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 18px;
+  }
+
+  .vs-gallery-card {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .vs-main-media {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    border-radius: 20px;
+    border: 1px solid rgba(234, 219, 218, 0.85);
+    box-shadow: 0 8px 24px -6px rgba(43, 35, 37, 0.12);
+  }
+
+  .vs-buy-panel {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .vs-review-pill {
+    display: inline-flex;
+    margin: 0 auto 12px;
+    text-align: center;
+  }
+
+  .vs-product-title {
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vs-product-features {
+    width: 100%;
+    text-align: left;
   }
 
   .vs-single-offer-card {
+    width: 100%;
+    text-align: left;
     padding: 14px 15px;
+  }
+
+  .vs-cta-btn--single {
+    width: 100%;
+  }
+
+  .vs-safety-pills {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .vs-morning-title {
+    font-size: clamp(27px, 7.5vw, 36px);
+    line-height: 1.16;
   }
 
   .vs-price-current {
