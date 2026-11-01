@@ -19,7 +19,7 @@
     assign p1 = raw_price
   elsif raw_price >= 170000
     assign c1 = raw_price
-    assign p1 = 129900
+    assign p1 = 132900
   else
     assign p1 = raw_price
     assign c1 = 189900
@@ -27,7 +27,7 @@
 
   if p1 >= c1
     assign c1 = 189900
-    assign p1 = 129900
+    assign p1 = 132900
   endif
 
   assign p1_fmt = p1 | money_without_trailing_zeros | replace: '.', ' '
