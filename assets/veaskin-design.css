@@ -2484,9 +2484,11 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
   .vs-morning-cta {
     width: 100% !important;
-    max-width: 320px;
-    padding: 14px 24px;
-    font-size: 13.5px;
+    max-width: 100%;
+    padding: 15px 18px;
+    font-size: clamp(13px, 3.8vw, 15px);
+    white-space: nowrap;
+    box-sizing: border-box;
   }
 
   .vs-morning-guarantee {
@@ -2750,10 +2752,13 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   .vs-morning-cta,
   .vs-reframe-cta {
     width: 100%;
+    max-width: 100%;
     justify-content: center;
-    white-space: normal;
-    font-size: 15.5px;
-    padding: 17px 24px;
+    white-space: nowrap;
+    font-size: clamp(13px, 3.8vw, 15px);
+    padding: 16px 18px;
+    box-sizing: border-box;
+    letter-spacing: 0.03em;
   }
 
   .vs-morning-title {
@@ -2967,6 +2972,14 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
   .vs-single-offer-card {
     padding: 14px 12px;
+  }
+
+  .vs-morning-cta,
+  .vs-reframe-cta {
+    font-size: 13px;
+    padding: 14px 12px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
 
   .vs-steps-grid {
