@@ -177,6 +177,32 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   }
 }
 
+@media screen and (max-width: 749px) {
+  .vs-topbar {
+    padding: 7px 10px;
+    font-size: 11.5px;
+    letter-spacing: 0.015em;
+  }
+
+  .vs-topbar__inner {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .vs-topbar__stage {
+    min-height: 20px;
+  }
+
+  .vs-topbar__slide {
+    gap: 6px;
+  }
+
+  .vs-topbar__icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
 .vs-header-sticky {
   position: sticky;
   top: 0;
@@ -3234,16 +3260,17 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
    ========================================================================== */
 
 .vs-topbar-fomo-badge {
-  background: #E53935;
+  background: var(--vs-accent, #BB6966);
   color: #FFFFFF;
-  font-size: 9.5px;
-  font-weight: 800;
+  font-size: 9px;
+  font-weight: 700;
   padding: 2px 7px;
-  border-radius: 4px;
+  border-radius: 999px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-right: 6px;
-  display: inline-block;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
   line-height: 1.2;
 }
 

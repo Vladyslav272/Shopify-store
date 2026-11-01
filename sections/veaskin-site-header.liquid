@@ -67,7 +67,21 @@
     <div class="vs-topbar__inner">
       <div class="vs-topbar__stage">
         <div class="vs-topbar__slide is-active" data-vs-topbar-slide aria-hidden="false">
-          <span class="vs-topbar-fomo-badge" aria-hidden="true">Časově omezeno</span>
+          <svg
+            class="vs-topbar__icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
           <span>{{ section.settings.shipping_text | default: 'Sleva 30 % + doprava ZDARMA do zítřejší půlnoci' }}</span>
         </div>
 
@@ -89,7 +103,7 @@
             <circle cx="5.5" cy="18.5" r="2.5"></circle>
             <circle cx="18.5" cy="18.5" r="2.5"></circle>
           </svg>
-          <span>{{ section.settings.promo_text | default: 'Rychlá expedice do 24 hodin' }}</span>
+          <span>{{ section.settings.promo_text | default: 'Rychlá expedice do 24 hodin' | remove: '📦' | remove: '🚚' | strip }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -108,7 +122,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             <polyline points="9 12 11 14 15 10"></polyline>
           </svg>
-          <span>{{ section.settings.guarantee_text }}</span>
+          <span>{{ section.settings.guarantee_text | default: '30 dní na vyzkoušení bez rizika' | remove: '🛡️' | remove: '🛡' | strip }}</span>
         </div>
       </div>
     </div>
@@ -535,7 +549,7 @@
       "type": "text",
       "id": "guarantee_text",
       "label": "Text garance",
-      "default": "🛡️ 30 dní na vyzkoušení bez rizika"
+      "default": "30 dní na vyzkoušení bez rizika"
     }
   ]
 }
