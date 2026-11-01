@@ -92,16 +92,20 @@
   {%- if section.settings.show_trust_bar != false -%}
     {%- assign t_rating = section.settings.trust_rating | default: '4,9/5' -%}
     {%- assign t_count = section.settings.trust_count | default: '180+ ověřených recenzí' -%}
-    {%- assign t_tagline = section.settings.trust_tagline | default: 'Doprava zdarma nad 1 000 Kč' -%}
+    {%- assign t_tagline = section.settings.trust_tagline | default: 'Doprava zdarma v ČR & SR' -%}
     <aside class="vs-trust-bar">
       <a href="#recenze-sekce" class="vs-trust-bar__link" aria-label="Hodnocení {{ t_rating }} z 5 hvězdiček, {{ t_count }}, {{ t_tagline }}">
-        <div class="vs-trust-bar__stars" aria-hidden="true">★★★★★</div>
-        <div class="vs-trust-bar__text">
-          <span class="vs-trust-bar__rating">{{ t_rating }}</span>
-          <span class="vs-trust-bar__dot" aria-hidden="true">·</span>
-          <span class="vs-trust-bar__count">{{ t_count }}</span>
-          <span class="vs-trust-bar__dot" aria-hidden="true">·</span>
-          <span class="vs-trust-bar__origin">{{ t_tagline }}</span>
+        <div class="vs-trust-bar__content">
+          <div class="vs-trust-bar__item vs-trust-bar__item--rating">
+            <span class="vs-trust-bar__stars" aria-hidden="true">★★★★★</span>
+            <span class="vs-trust-bar__rating">{{ t_rating }}</span>
+            <span class="vs-trust-bar__dot" aria-hidden="true">·</span>
+            <span class="vs-trust-bar__count">{{ t_count }}</span>
+          </div>
+          <span class="vs-trust-bar__sep" aria-hidden="true">·</span>
+          <div class="vs-trust-bar__item vs-trust-bar__item--perk">
+            <span class="vs-trust-bar__origin">{{ t_tagline }}</span>
+          </div>
         </div>
       </a>
     </aside>
@@ -795,7 +799,7 @@
       "type": "text",
       "id": "trust_tagline",
       "label": "Doplňující text",
-      "default": "Doprava zdarma nad 1 000 Kč"
+      "default": "Doprava zdarma v ČR & SR"
     }
   ],
   "presets": [

@@ -547,7 +547,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 /* ==========================================================================
-   TRUST SOCIAL PROOF BAR (Above Hero Section)
+   TRUST SOCIAL PROOF BAR (Above Hero Section - Responsive & Mobile-Optimized)
    ========================================================================== */
 
 .vs-trust-bar {
@@ -555,7 +555,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 18px var(--vs-edge-pad) 2px;
+  padding: 14px var(--vs-edge-pad) 2px;
   max-width: var(--vs-container);
   margin: 0 auto;
   width: 100%;
@@ -564,64 +564,112 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-trust-bar__link {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
-  gap: 5px;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .vs-trust-bar__link:hover {
   transform: translateY(-1px);
-  opacity: 0.85;
+  opacity: 0.88;
+}
+
+.vs-trust-bar__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.vs-trust-bar__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .vs-trust-bar__stars {
   color: var(--vs-amber, #E5A93C);
-  font-size: 16px;
-  letter-spacing: 3px;
+  font-size: 15px;
+  letter-spacing: 2px;
   line-height: 1;
 }
 
-.vs-trust-bar__text {
+.vs-trust-bar__rating {
   font-family: var(--vs-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--vs-text, #2D2426);
   letter-spacing: -0.01em;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
 }
 
-.vs-trust-bar__dot {
+.vs-trust-bar__count {
+  font-family: var(--vs-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vs-muted, #5C5254);
+}
+
+.vs-trust-bar__dot,
+.vs-trust-bar__sep {
   font-weight: 800;
-  opacity: 0.5;
+  color: var(--vs-subtle, #A89F9E);
+  opacity: 0.6;
+}
+
+.vs-trust-bar__origin {
+  font-family: var(--vs-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: #2E7D32;
+  letter-spacing: -0.01em;
 }
 
 .vs-section--hero.has-trust-bar {
   padding-top: 14px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .vs-trust-bar {
-    padding: 14px 12px 2px;
+    padding: 10px 12px 2px;
+  }
+
+  .vs-trust-bar__content {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .vs-trust-bar__sep {
+    display: none;
+  }
+
+  .vs-trust-bar__item {
+    gap: 5px;
+    white-space: nowrap;
   }
 
   .vs-trust-bar__stars {
-    font-size: 15px;
-    letter-spacing: 2.5px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
   }
 
-  .vs-trust-bar__text {
+  .vs-trust-bar__rating {
+    font-size: 13px;
+  }
+
+  .vs-trust-bar__count {
     font-size: 12.5px;
-    gap: 6px;
+  }
+
+  .vs-trust-bar__origin {
+    font-size: 12px;
   }
 
   .vs-section--hero.has-trust-bar {
-    padding-top: 10px;
+    padding-top: 8px;
   }
 }
 
@@ -2560,18 +2608,9 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     padding-top: 18px;
   }
 
-  /* Trust Rating Bar */
+  /* Trust Rating Bar (Mobile Clean Layout) */
   .vs-trust-bar {
-    padding: 14px var(--vs-edge-pad) 2px;
-  }
-
-  .vs-trust-bar__stars {
-    font-size: 17px;
-  }
-
-  .vs-trust-bar__text {
-    font-size: 14.5px;
-    font-weight: 700;
+    padding: 10px var(--vs-edge-pad) 2px;
   }
 
   /* Review rating pill in buy panel */
