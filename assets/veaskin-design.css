@@ -1569,32 +1569,43 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 /* ==========================================================================
-   4. 4-STEP GUIDE WITH REAL GIFS
+   4. 3-STEP MORNING RITUAL (DESKTOP GRID & MOBILE SWIPE SLIDER)
    ========================================================================== */
 
-.vs-steps-grid {
+.vs-steps-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.vs-steps-track {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .vs-step-card {
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  overflow: visible;
-  box-shadow: none;
+  background: #FFFFFF;
+  border: 1px solid var(--vs-border);
+  border-radius: 20px;
+  padding: 14px;
+  box-shadow: 0 4px 18px rgba(32, 45, 38, 0.05);
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vs-step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(32, 45, 38, 0.08);
 }
 
 .vs-step-media {
   position: relative;
-  aspect-ratio: 1 / 1;
-  background: var(--vs-blush);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--vs-blush, #F4EFEB);
   overflow: hidden;
-  border-radius: 18px;
-  box-shadow: 0 6px 20px rgba(32, 45, 38, 0.06);
+  border-radius: 14px;
 }
 
 .vs-step-media img {
@@ -1608,27 +1619,127 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   position: absolute;
   top: 10px;
   left: 10px;
-  background: rgba(32, 45, 38, 0.86);
+  background: rgba(21, 34, 27, 0.88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: #FFFFFF;
   font-size: 11px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 4px 11px;
   border-radius: 999px;
+  letter-spacing: 0.03em;
 }
 
 .vs-step-body {
-  padding: 14px 2px 0;
-  font-size: 13px;
-  color: var(--vs-muted);
-  line-height: 1.5;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
-.vs-step-body strong {
-  display: block;
+.vs-step-title {
+  font-size: 16px;
+  font-weight: 700;
   color: var(--vs-text);
-  font-size: 14.5px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.vs-step-desc {
+  font-size: 13.5px;
+  color: var(--vs-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.vs-steps-meta {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .vs-steps-slider-wrapper {
+    margin-left: calc(-1 * var(--vs-edge-pad, 16px));
+    margin-right: calc(-1 * var(--vs-edge-pad, 16px));
+  }
+
+  .vs-steps-track {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    padding: 6px var(--vs-edge-pad, 16px) 14px;
+    scrollbar-width: none;
+  }
+
+  .vs-steps-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vs-step-card {
+    flex: 0 0 280px;
+    max-width: 80vw;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 4px 14px rgba(32, 45, 38, 0.04);
+  }
+
+  .vs-step-media {
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+  }
+
+  .vs-step-title {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .vs-step-desc {
+    font-size: 12.8px;
+    line-height: 1.45;
+  }
+
+  .vs-steps-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--vs-edge-pad, 16px);
+    margin-top: 2px;
+  }
+
+  .vs-steps-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .vs-step-dot {
+    width: 20px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--vs-border);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .vs-step-dot.is-active {
+    width: 34px;
+    background: var(--vs-accent);
+  }
+
+  .vs-steps-hint {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--vs-subtle);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 }
 
 /* ==========================================================================
@@ -2861,10 +2972,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   /* 4-step routine */
-  .vs-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
+  /* steps grid removed */
 
   .vs-step-media {
     border-radius: 18px;
@@ -3021,10 +3129,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     white-space: nowrap;
   }
 
-  .vs-steps-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  /* steps grid mobile removed */
 
   .vs-step-body strong {
     font-size: 16px;

@@ -411,39 +411,50 @@
       <p class="vs-sub">Snadná a příjemná 10minutová péče, kterou hravě zařadíte k ranní kávě, čaji nebo poslechu podcastu.</p>
     </div>
 
-    <div class="vs-steps-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
-      <article class="vs-step-card">
-        <div class="vs-step-media">
-          <img src="{{ step1_gif_url }}" alt="Krok 1 - Čistá pleť a kapka séra" width="400" height="400" loading="lazy">
-          <span class="vs-step-pill">Krok 1</span>
-        </div>
-        <div class="vs-step-body">
-          <strong>Čistá pleť a kapka séra</strong>
-          Na vyčištěné oční okolí naneste kapku lehkého séra či očního krému na vodní bázi pro dokonalý přenos mikroproudů.
-        </div>
-      </article>
+    <div class="vs-steps-slider-wrapper" data-vs-steps-slider>
+      <div class="vs-steps-track" data-vs-steps-track>
+        <article class="vs-step-card" data-vs-step-card>
+          <div class="vs-step-media">
+            <img src="{{ step1_gif_url }}" alt="Krok 1 - Čistá pleť a kapka séra" width="400" height="300" loading="lazy">
+            <span class="vs-step-pill">Krok 1</span>
+          </div>
+          <div class="vs-step-body">
+            <h3 class="vs-step-title">Čistá pleť a kapka séra</h3>
+            <p class="vs-step-desc">Na vyčištěné oční okolí naneste kapku lehkého séra či očního krému na vodní bázi pro dokonalý přenos mikroproudů.</p>
+          </div>
+        </article>
 
-      <article class="vs-step-card">
-        <div class="vs-step-media">
-          <img src="{{ step4_gif_url }}" alt="Krok 2 - 10 minut relaxace u kávy" width="400" height="400" loading="lazy">
-          <span class="vs-step-pill">Krok 2</span>
-        </div>
-        <div class="vs-step-body">
-          <strong>10 minut relaxace u kávy</strong>
-          Nasaďte brýle, zvolte příjemnou intenzitu mikroproudů a v klidu si vychutnejte kávu. Přístroj pracuje za vás.
-        </div>
-      </article>
+        <article class="vs-step-card" data-vs-step-card>
+          <div class="vs-step-media">
+            <img src="{{ step4_gif_url }}" alt="Krok 2 - 10 minut relaxace u kávy" width="400" height="300" loading="lazy">
+            <span class="vs-step-pill">Krok 2</span>
+          </div>
+          <div class="vs-step-body">
+            <h3 class="vs-step-title">10 minut relaxace u kávy</h3>
+            <p class="vs-step-desc">Nasaďte brýle, zvolte příjemnou intenzitu mikroproudů a v klidu si vychutnejte kávu. Přístroj pracuje za vás.</p>
+          </div>
+        </article>
 
-      <article class="vs-step-card">
-        <div class="vs-step-media">
-          <img src="{{ after_img_url }}" alt="Krok 3 - Svěží pohled do nového dne" width="400" height="400" loading="lazy">
-          <span class="vs-step-pill">Krok 3</span>
+        <article class="vs-step-card" data-vs-step-card>
+          <div class="vs-step-media">
+            <img src="{{ after_img_url }}" alt="Krok 3 - Svěží start do nového dne" width="400" height="300" loading="lazy">
+            <span class="vs-step-pill">Krok 3</span>
+          </div>
+          <div class="vs-step-body">
+            <h3 class="vs-step-title">Svěží start do nového dne</h3>
+            <p class="vs-step-desc">Po 10 minutách se přístroj sám automaticky vypne. Lymfa je rozprouděná, otoky ustupují a pohled září svěžestí.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="vs-steps-meta">
+        <div class="vs-steps-dots" role="tablist" aria-label="Kroky ranního rituálu">
+          <button type="button" class="vs-step-dot is-active" data-vs-step-dot="0" aria-label="Přejít na Krok 1"></button>
+          <button type="button" class="vs-step-dot" data-vs-step-dot="1" aria-label="Přejít na Krok 2"></button>
+          <button type="button" class="vs-step-dot" data-vs-step-dot="2" aria-label="Přejít na Krok 3"></button>
         </div>
-        <div class="vs-step-body">
-          <strong>Svěží start do nového dne</strong>
-          Po 10 minutách se přístroj sám automaticky vypne. Lymfa je rozprouděná, otoky ustupují a pohled září svěžestí.
-        </div>
-      </article>
+        <span class="vs-steps-hint">Posuňte prstem →</span>
+      </div>
     </div>
   </section>
 
@@ -790,6 +801,40 @@
       return;
     }
   });
+
+  // 4. Horizontal Steps Swipe Slider sync
+  const initStepsSlider = () => {
+    document.querySelectorAll('[data-vs-steps-slider]').forEach((slider) => {
+      const track = slider.querySelector('[data-vs-steps-track]');
+      const dots = slider.querySelectorAll('[data-vs-step-dot]');
+      const cards = slider.querySelectorAll('[data-vs-step-card]');
+      if (!track || !dots.length) return;
+
+      const updateActiveDot = () => {
+        const scrollLeft = track.scrollLeft;
+        const width = track.clientWidth;
+        let activeIndex = Math.round(scrollLeft / (track.scrollWidth - width) * (cards.length - 1));
+        activeIndex = Math.max(0, Math.min(cards.length - 1, activeIndex));
+
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('is-active', idx === activeIndex);
+          dot.setAttribute('aria-selected', idx === activeIndex ? 'true' : 'false');
+        });
+      };
+
+      track.addEventListener('scroll', updateActiveDot, { passive: true });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-vs-step-dot'), 10);
+          if (!isNaN(idx) && cards[idx]) {
+            cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+          }
+        });
+      });
+    });
+  };
+  initStepsSlider();
 
   // 3. Interactive Before / After range slider
   document.addEventListener('input', (event) => {
