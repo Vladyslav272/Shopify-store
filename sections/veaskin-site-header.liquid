@@ -82,7 +82,7 @@
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          <span>{{ section.settings.shipping_text | default: 'Doprava ZDARMA v ČR & SR při nákupu nad 1 000 Kč' }}</span>
+          <span>{{ section.settings.shipping_text | default: 'Doprava zdarma na celou objednávku' }}</span>
         </div>
 
         <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
@@ -374,7 +374,7 @@
 
       <div class="vs-mobile-drawer__foot">
         <div class="vs-mobile-drawer__perks">
-          <span>Doprava zdarma nad 1 000 Kč</span>
+          <span>Doprava zdarma</span>
           <span>30 dní na vyzkoušení bez rizika</span>
         </div>
         <a href="{{ anchor_prefix }}#nabidka-box" class="vs-cta-btn vs-mobile-drawer__cta" data-vs-drawer-link>
@@ -537,7 +537,7 @@
       "type": "text",
       "id": "shipping_text",
       "label": "Text dopravy",
-      "default": "Doprava ZDARMA v ČR & SR při nákupu nad 1 000 Kč"
+      "default": "Doprava zdarma na celou objednávku"
     },
     {
       "type": "text",

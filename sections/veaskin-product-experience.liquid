@@ -92,7 +92,7 @@
   {%- if section.settings.show_trust_bar != false -%}
     {%- assign t_rating = section.settings.trust_rating | default: '4,9/5' -%}
     {%- assign t_count = section.settings.trust_count | default: '180+ ověřených recenzí' -%}
-    {%- assign t_tagline = section.settings.trust_tagline | default: 'Doprava zdarma v ČR & SR' -%}
+    {%- assign t_tagline = section.settings.trust_tagline | default: 'Doprava zdarma' -%}
     <aside class="vs-trust-bar">
       <a href="#recenze-sekce" class="vs-trust-bar__link" aria-label="Hodnocení {{ t_rating }} z 5 hvězdiček, {{ t_count }}, {{ t_tagline }}">
         <div class="vs-trust-bar__content">
@@ -220,7 +220,7 @@
         <div class="vs-single-offer-card">
           <div class="vs-single-offer-badge-row">
             <span class="vs-stock-status"><span class="vs-stock-dot"></span> Skladem (ihned k odeslání)</span>
-            <span class="vs-shipping-status">Doprava zdarma v ČR &amp; SR</span>
+            <span class="vs-shipping-status">Doprava zdarma</span>
           </div>
 
           <div class="vs-offer-price-row">
@@ -799,7 +799,7 @@
       "type": "text",
       "id": "trust_tagline",
       "label": "Doplňující text",
-      "default": "Doprava zdarma v ČR & SR"
+      "default": "Doprava zdarma"
     }
   ],
   "presets": [
