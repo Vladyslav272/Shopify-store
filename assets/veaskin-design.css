@@ -3758,3 +3758,113 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     font-size: 13.5px;
   }
 }
+
+
+/* ==========================================================================
+   LUXURY TRUST PILLARS (Under CTA Button - Mobile First)
+   ========================================================================== */
+
+.vs-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--vs-border);
+}
+
+.vs-trust-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid var(--vs-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.vs-trust-card:hover {
+  border-color: var(--vs-accent);
+  transform: translateY(-1px);
+}
+
+.vs-trust-card__icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  background: rgba(47, 111, 84, 0.09);
+  color: var(--vs-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vs-trust-card__icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.vs-trust-card__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.vs-trust-card__title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--vs-text);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vs-trust-card__desc {
+  font-size: 10.5px;
+  color: var(--vs-muted);
+  line-height: 1.2;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 480px) {
+  .vs-trust-grid {
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+
+  .vs-trust-card {
+    padding: 8px 10px;
+    gap: 8px;
+    border-radius: 10px;
+  }
+
+  .vs-trust-card__icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  .vs-trust-card__icon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .vs-trust-card__title {
+    font-size: 11.5px;
+  }
+
+  .vs-trust-card__desc {
+    font-size: 10px;
+  }
+}
