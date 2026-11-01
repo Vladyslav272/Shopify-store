@@ -4,23 +4,23 @@
    ========================================================================== */
 
 :root {
-  --vs-bg: #FAF6F4;
+  --vs-bg: #F4F7F5;
   --vs-surface: #FFFFFF;
-  --vs-blush: #F7ECEA;
-  --vs-blush-deep: #F1DFDC;
-  --vs-text: #2B2325;
-  --vs-muted: #685B5E;
-  --vs-subtle: #8F8084;
-  --vs-accent: #BB6966;
-  --vs-accent-dark: #9E524F;
-  --vs-rose-gold: #C98A7D;
-  --vs-amber: #E2955A;
+  --vs-blush: #EBF2EE;
+  --vs-blush-deep: #DDE7E2;
+  --vs-text: #202D26;
+  --vs-muted: #52675C;
+  --vs-subtle: #799386;
+  --vs-accent: #436F5C;
+  --vs-accent-dark: #325546;
+  --vs-rose-gold: #82ABA0;
+  --vs-amber: #436F5C;
   --vs-green: #3B7D56;
   --vs-green-bg: #EAF5EE;
-  --vs-danger: #B94A48;
-  --vs-border: #EADBDA;
-  --vs-shadow: 0 10px 30px -10px rgba(43, 35, 37, 0.08);
-  --vs-shadow-lg: 0 20px 45px -15px rgba(43, 35, 37, 0.14);
+  --vs-danger: #C24B46;
+  --vs-border: #D2DED8;
+  --vs-shadow: 0 10px 30px -10px rgba(32, 45, 38, 0.08);
+  --vs-shadow-lg: 0 20px 45px -15px rgba(32, 45, 38, 0.13);
   --vs-heading: 'Lora', Georgia, 'Times New Roman', serif;
   --vs-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --vs-container: 1140px;
@@ -89,7 +89,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-topbar {
-  background: #2B2325;
+  background: #1C2721;
   color: #FAF6F4;
   text-align: center;
   padding: 8px 16px;
@@ -144,7 +144,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-topbar__icon {
-  color: #E7A7A4;
+  color: #8AB6A9;
   flex-shrink: 0;
 }
 
@@ -646,7 +646,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-kicker--dark {
-  background: rgba(187, 105, 102, 0.22);
+  background: rgba(67, 111, 92, 0.22);
   border-color: rgba(231, 167, 164, 0.3);
   color: #F3B8B5;
 }
@@ -708,7 +708,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   overflow: hidden;
   background: #F4EAE8;
   aspect-ratio: 1 / 1;
-  box-shadow: 0 6px 20px rgba(187, 105, 102, 0.12);
+  box-shadow: 0 6px 20px rgba(67, 111, 92, 0.12);
 }
 
 .vs-main-media__img {
@@ -977,7 +977,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 .vs-offer-option.is-selected {
   border-color: var(--vs-accent);
   background: linear-gradient(135deg, #FFFDFC 0%, #FBF0EE 100%);
-  box-shadow: 0 6px 18px -6px rgba(187, 105, 102, 0.26);
+  box-shadow: 0 6px 18px -6px rgba(67, 111, 92, 0.26);
 }
 
 .vs-offer-ribbon {
@@ -996,7 +996,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-offer-ribbon--dark {
-  background: #2B2325;
+  background: #1C2721;
 }
 
 .vs-offer-left {
@@ -1145,7 +1145,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   padding: 16px 20px;
   border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 10px 24px -6px rgba(187, 105, 102, 0.48);
+  box-shadow: 0 10px 24px -6px rgba(67, 111, 92, 0.48);
   transition: background 0.2s ease, transform 0.15s ease;
   text-decoration: none;
   display: inline-flex;
@@ -1317,7 +1317,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   padding: 16px 38px;
   border-radius: 999px;
   text-decoration: none;
-  box-shadow: 0 6px 22px rgba(187, 105, 102, 0.34);
+  box-shadow: 0 6px 22px rgba(67, 111, 92, 0.34);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: inline-flex;
   justify-content: center;
@@ -1327,7 +1327,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-morning-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 26px rgba(187, 105, 102, 0.42);
+  box-shadow: 0 8px 26px rgba(67, 111, 92, 0.42);
 }
 
 .vs-morning-guarantee {
@@ -1596,7 +1596,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-science-card {
-  background: #2B2325;
+  background: #1C2721;
   color: #FAF6F4;
   border-radius: 24px;
   padding: 28px;
@@ -1611,7 +1611,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-science-highlight {
-  color: #E7A7A4;
+  color: #8AB6A9;
 }
 
 .vs-science-list {
@@ -2025,7 +2025,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 .vs-rev-card {
   background: transparent;
   border: none;
-  border-top: 1px solid rgba(187, 105, 102, 0.22);
+  border-top: 1px solid rgba(67, 111, 92, 0.22);
   border-radius: 0;
   padding: 20px 4px 0;
   box-shadow: none;
@@ -2120,10 +2120,10 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   font-family: var(--vs-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif) !important;
   color: var(--vs-text, #2D2426) !important;
   --jm-review-widget-star-and-histogram-color: var(--vs-amber, #E5A93C) !important;
-  --jm-review-widget-button-color: var(--vs-accent, #BB6966) !important;
+  --jm-review-widget-button-color: var(--vs-accent, #436F5C) !important;
   --jm-review-widget-text-color: var(--vs-text, #2D2426) !important;
   --jm-review-widget-lighter-text-color: var(--vs-muted, #685B5E) !important;
-  --jm-widget-primary-color: var(--vs-accent, #BB6966) !important;
+  --jm-widget-primary-color: var(--vs-accent, #436F5C) !important;
 }
 
 /* Header Section */
@@ -2153,14 +2153,14 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 .jm-review-widget .jm-button--primary.jm-action-buttons__button,
 .jm-review-widget .jm-action-buttons__button,
 .jdgm-write-rev-link {
-  background: var(--vs-accent, #BB6966) !important;
+  background: var(--vs-accent, #436F5C) !important;
   color: #FFFFFF !important;
   border-radius: 999px !important;
   font-weight: 700 !important;
   font-size: 13.5px !important;
   padding: 10px 22px !important;
   border: none !important;
-  box-shadow: 0 4px 14px rgba(187, 105, 102, 0.28) !important;
+  box-shadow: 0 4px 14px rgba(67, 111, 92, 0.28) !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   text-decoration: none !important;
@@ -2171,7 +2171,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 .jdgm-write-rev-link:hover {
   background: var(--vs-accent-hover, #A85956) !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 18px rgba(187, 105, 102, 0.35) !important;
+  box-shadow: 0 6px 18px rgba(67, 111, 92, 0.35) !important;
 }
 
 /* Filter / sort secondary buttons */
@@ -2187,8 +2187,8 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
 .jm-review-widget .jm-button--secondary:hover,
 .jm-review-widget .jm-custom-answer-filter:hover {
-  border-color: var(--vs-accent, #BB6966) !important;
-  color: var(--vs-accent, #BB6966) !important;
+  border-color: var(--vs-accent, #436F5C) !important;
+  color: var(--vs-accent, #436F5C) !important;
 }
 
 /* Review Cards */
@@ -2196,7 +2196,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 .jdgm-rev {
   background: transparent !important;
   border: none !important;
-  border-bottom: 1px solid rgba(187, 105, 102, 0.18) !important;
+  border-bottom: 1px solid rgba(67, 111, 92, 0.18) !important;
   border-radius: 0 !important;
   padding: 22px 0 !important;
   box-shadow: none !important;
@@ -2222,7 +2222,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 .jm-reviewer-avatar--with-initial,
 .jdgm-rev__author-avatar {
   background: var(--vs-blush, #F4EAE6) !important;
-  color: var(--vs-accent, #BB6966) !important;
+  color: var(--vs-accent, #436F5C) !important;
   font-weight: 700 !important;
   font-size: 14px !important;
   border-radius: 50% !important;
@@ -2271,9 +2271,9 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 }
 
 .jm-pagination-controls__button--active {
-  background: var(--vs-accent, #BB6966) !important;
+  background: var(--vs-accent, #436F5C) !important;
   color: #FFFFFF !important;
-  border-color: var(--vs-accent, #BB6966) !important;
+  border-color: var(--vs-accent, #436F5C) !important;
 }
 
 /* Modal review dialog styling */
@@ -2292,13 +2292,13 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   margin: 0 auto;
   display: grid;
   gap: 0;
-  border-top: 1px solid rgba(187, 105, 102, 0.2);
+  border-top: 1px solid rgba(67, 111, 92, 0.2);
 }
 
 .vs-faq-card {
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(187, 105, 102, 0.2);
+  border-bottom: 1px solid rgba(67, 111, 92, 0.2);
   border-radius: 0;
   overflow: visible;
   box-shadow: none;
@@ -2357,7 +2357,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
    ========================================================================== */
 
 .vs-site-footer {
-  background: #2B2325;
+  background: #1C2721;
   color: #D9CFD1;
   padding: 32px 0;
   text-align: center;
@@ -2395,7 +2395,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 }
 
 .vs-footer-links a:hover {
-  color: #E7A7A4;
+  color: #8AB6A9;
 }
 
 .vs-footer-payments {
@@ -2690,7 +2690,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     gap: 4px;
     padding: 16px 20px;
     border-radius: 999px;
-    box-shadow: 0 6px 24px rgba(187, 105, 102, 0.38);
+    box-shadow: 0 6px 24px rgba(67, 111, 92, 0.38);
     box-sizing: border-box;
     width: 100%;
   }
@@ -3174,7 +3174,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 6px 16px -6px rgba(187, 105, 102, 0.45);
+  box-shadow: 0 6px 16px -6px rgba(67, 111, 92, 0.45);
   transition: background 0.18s ease, transform 0.15s ease;
 }
 
@@ -3310,7 +3310,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
    ========================================================================== */
 
 .vs-topbar-fomo-badge {
-  background: var(--vs-accent, #BB6966);
+  background: var(--vs-accent, #436F5C);
   color: #FFFFFF;
   font-size: 9px;
   font-weight: 700;
@@ -3339,7 +3339,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   border: 2px solid var(--vs-accent);
   border-radius: 16px;
   padding: 16px 18px;
-  box-shadow: 0 4px 18px rgba(187, 105, 102, 0.12);
+  box-shadow: 0 4px 18px rgba(67, 111, 92, 0.12);
   margin-bottom: 14px;
 }
 
@@ -3419,7 +3419,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
 .vs-cta-btn--single {
   padding: 16px 20px;
-  box-shadow: 0 5px 22px rgba(187, 105, 102, 0.38);
+  box-shadow: 0 5px 22px rgba(67, 111, 92, 0.38);
 }
 
 .vs-safety-pills {
@@ -3444,7 +3444,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   border-radius: 20px;
   padding: 24px 20px;
   text-align: center;
-  box-shadow: 0 4px 18px rgba(187, 105, 102, 0.08);
+  box-shadow: 0 4px 18px rgba(67, 111, 92, 0.08);
 }
 
 .vs-mid-page-cta__title {
