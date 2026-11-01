@@ -3399,11 +3399,11 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 @media screen and (max-width: 749px) {
   /* Perfect symmetrical alignment between hero and product buy section */
   .vs-section--hero {
-    padding-bottom: 14px;
+    padding-bottom: 40px;
   }
 
   .vs-section#nabidka {
-    padding-top: 14px;
+    padding-top: 40px;
   }
 
   .vs-hero-grid {
