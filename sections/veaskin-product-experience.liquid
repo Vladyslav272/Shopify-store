@@ -21,19 +21,10 @@
     assign c_base = 189900
   endif
 
-  assign p_bundle = 159000
-  assign c_bundle = 219000
-
-  if target_product.variants.size >= 2
-    assign v2_id = target_product.variants[1].id
-  else
-    assign v2_id = v1_id
-  endif
-
+  assign save_raw = c_base | minus: p_base
   assign p_base_fmt = p_base | money_without_trailing_zeros | replace: '.', ' '
   assign c_base_fmt = c_base | money_without_trailing_zeros | replace: '.', ' '
-  assign p_bundle_fmt = p_bundle | money_without_trailing_zeros | replace: '.', ' '
-  assign c_bundle_fmt = c_bundle | money_without_trailing_zeros | replace: '.', ' '
+  assign save_fmt = save_raw | money_without_trailing_zeros | replace: '.', ' '
 
   if images['zenabilepozadi.jpg'] != blank
     assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
@@ -221,71 +212,58 @@
           </div>
         </div>
 
-        <!-- Ritual Tiered Bundle Selector (Increases AOV) -->
-        <div class="vs-offer-section">
-          <div class="vs-offer-head">
-            <span class="vs-offer-head__title">Vyberte si své balení:</span>
-            <span class="vs-offer-head__badge">Doprava zdarma v ČR &amp; SR</span>
+        <!-- Single Product Luxury Buy Box -->
+        <div class="vs-single-offer-card">
+          <div class="vs-single-offer-badge-row">
+            <span class="vs-stock-status"><span class="vs-stock-dot"></span> Skladem (ihned k odeslání)</span>
+            <span class="vs-shipping-status">Doprava zdarma v ČR &amp; SR</span>
           </div>
 
-          <div class="vs-offer-list" role="radiogroup" aria-label="Výběr varianty">
-            <!-- Option 1: Ritual Bundle (Recommended) -->
-            <button
-              type="button"
-              class="vs-offer-option is-selected"
-              role="radio"
-              aria-checked="true"
-              data-vs-offer
-              data-variant-id="{{ v2_id }}"
-              data-qty="1"
-              data-cta-main="PŘIDAT DO KOŠÍKU – {{ p_bundle_fmt }}"
-              data-cta-sub="(30 DNÍ NA VYZKOUŠENÍ • DOPRAVA ZDARMA)"
-            >
-              <span class="vs-offer-ribbon">Nejoblíbenější</span>
-              <div class="vs-offer-left">
-                <span class="vs-radio-dot" aria-hidden="true"></span>
-                <div>
-                  <div class="vs-offer-name">Kompletní ranní rituál</div>
-                  <div class="vs-offer-sub">Brýle VeaSkin + Vodivé hyaluronové sérum (50 ml) + pouzdro</div>
-                  <div class="vs-offer-perk">
-                    <span class="vs-perk-line">✨ Zvýšená vodivost &amp; maximální hydratace</span>
-                  </div>
-                </div>
-              </div>
-              <div class="vs-offer-right">
-                <div class="vs-offer-price">{{ p_bundle_fmt }}</div>
-                <div class="vs-offer-old">{{ c_bundle_fmt }}</div>
-              </div>
-            </button>
+          <div class="vs-offer-price-row">
+            <span class="vs-price-current" data-vs-price-display>{{ p_base_fmt }}</span>
+            <span class="vs-price-before" data-vs-compare-display>{{ c_base_fmt }}</span>
+            <span class="vs-price-saving" data-vs-save-display>Ušetříte {{ save_fmt | replace: ' ', '&nbsp;' }}</span>
+          </div>
 
-            <!-- Option 2: Solo Device -->
-            <button
-              type="button"
-              class="vs-offer-option"
-              role="radio"
-              aria-checked="false"
-              data-vs-offer
-              data-variant-id="{{ v1_id }}"
-              data-qty="1"
-              data-cta-main="PŘIDAT DO KOŠÍKU – {{ p_base_fmt }}"
-              data-cta-sub="(30 DNÍ NA VYZKOUŠENÍ • DOPRAVA ZDARMA)"
-            >
-              <div class="vs-offer-left">
-                <span class="vs-radio-dot" aria-hidden="true"></span>
-                <div>
-                  <div class="vs-offer-name">Samostatné brýle VeaSkin</div>
-                  <div class="vs-offer-sub">Brýle na oční okolí, USB-C kabel, pouzdro a český návod</div>
-                </div>
-              </div>
-              <div class="vs-offer-right">
-                <div class="vs-offer-price">{{ p_base_fmt }}</div>
-                <div class="vs-offer-old">{{ c_base_fmt }}</div>
-              </div>
-            </button>
+          <div class="vs-package-includes">
+            📦 <strong>Kompletní balení obsahuje:</strong> VeaSkin masážní brýle na oční okolí, prémiové sametové pouzdro, USB-C rychlonabíjecí kabel a český návod.
           </div>
         </div>
 
-        {%- if target_product != blank -%}
+        <!-- Touch-Friendly Mobile Quantity Selector -->
+        <div class="vs-qty-wrapper">
+          <div class="vs-qty-header">
+            <span class="vs-qty-label">Zvolte počet kusů:</span>
+            <span class="vs-qty-note">Doprava zdarma na celou objednávku</span>
+          </div>
+
+          <div class="vs-qty-bar">
+            <!-- Stepper with min 46px touch targets for mobile thumb -->
+            <div class="vs-qty-stepper" role="group" aria-label="Změna množství">
+              <button
+                type="button"
+                class="vs-qty-btn vs-qty-btn--minus"
+                aria-label="Snížit počet kusů"
+                data-vs-qty-btn="minus"
+              >−</button>
+              <span class="vs-qty-val" data-vs-qty-val>1</span>
+              <button
+                type="button"
+                class="vs-qty-btn vs-qty-btn--plus"
+                aria-label="Zvýšit počet kusů"
+                data-vs-qty-btn="plus"
+              >+</button>
+            </div>
+
+            <!-- Quick-Pick Pills for Mobile Thumb -->
+            <div class="vs-qty-pills" role="radiogroup" aria-label="Rychlý výběr počtu kusů">
+              <button type="button" class="vs-qty-pill is-active" data-vs-qty-pill="1" role="radio" aria-checked="true">1 ks</button>
+              <button type="button" class="vs-qty-pill" data-vs-qty-pill="2" role="radio" aria-checked="false">2 ks</button>
+              <button type="button" class="vs-qty-pill" data-vs-qty-pill="3" role="radio" aria-checked="false">3 ks</button>
+            </div>
+          </div>
+        </div>
+              {%- if target_product != blank -%}
           <product-form-component
             data-section-id="{{ section.id }}"
             data-product-id="{{ target_product.id }}"
@@ -307,7 +285,7 @@
                 type="hidden"
                 name="id"
                 ref="variantId"
-                value="{{ v2_id }}"
+                value="{{ v1_id }}"
                 data-vs-form-id
               >
               <input
@@ -329,7 +307,7 @@
                 {% unless first_variant.available %}disabled{% endunless %}
               >
                 {%- if first_variant.available -%}
-                  <span class="vs-cta-btn__main" data-vs-cta-main>PŘIDAT DO KOŠÍKU – {{ p_bundle_fmt }}</span>
+                  <span class="vs-cta-btn__main" data-vs-cta-main>PŘIDAT DO KOŠÍKU — {{ p_base_fmt }}</span>
                   <span class="vs-cta-btn__sub" data-vs-cta-sub>
                     <span class="vs-cta-sub--full">(30 DNÍ NA VYZKOUŠENÍ • DOPRAVA ZDARMA)</span>
                     <span class="vs-cta-sub--short">(DOPRAVA ZDARMA)</span>
@@ -621,7 +599,7 @@
             „Ranní káva a VeaSkin brýle je skvělá kombinace. Oči jsou po ránu hned otevřené a svěží, kruhy jsou světlejší už po deseti dnech a korektor už skoro nepotřebuji.“
           </p>
         </div>
-        <div class="vs-rev-meta">Zakoupeno: Kompletní ranní rituál</div>
+        <div class="vs-rev-meta">Zakoupeno: 1× VeaSkin Brýle na oční okolí</div>
       </article>
 
       <article class="vs-rev-card">
@@ -659,7 +637,7 @@
             „Mikroproudy jsou velmi jemné a příjemně vibrují. Efekt je nesrovnatelně trvalejší než u jednorázových polštářků pod oči. Zlepšení je viditelné i na fotkách.“
           </p>
         </div>
-        <div class="vs-rev-meta">Zakoupeno: Kompletní ranní rituál</div>
+        <div class="vs-rev-meta">Zakoupeno: 1× VeaSkin Brýle na oční okolí</div>
       </article>
     </div>
   </section>
@@ -702,31 +680,59 @@
       return;
     }
 
-    // 2. Bundle Offer selector
-    const offerBtn = target.closest('[data-vs-offer]');
-    if (offerBtn) {
-      const root = offerBtn.closest('[data-vs-experience]');
+    // 2. Quantity selector & dynamic price calculation
+    const qtyBtn = target.closest('[data-vs-qty-btn]');
+    const qtyPill = target.closest('[data-vs-qty-pill]');
+
+    if (qtyBtn || qtyPill) {
+      const root = (qtyBtn || qtyPill).closest('[data-vs-experience]');
       if (!root) return;
-      root.querySelectorAll('[data-vs-offer]').forEach((opt) => {
-        const selected = opt === offerBtn;
-        opt.classList.toggle('is-selected', selected);
-        opt.setAttribute('aria-checked', selected ? 'true' : 'false');
-      });
 
-      const variantId = offerBtn.getAttribute('data-variant-id');
-      const qty = offerBtn.getAttribute('data-qty');
-      const ctaMain = offerBtn.getAttribute('data-cta-main');
-      const ctaSub = offerBtn.getAttribute('data-cta-sub');
-
-      const idInput = root.querySelector('[data-vs-form-id]');
+      const qtyValEl = root.querySelector('[data-vs-qty-val]');
       const qtyInput = root.querySelector('[data-vs-form-qty]');
       const ctaMainEl = root.querySelector('[data-vs-cta-main]');
-      const ctaSubEl = root.querySelector('[data-vs-cta-sub] .vs-cta-sub--full');
+      const priceDisplayEl = root.querySelector('[data-vs-price-display]');
+      const compareDisplayEl = root.querySelector('[data-vs-compare-display]');
+      const saveDisplayEl = root.querySelector('[data-vs-save-display]');
+      const pills = root.querySelectorAll('[data-vs-qty-pill]');
 
-      if (idInput && variantId) idInput.value = variantId;
-      if (qtyInput && qty) qtyInput.value = qty;
-      if (ctaMainEl && ctaMain) ctaMainEl.textContent = ctaMain;
-      if (ctaSubEl && ctaSub) ctaSubEl.textContent = ctaSub;
+      const unitPrice = 1329;
+      const comparePrice = 1899;
+
+      let currentQty = parseInt(qtyInput ? qtyInput.value : '1', 10) || 1;
+
+      if (qtyBtn) {
+        const action = qtyBtn.getAttribute('data-vs-qty-btn');
+        if (action === 'plus') currentQty += 1;
+        if (action === 'minus') currentQty -= 1;
+      } else if (qtyPill) {
+        const pQty = parseInt(qtyPill.getAttribute('data-vs-qty-pill'), 10);
+        if (!isNaN(pQty)) currentQty = pQty;
+      }
+
+      currentQty = Math.max(1, Math.min(10, currentQty));
+
+      if (qtyValEl) qtyValEl.textContent = String(currentQty);
+      if (qtyInput) qtyInput.value = String(currentQty);
+
+      const totalCurrent = unitPrice * currentQty;
+      const totalCompare = comparePrice * currentQty;
+      const totalSave = totalCompare - totalCurrent;
+
+      const fmt = (val) => val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč';
+
+      if (ctaMainEl) ctaMainEl.textContent = `PŘIDAT DO KOŠÍKU — ${fmt(totalCurrent)}`;
+      if (priceDisplayEl) priceDisplayEl.textContent = fmt(totalCurrent);
+      if (compareDisplayEl) compareDisplayEl.textContent = fmt(totalCompare);
+      if (saveDisplayEl) saveDisplayEl.textContent = `Ušetříte ${fmt(totalSave)}`;
+
+      pills.forEach((pill) => {
+        const pillVal = parseInt(pill.getAttribute('data-vs-qty-pill'), 10);
+        const active = pillVal === currentQty;
+        pill.classList.toggle('is-active', active);
+        pill.setAttribute('aria-checked', active ? 'true' : 'false');
+      });
+
       return;
     }
   });

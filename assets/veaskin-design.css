@@ -3417,6 +3417,151 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   line-height: 1.45;
 }
 
+.vs-shipping-status {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #2E7D32;
+  background: rgba(46, 125, 50, 0.08);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.01em;
+}
+
+/* Touch-Friendly Mobile Quantity Selector */
+.vs-qty-wrapper {
+  background: #FFFFFF;
+  border: 1.5px solid var(--vs-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.vs-qty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.vs-qty-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vs-text);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.vs-qty-note {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #2E7D32;
+}
+
+.vs-qty-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vs-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--vs-border);
+  border-radius: 999px;
+  background: #FAF8F5;
+  padding: 2px;
+}
+
+.vs-qty-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border: none;
+  background: #FFFFFF;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--vs-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.vs-qty-btn:active {
+  background: var(--vs-border);
+  transform: scale(0.94);
+}
+
+.vs-qty-val {
+  min-width: 36px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--vs-text);
+  user-select: none;
+}
+
+.vs-qty-pills {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.vs-qty-pill {
+  flex: 1;
+  min-height: 44px;
+  border: 1.5px solid var(--vs-border);
+  border-radius: 999px;
+  background: #FAF8F5;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--vs-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vs-qty-pill:active {
+  transform: scale(0.96);
+}
+
+.vs-qty-pill.is-active {
+  background: var(--vs-accent);
+  color: #FFFFFF;
+  border-color: var(--vs-accent);
+  box-shadow: 0 3px 12px rgba(67, 111, 92, 0.28);
+}
+
+@media screen and (max-width: 480px) {
+  .vs-qty-bar {
+    gap: 8px;
+  }
+  .vs-qty-btn {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+  }
+  .vs-qty-val {
+    min-width: 30px;
+    font-size: 15px;
+  }
+  .vs-qty-pill {
+    font-size: 12.5px;
+  }
+}
+
 .vs-cta-btn--single {
   padding: 16px 20px;
   box-shadow: 0 5px 22px rgba(67, 111, 92, 0.38);
