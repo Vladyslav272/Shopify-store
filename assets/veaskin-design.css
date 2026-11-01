@@ -4066,7 +4066,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 }
 
 .vs-floating-sticky-bar__btn {
-  background: #1565C0; /* Contrast rich blue matching user screenshot */
+  background: var(--vs-accent, #2F6F54);
   color: #FFFFFF;
   font-size: 13.5px;
   font-weight: 800;
@@ -4077,7 +4077,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   border: none;
   text-decoration: none;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(21, 101, 192, 0.35);
+  box-shadow: 0 4px 14px rgba(47, 111, 84, 0.35);
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease;
   -webkit-tap-highlight-color: transparent;
@@ -4085,7 +4085,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 
 .vs-floating-sticky-bar__btn:active {
   transform: scale(0.95);
-  background: #0D47A1;
+  background: var(--vs-accent-dark, #15221B);
 }
 
 /* Subtle highlight pulse when scrolled from sticky bar */
