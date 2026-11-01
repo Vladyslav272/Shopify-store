@@ -43,8 +43,10 @@
   assign p1_cta = p1_fmt | replace: 'Kč', 'KČ'
 
   assign cta1_main = 'PŘIDAT DO KOŠÍKU – ' | append: p1_cta
-  assign cta1_sub = '(DOPRAVA ZDARMA • SLEVA 30 % DO ZÍTŘEJŠÍ PŮLNOCI)'
-  assign cta1_label = cta1_main | append: ' ' | append: cta1_sub
+  assign cta1_sub_full = '(DOPRAVA ZDARMA • SLEVA 30 % DO ZÍTŘEJŠÍ PŮLNOCI)'
+  assign cta1_sub_short = '(DOPRAVA ZDARMA • SLEVA 30 %)'
+  assign cta1_sub = cta1_sub_full
+  assign cta1_label = cta1_main | append: ' ' | append: cta1_sub_full
 
   if images['zenabilepozadi.jpg'] != blank
     assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
@@ -292,7 +294,10 @@
               >
                 {%- if first_variant.available -%}
                   <span class="vs-cta-btn__main" data-vs-cta-main>{{ cta1_main }}</span>
-                  <span class="vs-cta-btn__sub" data-vs-cta-sub>{{ cta1_sub }}</span>
+                  <span class="vs-cta-btn__sub" data-vs-cta-sub>
+                    <span class="vs-cta-sub--full">{{ cta1_sub_full }}</span>
+                    <span class="vs-cta-sub--short">{{ cta1_sub_short }}</span>
+                  </span>
                 {%- else -%}
                   <span class="vs-cta-btn__main">VYPRODÁNO</span>
                 {%- endif -%}
