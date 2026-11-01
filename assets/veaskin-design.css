@@ -883,7 +883,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-feature-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
@@ -2768,15 +2768,15 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   }
 
   .vs-morning-subtitle {
-    font-size: 19px;
+    font-size: clamp(16px, 4.4vw, 19px);
     line-height: 1.35;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    color: var(--vs-muted);
+    font-weight: 500;
   }
 
   .vs-morning-lead {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    display: none;
   }
 
   .vs-morning-guarantee {
