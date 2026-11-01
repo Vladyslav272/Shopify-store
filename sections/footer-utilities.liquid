@@ -6,14 +6,14 @@
 
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
-  style="background-color: {{ section.settings.background_color | default: 'var(--color-background, #FAF5F5)' }};"
+  style="background-color: {{ section.settings.background_color | default: 'var(--color-background, #F4F7F5)' }};"
 ></div>
 
 <div
   class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
   style="
-    background-color: {{ section.settings.background_color | default: 'var(--color-background, #FAF5F5)' }};
-    border-top: {{ section.settings.divider_thickness | default: 1 }}px solid {{ section.settings.divider_color | default: 'rgba(43, 35, 37, 0.08)' }};
+    background-color: {{ section.settings.background_color | default: 'var(--color-background, #F4F7F5)' }};
+    border-top: {{ section.settings.divider_thickness | default: 1 }}px solid {{ section.settings.divider_color | default: 'rgba(32, 45, 38, 0.08)' }};
     padding-block-start: {{ section.settings.padding-block-start | default: 48 }}px;
     padding-block-end: {{ section.settings.padding-block-end | default: 40 }}px;
   "
@@ -83,7 +83,7 @@
 {% stylesheet %}
   .veaskin-footer {
     width: 100%;
-    color: var(--color-foreground, #2b2325);
+    color: var(--color-foreground, #202D26);
   }
 
   .veaskin-footer__main {
@@ -127,7 +127,7 @@
     font-family: var(--font-heading--family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
     font-size: 15px;
     font-weight: 500;
-    color: var(--color-foreground, #2b2325);
+    color: var(--color-foreground, #202D26);
     text-decoration: none;
     letter-spacing: -0.01em;
     display: inline-block;
@@ -135,7 +135,7 @@
   }
 
   .veaskin-footer__link:hover {
-    color: var(--color-primary-accent, #BB6966);
+    color: var(--color-primary-accent, #436F5C);
     opacity: 0.85;
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -238,7 +238,7 @@
       "type": "color",
       "id": "background_color",
       "label": "t:settings.background_color",
-      "default": "#FAF5F5"
+      "default": "#F4F7F5"
     },
     {
       "type": "range",

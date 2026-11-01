@@ -1,7 +1,7 @@
 {% liquid
   assign product_resource = closest.product | default: product
   assign display_image = section.settings.image | default: product_resource.featured_media.preview_image | default: product_resource.featured_image
-  assign bg_color = section.settings.background_color | default: '#FAF5F5'
+  assign bg_color = section.settings.background_color | default: '#F4F7F5'
 %}
 
 <div class="product-showcase-section" style="background-color: {{ bg_color }};">
@@ -62,8 +62,8 @@
           <li class="product-showcase-feature-item">
             <div class="product-showcase-feature-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" fill="#BB6966" fill-opacity="0.15"/>
-                <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#BB6966" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="10" fill="#436F5C" fill-opacity="0.15"/>
+                <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#436F5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="product-showcase-feature-text">
@@ -75,8 +75,8 @@
           <li class="product-showcase-feature-item">
             <div class="product-showcase-feature-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" fill="#BB6966" fill-opacity="0.15"/>
-                <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#BB6966" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="10" fill="#436F5C" fill-opacity="0.15"/>
+                <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#436F5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="product-showcase-feature-text">
@@ -88,8 +88,8 @@
           <li class="product-showcase-feature-item">
             <div class="product-showcase-feature-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" fill="#BB6966" fill-opacity="0.15"/>
-                <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#BB6966" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="10" fill="#436F5C" fill-opacity="0.15"/>
+                <path d="M8 12.3L10.5 14.8L16 9.3" stroke="#436F5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="product-showcase-feature-text">
@@ -153,7 +153,7 @@
     border-radius: 28px;
     overflow: hidden;
     box-shadow: 0 24px 50px -12px rgba(59, 47, 50, 0.16);
-    border: 1px solid rgba(187, 105, 102, 0.25);
+    border: 1px solid rgba(67, 111, 92, 0.25);
     background: radial-gradient(circle at 50% 50%, #ffffff 0%, #faf3f3 100%);
     display: flex;
     align-items: center;
@@ -226,8 +226,8 @@
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(187, 105, 102, 0.14);
-    color: #BB6966;
+    background: rgba(67, 111, 92, 0.14);
+    color: #436F5C;
     border-radius: 50px;
     font-size: 0.8rem;
     font-weight: 700;
@@ -240,15 +240,15 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #BB6966;
-    box-shadow: 0 0 8px #BB6966;
+    background: #436F5C;
+    box-shadow: 0 0 8px #436F5C;
   }
 
   .product-showcase-heading {
     font-size: clamp(2.2rem, 1.8rem + 1.6vw, 3.4rem);
     font-weight: 800;
     line-height: 1.22;
-    color: #2b2325;
+    color: #202D26;
     margin: 0 0 18px 0;
     letter-spacing: -0.02em;
     text-align: center;
@@ -257,7 +257,7 @@
   .product-showcase-heading em {
     font-style: italic;
     font-weight: 400;
-    color: #BB6966;
+    color: #436F5C;
     display: block;
   }
 
@@ -298,7 +298,7 @@
   .product-showcase-feature-text strong {
     display: block;
     font-size: 0.98rem;
-    color: #2b2325;
+    color: #202D26;
     font-weight: 700;
     margin-bottom: 2px;
   }
@@ -323,13 +323,13 @@
     justify-content: center;
     gap: 10px;
     padding: 16px 36px;
-    background: #BB6966;
+    background: #436F5C;
     color: #ffffff;
     font-size: 1rem;
     font-weight: 700;
     text-decoration: none;
     border-radius: 50px;
-    box-shadow: 0 10px 24px rgba(43, 35, 37, 0.22);
+    box-shadow: 0 10px 24px rgba(32, 45, 38, 0.22);
     transition: all 0.3s ease;
     cursor: pointer;
     box-sizing: border-box;
@@ -339,7 +339,7 @@
 
   .product-showcase-btn:hover {
     background: #A35451; transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(187, 105, 102, 0.35);
+    box-shadow: 0 14px 28px rgba(67, 111, 92, 0.35);
   }
 
   .product-showcase-guarantee-note {
@@ -352,7 +352,7 @@
   }
 
   .product-showcase-guarantee-note svg {
-    color: #BB6966;
+    color: #436F5C;
     flex-shrink: 0;
   }
 
@@ -462,7 +462,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Barva pozadí",
-      "default": "#FAF5F5"
+      "default": "#F4F7F5"
     },
     {
       "type": "image_picker",

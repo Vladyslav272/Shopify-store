@@ -1,5 +1,5 @@
 {% liquid
-  assign bg_color = section.settings.background_color | default: '#FAF5F5'
+  assign bg_color = section.settings.background_color | default: '#F4F7F5'
 %}
 
 <div class="product-quiz-section section-{{ section.id }}" style="background-color: {{ bg_color }};">
@@ -68,10 +68,10 @@
 
   .product-quiz-card {
     background: #FFFFFF;
-    border: 1px solid #EADBDA;
+    border: 1px solid #D2DED8;
     border-radius: 24px;
     padding: 36px 28px;
-    box-shadow: 0 4px 24px rgba(43, 35, 37, 0.05);
+    box-shadow: 0 4px 24px rgba(32, 45, 38, 0.05);
     box-sizing: border-box;
   }
 
@@ -85,7 +85,7 @@
     align-items: center;
     gap: 6px;
     background: #FBEFEE;
-    color: #BB6966;
+    color: #436F5C;
     padding: 5px 14px;
     border-radius: 999px;
     font-size: 12px;
@@ -99,7 +99,7 @@
     font-family: var(--font-heading-family, 'Tenor Sans', serif);
     font-size: clamp(22px, 3.5vw, 30px);
     line-height: 1.25;
-    color: #2B2325;
+    color: #202D26;
     margin: 0 0 10px;
     letter-spacing: -0.01em;
   }
@@ -126,20 +126,20 @@
     padding: 14px 18px;
     border-radius: 14px;
     background: #FAF8F8;
-    border: 1.5px solid #EADBDA;
+    border: 1.5px solid #D2DED8;
     cursor: pointer;
     transition: all 0.2s ease;
     user-select: none;
   }
 
   .product-quiz-item:hover {
-    border-color: #BB6966;
+    border-color: #436F5C;
     background: #FFFDFD;
   }
 
   .product-quiz-item.is-checked {
     background: #FBEFEE;
-    border-color: #BB6966;
+    border-color: #436F5C;
   }
 
   .product-quiz-checkbox {
@@ -157,8 +157,8 @@
   }
 
   .product-quiz-item.is-checked .product-quiz-checkbox {
-    background: #BB6966;
-    border-color: #BB6966;
+    background: #436F5C;
+    border-color: #436F5C;
   }
 
   .product-quiz-check-mark {
@@ -172,7 +172,7 @@
     font-family: var(--font-body-family, 'DM Sans', sans-serif);
     font-size: 15px;
     font-weight: 500;
-    color: #2B2325;
+    color: #202D26;
     flex: 1;
   }
 
@@ -181,7 +181,7 @@
     padding: 20px 22px;
     border-radius: 16px;
     background: #FAF3F2;
-    border-left: 4px solid #BB6966;
+    border-left: 4px solid #436F5C;
     transition: all 0.3s ease;
   }
 
@@ -191,14 +191,14 @@
     gap: 8px;
     font-weight: 700;
     font-size: 15px;
-    color: #BB6966;
+    color: #436F5C;
     margin-bottom: 8px;
   }
 
   .product-quiz-result-body strong {
     display: block;
     font-size: 14px;
-    color: #2B2325;
+    color: #202D26;
     margin-bottom: 4px;
   }
 
@@ -257,7 +257,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Barva pozadí sekce",
-      "default": "#FAF5F5"
+      "default": "#F4F7F5"
     },
     {
       "type": "text",

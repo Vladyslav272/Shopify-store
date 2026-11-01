@@ -1,5 +1,5 @@
 {% liquid
-  assign bg_color = section.settings.background_color | default: '#FAF5F5'
+  assign bg_color = section.settings.background_color | default: '#F4F7F5'
 %}
 
 <div class="product-price-reframe-section section-{{ section.id }}" style="background-color: {{ bg_color }};">
@@ -74,7 +74,7 @@
     border: 1.5px solid #F0DDDA;
     border-radius: 24px;
     padding: 38px 28px;
-    box-shadow: 0 4px 24px rgba(43, 35, 37, 0.05);
+    box-shadow: 0 4px 24px rgba(32, 45, 38, 0.05);
     text-align: center;
     box-sizing: border-box;
   }
@@ -88,7 +88,7 @@
     align-items: center;
     gap: 6px;
     background: #FBEFEE;
-    color: #BB6966;
+    color: #436F5C;
     padding: 5px 14px;
     border-radius: 999px;
     font-size: 12px;
@@ -102,7 +102,7 @@
     font-family: var(--font-heading-family, 'Tenor Sans', serif);
     font-size: clamp(22px, 3.5vw, 30px);
     line-height: 1.25;
-    color: #2B2325;
+    color: #202D26;
     margin: 0 0 10px;
     letter-spacing: -0.01em;
   }
@@ -126,7 +126,7 @@
 
   .reframe-calc-box {
     background: #FFFFFF;
-    border: 1.5px solid #EADBDA;
+    border: 1.5px solid #D2DED8;
     border-radius: 16px;
     padding: 20px 16px;
     box-sizing: border-box;
@@ -135,8 +135,8 @@
 
   .reframe-calc-box.is-hero {
     background: #FBEFEE;
-    border: 2px solid #BB6966;
-    box-shadow: 0 6px 20px rgba(187, 105, 102, 0.12);
+    border: 2px solid #436F5C;
+    box-shadow: 0 6px 20px rgba(67, 111, 92, 0.12);
   }
 
   .reframe-calc-label {
@@ -147,7 +147,7 @@
   }
 
   .reframe-hero-label {
-    color: #BB6966;
+    color: #436F5C;
     font-weight: 600;
   }
 
@@ -155,12 +155,12 @@
     font-family: var(--font-body-family, 'DM Sans', sans-serif);
     font-size: 24px;
     font-weight: 700;
-    color: #2B2325;
+    color: #202D26;
     margin-bottom: 6px;
   }
 
   .reframe-hero-amount {
-    color: #BB6966;
+    color: #436F5C;
   }
 
   .reframe-calc-note {
@@ -173,9 +173,9 @@
     font-family: var(--font-body-family, 'DM Sans', sans-serif);
     font-weight: 800;
     font-size: 16px;
-    color: #BB6966;
+    color: #436F5C;
     background: #FFFFFF;
-    border: 1px solid #EADBDA;
+    border: 1px solid #D2DED8;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -214,7 +214,7 @@
     display: inline-block;
     width: 100%;
     max-width: 380px;
-    background: #BB6966;
+    background: #436F5C;
     color: #FFFFFF !important;
     text-decoration: none !important;
     font-family: var(--font-body-family, 'DM Sans', sans-serif);
@@ -222,7 +222,7 @@
     font-size: 15.5px;
     padding: 16px 26px;
     border-radius: 999px;
-    box-shadow: 0 6px 20px rgba(187, 105, 102, 0.32);
+    box-shadow: 0 6px 20px rgba(67, 111, 92, 0.32);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     box-sizing: border-box;
@@ -231,7 +231,7 @@
   .product-reframe-btn:hover {
     background: #9e5350;
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(187, 105, 102, 0.4);
+    box-shadow: 0 10px 26px rgba(67, 111, 92, 0.4);
   }
 
   @media (max-width: 600px) {
@@ -282,7 +282,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Barva pozadí sekce",
-      "default": "#FAF5F5"
+      "default": "#F4F7F5"
     },
     {
       "type": "text",

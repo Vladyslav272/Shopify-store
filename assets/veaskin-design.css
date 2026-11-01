@@ -90,7 +90,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-topbar {
   background: #1C2721;
-  color: #FAF6F4;
+  color: #F4F7F5;
   text-align: center;
   padding: 8px 16px;
   font-family: var(--vs-body);
@@ -302,7 +302,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-cart-chip:hover {
   border-color: var(--vs-accent);
-  box-shadow: 0 4px 12px rgba(43, 35, 37, 0.08);
+  box-shadow: 0 4px 12px rgba(32, 45, 38, 0.08);
 }
 
 .vs-cart-chip__bag {
@@ -352,7 +352,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-menu-btn:hover {
   border-color: var(--vs-accent);
-  box-shadow: 0 4px 12px rgba(43, 35, 37, 0.06);
+  box-shadow: 0 4px 12px rgba(32, 45, 38, 0.06);
 }
 
 /* Mobile Slide-Out Left Navigation Drawer */
@@ -373,14 +373,14 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   max-height: 100dvh;
   background: var(--vs-bg);
   color: var(--vs-text);
-  box-shadow: 20px 0 50px rgba(43, 35, 37, 0.2);
+  box-shadow: 20px 0 50px rgba(32, 45, 38, 0.2);
   z-index: 100;
   overflow: hidden;
   animation: vsDrawerSlideIn 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .vs-mobile-drawer::backdrop {
-  background: rgba(43, 35, 37, 0.44);
+  background: rgba(32, 45, 38, 0.44);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   animation: vsBackdropFadeIn 0.2s ease;
@@ -481,7 +481,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-mobile-drawer__link--highlight {
-  background: linear-gradient(135deg, #FFFDFC 0%, #FBF0EE 100%);
+  background: linear-gradient(135deg, #FFFDFC 0%, #EBF2EE 100%);
   border-color: var(--vs-accent);
   font-weight: 700;
 }
@@ -749,7 +749,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: rgba(43, 35, 37, 0.88);
+  background: rgba(32, 45, 38, 0.88);
   color: #FFFFFF;
   padding: 7px 13px;
   border-radius: 999px;
@@ -976,7 +976,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-offer-option.is-selected {
   border-color: var(--vs-accent);
-  background: linear-gradient(135deg, #FFFDFC 0%, #FBF0EE 100%);
+  background: linear-gradient(135deg, #FFFDFC 0%, #EBF2EE 100%);
   box-shadow: 0 6px 18px -6px rgba(67, 111, 92, 0.26);
 }
 
@@ -1352,7 +1352,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   overflow: hidden;
   position: relative;
   background: var(--vs-blush);
-  box-shadow: 0 16px 38px -10px rgba(43, 35, 37, 0.16);
+  box-shadow: 0 16px 38px -10px rgba(32, 45, 38, 0.16);
   border: 1px solid rgba(234, 219, 218, 0.8);
   margin: 0 auto;
 }
@@ -1546,7 +1546,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   background: var(--vs-blush);
   overflow: hidden;
   border-radius: 18px;
-  box-shadow: 0 6px 20px rgba(43, 35, 37, 0.06);
+  box-shadow: 0 6px 20px rgba(32, 45, 38, 0.06);
 }
 
 .vs-step-media img {
@@ -1560,7 +1560,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   position: absolute;
   top: 10px;
   left: 10px;
-  background: rgba(43, 35, 37, 0.86);
+  background: rgba(32, 45, 38, 0.86);
   color: #FFFFFF;
   font-size: 11px;
   font-weight: 700;
@@ -1597,7 +1597,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-science-card {
   background: #1C2721;
-  color: #FAF6F4;
+  color: #F4F7F5;
   border-radius: 24px;
   padding: 28px;
   display: flex;
@@ -1737,7 +1737,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 .vs-ba-tag {
   position: absolute;
   bottom: 10px;
-  background: rgba(43, 35, 37, 0.82);
+  background: rgba(32, 45, 38, 0.82);
   color: #FFFFFF;
   font-size: 11px;
   font-weight: 700;
@@ -2169,7 +2169,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
 .jm-review-widget .jm-button--primary.jm-action-buttons__button:hover,
 .jm-review-widget .jm-action-buttons__button:hover,
 .jdgm-write-rev-link:hover {
-  background: var(--vs-accent-hover, #A85956) !important;
+  background: var(--vs-accent-hover, #325546) !important;
   transform: translateY(-1px) !important;
   box-shadow: 0 6px 18px rgba(67, 111, 92, 0.35) !important;
 }
@@ -3058,7 +3058,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
   border: 1px solid var(--vs-border);
   border-radius: 18px;
   padding: 14px 18px;
-  box-shadow: 0 14px 34px -12px rgba(43, 35, 37, 0.18);
+  box-shadow: 0 14px 34px -12px rgba(32, 45, 38, 0.18);
   display: grid;
   gap: 12px;
   font-family: var(--vs-body);
@@ -3503,7 +3503,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section {
     margin: 0 auto;
     border-radius: 20px;
     border: 1px solid rgba(234, 219, 218, 0.85);
-    box-shadow: 0 8px 24px -6px rgba(43, 35, 37, 0.12);
+    box-shadow: 0 8px 24px -6px rgba(32, 45, 38, 0.12);
   }
 
   .vs-buy-panel {
