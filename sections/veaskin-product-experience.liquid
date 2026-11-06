@@ -10,18 +10,35 @@
   assign first_variant = target_product.selected_or_first_available_variant
   assign v1_id = first_variant.id
 
-  assign raw_price = first_variant.price | default: 262100
+  assign raw_price = first_variant.price | default: 0
   assign raw_compare = first_variant.compare_at_price | default: 0
 
-  if raw_compare > raw_price and raw_price > 0
+  assign custom_p = section.settings.custom_price
+  assign custom_c = section.settings.custom_compare_price
+
+  if custom_p != blank and custom_p > 0 and custom_c != blank and custom_c > 0
+    assign p1_base = custom_p | times: 100
+    assign c1_base = custom_c | times: 100
+  elsif raw_price == 262100 or raw_compare == 374500
+    # 2 621 Kc je cena pred slevou (3 745 Kc byl puvodni chybny dopocet predpokladajici 2621 po sleve)
+    assign c1_base = 262100
+    assign p1_base = 183500
+  elsif raw_compare > raw_price and raw_price > 0
     assign p1_base = raw_price
     assign c1_base = raw_compare
-  elsif raw_price > 0
+  elsif raw_price > 0 and raw_price != 262100
     assign c1_base = raw_price
     assign p1_base = raw_price | times: 70 | divided_by: 10000.0 | round | times: 100
   else
     assign c1_base = 262100
     assign p1_base = 183500
+  endif
+
+  assign save_amount = c1_base | minus: p1_base
+  if c1_base > p1_base and c1_base > 0
+    assign discount_pct = save_amount | times: 100.0 | divided_by: c1_base | round
+  else
+    assign discount_pct = 30
   endif
 
   assign p1_kc = p1_base | divided_by: 100
@@ -185,7 +202,7 @@
           <div class="vs-price-row">
             <span class="vs-price-row__current" data-vs-price-current>{{ p1_fmt }}</span>
             <span class="vs-price-row__compare" data-vs-price-compare>{{ c1_fmt }}</span>
-            <span class="vs-price-row__ebook" data-vs-price-badge>Ušetříte 30 %</span>
+            <span class="vs-price-row__ebook" data-vs-price-badge>Ušetříte {{ discount_pct }} %</span>
           </div>
 
           <!-- Informační box v barvě Soft Mint (#EAF5EE) s jemným rámečkem (#2F6F54): E-book „Oči bez stínů“ v ceně -->
@@ -939,6 +956,22 @@
       "id": "product_subtitle",
       "label": "Podnadpis pod názvem produktu (2 řádky)",
       "default": "Svěží a odpočatý pohled za 10 minut denně – bez ranních otoků a vrstvy korektoru."
+    },
+    {
+      "type": "header",
+      "content": "Cena a sleva (volitelné přepsání)"
+    },
+    {
+      "type": "number",
+      "id": "custom_compare_price",
+      "label": "Původní cena před slevou (Kč) – výchozí: 2621",
+      "default": 2621
+    },
+    {
+      "type": "number",
+      "id": "custom_price",
+      "label": "Akční cena po slevě (Kč) – výchozí: 1835",
+      "default": 1835
     },
     {
       "type": "product",
