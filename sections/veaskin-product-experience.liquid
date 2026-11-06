@@ -30,9 +30,6 @@
   assign p1_fmt = p1_base | money_without_trailing_zeros | replace: '.', ' '
   assign c1_fmt = c1_base | money_without_trailing_zeros | replace: '.', ' '
 
-  assign p2_kc = section.settings.bundle_2_price_kc | default: 1990
-  assign c2_kc = section.settings.bundle_2_compare_kc | default: 3420
-
   assign ebook_product = section.settings.ebook_product
   assign ebook_variant_id = ''
   if ebook_product != blank and ebook_product.selected_or_first_available_variant != blank
@@ -96,12 +93,10 @@
   data-ebook-variant-id="{{ ebook_variant_id }}"
   data-p1-kc="{{ p1_kc }}"
   data-c1-kc="{{ c1_kc }}"
-  data-p2-kc="{{ p2_kc }}"
-  data-c2-kc="{{ c2_kc }}"
 >
 
   <!-- ========================================================================
-       SEKCE 2: KOMPAKTNÍ NÁKUPNÍ SEKCE (BUY BOX + MNOŽSTEVNÍ SLEVA + VOLIČ KUSŮ)
+       SEKCE 2: KOMPAKTNÍ NÁKUPNÍ SEKCE (BUY BOX + E-BOOK V CENĚ + VOLIČ KUSŮ)
        ======================================================================== -->
   <section class="vs-band vs-band--white" id="top">
     <div class="vs-container vs-container--hero">
@@ -186,33 +181,30 @@
             {{ section.settings.product_subtitle | default: 'Svěží a odpočatý pohled za 10 minut denně – bez ranních otoků a vrstvy korektoru.' }}
           </p>
 
-          <!-- Přehledný řádek s cenou a dárkem e-booku zdarma -->
+          <!-- Přehledný řádek s cenou -->
           <div class="vs-price-row">
             <span class="vs-price-row__current" data-vs-price-current>{{ p1_fmt }}</span>
             <span class="vs-price-row__compare" data-vs-price-compare>{{ c1_fmt }}</span>
-            <span class="vs-price-row__ebook" data-vs-price-badge>+ E-book „Oči bez stínů“ zdarma</span>
+            <span class="vs-price-row__ebook" data-vs-price-badge>Ušetříte 30 %</span>
           </div>
 
-          <!-- 2. Informační box v barvě Soft Mint (#EAF5EE) s jemným rámečkem (#2F6F54) a ikonou dárku/lístku těsně nad voličem množství -->
-          <div class="vs-volume-mint-box" data-vs-mint-box>
+          <!-- Informační box v barvě Soft Mint (#EAF5EE) s jemným rámečkem (#2F6F54): E-book „Oči bez stínů“ v ceně -->
+          <div class="vs-volume-mint-box">
             <span class="vs-volume-mint-box__icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                <rect x="2" y="7" width="20" height="5" rx="1"></rect>
-                <line x1="12" y1="22" x2="12" y2="7"></line>
-                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
             </span>
             <div class="vs-volume-mint-box__content">
-              <p class="vs-volume-mint-box__title">Rituál ve dvou se slevou 42 %</p>
+              <p class="vs-volume-mint-box__title">E-book „Oči bez stínů“ máte v ceně</p>
               <p class="vs-volume-mint-box__text">
-                Při výběru 2 a více kusů zaplatíte za pár jen <strong>1 990 Kč</strong> (místo <s>3 420 Kč</s>) a dopravu máte zdarma.
+                Praktický průvodce ranní péčí o oční okolí (v hodnotě <strong>390 Kč</strong>) je součástí balení zdarma a dorazí vám ihned na e-mail.
               </p>
             </div>
           </div>
 
-          <!-- 1. Čistý, moderní volič množství (Quantity Selector: tlačítka [ - ] 1 [ + ] v rámečku #E8E2D8 vedle popisku „Počet kusů:“) přímo nad CTA -->
+          <!-- Čistý, moderní volič množství (Quantity Selector: tlačítka [ - ] 1 [ + ] v rámečku #E8E2D8 vedle popisku „Počet kusů:“) přímo nad CTA -->
           <div class="vs-qty-bar">
             <label class="vs-qty-bar__label" for="vs-qty-display-{{ section.id }}">Počet kusů:</label>
             <div class="vs-qty-stepper" role="group" aria-label="Nastavení počtu kusů">
@@ -436,7 +428,7 @@
             Cítíte se plná energie, ale pohled do zrcadla říká opak? Ranní otoky a unavené oči už nemusíte zakrývat vrstvou korektoru. VeaSkin vám během ranní kávy vrátí svěží pohled a sebevědomí cítit se krásná – přirozeně a bez líčení.
           </p>
           <a href="#nabidka-box" class="vs-cta-btn vs-cta-btn--inline" data-vs-scroll-buy>
-            Vybrat balení VeaSkin →
+            Přejít k objednávce VeaSkin →
           </a>
         </div>
       </div>
@@ -700,11 +692,11 @@
             <span class="vs-verified-tag">✓ Ověřený nákup</span>
           </div>
           <p class="vs-review-item__quote">
-            „Vzala jsem zvýhodněné balení dvou kusů – jedny pro sebe a druhé pro ségru. Jemné teplo a mikromasáž jsou neuvěřitelně příjemné, brýle jsou lehoučké a vůbec netlačí na nos.“
+            „Vzala jsem dvoje brýle – jedny pro sebe a druhé pro ségru. Jemné teplo a mikromasáž jsou neuvěřitelně příjemné, brýle jsou lehoučké a vůbec netlačí na nos.“
           </p>
           <div class="vs-review-item__author">
             <strong>Lenka M., 44 let</strong>
-            <span>• Brno • Rituál ve dvou (2× VeaSkin)</span>
+            <span>• Brno</span>
           </div>
         </article>
 
@@ -749,7 +741,7 @@
         <div class="vs-docked-sticky-bar__title">VeaSkin LED &amp; EMS brýle</div>
         <div class="vs-docked-sticky-bar__pricing">
           <span class="vs-docked-sticky-bar__price" data-vs-sticky-price>{{ p1_fmt }}</span>
-          <span class="vs-docked-sticky-bar__badge" data-vs-sticky-badge>+ E-book zdarma</span>
+          <span class="vs-docked-sticky-bar__badge" data-vs-sticky-badge>+ E-book v ceně</span>
         </div>
       </div>
       <a href="#nabidka-box" class="vs-docked-sticky-bar__btn" data-vs-sticky-cta>
@@ -769,21 +761,9 @@
 
       const p1 = Number(root.getAttribute('data-p1-kc')) || 1329;
       const c1 = Number(root.getAttribute('data-c1-kc')) || 1899;
-      const p2 = Number(root.getAttribute('data-p2-kc')) || 1990;
-      const c2 = Number(root.getAttribute('data-c2-kc')) || 3420;
 
-      // Při 2 a více kusech platí zvýhodněná cena 1 990 Kč za pár (995 Kč / ks)
-      let totalPrice = p1;
-      let totalCompare = c1;
-      if (qty === 2) {
-        totalPrice = p2;
-        totalCompare = c2;
-      } else if (qty > 2) {
-        const unitDiscounted = Math.round(p2 / 2);
-        const unitCompare = Math.round(c2 / 2);
-        totalPrice = unitDiscounted * qty;
-        totalCompare = unitCompare * qty;
-      }
+      const totalPrice = p1 * qty;
+      const totalCompare = c1 * qty;
 
       const priceFmt = formatKc(totalPrice);
       const compareFmt = formatKc(totalCompare);
@@ -792,11 +772,8 @@
       const formQtyInput = root.querySelector('[data-vs-form-qty]');
       const priceCurrentEl = root.querySelector('[data-vs-price-current]');
       const priceCompareEl = root.querySelector('[data-vs-price-compare]');
-      const priceBadgeEl = root.querySelector('[data-vs-price-badge]');
       const ctaLabelEl = root.querySelector('[data-vs-cta-label]');
       const stickyPriceEl = root.querySelector('[data-vs-sticky-price]');
-      const stickyBadgeEl = root.querySelector('[data-vs-sticky-badge]');
-      const mintBox = root.querySelector('[data-vs-mint-box]');
 
       if (qtyDisplayInput instanceof HTMLInputElement) {
         qtyDisplayInput.value = String(qty);
@@ -810,23 +787,11 @@
       if (priceCompareEl) {
         priceCompareEl.textContent = compareFmt;
       }
-      if (priceBadgeEl) {
-        priceBadgeEl.textContent =
-          qty >= 2
-            ? '✓ Sleva 42 % aktivována + E-book zdarma'
-            : '+ E-book „Oči bez stínů“ zdarma';
-      }
       if (ctaLabelEl) {
         ctaLabelEl.textContent = `Přidat do košíku — ${priceFmt}`;
       }
       if (stickyPriceEl) {
         stickyPriceEl.textContent = priceFmt;
-      }
-      if (stickyBadgeEl) {
-        stickyBadgeEl.textContent = qty >= 2 ? 'Sleva 42 % + E-book' : '+ E-book zdarma';
-      }
-      if (mintBox) {
-        mintBox.classList.toggle('is-active', qty >= 2);
       }
     };
 
@@ -862,19 +827,7 @@
         return;
       }
 
-      // 3. Kliknutí na Soft Mint info-box rychle nastaví 2 kusy, pokud je aktuálně 1 kus
-      const mintBox = target.closest('[data-vs-mint-box]');
-      if (mintBox) {
-        const root = mintBox.closest('[data-vs-experience]');
-        const qtyInput = root?.querySelector('[data-vs-qty-input]');
-        const current = qtyInput instanceof HTMLInputElement ? parseInt(qtyInput.value, 10) || 1 : 1;
-        if (current < 2) {
-          updateQuantityState(root, 2);
-        }
-        return;
-      }
-
-      // 4. Plynulé odscrollování k nákupní zóně
+      // 3. Plynulé odscrollování k nákupní zóně
       const scrollTrigger = target.closest('[data-vs-sticky-cta], [data-vs-scroll-buy]');
       if (scrollTrigger) {
         event.preventDefault();
@@ -986,22 +939,6 @@
       "id": "product_subtitle",
       "label": "Podnadpis pod názvem produktu (2 řádky)",
       "default": "Svěží a odpočatý pohled za 10 minut denně – bez ranních otoků a vrstvy korektoru."
-    },
-    {
-      "type": "header",
-      "content": "Množstevní sleva: 2× VeaSkin – Rituál ve dvou"
-    },
-    {
-      "type": "number",
-      "id": "bundle_2_price_kc",
-      "label": "Akční cena za 2× VeaSkin (Kč)",
-      "default": 1990
-    },
-    {
-      "type": "number",
-      "id": "bundle_2_compare_kc",
-      "label": "Původní přeškrtnutá cena za 2× VeaSkin (Kč)",
-      "default": 3420
     },
     {
       "type": "product",
