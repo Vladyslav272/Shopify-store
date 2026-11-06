@@ -17,7 +17,13 @@
     assign logo_href = base_product_url
   endif
 
-  assign announcement_copy = section.settings.announcement_text | default: 'Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce | 30 dní na vyzkoušení bez rizika'
+  assign announcement_mode = section.settings.announcement_mode | default: 'static'
+  assign static_msg_1 = section.settings.static_msg_1 | default: 'Doprava ZDARMA'
+  assign static_msg_2 = section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
+
+  assign rot_msg_1 = section.settings.rot_msg_1 | default: 'Doprava ZDARMA + E-book „Ráno bez otoků“ k objednávce'
+  assign rot_msg_2 = section.settings.rot_msg_2 | default: '30 dní na vyzkoušení bez rizika'
+  assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
 %}
 
 <script
@@ -36,10 +42,45 @@
   <div
     class="vs-topbar"
     role="region"
-    aria-label="Informace o dopravě, e-booku zdarma a garanci vrácení peněz"
+    aria-label="Informace o dopravě a garanci nákupu"
   >
     <div class="vs-topbar__inner">
-      <p class="vs-topbar__text">{{ announcement_copy }}</p>
+      {%- if announcement_mode == 'static' -%}
+        <div class="vs-topbar__content">
+          <span class="vs-topbar__item">{{ static_msg_1 }}</span>
+          <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+          <span class="vs-topbar__item">{{ static_msg_2 }}</span>
+        </div>
+      {%- elsif announcement_mode == 'rotate' -%}
+        <div class="vs-topbar-rotator" data-vs-topbar-rotator>
+          <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+            <span>{{ rot_msg_1 }}</span>
+          </div>
+          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <span>{{ rot_msg_2 }}</span>
+          </div>
+          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <span>{{ rot_msg_3 }}</span>
+          </div>
+        </div>
+      {%- elsif announcement_mode == 'marquee' -%}
+        <div class="vs-topbar-marquee">
+          <div class="vs-topbar-marquee__track">
+            <span>{{ rot_msg_1 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_2 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_3 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_1 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_2 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_3 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+          </div>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 
@@ -313,10 +354,27 @@
       obs.observe(bubbleCount, { childList: true, characterData: true, subtree: true, attributes: true });
     };
 
+    const initTopbarRotator = () => {
+      const rotator = document.querySelector('[data-vs-topbar-rotator]');
+      if (!rotator) return;
+      const items = rotator.querySelectorAll('[data-vs-rotator-item]');
+      if (items.length <= 1) return;
+      let currentIndex = 0;
+      setInterval(() => {
+        items[currentIndex].classList.remove('is-active');
+        currentIndex = (currentIndex + 1) % items.length;
+        items[currentIndex].classList.add('is-active');
+      }, 4000);
+    };
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', observeNativeCartBubble, { once: true });
+      document.addEventListener('DOMContentLoaded', () => {
+        observeNativeCartBubble();
+        initTopbarRotator();
+      }, { once: true });
     } else {
       observeNativeCartBubble();
+      initTopbarRotator();
     }
 
     window.addEventListener('pageshow', async (event) => {
@@ -379,10 +437,70 @@
   "name": "VeaSkin Hlavička",
   "settings": [
     {
+      "type": "header",
+      "content": "Horní informační lišta (Announcement Bar)"
+    },
+    {
+      "type": "select",
+      "id": "announcement_mode",
+      "label": "Režim lišty",
+      "options": [
+        {
+          "value": "static",
+          "label": "Možnost A: Statická lišta (Doprava ZDARMA ✦ 30 dní bez rizika)"
+        },
+        {
+          "value": "rotate",
+          "label": "Možnost B: Střídání 3 zpráv po 4 vteřinách"
+        },
+        {
+          "value": "marquee",
+          "label": "Možnost B: Plynulý běžící pás (Marquee)"
+        }
+      ],
+      "default": "static"
+    },
+    {
+      "type": "header",
+      "content": "Možnost A: Texty statické lišty"
+    },
+    {
       "type": "text",
-      "id": "announcement_text",
-      "label": "Text horní lišty",
-      "default": "Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce | 30 dní na vyzkoušení bez rizika"
+      "id": "static_msg_1",
+      "label": "První benefit",
+      "default": "Doprava ZDARMA"
+    },
+    {
+      "type": "text",
+      "id": "static_msg_2",
+      "label": "Druhý benefit",
+      "default": "30 dní na vyzkoušení bez rizika"
+    },
+    {
+      "type": "header",
+      "content": "Možnost B: 3 zprávy pro rotaci / běžící pás"
+    },
+    {
+      "type": "text",
+      "id": "rot_msg_1",
+      "label": "Zpráva 1",
+      "default": "Doprava ZDARMA + E-book „Ráno bez otoků“ k objednávce"
+    },
+    {
+      "type": "text",
+      "id": "rot_msg_2",
+      "label": "Zpráva 2",
+      "default": "30 dní na vyzkoušení bez rizika"
+    },
+    {
+      "type": "text",
+      "id": "rot_msg_3",
+      "label": "Zpráva 3",
+      "default": "Sleva 42 % při nákupu 2 a více kusů"
+    },
+    {
+      "type": "header",
+      "content": "Logo a navigace"
     },
     {
       "type": "checkbox",
