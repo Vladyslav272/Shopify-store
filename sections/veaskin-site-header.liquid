@@ -9,34 +9,6 @@
     assign base_product_url = '/products/led-ems-bryle-na-ocni-okoli'
   endif
 
-  assign hdr_variant = main_product.selected_or_first_available_variant
-  assign hdr_price = hdr_variant.price | default: 125400
-  if hdr_price <= 0
-    assign hdr_price = 125400
-  endif
-  assign hdr_compare = hdr_variant.compare_at_price | default: 0
-  if hdr_compare <= hdr_price
-    assign hdr_compare = hdr_price
-  endif
-
-  if main_product.variants.size >= 3
-    assign hdr_p3 = main_product.variants[2].price
-    assign hdr_c3 = main_product.variants[2].compare_at_price | default: 0
-    if hdr_c3 <= hdr_p3
-      assign hdr_c3 = hdr_compare | times: 3
-    endif
-  else
-    assign hdr_p3 = hdr_price | times: 3 | times: 85 | divided_by: 100
-    assign hdr_c3 = hdr_compare | times: 3
-  endif
-
-  assign max_discount_pct = hdr_c3 | minus: hdr_p3 | times: 100.0 | divided_by: hdr_c3 | round
-
-  assign promo_label = section.settings.promo_text
-  if promo_label == blank or promo_label == 'Sleva až 42 % na sady' or promo_label == 'Sleva až 43 % na sady' or promo_label == 'Sleva až 15 % na sady'
-    assign promo_label = 'Sleva až ' | append: max_discount_pct | append: ' % na sady'
-  endif
-
   if request.page_type == 'product'
     assign anchor_prefix = ''
     assign logo_href = '#top'
@@ -44,6 +16,8 @@
     assign anchor_prefix = base_product_url
     assign logo_href = base_product_url
   endif
+
+  assign announcement_copy = section.settings.announcement_text | default: 'Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce | 30 dní na vyzkoušení bez rizika'
 %}
 
 <script
@@ -57,84 +31,26 @@
   fetchpriority="low"
 ></script>
 
+<!-- SEKCE 1: HORNÍ LIŠTA (ANNOUNCEMENT BAR) & HLAVIČKA -->
 <div class="vs-site-header-shell" data-vs-header-root>
   <div
     class="vs-topbar"
     role="region"
-    aria-label="Důležité informace o dopravě a garanci"
-    data-vs-topbar-rotator
+    aria-label="Informace o dopravě, e-booku zdarma a garanci vrácení peněz"
   >
     <div class="vs-topbar__inner">
-      <div class="vs-topbar__stage">
-        <div class="vs-topbar__slide is-active" data-vs-topbar-slide aria-hidden="false">
-          <svg
-            class="vs-topbar__icon"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.9"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          <span>{{ section.settings.shipping_text | default: 'Doprava zdarma na celou objednávku' }}</span>
-        </div>
-
-        <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
-          <svg
-            class="vs-topbar__icon"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.9"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <rect x="1" y="3" width="15" height="13" rx="1"></rect>
-            <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
-            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-          </svg>
-          <span>{{ section.settings.promo_text | default: 'Klinicky ověřená 660 nm LED & EMS péče' | remove: '📦' | remove: '🚚' | strip }}</span>
-        </div>
-
-        <div class="vs-topbar__slide" data-vs-topbar-slide aria-hidden="true">
-          <svg
-            class="vs-topbar__icon"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.9"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            <polyline points="9 12 11 14 15 10"></polyline>
-          </svg>
-          <span>{{ section.settings.guarantee_text | default: '30 dní na vyzkoušení v klidu domova' | remove: '🛡️' | remove: '🛡' | strip }}</span>
-        </div>
-      </div>
+      <p class="vs-topbar__text">{{ announcement_copy }}</p>
     </div>
   </div>
 
   <div class="vs-header-sticky">
     <header class="vs-header">
-      <div class="vs-header__mobile-left">
+      <!-- Vlevo: Menu + Desktop kotvy -->
+      <div class="vs-header__left">
         <button
           type="button"
           class="vs-menu-btn"
-          aria-label="Otevřít navigaci"
+          aria-label="Otevřít menu"
           aria-controls="vs-mobile-nav-drawer"
           aria-expanded="false"
           data-vs-menu-open
@@ -154,60 +70,54 @@
             <line x1="3.5" y1="17.5" x2="15.5" y2="17.5"></line>
           </svg>
         </button>
+
+        <nav class="vs-desktop-nav" aria-label="Hlavní navigace">
+          <ul class="vs-nav">
+            <li><a href="{{ anchor_prefix }}#benefity" class="vs-nav__link">Benefity</a></li>
+            <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">Technologie</a></li>
+            <li><a href="{{ anchor_prefix }}#vysledky" class="vs-nav__link">Výsledky</a></li>
+            <li><a href="{{ anchor_prefix }}#recenze-sekce" class="vs-nav__link">Recenze</a></li>
+            <li><a href="{{ anchor_prefix }}#dotazy" class="vs-nav__link">FAQ</a></li>
+          </ul>
+        </nav>
       </div>
 
-      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} - Domů">
-        {%- if settings.logo != blank -%}
+      <!-- Uprostřed: Logo VEASKIN (#15221B) -->
+      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} – Domů">
+        {%- if section.settings.use_image_logo and settings.logo != blank -%}
           <img
             src="{{ settings.logo | image_url: width: 320 }}"
-            alt="{{ shop.name | default: 'VeaSkin' | escape }}"
+            alt="{{ shop.name | default: 'VEASKIN' | escape }}"
             class="vs-logo__img"
-            width="114"
-            height="38"
+            width="116"
+            height="36"
             loading="eager"
             fetchpriority="high"
           >
         {%- else -%}
-          <img
-            src="{{ 'logo.png' | asset_url }}"
-            alt="{{ shop.name | default: 'VeaSkin' | escape }}"
-            class="vs-logo__img"
-            width="114"
-            height="38"
-            loading="eager"
-            fetchpriority="high"
-          >
+          <span class="vs-logo__wordmark">VEASKIN</span>
         {%- endif -%}
       </a>
 
-      <nav class="vs-desktop-nav" aria-label="Hlavní navigace">
-        <ul class="vs-nav">
-          <li><a href="{{ anchor_prefix }}#jak-funguje" class="vs-nav__link">Rituál krásy</a></li>
-          <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">Technologie</a></li>
-          <li><a href="{{ anchor_prefix }}#vysledky" class="vs-nav__link">Klinické výsledky</a></li>
-          <li><a href="{{ anchor_prefix }}#srovnani" class="vs-nav__link">Proč VeaSkin</a></li>
-          <li><a href="{{ anchor_prefix }}#dotazy" class="vs-nav__link">Časté dotazy</a></li>
-        </ul>
-      </nav>
-
-      <div class="vs-header__actions">
+      <!-- Vpravo: Ikona košíku -->
+      <div class="vs-header__right">
         <header-actions>
           {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
             <button
               type="button"
-              class="vs-cart-chip button-unstyled"
+              class="vs-cart-btn button-unstyled"
               on:click="#cart-drawer/toggle"
               aria-haspopup="dialog"
               aria-expanded="false"
               aria-controls="cart-drawer"
-              aria-label="{{ 'accessibility.cart' | t }}"
+              aria-label="{{ 'accessibility.cart' | t | default: 'Nákupní košík' }}"
               aria-describedby="cart-bubble-text"
               data-testid="vs-cart-drawer-trigger"
             >
               <svg
-                class="vs-cart-chip__bag"
-                width="17"
-                height="17"
+                class="vs-cart-btn__icon"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -220,9 +130,8 @@
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
-              <span class="vs-cart-chip__label">Košík</span>
               <span
-                class="vs-cart-chip__count{% if cart.item_count == 0 %} is-empty{% endif %}"
+                class="vs-cart-btn__count{% if cart.item_count == 0 %} is-empty{% endif %}"
                 data-vs-cart-count
                 aria-hidden="true"
               >{{ cart.item_count }}</span>
@@ -233,13 +142,13 @@
           {%- else -%}
             <a
               href="{{ routes.cart_url }}"
-              class="vs-cart-chip"
-              aria-label="{{ 'accessibility.cart' | t }}"
+              class="vs-cart-btn"
+              aria-label="{{ 'accessibility.cart' | t | default: 'Nákupní košík' }}"
             >
               <svg
-                class="vs-cart-chip__bag"
-                width="17"
-                height="17"
+                class="vs-cart-btn__icon"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -252,9 +161,8 @@
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
-              <span class="vs-cart-chip__label">Košík</span>
               <span
-                class="vs-cart-chip__count{% if cart.item_count == 0 %} is-empty{% endif %}"
+                class="vs-cart-btn__count{% if cart.item_count == 0 %} is-empty{% endif %}"
                 data-vs-cart-count
                 aria-hidden="true"
               >{{ cart.item_count }}</span>
@@ -274,6 +182,7 @@
     </header>
   </div>
 
+  <!-- Mobilní vysouvací navigace -->
   <dialog
     id="vs-mobile-nav-drawer"
     class="vs-mobile-drawer"
@@ -282,26 +191,8 @@
   >
     <div class="vs-mobile-drawer__panel">
       <div class="vs-mobile-drawer__head">
-        <a href="{{ logo_href }}" class="vs-logo" data-vs-drawer-link aria-label="{{ shop.name | default: 'VeaSkin' }} - Domů">
-          {%- if settings.logo != blank -%}
-            <img
-              src="{{ settings.logo | image_url: width: 320 }}"
-              alt="{{ shop.name | default: 'VeaSkin' | escape }}"
-              class="vs-logo__img"
-              width="96"
-              height="32"
-              loading="lazy"
-            >
-          {%- else -%}
-            <img
-              src="{{ 'logo.png' | asset_url }}"
-              alt="{{ shop.name | default: 'VeaSkin' | escape }}"
-              class="vs-logo__img"
-              width="96"
-              height="32"
-              loading="lazy"
-            >
-          {%- endif -%}
+        <a href="{{ logo_href }}" class="vs-logo" data-vs-drawer-link aria-label="VEASKIN – Domů">
+          <span class="vs-logo__wordmark">VEASKIN</span>
         </a>
         <button
           type="button"
@@ -329,43 +220,49 @@
         <ul class="vs-mobile-drawer__list">
           <li>
             <a href="{{ anchor_prefix }}#nabidka-box" class="vs-mobile-drawer__link vs-mobile-drawer__link--highlight" data-vs-drawer-link>
-              <span>Výhodné sady</span>
-              <span class="vs-mobile-drawer__badge">DOPORUČENO</span>
+              <span>VeaSkin LED &amp; EMS brýle</span>
+              <span class="vs-mobile-drawer__badge">−30 % + E-book</span>
             </a>
           </li>
           <li>
-            <a href="{{ anchor_prefix }}#jak-funguje" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Rituál krásy (3 kroky)</span>
+            <a href="{{ anchor_prefix }}#benefity" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>4 klíčové benefity</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#ranni-ritual" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Ranní proměna za 10 minut</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
             <a href="{{ anchor_prefix }}#technologie" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>LED &amp; EMS technologie</span>
+              <span>630–660 nm Červené LED + EMS</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#jak-pouzivat" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Jak brýle používat (3 kroky)</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
             <a href="{{ anchor_prefix }}#vysledky" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Klinické výsledky Před a po</span>
-              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ anchor_prefix }}#srovnani" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Proč VeaSkin</span>
+              <span>Výsledky Před / Po (Den 14)</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
             <a href="{{ anchor_prefix }}#recenze-sekce" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Ověřené recenze (4,9 ★)</span>
+              <span>Recenze zákaznic (4.9 ★)</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
             <a href="{{ anchor_prefix }}#dotazy" class="vs-mobile-drawer__link" data-vs-drawer-link>
-              <span>Časté dotazy</span>
+              <span>Často kladené otázky</span>
               <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
             </a>
           </li>
@@ -374,11 +271,11 @@
 
       <div class="vs-mobile-drawer__foot">
         <div class="vs-mobile-drawer__perks">
-          <span>Doprava zdarma</span>
-          <span>30 dní na vyzkoušení bez rizika</span>
+          <span>✓ Doprava zdarma + E-book „Oči bez stínů“ zdarma</span>
+          <span>✓ 30 dní na vyzkoušení u ranní kávy bez rizika</span>
         </div>
         <a href="{{ anchor_prefix }}#nabidka-box" class="vs-cta-btn vs-mobile-drawer__cta" data-vs-drawer-link>
-          Vyzkoušet na 30 dní bez rizika →
+          Objednat VeaSkin se slevou →
         </a>
       </div>
     </div>
@@ -387,74 +284,19 @@
 
 {% javascript %}
   (() => {
-    // 1. Rotating Top Announcement Bar
-    const initTopbarRotator = () => {
-      document.querySelectorAll('[data-vs-topbar-rotator]').forEach((bar) => {
-        if (bar.hasAttribute('data-rotator-ready')) return;
-        bar.setAttribute('data-rotator-ready', 'true');
-        const slides = Array.from(bar.querySelectorAll('[data-vs-topbar-slide]'));
-        if (slides.length < 2) return;
-
-        let index = 0;
-        let paused = false;
-
-        const showSlide = (nextIdx) => {
-          const prevIdx = index;
-          index = (nextIdx + slides.length) % slides.length;
-          slides.forEach((slide, i) => {
-            const active = i === index;
-            const leaving = i === prevIdx && prevIdx !== index;
-            slide.classList.toggle('is-active', active);
-            slide.classList.toggle('is-leaving', leaving);
-            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
-            const link = slide.querySelector('a');
-            if (link) {
-              link.setAttribute('tabindex', active ? '0' : '-1');
-            }
-          });
-        };
-
-        let timer = window.setInterval(() => {
-          if (!paused && !document.hidden) {
-            showSlide(index + 1);
-          }
-        }, 3500);
-
-        bar.addEventListener('mouseenter', () => {
-          paused = true;
-        });
-        bar.addEventListener('mouseleave', () => {
-          paused = false;
-        });
-        bar.addEventListener('focusin', () => {
-          paused = true;
-        });
-        bar.addEventListener('focusout', () => {
-          paused = false;
-        });
-      });
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTopbarRotator, { once: true });
-    } else {
-      initTopbarRotator();
-    }
-
-    // 2. Mobile Drawer & Live Cart Count Sync
     const syncExpanded = (open) => {
-      document.querySelectorAll('[data-vs-menu-open]').forEach((btn) => {
+      for (const btn of document.querySelectorAll('[data-vs-menu-open]')) {
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
+      }
       document.documentElement.style.overflow = open ? 'hidden' : '';
     };
 
     const syncCartCountBadges = (count) => {
       const n = Number.isFinite(count) && count >= 0 ? count : 0;
-      document.querySelectorAll('[data-vs-cart-count]').forEach((badge) => {
+      for (const badge of document.querySelectorAll('[data-vs-cart-count]')) {
         badge.textContent = String(n);
         badge.classList.toggle('is-empty', n === 0);
-      });
+      }
     };
 
     const observeNativeCartBubble = () => {
@@ -477,12 +319,15 @@
       observeNativeCartBubble();
     }
 
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted) {
-        fetch('/cart.js')
-          .then((r) => r.json())
-          .then((c) => syncCartCountBadges(c.item_count))
-          .catch(() => {});
+    window.addEventListener('pageshow', async (event) => {
+      if (!event.persisted) return;
+      try {
+        const res = await fetch('/cart.js');
+        if (!res.ok) return;
+        const cartData = await res.json();
+        syncCartCountBadges(cartData.item_count);
+      } catch {
+        // Ignore network errors on back/forward cache restore
       }
     });
 
@@ -535,21 +380,15 @@
   "settings": [
     {
       "type": "text",
-      "id": "shipping_text",
-      "label": "Text dopravy",
-      "default": "Doprava zdarma na celou objednávku"
+      "id": "announcement_text",
+      "label": "Text horní lišty",
+      "default": "Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce | 30 dní na vyzkoušení bez rizika"
     },
     {
-      "type": "text",
-      "id": "promo_text",
-      "label": "Text akce",
-      "default": "Klinicky ověřená 660 nm LED & EMS péče"
-    },
-    {
-      "type": "text",
-      "id": "guarantee_text",
-      "label": "Text garance",
-      "default": "30 dní na vyzkoušení v klidu domova"
+      "type": "checkbox",
+      "id": "use_image_logo",
+      "label": "Použít obrázkové logo místo nápisu VEASKIN",
+      "default": false
     }
   ]
 }

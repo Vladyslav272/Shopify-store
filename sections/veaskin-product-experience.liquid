@@ -13,66 +13,89 @@
   assign raw_price = first_variant.price | default: 132900
   assign raw_compare = first_variant.compare_at_price | default: 0
 
-  if raw_compare > raw_price
-    assign c_base = raw_compare
+  if raw_compare > raw_price and raw_price > 0
     assign p_base = raw_price
+    assign c_base = raw_compare
+  elsif raw_price > 0 and raw_price != 132900
+    assign p_base = raw_price
+    assign c_base = raw_price | times: 143 | divided_by: 100
   else
     assign p_base = 132900
     assign c_base = 189900
   endif
 
   assign save_raw = c_base | minus: p_base
+  assign p_kc = p_base | divided_by: 100
+  assign c_kc = c_base | divided_by: 100
+  assign save_kc = c_kc | minus: p_kc
+  assign discount_pct = save_raw | times: 100 | divided_by: c_base
+
   assign p_base_fmt = p_base | money_without_trailing_zeros | replace: '.', ' '
   assign c_base_fmt = c_base | money_without_trailing_zeros | replace: '.', ' '
   assign save_fmt = save_raw | money_without_trailing_zeros | replace: '.', ' '
 
+  assign badge_mode = section.settings.offer_badge_variant | default: 'combined'
+  if badge_mode == 'savings'
+    assign price_badge_prefix = 'Ušetříte'
+    assign sticky_badge_text = '−' | append: discount_pct | append: ' %'
+  elsif badge_mode == 'social'
+    assign price_badge_prefix = '★ Bestseller • Ušetříte'
+    assign sticky_badge_text = 'Bestseller'
+  else
+    assign price_badge_prefix = '★ Ušetříte'
+    assign sticky_badge_text = '−' | append: discount_pct | append: ' % + E-book'
+  endif
+
+  assign ebook_title = section.settings.ebook_title | default: 'E-book „Oči bez stínů“'
+  assign ebook_desc = section.settings.ebook_desc | default: 'Praktický průvodce ranní péčí a lymfatickými technikami pro jasný pohled bez tmavých kruhů a otoků – ihned po objednání do e-mailu.'
+  assign ebook_value = section.settings.ebook_value | default: '290 Kč'
+
+  assign ebook_product = section.settings.ebook_product
+  assign ebook_variant_id = ''
+  if ebook_product != blank and ebook_product.selected_or_first_available_variant != blank
+    assign ebook_variant_id = ebook_product.selected_or_first_available_variant.id
+  endif
+
+  assign studio_hero_url = 'veaskin-hero-pearl.jpg' | asset_url
+  if section.settings.hero_image != blank
+    assign studio_hero_url = section.settings.hero_image | image_url: width: 1200
+  endif
+
   if images['zenabilepozadi.jpg'] != blank
-    assign hero_img_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
-  elsif target_product.featured_image != blank
-    assign hero_img_url = target_product.featured_image | image_url: width: 1200
+    assign model_white_url = images['zenabilepozadi.jpg'] | image_url: width: 1200
   else
-    assign hero_img_url = '/cdn/shop/files/zenabilepozadi.jpg'
+    assign model_white_url = 'zenabilepozadi.jpg' | asset_url
   endif
 
-  assign morning_img_url = 'rannikafe.jpg' | asset_url
-
-  if images['krok_1.gif'] != blank
-    assign step1_gif_url = images['krok_1.gif'] | image_url
+  if section.settings.lifestyle_image != blank
+    assign lifestyle_img_url = section.settings.lifestyle_image | image_url: width: 1200
   else
-    assign step1_gif_url = '/cdn/shop/files/krok_1.gif'
+    assign lifestyle_img_url = 'veaskin-morning-lifestyle.jpg' | asset_url
   endif
 
-  if images['krok_2.gif'] != blank
-    assign step2_gif_url = images['krok_2.gif'] | image_url
-  else
-    assign step2_gif_url = '/cdn/shop/files/krok_2.gif'
-  endif
+  assign thumb_detail_url = 'veaskin-review-2.jpg' | asset_url
 
-  if images['krok_3.gif'] != blank
-    assign step3_gif_url = images['krok_3.gif'] | image_url
-  else
-    assign step3_gif_url = '/cdn/shop/files/krok_3.gif'
-  endif
-
-  if images['krok_4.gif'] != blank
-    assign step4_gif_url = images['krok_4.gif'] | image_url
-  else
-    assign step4_gif_url = '/cdn/shop/files/krok_4.gif'
-  endif
-
-  if images['pred.jpg'] != blank
+  if section.settings.before_image != blank
+    assign before_img_url = section.settings.before_image | image_url: width: 1000
+  elsif images['pred.jpg'] != blank
     assign before_img_url = images['pred.jpg'] | image_url: width: 1000
   else
-    assign before_img_url = '/cdn/shop/files/pred.jpg'
+    assign before_img_url = 'veaskin-den0.jpg' | asset_url
   endif
 
-  if images['po.jpg'] != blank
+  if section.settings.after_image != blank
+    assign after_img_url = section.settings.after_image | image_url: width: 1000
+  elsif images['po.jpg'] != blank
     assign after_img_url = images['po.jpg'] | image_url: width: 1000
   else
-    assign after_img_url = '/cdn/shop/files/po.jpg'
+    assign after_img_url = 'veaskin-den14.jpg' | asset_url
   endif
 
-  assign product_form_id = 'VeaSkinBundleForm-' | append: section.id
+  assign rev1_img_url = 'veaskin-review-1.jpg' | asset_url
+  assign rev2_img_url = 'veaskin-review-2.jpg' | asset_url
+  assign rev3_img_url = 'rannikafe.jpg' | asset_url
+
+  assign product_form_id = 'VeaSkinProductForm-' | append: section.id
 %}
 
 {% render 'theme-drawer-styles' %}
@@ -87,885 +110,961 @@
   </script>
 {%- endif -%}
 
-<div class="vs-shell" id="veaskin-pdp-v2" data-vs-experience>
+<div
+  class="vs-shell"
+  id="veaskin-pdp"
+  data-vs-experience
+  data-unit-price="{{ p_kc }}"
+  data-compare-price="{{ c_kc }}"
+  data-discount-pct="{{ discount_pct }}"
+  data-badge-prefix="{{ price_badge_prefix | escape }}"
+  data-ebook-variant-id="{{ ebook_variant_id }}"
+>
 
-  {%- if section.settings.show_trust_bar != false -%}
-    {%- assign t_rating = section.settings.trust_rating | default: '4,9/5' -%}
-    {%- assign t_count = section.settings.trust_count | default: '180+ ověřených recenzí' -%}
-    {%- assign t_tagline = section.settings.trust_tagline | default: 'Doprava zdarma' -%}
-    <aside class="vs-trust-bar">
-      <a href="#recenze-sekce" class="vs-trust-bar__link" aria-label="Hodnocení {{ t_rating }} z 5 hvězdiček, {{ t_count }}, {{ t_tagline }}">
-        <div class="vs-trust-bar__content">
-          <div class="vs-trust-bar__item vs-trust-bar__item--rating">
-            <span class="vs-trust-bar__stars" aria-hidden="true">★★★★★</span>
-            <span class="vs-trust-bar__rating">{{ t_rating }}</span>
-            <span class="vs-trust-bar__dot" aria-hidden="true">·</span>
-            <span class="vs-trust-bar__count">{{ t_count }}</span>
+  <!-- ========================================================================
+       SEKCE 2: OTEVŘENÁ NÁKUPNÍ SEKCE – JEDNA VARIANTA BRÝLÍ + E-BOOK + MNOŽSTVÍ
+       ======================================================================== -->
+  <section class="vs-band vs-band--white" id="top">
+    <div class="vs-container vs-container--hero">
+      <div class="vs-hero-grid" id="nabidka">
+        <!-- Levý sloupec / Mobil nahoře: Čistá produktová galerie -->
+        <div class="vs-gallery">
+          <div class="vs-gallery__stage">
+            <img
+              src="{{ studio_hero_url }}"
+              alt="VeaSkin LED & EMS brýle na oční okolí – Perlově bílá otevřená konstrukce s průhlednými nožičkami"
+              class="vs-gallery__main-img"
+              width="960"
+              height="960"
+              loading="eager"
+              fetchpriority="high"
+              data-vs-main-img
+            >
+            <a
+              href="#recenze-sekce"
+              class="vs-gallery__trust-strip"
+              aria-label="Hodnocení 4,9 z 5 hvězdiček – Ověřeno 158 zákaznicemi"
+            >
+              <span class="vs-stars" aria-hidden="true">★★★★★</span>
+              <span class="vs-gallery__trust-text">4.9 / 5 • Ověřeno 158 zákaznicemi</span>
+            </a>
           </div>
-          <span class="vs-trust-bar__sep" aria-hidden="true">·</span>
-          <div class="vs-trust-bar__item vs-trust-bar__item--perk">
-            <span class="vs-trust-bar__origin">{{ t_tagline }}</span>
-          </div>
-        </div>
-      </a>
-    </aside>
-  {%- endif -%}
 
-  <!-- 1. MASTER LUXURY HERO (GALLERY + BUY BOX WITH RITUAL BUNDLES) -->
-  <section class="vs-section vs-section--hero" id="top">
-    <div class="vs-hero-grid" id="nabidka">
-      <!-- Left: Gallery Card -->
-      <div class="vs-gallery-card">
-        <div class="vs-main-media">
-          <img
-            src="{{ hero_img_url }}"
-            alt="LED & EMS Brýle na oční okolí VeaSkin"
-            class="vs-main-media__img"
-            width="900"
-            height="900"
-            loading="eager"
-            fetchpriority="high"
-            data-vs-main-img
-          >
-          <div class="vs-media-badge-top">
-            <span class="vs-dot-live" aria-hidden="true"></span>
-            <span>660 nm Červené LED &amp; EMS mikroproudy</span>
-          </div>
-        </div>
-
-        <div class="vs-thumbs" role="tablist" aria-label="Galerie produktu">
-          <button
-            type="button"
-            class="vs-thumb-btn is-active"
-            data-vs-thumb="{{ hero_img_url }}"
-            aria-label="Zobrazit přístroj"
-            aria-pressed="true"
-          >
-            <img src="{{ hero_img_url }}" alt="Přístroj VeaSkin" width="120" height="120" loading="eager">
-          </button>
-          <button
-            type="button"
-            class="vs-thumb-btn"
-            data-vs-thumb="{{ morning_img_url }}"
-            aria-label="Zobrazit ranní rituál"
-            aria-pressed="false"
-          >
-            <img src="{{ morning_img_url }}" alt="Ranní rituál s kávou" width="120" height="120" loading="lazy">
-          </button>
-          <button
-            type="button"
-            class="vs-thumb-btn"
-            data-vs-thumb="{{ after_img_url }}"
-            aria-label="Zobrazit klinický výsledek"
-            aria-pressed="false"
-          >
-            <img src="{{ after_img_url }}" alt="Výsledek po aplikaci" width="120" height="120" loading="lazy">
-          </button>
-          <button
-            type="button"
-            class="vs-thumb-btn"
-            data-vs-thumb="{{ step1_gif_url }}"
-            aria-label="Zobrazit aplikaci péče"
-            aria-pressed="false"
-          >
-            <img src="{{ step1_gif_url }}" alt="Aplikace péče" width="120" height="120" loading="lazy">
-          </button>
-        </div>
-      </div>
-
-      <!-- Right: Buy Box & Tiered Bundle Selector -->
-      <div class="vs-buy-panel" id="nabidka-box">
-        <a href="#recenze-sekce" class="vs-review-pill" aria-label="Hodnocení 4,9 z 5 hvězdiček na základě 180+ recenzí">
-          <span class="vs-stars" aria-hidden="true">★★★★★</span>
-          <span class="vs-review-pill__text">
-            <span>4,9 / 5 • 180+ ověřených recenzí</span>
-            <span class="vs-review-pill__extra"> (2 000+ spokojených žen)</span>
-          </span>
-        </a>
-
-        <h1 class="vs-product-title">{{ section.settings.product_heading | default: 'LED & EMS Brýle na oční okolí' }}</h1>
-
-        <p class="vs-product-lead">
-          Cílená lymfatická mikromasáž a fotonové 660 nm červené světlo pro svěží, odpočatý pohled bez ranních otoků a tmavých stínů. Stačí 10 minut u ranní kávy.
-        </p>
-
-        <div class="vs-product-features">
-          <div class="vs-feature-item">
-            <span class="vs-feature-icon" aria-hidden="true">✓</span>
-            <div class="vs-feature-text">
-              <div class="vs-feature-title">Cílená lymfatická mikromasáž proti ranním otokům a váčkům</div>
-            </div>
-          </div>
-          <div class="vs-feature-item">
-            <span class="vs-feature-icon" aria-hidden="true">✓</span>
-            <div class="vs-feature-text">
-              <div class="vs-feature-title">660 nm červené fotonové LED světlo stimulující tvorbu kolagenu</div>
-            </div>
-          </div>
-          <div class="vs-feature-item">
-            <span class="vs-feature-icon" aria-hidden="true">✓</span>
-            <div class="vs-feature-text">
-              <div class="vs-feature-title">Příjemná jemná termoterapie pro uvolnění unavených očí</div>
-            </div>
-          </div>
-          <div class="vs-feature-item">
-            <span class="vs-feature-icon" aria-hidden="true">✓</span>
-            <div class="vs-feature-text">
-              <div class="vs-feature-title">Hebký ergonomický tvar – netlačí a umožňuje volný pohyb</div>
-            </div>
+          <div class="vs-gallery__thumbs" role="tablist" aria-label="Fotografie produktu VeaSkin">
+            <button
+              type="button"
+              class="vs-gallery__thumb is-active"
+              data-vs-thumb="{{ studio_hero_url }}"
+              aria-label="Detail perlově bílých brýlí VeaSkin s průhlednými nožičkami"
+              aria-pressed="true"
+            >
+              <img src="{{ studio_hero_url }}" alt="Studiový detail perlově bílých brýlí VeaSkin" width="160" height="160" loading="eager">
+            </button>
+            <button
+              type="button"
+              class="vs-gallery__thumb"
+              data-vs-thumb="{{ model_white_url }}"
+              aria-label="Ukázka usazení pod očima na lícních kostech – volný výhled"
+              aria-pressed="false"
+            >
+              <img src="{{ model_white_url }}" alt="Brýle VeaSkin nasazené pod očima s volným výhledem" width="160" height="160" loading="lazy">
+            </button>
+            <button
+              type="button"
+              class="vs-gallery__thumb"
+              data-vs-thumb="{{ lifestyle_img_url }}"
+              aria-label="Ranní rituál u čaje v lněném županu"
+              aria-pressed="false"
+            >
+              <img src="{{ lifestyle_img_url }}" alt="Ranní rituál u čaje s otevřenými brýlemi VeaSkin" width="160" height="160" loading="lazy">
+            </button>
+            <button
+              type="button"
+              class="vs-gallery__thumb"
+              data-vs-thumb="{{ thumb_detail_url }}"
+              aria-label="Otevřená konstrukce VeaSkin u ranní kávy"
+              aria-pressed="false"
+            >
+              <img src="{{ thumb_detail_url }}" alt="Detail otevřené konstrukce VeaSkin u ranního cappuccina" width="160" height="160" loading="lazy">
+            </button>
           </div>
         </div>
 
-        <!-- Single Product Luxury Buy Box -->
-        <div class="vs-single-offer-card">
-          <div class="vs-single-offer-badge-row">
-            <span class="vs-stock-status"><span class="vs-stock-dot"></span> Skladem (ihned k odeslání)</span>
-            <span class="vs-shipping-status">Doprava zdarma</span>
+        <!-- Pravý sloupec / Mobil dole: Otevřená nákupní zóna jedné varianty -->
+        <div class="vs-buy-panel" id="nabidka-box">
+          <div class="vs-stock-line">
+            <span class="vs-stock-line__dot" aria-hidden="true"></span>
+            <span>Skladem v ČR – ihned k odeslání</span>
+            <span class="vs-stock-line__sep" aria-hidden="true">|</span>
+            <span>Doprava zdarma</span>
           </div>
 
-          <div class="vs-offer-price-row">
-            <span class="vs-price-current" data-vs-price-display>{{ p_base_fmt }}</span>
-            <span class="vs-price-before" data-vs-compare-display>{{ c_base_fmt }}</span>
-            <span class="vs-price-saving" data-vs-save-display>Ušetříte {{ save_fmt | replace: ' ', '&nbsp;' }}</span>
+          <h1 class="vs-product-title">
+            {{ section.settings.product_heading | default: 'VeaSkin LED & EMS brýle na oční okolí' }}
+          </h1>
+
+          <p class="vs-variant-meta">
+            <span class="vs-variant-meta__swatch" aria-hidden="true"></span>
+            <span>Provedení: Perlově bílá s průhlednými nožičkami</span>
+          </p>
+
+          <p class="vs-product-subtitle">
+            {{ section.settings.product_subtitle | default: 'Svěží a odpočatý pohled za 10 minut denně – bez otoků a vrstvy korektoru. Otevřená konstrukce sedí pouze pod očima, takže přes brýle normálně vidíte.' }}
+          </p>
+
+          <!-- Cena + CRO štítek úspory (dynamicky se násobí dle vybraného množství) -->
+          <div class="vs-price-block">
+            <span class="vs-price-block__current" data-vs-price-display>{{ p_base_fmt }}</span>
+            <span class="vs-price-block__compare" data-vs-compare-display>{{ c_base_fmt }}</span>
+            <span class="vs-price-block__badge" data-vs-save-display>
+              {{ price_badge_prefix }} {{ save_fmt }} (−{{ discount_pct }} %)
+            </span>
           </div>
 
-          <div class="vs-package-includes">
-            📦 <strong>Kompletní balení obsahuje:</strong> VeaSkin masážní brýle na oční okolí, prémiové sametové pouzdro a USB-C rychlonabíjecí kabel.
+          <!-- Součást objednávky: E-book „Oči bez stínů“ ZDARMA -->
+          <div class="vs-ebook-bonus">
+            <span class="vs-ebook-bonus__icon" aria-hidden="true">
+              <svg width="20" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                <line x1="9" y1="7" x2="16" y2="7"></line>
+                <line x1="9" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </span>
+            <div class="vs-ebook-bonus__body">
+              <div class="vs-ebook-bonus__top">
+                <span class="vs-ebook-bonus__title">+ K brýlím: {{ ebook_title }}</span>
+                <span class="vs-ebook-bonus__tag"><s>{{ ebook_value }}</s> ZDARMA</span>
+              </div>
+              <p class="vs-ebook-bonus__desc">{{ ebook_desc }}</p>
+            </div>
           </div>
-        </div>
 
-        <!-- Touch-Friendly Mobile Quantity Selector -->
-        <div class="vs-qty-wrapper">
-          <div class="vs-qty-header">
-            <span class="vs-qty-label">Zvolte počet kusů:</span>
-            <span class="vs-qty-note">Doprava zdarma na celou objednávku</span>
-          </div>
+          <!-- Obsah balení bez zmínky o českém návodu -->
+          <p class="vs-package-line">
+            <strong>Obsah balení:</strong> VeaSkin LED &amp; EMS brýle, ochranné pouzdro, nabíjecí USB-C kabel a digitální e-book „Oči bez stínů“.
+          </p>
 
-          <div class="vs-qty-bar">
-            <!-- Stepper with min 46px touch targets for mobile thumb -->
-            <div class="vs-qty-stepper" role="group" aria-label="Změna množství">
-              <button
-                type="button"
-                class="vs-qty-btn vs-qty-btn--minus"
-                aria-label="Snížit počet kusů"
-                data-vs-qty-btn="minus"
-              >−</button>
-              <span class="vs-qty-val" data-vs-qty-val>1</span>
-              <button
-                type="button"
-                class="vs-qty-btn vs-qty-btn--plus"
-                aria-label="Zvýšit počet kusů"
-                data-vs-qty-btn="plus"
-              >+</button>
+          <!-- Výběr množství (Stepper − / + a rychlé volby 1 ks, 2 ks, 3 ks) -->
+          <div class="vs-qty-selector">
+            <div class="vs-qty-selector__head">
+              <span class="vs-qty-selector__label">Vyberte množství</span>
+              <span class="vs-qty-selector__shipping">✓ Doprava zdarma na celou objednávku</span>
             </div>
 
-            <!-- Quick-Pick Pills for Mobile Thumb -->
-            <div class="vs-qty-pills" role="radiogroup" aria-label="Rychlý výběr počtu kusů">
-              <button type="button" class="vs-qty-pill is-active" data-vs-qty-pill="1" role="radio" aria-checked="true">1 ks</button>
-              <button type="button" class="vs-qty-pill" data-vs-qty-pill="2" role="radio" aria-checked="false">2 ks</button>
-              <button type="button" class="vs-qty-pill" data-vs-qty-pill="3" role="radio" aria-checked="false">3 ks</button>
+            <div class="vs-qty-selector__controls">
+              <div class="vs-qty-stepper" role="group" aria-label="Změna počtu kusů">
+                <button
+                  type="button"
+                  class="vs-qty-btn"
+                  aria-label="Snížit počet kusů"
+                  data-vs-qty-btn="minus"
+                >−</button>
+                <span class="vs-qty-val" data-vs-qty-val>1</span>
+                <button
+                  type="button"
+                  class="vs-qty-btn"
+                  aria-label="Zvýšit počet kusů"
+                  data-vs-qty-btn="plus"
+                >+</button>
+              </div>
+
+              <div class="vs-qty-pills" role="radiogroup" aria-label="Rychlý výběr počtu kusů">
+                <button type="button" class="vs-qty-pill is-active" data-vs-qty-pill="1" role="radio" aria-checked="true">1 ks</button>
+                <button type="button" class="vs-qty-pill" data-vs-qty-pill="2" role="radio" aria-checked="false">2 ks</button>
+                <button type="button" class="vs-qty-pill" data-vs-qty-pill="3" role="radio" aria-checked="false">3 ks</button>
+              </div>
             </div>
           </div>
-        </div>
-              {%- if target_product != blank -%}
-          <product-form-component
-            data-section-id="{{ section.id }}"
-            data-product-id="{{ target_product.id }}"
-            data-product-url="{{ target_product.url }}"
-            on:submit="/handleSubmit"
-            data-quantity-default="1"
-            data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
-          >
-            <div
-              class="visually-hidden"
-              aria-live="assertive"
-              role="status"
-              aria-atomic="true"
-              ref="liveRegion"
-            ></div>
 
-            {%- form 'product', target_product, id: product_form_id, data-type: 'add-to-cart-form' -%}
-              <input
-                type="hidden"
-                name="id"
-                ref="variantId"
-                value="{{ v1_id }}"
-                data-vs-form-id
-              >
-              <input
-                type="hidden"
-                name="quantity"
-                value="1"
-                data-vs-form-qty
-              >
-              <span class="product-form-text__error hidden" ref="addToCartTextError">
-                <span class="svg-wrapper">
-                  {{- 'icon-error.svg' | inline_asset_content -}}
-                </span>
-              </span>
-              <button
-                type="submit"
-                name="add"
-                class="vs-cta-btn vs-cta-btn--single"
-                data-vs-cta-btn
-                {% unless first_variant.available %}disabled{% endunless %}
-              >
-                {%- if first_variant.available -%}
-                  <span class="vs-cta-btn__main" data-vs-cta-main>PŘIDAT DO KOŠÍKU — {{ p_base_fmt }}</span>
-                  <span class="vs-cta-btn__sub" data-vs-cta-sub>
-                    <span class="vs-cta-sub--full">(30 DNÍ NA VYZKOUŠENÍ • DOPRAVA ZDARMA)</span>
-                    <span class="vs-cta-sub--short">(DOPRAVA ZDARMA)</span>
+          <!-- Hlavní CTA tlačítko napojené na Shopify košík -->
+          {%- if target_product != blank -%}
+            <product-form-component
+              data-section-id="{{ section.id }}"
+              data-product-id="{{ target_product.id }}"
+              data-product-url="{{ target_product.url }}"
+              on:submit="/handleSubmit"
+              data-quantity-default="1"
+              data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
+            >
+              <div
+                class="visually-hidden"
+                aria-live="assertive"
+                role="status"
+                aria-atomic="true"
+                ref="liveRegion"
+              ></div>
+
+              {%- form 'product', target_product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  ref="variantId"
+                  value="{{ v1_id }}"
+                  data-vs-form-id
+                >
+                <input
+                  type="hidden"
+                  name="quantity"
+                  value="1"
+                  data-vs-form-qty
+                >
+                <span class="product-form-text__error hidden" ref="addToCartTextError">
+                  <span class="svg-wrapper">
+                    {{- 'icon-error.svg' | inline_asset_content -}}
                   </span>
-                {%- else -%}
-                  <span class="vs-cta-btn__main">VYPRODÁNO</span>
-                {%- endif -%}
-              </button>
-            {%- endform -%}
-          </product-form-component>
-        {%- endif -%}
+                </span>
+                <button
+                  type="submit"
+                  name="add"
+                  class="vs-cta-btn vs-cta-btn--main"
+                  data-vs-cta-btn
+                  {% unless first_variant.available %}disabled{% endunless %}
+                >
+                  {%- if first_variant.available -%}
+                    <span data-vs-cta-label>Přidat do košíku — {{ p_base_fmt }}</span>
+                  {%- else -%}
+                    <span>Vyprodáno</span>
+                  {%- endif -%}
+                </button>
+              {%- endform -%}
+            </product-form-component>
+          {%- else -%}
+            <button type="button" class="vs-cta-btn vs-cta-btn--main" data-vs-cta-btn>
+              <span data-vs-cta-label>Přidat do košíku — {{ p_base_fmt }}</span>
+            </button>
+          {%- endif -%}
 
-        <!-- Luxury Trust Pillars -->
-        <div class="vs-trust-grid" role="list" aria-label="Garance a výhody nákupu">
-          <div class="vs-trust-card" role="listitem">
-            <div class="vs-trust-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="m9 12 2 2 4-4"/>
+          <!-- Rychlé pilíře důvěry oddělené jemnými svislými linkami -->
+          <ul class="vs-quick-trust" aria-label="Garance nákupu VeaSkin">
+            <li class="vs-quick-trust__item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
               </svg>
-            </div>
-            <div class="vs-trust-card__text">
-              <div class="vs-trust-card__title">30 dní na zkoušku</div>
-              <div class="vs-trust-card__desc">Garance vrácení peněz</div>
-            </div>
-          </div>
-
-          <div class="vs-trust-card" role="listitem">
-            <div class="vs-trust-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-            </div>
-            <div class="vs-trust-card__text">
-              <div class="vs-trust-card__title">10 minut denně</div>
-              <div class="vs-trust-card__desc">Snadný ranní rituál</div>
-            </div>
-          </div>
-
-          <div class="vs-trust-card" role="listitem">
-            <div class="vs-trust-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="6"/>
-                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
-              </svg>
-            </div>
-            <div class="vs-trust-card__text">
-              <div class="vs-trust-card__title">Klinicky ověřeno</div>
-              <div class="vs-trust-card__desc">660nm LED technologie</div>
-            </div>
-          </div>
-
-          <div class="vs-trust-card" role="listitem">
-            <div class="vs-trust-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
-                <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
-                <line x1="6" x2="6" y1="2" y2="4"/>
-                <line x1="10" x2="10" y1="2" y2="4"/>
-                <line x1="14" x2="14" y1="2" y2="4"/>
-              </svg>
-            </div>
-            <div class="vs-trust-card__text">
-              <div class="vs-trust-card__title">Hands-free pohodlí</div>
-              <div class="vs-trust-card__desc">Volný pohyb při ranní kávě</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2. STATS BANNER: KLINICKY OVĚŘENÁ ÚČINNOST -->
-  <section class="vs-section" style="padding-top: 10px; padding-bottom: 20px;">
-    <div class="vs-stats-row">
-      <div class="vs-stat-box">
-        <div class="vs-stat-num">87 %</div>
-        <div class="vs-stat-txt">viditelná redukce ranních otoků a váčků</div>
-      </div>
-      <div class="vs-stat-box">
-        <div class="vs-stat-num">82 %</div>
-        <div class="vs-stat-txt">prosvětlení tmavých kruhů pod očima již po 2 týdnech</div>
-      </div>
-      <div class="vs-stat-box">
-        <div class="vs-stat-num">10 min</div>
-        <div class="vs-stat-txt">denní rituál s automatickým vypnutím</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. RANNÍ RITUÁL KRÁSY VE 3 KROCÍCH -->
-  <section class="vs-section" id="jak-funguje">
-    <div class="vs-center-head">
-      <span class="vs-kicker">✨ Ranní rituál krásy</span>
-      <h2 class="vs-heading">Pouhé 4 kroky k odpočatému pohledu</h2>
-      <p class="vs-sub">Snadná a příjemná 10minutová péče, kterou hravě zařadíte k ranní kávě, čaji nebo poslechu podcastu.</p>
-    </div>
-
-    <div class="vs-steps-slider-wrapper" data-vs-steps-slider>
-      <div class="vs-steps-track" data-vs-steps-track>
-        <article class="vs-step-card" data-vs-step-card>
-          <div class="vs-step-media">
-            <img src="{{ step1_gif_url }}" alt="Krok 1 - Čistá pleť" width="400" height="300" loading="lazy">
-            <span class="vs-step-pill">Krok 1</span>
-          </div>
-          <div class="vs-step-body">
-            <h3 class="vs-step-title">Čistá pleť</h3>
-            <p class="vs-step-desc">Začněte s čistou pletí — důkladně si umyjte obličej, abyste odstranili mastnotu i nečistoty pro maximální účinek.</p>
-          </div>
-        </article>
-
-        <article class="vs-step-card" data-vs-step-card>
-          <div class="vs-step-media">
-            <img src="{{ step2_gif_url }}" alt="Krok 2 - Kapka séra či krému" width="400" height="300" loading="lazy">
-            <span class="vs-step-pill">Krok 2</span>
-          </div>
-          <div class="vs-step-body">
-            <h3 class="vs-step-title">Kapka séra či krému</h3>
-            <p class="vs-step-desc">Naneste pod oči kapku očního krému nebo séra na vodní bázi o velikosti hrášku pro zesílení vodivosti mikroproudů.</p>
-          </div>
-        </article>
-
-        <article class="vs-step-card" data-vs-step-card>
-          <div class="vs-step-media">
-            <img src="{{ step3_gif_url }}" alt="Krok 3 - Volba režimu" width="400" height="300" loading="lazy">
-            <span class="vs-step-pill">Krok 3</span>
-          </div>
-          <div class="vs-step-body">
-            <h3 class="vs-step-title">Volba režimu</h3>
-            <p class="vs-step-desc">Zapněte přístroj a pomocí tlačítka zvolte požadovaný režim pulzů a příjemnou intenzitu mikromasáže.</p>
-          </div>
-        </article>
-
-        <article class="vs-step-card" data-vs-step-card>
-          <div class="vs-step-media">
-            <img src="{{ step4_gif_url }}" alt="Krok 4 - 10 minut relaxace" width="400" height="300" loading="lazy">
-            <span class="vs-step-pill">Krok 4</span>
-          </div>
-          <div class="vs-step-body">
-            <h3 class="vs-step-title">10 minut relaxace</h3>
-            <p class="vs-step-desc">Pohodlně si vychutnejte ranní kávu nebo čaj. Přístroj pracuje sám za vás a po 10 minutách se automaticky vypne.</p>
-          </div>
-        </article>
-      </div>
-
-      <div class="vs-steps-meta">
-        <div class="vs-steps-dots" role="tablist" aria-label="Kroky ranního rituálu">
-          <button type="button" class="vs-step-dot is-active" data-vs-step-dot="0" aria-label="Přejít na Krok 1"></button>
-          <button type="button" class="vs-step-dot" data-vs-step-dot="1" aria-label="Přejít na Krok 2"></button>
-          <button type="button" class="vs-step-dot" data-vs-step-dot="2" aria-label="Přejít na Krok 3"></button>
-          <button type="button" class="vs-step-dot" data-vs-step-dot="3" aria-label="Přejít na Krok 4"></button>
-        </div>
-        <span class="vs-steps-hint">Posuňte prstem →</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. TECHNOLOGIE + INTERAKTIVNÍ PŘED / PO SLIDER -->
-  <section class="vs-section" id="technologie">
-    <div class="vs-science-grid" id="vysledky">
-      <!-- Left: Clinical Benefits -->
-      <div class="vs-science-card">
-        <div>
-          <span class="vs-kicker vs-kicker--dark">🔬 Klinicky ověřená synergie</span>
-          <h2 class="vs-heading">Proč je <span class="vs-science-highlight">terapie červeným světlem + mikroproudy</span> tak účinná</h2>
-
-          <ul class="vs-science-list">
-            <li>
-              <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>Červené fotonové světlo (660 nm) proniká hloubkově do dermis</strong> — stimuluje buněčné mitochondrie a přirozenou tvorbu kolagenu tam, kam krémy nedosáhnou.</div>
+              <span>30 dní na zkoušku</span>
             </li>
-            <li>
-              <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>EMS mikroproudy aktivují jemnou lymfatickou drenáž</strong> — eliminují stagnaci tekutin, která je přímou příčinou ranních otoků a unavených váčků.</div>
+            <li class="vs-quick-trust__item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="1" y="3" width="15" height="13" rx="1"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              <span>Odeslání do 24 h</span>
             </li>
-            <li>
-              <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>Řeší všechny 3 hlavní projevy stárnutí očí</strong> — zpomalenou mikrocirkulaci (kruhy), zadržování vody (otoky) a úbytek pružnosti (vrásky).</div>
-            </li>
-            <li>
-              <span class="vs-science-dot" aria-hidden="true">✓</span>
-              <div><strong>100% neinvazivní a bezpečné</strong> — bez bolesti, bez jehel a bez nutnosti rekonvalescence. Certifikováno dle evropských norem CE a RoHS.</div>
+            <li class="vs-quick-trust__item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              <span>E-book v ceně</span>
             </li>
           </ul>
+
+          <!-- Samostatný garanční pás 30 dní bez rizika -->
+          <div class="vs-guarantee-strip">
+            <span class="vs-guarantee-strip__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"></circle>
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+              </svg>
+            </span>
+            <div>
+              <p class="vs-guarantee-strip__title">30 dní na vyzkoušení u ranní kávy bez rizika</p>
+              <p class="vs-guarantee-strip__text">
+                Vyzkoušejte VeaSkin v klidu domova. Pokud do 30 dnů neuvidíte rozdíl, vrátíme vám 100 % částky.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Right: Before / After Slider -->
-      <div class="vs-ba-card">
+  <!-- ========================================================================
+       SEKCE 3: 4 KLÍČOVÉ BENEFITY (PÁS SILK CREAM #FAF8F5 S ČISTÝMI LINKAMI)
+       ======================================================================== -->
+  <section class="vs-band vs-band--cream" id="benefity" aria-label="Klíčové benefity přístroje VeaSkin">
+    <div class="vs-container vs-container--compact">
+      <div class="vs-benefits-list">
+        <div class="vs-benefit-item">
+          <span class="vs-benefit-item__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <div>
+            <h2 class="vs-benefit-item__title">Jemná kompresní a vibrační masáž</h2>
+            <p class="vs-benefit-item__desc">Uvolňuje napětí a redukuje ranní otoky.</p>
+          </div>
+        </div>
+
+        <div class="vs-benefit-item">
+          <span class="vs-benefit-item__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <div>
+            <h2 class="vs-benefit-item__title">Příjemná tepelná terapie</h2>
+            <p class="vs-benefit-item__desc">Ulevuje suchým očím a únavě z obrazovek.</p>
+          </div>
+        </div>
+
+        <div class="vs-benefit-item">
+          <span class="vs-benefit-item__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <div>
+            <h2 class="vs-benefit-item__title">Více režimů a intenzit</h2>
+            <p class="vs-benefit-item__desc">Péči si přizpůsobíte své aktuální potřebě.</p>
+          </div>
+        </div>
+
+        <div class="vs-benefit-item">
+          <span class="vs-benefit-item__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <div>
+            <h2 class="vs-benefit-item__title">Měkké ergonomické polstrování</h2>
+            <p class="vs-benefit-item__desc">Hebký materiál, který netlačí a padne každému.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEKCE 4: EMOČNÍ LIFESTYLOVÁ SEKCE (PLNÝ PÁS BEZ KARTY)
+       ======================================================================== -->
+  <section class="vs-band vs-band--mint" id="ranni-ritual">
+    <div class="vs-container">
+      <div class="vs-lifestyle-split">
+        <div class="vs-lifestyle-split__media">
+          <img
+            src="{{ lifestyle_img_url }}"
+            alt="Usměvavá 38letá žena v béžovém lněném županu s hrnkem čaje a otevřenými perlově bílými brýlemi VeaSkin pod očima"
+            width="960"
+            height="720"
+            loading="lazy"
+          >
+          <div class="vs-lifestyle-split__caption">
+            ✓ Otevřená konstrukce s průhlednými nožičkami sedí pouze pod očima – během rituálu normálně vidíte.
+          </div>
+        </div>
+
+        <div class="vs-lifestyle-split__copy">
+          <span class="vs-kicker">☕ První krok k vaší ranní proměně</span>
+          <h2 class="vs-section-heading">
+            Vykročte do rána <span class="vs-text-accent">s úsměvem.</span> Stačí jen <span class="vs-text-accent">10 minut péče.</span>
+          </h2>
+          <p class="vs-lifestyle-split__text">
+            Cítíte se plná energie, ale pohled do zrcadla říká opak? Otoky a unavené oči už nemusíte maskovat vrstvou korektoru. VeaSkin vám během ranní kávy vrátí svěží pohled a sebevědomí cítit se krásná – přirozeně a bez líčení.
+          </p>
+          <a href="#nabidka-box" class="vs-cta-btn vs-cta-btn--inline" data-vs-scroll-buy>
+            Objednat VeaSkin + E-book zdarma →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEKCE 5: JAK TECHNOLOGIE FUNGUJE (3 OTEVŘENÉ SLOUPCE S LINKAMI)
+       ======================================================================== -->
+  <section class="vs-band vs-band--white" id="technologie">
+    <div class="vs-container">
+      <div class="vs-section-head">
+        <span class="vs-kicker">630–660 nm Červené LED + EMS</span>
+        <h2 class="vs-section-heading">Síla světla a jemné mikromasáže v jednom kroku</h2>
+        <p class="vs-section-sub">
+          Ergonomické perlově bílé oblouky působí přesně na oblast lícních kostí pod očima, zatímco vaše oči zůstávají po celou dobu volné.
+        </p>
+      </div>
+
+      <div class="vs-tech-columns">
+        <article class="vs-tech-col">
+          <div class="vs-tech-col__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="vs-tech-col__title">Červené LED světlo</h3>
+            <p class="vs-tech-col__desc">
+              Vlnová délka 630–660 nm proniká do jemné pleti pod očima, podporuje přirozenou tvorbu kolagenu a zjemňuje mimické linky.
+            </p>
+          </div>
+        </article>
+
+        <article class="vs-tech-col">
+          <div class="vs-tech-col__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12h4l3-9 5 18 3-9h5"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="vs-tech-col__title">Mikroproudy a jemné vibrace</h3>
+            <p class="vs-tech-col__desc">
+              Šetrné impulzy aktivují mikrocirkulaci a rozproudění lymfy, což vede k viditelnému splasknutí ranních otoků a váčků.
+            </p>
+          </div>
+        </article>
+
+        <article class="vs-tech-col">
+          <div class="vs-tech-col__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="vs-tech-col__title">Uklidňující teplo</h3>
+            <p class="vs-tech-col__desc">
+              Jemné prohřátí uvolňuje oční napětí a přináší okamžitou úlevu pro unavené a suché oči po práci s telefonem či počítačem.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEKCE 6: JAK BRÝLE POUŽÍVAT (EDITORIAL ČÍSLA 01–03 BEZ BUBLIN)
+       ======================================================================== -->
+  <section class="vs-band vs-band--cream" id="jak-pouzivat">
+    <div class="vs-container">
+      <div class="vs-section-head">
+        <span class="vs-kicker">Jednoduchý 10minutový rituál</span>
+        <h2 class="vs-section-heading">Jak brýle VeaSkin používat</h2>
+        <p class="vs-section-sub">
+          Žádná složitá příprava. Péči snadno spojíte s ranní kávou, čajem nebo čtením.
+        </p>
+      </div>
+
+      <div class="vs-steps-editorial">
+        <article class="vs-step-row">
+          <div class="vs-step-row__num">01</div>
+          <div>
+            <h3 class="vs-step-row__title">Očistěte pleť a naneste oblíbené hydratační sérum</h3>
+            <p class="vs-step-row__desc">
+              Kapka vašeho oblíbeného hydratačního séra či lehkého krému na vodní bázi podpoří příjemné působení EMS mikroproudů a lepší vstřebání aktivních látek.
+            </p>
+          </div>
+        </article>
+
+        <article class="vs-step-row">
+          <div class="vs-step-row__num">02</div>
+          <div>
+            <h3 class="vs-step-row__title">Nasaďte brýle a zvolte příjemný režim</h3>
+            <p class="vs-step-row__desc">
+              Perlově bílé polštářky spočinou lehce pod očima na lícních kostech. Oči zůstávají volné, takže přes brýle normálně vidíte.
+            </p>
+          </div>
+        </article>
+
+        <article class="vs-step-row">
+          <div class="vs-step-row__num">03</div>
+          <div>
+            <h3 class="vs-step-row__title">Dopřejte si 10 minut klidu u kávy nebo knihy – brýle se samy vypnou</h3>
+            <p class="vs-step-row__desc">
+              Po uplynutí 10 minut chytrý časovač péči automaticky ukončí a vy můžete vykročit do dne se svěžím pohledem.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEKCE 7: VÝSLEDKY A STATISTIKY + PŘED A PO (OTEVŘENÝ PÁS BEZ KARET)
+       ======================================================================== -->
+  <section class="vs-band vs-band--white" id="vysledky">
+    <div class="vs-container">
+      <div class="vs-section-head">
+        <span class="vs-kicker">Skutečná proměna bez retuše</span>
+        <h2 class="vs-section-heading">Viditelné výsledky už za 14 dní</h2>
+        <p class="vs-section-sub">
+          Posuňte jezdcem a prohlédněte si přirozené zmenšení ranních váčků a projasnění očního okolí.
+        </p>
+      </div>
+
+      <div class="vs-results-open">
+        <!-- Interaktivní posuvník Před / Po bez vnější bubliny -->
         <div>
-          <div class="vs-ba-top">
-            <strong>Viditelná proměna očního okolí</strong>
-            <span class="vs-ba-hint">↔ Posuňte pro srovnání</span>
+          <div class="vs-ba-head">
+            <span class="vs-ba-head__title">Srovnání Den 0 vs. Den 14</span>
+            <span class="vs-ba-head__hint">↔ Posuňte pro porovnání</span>
           </div>
 
           <div class="vs-ba-viewer" data-vs-ba-viewer>
-            <img src="{{ after_img_url }}" alt="Po používání VeaSkin" width="800" height="550" loading="lazy">
-            <img src="{{ before_img_url }}" alt="Před používáním VeaSkin" class="vs-ba-before" width="800" height="550" loading="lazy" data-vs-ba-before>
+            <img
+              src="{{ after_img_url }}"
+              alt="Den 14 – zmenšení váčků a projasnění očního okolí s VeaSkin"
+              width="900"
+              height="675"
+              loading="lazy"
+            >
+            <img
+              src="{{ before_img_url }}"
+              alt="Den 0 – ranní otoky a unavené oční okolí před péčí"
+              class="vs-ba-before"
+              width="900"
+              height="675"
+              loading="lazy"
+              data-vs-ba-before
+            >
             <div class="vs-ba-line" data-vs-ba-line></div>
-            <div class="vs-ba-knob" aria-hidden="true" data-vs-ba-knob>↔</div>
-            <span class="vs-ba-tag vs-ba-tag--left">PŘED</span>
-            <span class="vs-ba-tag vs-ba-tag--right">PO KÚŘE</span>
+            <div class="vs-ba-knob" aria-hidden="true" data-vs-ba-knob>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+            <span class="vs-ba-tag vs-ba-tag--left">Den 0 – Před</span>
+            <span class="vs-ba-tag vs-ba-tag--right">Den 14 – Po</span>
             <input
               type="range"
               min="5"
               max="95"
               value="50"
               class="vs-ba-range"
-              aria-label="Posuvník pro porovnání fotografie před a po kúře"
+              aria-label="Posuvník porovnání Den 0 a Den 14"
               data-vs-ba-range
             >
           </div>
         </div>
 
-        <div class="vs-stats-row">
-          <div class="vs-stat-box">
-            <div class="vs-stat-num">82 %</div>
-            <div class="vs-stat-txt">zesvětlení tmavých kruhů po 2 týdnech</div>
+        <!-- 3 typografické ukazatele výsledků oddělené čistou linkou -->
+        <div class="vs-stats-open">
+          <div class="vs-stat-row">
+            <div class="vs-stat-row__value">91 %</div>
+            <p class="vs-stat-row__text">
+              žen potvrdilo viditelně svěžejší a odpočatější pohled hned po probuzení.
+            </p>
           </div>
-          <div class="vs-stat-box">
-            <div class="vs-stat-num">87 %</div>
-            <div class="vs-stat-txt">výrazná redukce ranních otoků</div>
+
+          <div class="vs-stat-row">
+            <div class="vs-stat-row__value">87 %</div>
+            <p class="vs-stat-row__text">
+              zaznamenalo výrazné zmírnění ranních otoků a váčků pod očima.
+            </p>
           </div>
-          <div class="vs-stat-box">
-            <div class="vs-stat-num">91 %</div>
-            <div class="vs-stat-txt">vyhlazení jemných mimických linek</div>
+
+          <div class="vs-stat-row">
+            <div class="vs-stat-row__value">82 %</div>
+            <p class="vs-stat-row__text">
+              uvedlo, že oční okolí působí pevněji a používají méně korektoru.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. REALISTICKÝ HARMONOGRAM VÝSLEDKŮ -->
-  <section class="vs-section">
-    <div class="vs-center-head">
-      <span class="vs-kicker">⏱️ Realistický harmonogram</span>
-      <h2 class="vs-heading">Co můžete očekávat den po dni?</h2>
-      <p class="vs-sub">Žádné nereálné sliby přes noc. Takhle probíhá přirozená obnova očního okolí při 10minutovém rituálu:</p>
-    </div>
-
-    <div class="vs-timeline-grid">
-      <article class="vs-tl-card">
-        <span class="vs-tl-tag">Den 1</span>
-        <h3>Okamžitě po 1. použití</h3>
-        <p>Příjemné uvolnění očního tlaku a pocit lehkosti. Nastartovaná lymfa a krevní oběh pomáhají stáhnout ranní otoky víček už během 15 minut.</p>
-      </article>
-      <article class="vs-tl-card">
-        <span class="vs-tl-tag">Týden 2</span>
-        <h3>Po 14 dnech pravidelné péče</h3>
-        <p>Obnovení správného odtoku stagnující tekutiny. Tmavé stíny způsobené městnáním krve viditelně blednou a oční okolí působí pevněji a odpočatě.</p>
-      </article>
-      <article class="vs-tl-card">
-        <span class="vs-tl-tag">Týden 5+</span>
-        <h3>Dlouhodobá prevence a regenerace</h3>
-        <p>Pravidelná stimulace kolagenu zabraňuje nočnímu hromadění tekutiny. Pokožka si zachovává pružnost a vy se probouzíte se svěžím pohledem každé ráno.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- 6. SROVNÁNÍ: PROČ JE VEASKIN NEJCHYTŘEJŠÍ VOLBA -->
-  <section class="vs-section" id="srovnani">
-    <div class="vs-center-head">
-      <span class="vs-kicker">⚖️ Upřímné srovnání</span>
-      <h2 class="vs-heading">Proč je VeaSkin nejchytřejší volba?</h2>
-    </div>
-
-    <div class="vs-comp-grid">
-      <div class="vs-comp-box">
-        <h3>Běžné oční krémy</h3>
-        <div class="vs-comp-price">cca 1 500 Kč <small>/ 2 měsíce</small></div>
-        <ul class="vs-comp-list">
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Působí pouze na povrchu epidermis</li>
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nerozhýbou stagnující lymfu a otoky</li>
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost neustálého dokupování</li>
-          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Snadná domácí aplikace</li>
-        </ul>
+  <!-- ========================================================================
+       SEKCE 8: RECENZE ZÁKAZNIC (158 OVĚŘENÝCH HODNOCENÍ – BEZ BUBLIN)
+       ======================================================================== -->
+  <section class="vs-band vs-band--cream" id="recenze-sekce">
+    <div class="vs-container">
+      <div class="vs-section-head">
+        <div class="vs-reviews-header-meta">
+          <span class="vs-stars" aria-hidden="true">★★★★★</span>
+          <span><strong>4.9 / 5</strong> • 158 ověřených hodnocení</span>
+        </div>
+        <h2 class="vs-section-heading">Co říkají české zákaznice</h2>
+        <p class="vs-section-sub">
+          Autentické zkušenosti žen, které vyměnily ranní maskování korektorem za 10 minut klidné péče.
+        </p>
       </div>
 
-      <div class="vs-comp-box vs-comp-box--winner">
-        <span class="vs-winner-badge">Chytrá volba</span>
-        <h3>VeaSkin LED &amp; EMS Brýle</h3>
-        <div class="vs-comp-price">{{ p_base_fmt }} <small>/ jednorázová investice</small></div>
-        <ul class="vs-comp-list">
-          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Cílená lymfatická masáž + 660 nm LED</strong></li>
-          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Viditelný ústup ranních otoků už po 10 min.</strong></li>
-          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Roky prémiové péče bez dalších nákladů</strong></li>
-          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>30 dní na vyzkoušení v klidu domova</strong></li>
-        </ul>
-      </div>
-
-      <div class="vs-comp-box">
-        <h3>Klinické zákroky</h3>
-        <div class="vs-comp-price">8 000 – 15 000 Kč <small>/ sezení</small></div>
-        <ul class="vs-comp-list">
-          <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Výrazný vizuální efekt</li>
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Jehly, modřinky a čas na zotavení</li>
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost opakování každých 6 měsíců</li>
-          <li><span class="vs-mark-no" aria-hidden="true">✕</span> Vysoké opakované finanční náklady</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. CO OBSAHUJE BALENÍ (UNBOXING EXPERIENCE) -->
-  <section class="vs-section" id="baleni" style="background: var(--vs-surface); border-radius: 20px; padding: 36px 24px; border: 1px solid var(--vs-border);">
-    <div class="vs-center-head">
-      <span class="vs-kicker">📦 Prémiový zážitek</span>
-      <h2 class="vs-heading">Co najdete ve své zásilce</h2>
-      <p class="vs-sub">Každý detail balení je navržen tak, aby chránil přístroj a nabídl vám pocit výjimečné péče.</p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto; text-align: center;">
-      <div style="background: var(--vs-bg); padding: 20px; border-radius: 14px; border: 1px solid var(--vs-border);">
-        <div style="font-size: 32px; margin-bottom: 8px;">👓</div>
-        <strong style="display: block; font-size: 14px; margin-bottom: 4px;">Přístroj VeaSkin</strong>
-        <span style="font-size: 12px; color: var(--vs-muted);">Ergonomické LED &amp; EMS brýle z hebkého hypoalergenního materiálu.</span>
-      </div>
-
-      <div style="background: var(--vs-bg); padding: 20px; border-radius: 14px; border: 1px solid var(--vs-border);">
-        <div style="font-size: 32px; margin-bottom: 8px;">👝</div>
-        <strong style="display: block; font-size: 14px; margin-bottom: 4px;">Sametové pouzdro</strong>
-        <span style="font-size: 12px; color: var(--vs-muted);">Elegantní cestovní pouzdro pro bezpečné uložení doma i na cestách.</span>
-      </div>
-
-      <div style="background: var(--vs-bg); padding: 20px; border-radius: 14px; border: 1px solid var(--vs-border);">
-        <div style="font-size: 32px; margin-bottom: 8px;">🔌</div>
-        <strong style="display: block; font-size: 14px; margin-bottom: 4px;">USB-C kabel</strong>
-        <span style="font-size: 12px; color: var(--vs-muted);">Univerzální rychlonabíjecí kabel. Baterie vydrží více než týden na jedno nabití.</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. AUTENTICKÉ OVĚŘENÉ RECENZE -->
-  <section class="vs-section" id="recenze-sekce">
-    <div class="vs-center-head">
-      <span class="vs-kicker">★ 4,9 / 5 z 180+ hodnocení</span>
-      <h2 class="vs-heading">Od unavených očí k zářivému pohledu</h2>
-      <p class="vs-sub">Skutečné zkušenosti zákaznic, které zařadily VeaSkin do svého ranního rituálu.</p>
-    </div>
-
-    <div class="vs-reviews-grid">
-      <article class="vs-rev-card">
-        <div>
-          <div class="vs-rev-top">
-            <div class="vs-rev-user">
-              <div class="vs-rev-avatar" aria-hidden="true">KP</div>
-              <div>
-                <div class="vs-rev-name">Klára P.</div>
-                <div class="vs-rev-verified">✓ Ověřený nákup</div>
-              </div>
-            </div>
-            <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
+      <div class="vs-reviews-editorial">
+        <article class="vs-review-item">
+          <div class="vs-review-item__photo">
+            <img
+              src="{{ rev1_img_url }}"
+              alt="Fotografie od zákaznice Petra K. s nasazenými perlově bílými brýlemi VeaSkin pod očima"
+              width="600"
+              height="450"
+              loading="lazy"
+            >
           </div>
-          <p class="vs-rev-text">
-            „Ranní káva a VeaSkin brýle je skvělá kombinace. Oči jsou po ránu hned otevřené a svěží, kruhy jsou světlejší už po deseti dnech a korektor už skoro nepotřebuji.“
+          <div class="vs-review-item__top">
+            <span class="vs-stars" aria-label="Hodnocení 5 z 5">★★★★★</span>
+            <span class="vs-verified-tag">✓ Ověřený nákup</span>
+          </div>
+          <p class="vs-review-item__quote">
+            „Nejlepší na nich je, že sedí jen pod očima a normálně přes ně vidím. Ráno si udělám čaj, nasadím brýle na 10 minut a otoky pod očima mizí před očima. Korektor už přes týden skoro nepoužívám.“
           </p>
-        </div>
-        <div class="vs-rev-meta">Zakoupeno: 1× VeaSkin Brýle na oční okolí</div>
-      </article>
-
-      <article class="vs-rev-card">
-        <div>
-          <div class="vs-rev-top">
-            <div class="vs-rev-user">
-              <div class="vs-rev-avatar" aria-hidden="true">MN</div>
-              <div>
-                <div class="vs-rev-name">Martin N.</div>
-                <div class="vs-rev-verified">✓ Ověřený nákup</div>
-              </div>
-            </div>
-            <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
+          <div class="vs-review-item__author">
+            <strong>Petra K., 38 let</strong>
+            <span>• Praha</span>
           </div>
-          <p class="vs-rev-text">
-            „Objednal jsem manželce a je nadšená – nakonec jsem si je začal půjčovat i já k večerní práci u monitoru. Oči po nich tolik nepálí a přístroj se sám po 10 minutách vypne.“
-          </p>
-        </div>
-        <div class="vs-rev-meta">Zakoupeno: Samostatné brýle VeaSkin</div>
-      </article>
+        </article>
 
-      <article class="vs-rev-card">
-        <div>
-          <div class="vs-rev-top">
-            <div class="vs-rev-user">
-              <div class="vs-rev-avatar" aria-hidden="true">HV</div>
-              <div>
-                <div class="vs-rev-name">Hana V.</div>
-                <div class="vs-rev-verified">✓ Ověřený nákup</div>
-              </div>
-            </div>
-            <span class="vs-stars" aria-label="5 z 5 hvězdiček">★★★★★</span>
+        <article class="vs-review-item">
+          <div class="vs-review-item__photo">
+            <img
+              src="{{ rev2_img_url }}"
+              alt="Fotografie otevřených brýlí VeaSkin s průhlednými nožičkami u ranního cappuccina"
+              width="600"
+              height="450"
+              loading="lazy"
+            >
           </div>
-          <p class="vs-rev-text">
-            „Mikroproudy jsou velmi jemné a příjemně vibrují. Efekt je nesrovnatelně trvalejší než u jednorázových polštářků pod oči. Zlepšení je viditelné i na fotkách.“
+          <div class="vs-review-item__top">
+            <span class="vs-stars" aria-label="Hodnocení 5 z 5">★★★★★</span>
+            <span class="vs-verified-tag">✓ Ověřený nákup</span>
+          </div>
+          <p class="vs-review-item__quote">
+            „Vzala jsem dvoje brýle – jedny pro sebe a druhé pro ségru. Jemné teplo a vibrace jsou neuvěřitelně příjemné, vůbec netlačí na nos a moc mě potěšil i přiložený e-book Oči bez stínů.“
           </p>
-        </div>
-        <div class="vs-rev-meta">Zakoupeno: 1× VeaSkin Brýle na oční okolí</div>
-      </article>
+          <div class="vs-review-item__author">
+            <strong>Lenka M., 44 let</strong>
+            <span>• Brno • 2 ks VeaSkin</span>
+          </div>
+        </article>
+
+        <article class="vs-review-item">
+          <div class="vs-review-item__photo">
+            <img
+              src="{{ rev3_img_url }}"
+              alt="Ranní rituál s brýlemi VeaSkin od zákaznice Monika D."
+              width="600"
+              height="450"
+              loading="lazy"
+            >
+          </div>
+          <div class="vs-review-item__top">
+            <span class="vs-stars" aria-label="Hodnocení 5 z 5">★★★★★</span>
+            <span class="vs-verified-tag">✓ Ověřený nákup</span>
+          </div>
+          <p class="vs-review-item__quote">
+            „Celý den koukám do počítače a večer i ráno jsem mívala těžké, nateklé oči. Těch 10 minut s VeaSkin je teď můj nejoblíbenější rituál – brýle se samy vypnou a pohled vypadá hned odpočatě.“
+          </p>
+          <div class="vs-review-item__author">
+            <strong>Monika D., 51 let</strong>
+            <span>• Olomouc</span>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- 9. GARANCE SPOKOJENOSTI 30 DNÍ -->
-  <section class="vs-section" style="padding-bottom: 60px;">
-    <div style="background: #15221B; color: #FAF8F5; border-radius: 20px; padding: 40px 24px; text-align: center; max-width: 860px; margin: 0 auto; box-shadow: 0 15px 35px -10px rgba(21, 34, 27, 0.25);">
-      <div style="font-size: 36px; margin-bottom: 12px;">🛡️</div>
-      <h3 style="font-family: var(--vs-heading); font-size: 26px; margin-bottom: 10px; color: #FFFFFF;">Vyzkoušejte VeaSkin 30 dní bez rizika</h3>
-      <p style="font-size: 14.5px; color: #A3BAAF; max-width: 580px; margin: 0 auto 24px; line-height: 1.6;">
-        Věříme v účinek červeného světla i jemných mikroproudů. Vyzkoušejte přístroj v pohodlí domova po dobu 30 dnů. Pokud nebudete naprosto spokojeni s výsledky, jednoduše nám jej zašlete zpět a vrátíme vám plnou částku.
-      </p>
-      <a href="#nabidka-box" class="vs-cta-btn" style="width: auto; padding: 14px 32px; background: #2F6F54; color: #FFFFFF; font-size: 13.5px; letter-spacing: 0.06em;">
-        OBJEDNAT SE ZÁRUKOU 30 DNÍ →
-      </a>
-    </div>
-  </section>
-
-
-  <!-- 10. FLOATING MOBILE STICKY BAR (Matching HaluFix pattern) -->
-  <aside class="vs-floating-sticky-bar" data-vs-sticky-bar aria-label="Rychlý nákup">
-    <div class="vs-floating-sticky-bar__inner">
+  <!-- Dokovaná spodní mobilní lišta (zobrazí se po odscrollování z Buy Boxu) -->
+  <aside class="vs-docked-sticky-bar" data-vs-sticky-bar aria-label="Rychlý přechod k objednávce">
+    <div class="vs-docked-sticky-bar__inner">
       <img
-        src="{{ hero_img_url }}"
+        src="{{ studio_hero_url }}"
         alt="VeaSkin brýle"
-        class="vs-floating-sticky-bar__thumb"
-        width="96"
-        height="96"
+        class="vs-docked-sticky-bar__thumb"
+        width="88"
+        height="88"
         loading="lazy"
       >
-      <div class="vs-floating-sticky-bar__info">
-        <div class="vs-floating-sticky-bar__title">VeaSkin – LED &amp; EMS brýle</div>
-        <div class="vs-floating-sticky-bar__pricing">
-          <span class="vs-floating-sticky-bar__price" data-vs-sticky-price>{{ p_base_fmt }}</span>
-          <span class="vs-floating-sticky-bar__badge">-30 %</span>
+      <div class="vs-docked-sticky-bar__info">
+        <div class="vs-docked-sticky-bar__title">VeaSkin LED &amp; EMS brýle</div>
+        <div class="vs-docked-sticky-bar__pricing">
+          <span class="vs-docked-sticky-bar__price" data-vs-sticky-price>{{ p_base_fmt }}</span>
+          <span class="vs-docked-sticky-bar__badge" data-vs-sticky-badge>{{ sticky_badge_text }}</span>
         </div>
       </div>
-      <a href="#nabidka-box" class="vs-floating-sticky-bar__btn" data-vs-sticky-cta>
-        KOUPIT
+      <a href="#nabidka-box" class="vs-docked-sticky-bar__btn" data-vs-sticky-cta>
+        Koupit
       </a>
     </div>
   </aside>
 </div>
 
 {% javascript %}
-  document.addEventListener('click', (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (!target) return;
+  (() => {
+    const formatKc = (amount) => {
+      return Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč';
+    };
 
-    // 1. Thumbnail switcher
-    const thumbBtn = target.closest('[data-vs-thumb]');
-    if (thumbBtn) {
-      const root = thumbBtn.closest('[data-vs-experience]');
-      const mainImg = root?.querySelector('[data-vs-main-img]');
-      const url = thumbBtn.getAttribute('data-vs-thumb');
-      if (mainImg && url) {
-        mainImg.setAttribute('src', url);
-        root.querySelectorAll('[data-vs-thumb]').forEach((btn) => {
-          const active = btn === thumbBtn;
-          btn.classList.toggle('is-active', active);
-          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-      }
-      return;
-    }
-
-    // 2. Quantity selector & dynamic price calculation
-    const qtyBtn = target.closest('[data-vs-qty-btn]');
-    const qtyPill = target.closest('[data-vs-qty-pill]');
-
-    if (qtyBtn || qtyPill) {
-      const root = (qtyBtn || qtyPill).closest('[data-vs-experience]');
+    const updateQuantityState = (root, nextQty) => {
       if (!root) return;
+      const qty = Math.max(1, Math.min(10, nextQty));
+
+      const unitPrice = Number(root.getAttribute('data-unit-price') || 1329);
+      const comparePrice = Number(root.getAttribute('data-compare-price') || 1899);
+      const discountPct = root.getAttribute('data-discount-pct') || '30';
+      const badgePrefix = root.getAttribute('data-badge-prefix') || '★ Ušetříte';
+
+      const totalCurrent = unitPrice * qty;
+      const totalCompare = comparePrice * qty;
+      const totalSave = Math.max(0, totalCompare - totalCurrent);
 
       const qtyValEl = root.querySelector('[data-vs-qty-val]');
       const qtyInput = root.querySelector('[data-vs-form-qty]');
-      const ctaMainEl = root.querySelector('[data-vs-cta-main]');
       const priceDisplayEl = root.querySelector('[data-vs-price-display]');
       const compareDisplayEl = root.querySelector('[data-vs-compare-display]');
       const saveDisplayEl = root.querySelector('[data-vs-save-display]');
-      const pills = root.querySelectorAll('[data-vs-qty-pill]');
-
-      const unitPrice = 1329;
-      const comparePrice = 1899;
-
-      let currentQty = parseInt(qtyInput ? qtyInput.value : '1', 10) || 1;
-
-      if (qtyBtn) {
-        const action = qtyBtn.getAttribute('data-vs-qty-btn');
-        if (action === 'plus') currentQty += 1;
-        if (action === 'minus') currentQty -= 1;
-      } else if (qtyPill) {
-        const pQty = parseInt(qtyPill.getAttribute('data-vs-qty-pill'), 10);
-        if (!isNaN(pQty)) currentQty = pQty;
-      }
-
-      currentQty = Math.max(1, Math.min(10, currentQty));
-
-      if (qtyValEl) qtyValEl.textContent = String(currentQty);
-      if (qtyInput) qtyInput.value = String(currentQty);
-
-      const totalCurrent = unitPrice * currentQty;
-      const totalCompare = comparePrice * currentQty;
-      const totalSave = totalCompare - totalCurrent;
-
-      const fmt = (val) => val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč';
-
-      if (ctaMainEl) ctaMainEl.textContent = `PŘIDAT DO KOŠÍKU — ${fmt(totalCurrent)}`;
-      if (priceDisplayEl) priceDisplayEl.textContent = fmt(totalCurrent);
-      if (compareDisplayEl) compareDisplayEl.textContent = fmt(totalCompare);
-      if (saveDisplayEl) saveDisplayEl.textContent = `Ušetříte ${fmt(totalSave)}`;
+      const ctaLabelEl = root.querySelector('[data-vs-cta-label]');
       const stickyPriceEl = root.querySelector('[data-vs-sticky-price]');
-      if (stickyPriceEl) stickyPriceEl.textContent = fmt(totalCurrent);
 
-      pills.forEach((pill) => {
-        const pillVal = parseInt(pill.getAttribute('data-vs-qty-pill'), 10);
-        const active = pillVal === currentQty;
+      if (qtyValEl) qtyValEl.textContent = String(qty);
+      if (qtyInput instanceof HTMLInputElement) qtyInput.value = String(qty);
+      if (priceDisplayEl) priceDisplayEl.textContent = formatKc(totalCurrent);
+      if (compareDisplayEl) compareDisplayEl.textContent = formatKc(totalCompare);
+      if (saveDisplayEl) {
+        saveDisplayEl.textContent = `${badgePrefix} ${formatKc(totalSave)} (−${discountPct} %)`;
+      }
+      if (ctaLabelEl) {
+        const ksText = qty > 1 ? ` (${qty} ks)` : '';
+        ctaLabelEl.textContent = `Přidat do košíku${ksText} — ${formatKc(totalCurrent)}`;
+      }
+      if (stickyPriceEl) stickyPriceEl.textContent = formatKc(totalCurrent);
+
+      for (const pill of root.querySelectorAll('[data-vs-qty-pill]')) {
+        const pillQty = parseInt(pill.getAttribute('data-vs-qty-pill') || '0', 10);
+        const active = pillQty === qty;
         pill.classList.toggle('is-active', active);
         pill.setAttribute('aria-checked', active ? 'true' : 'false');
-      });
-
-      return;
-    }
-  });
-
-  // 4. Horizontal Steps Swipe Slider sync
-  const initStepsSlider = () => {
-    document.querySelectorAll('[data-vs-steps-slider]').forEach((slider) => {
-      const track = slider.querySelector('[data-vs-steps-track]');
-      const dots = slider.querySelectorAll('[data-vs-step-dot]');
-      const cards = slider.querySelectorAll('[data-vs-step-card]');
-      if (!track || !dots.length) return;
-
-      const updateActiveDot = () => {
-        const scrollLeft = track.scrollLeft;
-        const width = track.clientWidth;
-        let activeIndex = Math.round(scrollLeft / (track.scrollWidth - width) * (cards.length - 1));
-        activeIndex = Math.max(0, Math.min(cards.length - 1, activeIndex));
-
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('is-active', idx === activeIndex);
-          dot.setAttribute('aria-selected', idx === activeIndex ? 'true' : 'false');
-        });
-      };
-
-      track.addEventListener('scroll', updateActiveDot, { passive: true });
-
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          const idx = parseInt(dot.getAttribute('data-vs-step-dot'), 10);
-          if (!isNaN(idx) && cards[idx]) {
-            cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-          }
-        });
-      });
-    });
-  };
-  initStepsSlider();
-
-  // 3. Interactive Before / After range slider
-  document.addEventListener('input', (event) => {
-    const input = event.target instanceof HTMLInputElement ? event.target : null;
-    if (!input || !input.hasAttribute('data-vs-ba-range')) return;
-    const viewer = input.closest('[data-vs-ba-viewer]');
-    if (!viewer) return;
-    const val = Number(input.value);
-    const beforeImg = viewer.querySelector('[data-vs-ba-before]');
-    const line = viewer.querySelector('[data-vs-ba-line]');
-    const knob = viewer.querySelector('[data-vs-ba-knob]');
-    if (beforeImg instanceof HTMLElement) {
-      beforeImg.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
-    }
-    if (line instanceof HTMLElement) {
-      line.style.left = `${val}%`;
-    }
-    if (knob instanceof HTMLElement) {
-      knob.style.left = `${val}%`;
-    }
-  });
-  // 5. Floating Mobile Sticky Bar show/hide observer
-  const initStickyBar = () => {
-    const stickyBar = document.querySelector('[data-vs-sticky-bar]');
-    const buyBox = document.querySelector('#nabidka-box') || document.querySelector('.vs-single-offer-card');
-    if (!stickyBar || !buyBox) return;
-
-    const checkVisibility = () => {
-      const rect = buyBox.getBoundingClientRect();
-      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!isInView && window.scrollY > 300) {
-        stickyBar.classList.add('is-visible');
-      } else {
-        stickyBar.classList.remove('is-visible');
       }
     };
 
-    window.addEventListener('scroll', checkVisibility, { passive: true });
-    checkVisibility();
+    document.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
 
-    // Smooth scroll and gentle pulse on target when clicking KOUPIT
-    stickyBar.addEventListener('click', (e) => {
-      const cta = e.target.closest('[data-vs-sticky-cta]');
-      if (cta) {
-        e.preventDefault();
-        const targetEl = document.querySelector('#nabidka-box');
-        if (targetEl) {
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          targetEl.classList.add('is-highlighted');
-          setTimeout(() => targetEl.classList.remove('is-highlighted'), 1200);
+      // 1. Přepínání fotografií v galerii
+      const thumbBtn = target.closest('[data-vs-thumb]');
+      if (thumbBtn) {
+        const root = thumbBtn.closest('[data-vs-experience]');
+        const mainImg = root?.querySelector('[data-vs-main-img]');
+        const url = thumbBtn.getAttribute('data-vs-thumb');
+        if (mainImg && url) {
+          mainImg.setAttribute('src', url);
+          root.querySelectorAll('[data-vs-thumb]').forEach((btn) => {
+            const active = btn === thumbBtn;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+        }
+        return;
+      }
+
+      // 2. Výběr množství (− / + stepper a rychlá tlačítka 1 ks / 2 ks / 3 ks)
+      const qtyBtn = target.closest('[data-vs-qty-btn]');
+      const qtyPill = target.closest('[data-vs-qty-pill]');
+      if (qtyBtn || qtyPill) {
+        const root = (qtyBtn || qtyPill).closest('[data-vs-experience]');
+        if (!root) return;
+        const qtyInput = root.querySelector('[data-vs-form-qty]');
+        let currentQty = parseInt(qtyInput instanceof HTMLInputElement ? qtyInput.value : '1', 10) || 1;
+
+        if (qtyBtn) {
+          const action = qtyBtn.getAttribute('data-vs-qty-btn');
+          if (action === 'plus') currentQty += 1;
+          if (action === 'minus') currentQty -= 1;
+        } else if (qtyPill) {
+          const parsed = parseInt(qtyPill.getAttribute('data-vs-qty-pill') || '1', 10);
+          if (!Number.isNaN(parsed)) currentQty = parsed;
+        }
+
+        updateQuantityState(root, currentQty);
+        return;
+      }
+
+      // 3. Plynulé odscrollování k nákupní zóně
+      const scrollTrigger = target.closest('[data-vs-sticky-cta], [data-vs-scroll-buy]');
+      if (scrollTrigger) {
+        event.preventDefault();
+        const buyZone = document.querySelector('#nabidka-box');
+        if (buyZone) {
+          buyZone.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          buyZone.classList.add('is-highlighted');
+          setTimeout(() => buyZone.classList.remove('is-highlighted'), 950);
         }
       }
     });
-  };
-  initStickyBar();
+
+    // Volitelné automatické přidání digitálního produktu e-booku (0 Kč), pokud je spárován v editoru
+    document.addEventListener('submit', (event) => {
+      const form = event.target instanceof HTMLFormElement ? event.target : null;
+      if (!form || form.getAttribute('data-type') !== 'add-to-cart-form') return;
+      const root = form.closest('[data-vs-experience]');
+      const ebookVarId = root?.getAttribute('data-ebook-variant-id');
+      if (!ebookVarId) return;
+
+      setTimeout(async () => {
+        try {
+          const cartRes = await fetch('/cart.js');
+          if (cartRes.ok) {
+            const cartData = await cartRes.json();
+            const alreadyInCart = (cartData.items || []).some((item) => String(item.variant_id) === String(ebookVarId));
+            if (alreadyInCart) return;
+          }
+          await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: [{ id: Number(ebookVarId), quantity: 1 }] }),
+          });
+        } catch {
+          // E-book je doručen automaticky e-mailem
+        }
+      }, 280);
+    });
+
+    // Interaktivní posuvník Před / Po
+    document.addEventListener('input', (event) => {
+      const input = event.target instanceof HTMLInputElement ? event.target : null;
+      if (!input || !input.hasAttribute('data-vs-ba-range')) return;
+      const viewer = input.closest('[data-vs-ba-viewer]');
+      if (!viewer) return;
+      const val = Number(input.value);
+      const beforeImg = viewer.querySelector('[data-vs-ba-before]');
+      const line = viewer.querySelector('[data-vs-ba-line]');
+      const knob = viewer.querySelector('[data-vs-ba-knob]');
+      if (beforeImg instanceof HTMLElement) {
+        beforeImg.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
+      }
+      if (line instanceof HTMLElement) {
+        line.style.left = `${val}%`;
+      }
+      if (knob instanceof HTMLElement) {
+        knob.style.left = `${val}%`;
+      }
+    });
+
+    // Zobrazení dokované spodní lišty po odscrollování z Buy Boxu
+    const initStickyBar = () => {
+      const stickyBar = document.querySelector('[data-vs-sticky-bar]');
+      const buyBox = document.querySelector('#nabidka-box');
+      if (!stickyBar || !buyBox) return;
+
+      const checkVisibility = () => {
+        const rect = buyBox.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 80;
+        if (!isInView && window.scrollY > 320) {
+          stickyBar.classList.add('is-visible');
+        } else {
+          stickyBar.classList.remove('is-visible');
+        }
+      };
+
+      window.addEventListener('scroll', checkVisibility, { passive: true });
+      checkVisibility();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStickyBar, { once: true });
+    } else {
+      initStickyBar();
+    }
+  })();
 {% endjavascript %}
 
 {% schema %}
 {
-  "name": "VeaSkin Produktová Sekce",
+  "name": "VeaSkin Produkt (Pásy)",
   "settings": [
     {
       "type": "text",
       "id": "product_heading",
       "label": "Hlavní nadpis produktu",
-      "default": "LED & EMS Brýle na oční okolí"
+      "default": "VeaSkin LED & EMS brýle na oční okolí"
+    },
+    {
+      "type": "textarea",
+      "id": "product_subtitle",
+      "label": "Podnadpis pod názvem produktu",
+      "default": "Svěží a odpočatý pohled za 10 minut denně – bez otoků a vrstvy korektoru. Otevřená konstrukce sedí pouze pod očima, takže přes brýle normálně vidíte."
     },
     {
       "type": "header",
-      "content": "Pruh důvěryhodnosti (hvězdičky nad 1. sekcí)"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_trust_bar",
-      "label": "Zobrazit pruh s hodnocením nad 1. sekcí",
-      "default": true
+      "content": "Dárek k brýlím: E-book „Oči bez stínů“"
     },
     {
       "type": "text",
-      "id": "trust_rating",
-      "label": "Hodnocení",
-      "default": "4,9/5"
+      "id": "ebook_title",
+      "label": "Název e-booku",
+      "default": "E-book „Oči bez stínů“"
     },
     {
       "type": "text",
-      "id": "trust_count",
-      "label": "Počet zákaznic / recenzí",
-      "default": "180+ ověřených recenzí"
+      "id": "ebook_value",
+      "label": "Původní hodnota e-booku",
+      "default": "290 Kč"
     },
     {
-      "type": "text",
-      "id": "trust_tagline",
-      "label": "Doplňující text",
-      "default": "Doprava zdarma"
+      "type": "textarea",
+      "id": "ebook_desc",
+      "label": "Popis e-booku",
+      "default": "Praktický průvodce ranní péčí a lymfatickými technikami pro jasný pohled bez tmavých kruhů a otoků – ihned po objednání do e-mailu."
+    },
+    {
+      "type": "product",
+      "id": "ebook_product",
+      "label": "Volitelný digitální produkt e-booku v Shopify (0 Kč)"
+    },
+    {
+      "type": "header",
+      "content": "CRO varianta štítku úspory"
+    },
+    {
+      "type": "select",
+      "id": "offer_badge_variant",
+      "label": "Styl štítku vedle ceny (pro A/B testování)",
+      "default": "combined",
+      "options": [
+        {
+          "value": "combined",
+          "label": "Kombinovaný (★ Ušetříte + sleva %)"
+        },
+        {
+          "value": "social",
+          "label": "Sociální důkaz (★ Bestseller • Ušetříte)"
+        },
+        {
+          "value": "savings",
+          "label": "Čistá úspora (Ušetříte + sleva %)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Vlastní fotografie (volitelné přepsání)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hlavní studiová fotografie produktu"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image",
+      "label": "Lifestylová fotografie (ranní rituál)"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "Fotografie Den 0 – Před"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "Fotografie Den 14 – Po"
     }
   ],
   "presets": [
     {
-      "name": "VeaSkin Produktová Sekce"
+      "name": "VeaSkin Produkt (Pásy)"
     }
   ]
 }

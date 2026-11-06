@@ -1,70 +1,75 @@
+<!-- ==========================================================================
+     SEKCE 9: ČASTO KLADENÉ OTÁZKY (ČISTÝ LINKOVÝ AKORDEON NA BÍLÉM PÁSU)
+     ========================================================================== -->
 <div class="vs-shell">
-  <section class="vs-section" id="dotazy">
-    <div class="vs-center-head">
-      <span class="vs-kicker">💬 Vše, co potřebujete vědět</span>
-      <h2 class="vs-heading">{{ section.settings.heading }}</h2>
-    </div>
+  <section class="vs-band vs-band--white" id="dotazy">
+    <div class="vs-container">
+      <div class="vs-section-head vs-section-head--center">
+        <span class="vs-kicker">Vše pro váš klidný nákup</span>
+        <h2 class="vs-section-heading">{{ section.settings.heading | default: 'Často kladené otázky' }}</h2>
+      </div>
 
-    <div class="vs-faq-wrap" data-vs-faq-group>
-      <details class="vs-faq-card" open>
-        <summary class="vs-faq-summary">
-          <span>Jak se přístroj používá?</span>
-          <span class="vs-faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="vs-faq-body">
-          <p>Důkladně si očistěte obličej a na oblast pod očima naneste malé množství oblíbeného očního krému nebo séra. Nasaďte si brýle, zapněte je stisknutím tlačítka a zvolte požadovaný režim a intenzitu. Přístroj nechte působit 10 minut - po uplynutí této doby se automaticky sám vypne.</p>
-        </div>
-      </details>
+      <div class="vs-faq-list" data-vs-faq-group>
+        <details class="vs-faq-item" open>
+          <summary class="vs-faq-item__summary">
+            <span>Vidím přes brýle během používání normálně?</span>
+            <span class="vs-faq-item__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="vs-faq-item__body">
+            <p>Ano. VeaSkin má otevřenou ergonomickou konstrukci s vysokým ostrým obloukem nad nosem a průhlednými nožičkami, takže sedí výhradně pod očima na lícních kostech. Oči zůstávají zcela volné – během 10minutové péče si můžete v klidu vychutnat ranní kávu, číst nebo vyřizovat zprávy.</p>
+          </div>
+        </details>
 
-      <details class="vs-faq-card">
-        <summary class="vs-faq-summary">
-          <span>Za jak dlouho uvidím výsledky?</span>
-          <span class="vs-faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="vs-faq-body">
-          <p>Pocit osvěžení, uvolnění očního okolí a zmírnění ranních otoků pocítíte již po prvním 10minutovém ošetření. Dlouhodobé a viditelné výsledky, jako je redukce tmavých kruhů a vyhlazení jemných vrásek, se obvykle dostavují po 2 až 3 týdnech pravidelného každodenního používání.</p>
-        </div>
-      </details>
+        <details class="vs-faq-item">
+          <summary class="vs-faq-item__summary">
+            <span>Za jak dlouho uvidím první výsledky?</span>
+            <span class="vs-faq-item__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="vs-faq-item__body">
+            <p>Příjemnou úlevu od pnutí a splasknutí ranních otoků pocítíte už po prvních 10 minutách díky jemné mikromasáži a teplu. Viditelné projasnění kruhů pod očima a zpevnění jemné pleti zaznamenává většina žen po 14 dnech pravidelného ranního rituálu.</p>
+          </div>
+        </details>
 
-      <details class="vs-faq-card">
-        <summary class="vs-faq-summary">
-          <span>Poškozuje červené světlo moje oči?</span>
-          <span class="vs-faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="vs-faq-body">
-          <p>Ne, červené světlo přístroje je zcela bezpečné a splňuje přísné bezpečnostní normy. Přístroj je speciálně zkonstruován pro citlivou oblast kolem očí a světlo působí cíleně na pokožku, nikoli přímo do zornice. Během ošetření můžete mít oči otevřené a pohodlně se věnovat čtení nebo relaxaci.</p>
-        </div>
-      </details>
+        <details class="vs-faq-item">
+          <summary class="vs-faq-item__summary">
+            <span>Je červené LED světlo a EMS bezpečné pro citlivé oční okolí?</span>
+            <span class="vs-faq-item__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="vs-faq-item__body">
+            <p>Ano, terapie červeným světlem (630–660 nm) neobsahuje žádné UV záření a působí cíleně na pokožku pod očima, nikoli do zornic. Intenzitu mikroproudů a jemných vibrací si navíc snadno přizpůsobíte podle vlastní citlivosti.</p>
+          </div>
+        </details>
 
-      <details class="vs-faq-card">
-        <summary class="vs-faq-summary">
-          <span>Jak často bych měl/a používat přístroj?</span>
-          <span class="vs-faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="vs-faq-body">
-          <p>Pro optimální výsledky doporučujeme přístroj používat jednou denně po dobu 10 minut (například ráno pro rychlé odstranění otoků nebo večer v rámci relaxační rutiny). Pravidelnost je klíčem k dlouhodobým výsledkům.</p>
-        </div>
-      </details>
+        <details class="vs-faq-item">
+          <summary class="vs-faq-item__summary">
+            <span>Mám před nasazením použít oční sérum nebo krém?</span>
+            <span class="vs-faq-item__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="vs-faq-item__body">
+            <p>Doporučujeme na vyčištěnou pleť pod očima nanést kapku vašeho oblíbeného hydratačního séra či lehkého krému na vodní bázi. Podpoříte tím přirozenou vodivost jemných EMS mikroproudů a znásobíte vstřebání pečujících složek.</p>
+          </div>
+        </details>
 
-      <details class="vs-faq-card">
-        <summary class="vs-faq-summary">
-          <span>Mohu jej používat spolu s jinými produkty pro péči o pleť?</span>
-          <span class="vs-faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="vs-faq-body">
-          <p>Ano, dokonce to vřele doporučujeme! Použití hydratačního očního krému nebo séra na vodní bázi před ošetřením zajišťuje správnou vodivost EMS mikroproudů a pomáhá aktivním látkám proniknout hlouběji do pokožky.</p>
-        </div>
-      </details>
+        <details class="vs-faq-item">
+          <summary class="vs-faq-item__summary">
+            <span>Jak funguje 30 dní na vyzkoušení bez rizika?</span>
+            <span class="vs-faq-item__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="vs-faq-item__body">
+            <p>Chceme, abyste si účinek VeaSkin zamilovala ve svém vlastním ranním tempu. Od převzetí zásilky máte celých 30 dní na domácí testování u ranní kávy. Pokud s výsledky nebudete spokojená, stačí napsat naší české podpoře a vrátíme vám 100 % částky.</p>
+          </div>
+        </details>
 
-      <details class="vs-faq-card">
-        <summary class="vs-faq-summary">
-          <span>Je přístroj vhodný pro všechny typy pleti?</span>
-          <span class="vs-faq-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="vs-faq-body">
-          <p>Ano, přístroj je navržen tak, aby byl šetrný a bezpečný pro všechny typy pleti, včetně suché, mastné, smíšené i citlivé pokožky. Intenzitu mikroproudů si jednoduše nastavíte podle své citlivosti.</p>
-        </div>
-      </details>
+        <details class="vs-faq-item">
+          <summary class="vs-faq-item__summary">
+            <span>Jak rychle objednávku odešlete, co obsahuje balení a jak získám e-book?</span>
+            <span class="vs-faq-item__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="vs-faq-item__body">
+            <p>Brýle VeaSkin v perlově bílé barvě držíme skladem v ČR a odesíláme s dopravou zdarma do 24 hodin. V balení najdete samotné brýle VeaSkin, ochranné pouzdro a nabíjecí USB-C kabel. Digitální e-book „Oči bez stínů“ obdržíte zdarma automaticky do e-mailu ihned po dokončení objednávky.</p>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 </div>
@@ -75,26 +80,26 @@
     if (!details || !details.open) return;
     const group = details.closest('[data-vs-faq-group]');
     if (!group) return;
-    group.querySelectorAll('details.vs-faq-card[open]').forEach((item) => {
+    for (const item of group.querySelectorAll('details.vs-faq-item[open]')) {
       if (item !== details) item.open = false;
-    });
+    }
   }, true);
 {% endjavascript %}
 
 {% schema %}
 {
-  "name": "VeaSkin Časté dotazy",
+  "name": "VeaSkin Často kladené otázky",
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "label": "Nadpis sekce",
-      "default": "Časté dotazy"
+      "default": "Často kladené otázky"
     }
   ],
   "presets": [
     {
-      "name": "VeaSkin Časté dotazy"
+      "name": "VeaSkin Často kladené otázky"
     }
   ]
 }

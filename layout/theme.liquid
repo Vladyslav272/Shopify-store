@@ -3,7 +3,7 @@
   {% if request.design_mode %}
     class="shopify-design-mode"
   {% endif %}
-  lang="{{ request.locale.iso_code }}"
+  lang="{{ request.locale.iso_code | default: 'cs' }}"
   dir="{{ request.locale.direction | default: 'ltr' }}"
 >
   <head>
@@ -33,10 +33,10 @@
     {%- render 'view-transition-opt-in' -%}
 
     {%- render 'meta-tags' -%}
-    <!-- Google Fonts: Lora Bold (Headings) + Plus Jakarta Sans (Body & UI, Czech latin-ext) -->
+    <!-- Google Fonts: Montserrat (Headings #15221B) + DM Sans (Body & UI, Czech latin-ext) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600..700;1,600..700&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     {%- render 'stylesheets' -%}
     {{ 'veaskin-design.css' | asset_url | stylesheet_tag }}
     {%- render 'card-hover-effect-styles' -%}
@@ -46,7 +46,7 @@
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
-    {% endif -%}
+    {% endif %}
 
     {{ content_for_header }}
   </head>
