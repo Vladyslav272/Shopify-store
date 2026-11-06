@@ -17,7 +17,7 @@
     assign logo_href = base_product_url
   endif
 
-  assign announcement_mode = section.settings.announcement_mode | default: 'static'
+  assign announcement_mode = section.settings.announcement_mode | default: 'rotate'
   assign static_msg_1 = section.settings.static_msg_1 | default: 'Doprava ZDARMA'
   assign static_msg_2 = section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
 
@@ -54,12 +54,15 @@
       {%- elsif announcement_mode == 'rotate' -%}
         <div class="vs-topbar-rotator" data-vs-topbar-rotator>
           <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
             <span>{{ rot_msg_1 }}</span>
           </div>
           <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
             <span>{{ rot_msg_2 }}</span>
           </div>
           <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
             <span>{{ rot_msg_3 }}</span>
           </div>
         </div>
@@ -361,9 +364,15 @@
       if (items.length <= 1) return;
       let currentIndex = 0;
       setInterval(() => {
-        items[currentIndex].classList.remove('is-active');
+        const prevItem = items[currentIndex];
+        prevItem.classList.remove('is-active');
+        prevItem.classList.add('is-leaving');
+        setTimeout(() => prevItem.classList.remove('is-leaving'), 450);
+
         currentIndex = (currentIndex + 1) % items.length;
-        items[currentIndex].classList.add('is-active');
+        const nextItem = items[currentIndex];
+        nextItem.classList.remove('is-leaving');
+        nextItem.classList.add('is-active');
       }, 4000);
     };
 
@@ -446,19 +455,19 @@
       "label": "Režim lišty",
       "options": [
         {
-          "value": "static",
-          "label": "Možnost A: Statická lišta (Doprava ZDARMA ✦ 30 dní bez rizika)"
+          "value": "rotate",
+          "label": "Střídání 3 zpráv po 4 vteřinách (výchozí)"
         },
         {
-          "value": "rotate",
-          "label": "Možnost B: Střídání 3 zpráv po 4 vteřinách"
+          "value": "static",
+          "label": "Statická lišta (Doprava ZDARMA ✦ 30 dní bez rizika)"
         },
         {
           "value": "marquee",
-          "label": "Možnost B: Plynulý běžící pás (Marquee)"
+          "label": "Plynulý běžící pás (Marquee)"
         }
       ],
-      "default": "static"
+      "default": "rotate"
     },
     {
       "type": "header",
