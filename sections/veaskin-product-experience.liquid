@@ -185,7 +185,7 @@
         <div class="vs-buy-panel" id="nabidka-box">
           <div class="vs-stock-line">
             <span class="vs-stock-line__dot" aria-hidden="true"></span>
-            <span>Skladem v ČR – ihned k odeslání</span>
+            <span>{{ section.settings.stock_text | default: 'Skladem – ihned k odeslání' }}</span>
             <span class="vs-stock-line__sep" aria-hidden="true">|</span>
             <span>Doprava zdarma</span>
           </div>
@@ -956,6 +956,12 @@
       "id": "product_subtitle",
       "label": "Podnadpis pod názvem produktu (2 řádky)",
       "default": "Svěží a odpočatý pohled za 10 minut denně – bez ranních otoků a vrstvy korektoru."
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Text dostupnosti / skladu",
+      "default": "Skladem – ihned k odeslání"
     },
     {
       "type": "header",
