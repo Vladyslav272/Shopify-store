@@ -1,20 +1,20 @@
 /* ==========================================================================
-   VeaSkin Official Design System – Botanical Eucalyptus & Silk Cream
+   VeaSkin Official Design System - Botanical Eucalyptus & Silk Cream
    Editorial Band Architecture (No Section Bubbles) + Volume Bundle D2C CRO
    ========================================================================== */
 
 :root {
   /* Oficiální barevné tokeny značky VeaSkin */
-  --vs-bg: #FAF8F5;            /* Silk Cream – primární pozadí e-shopu */
-  --vs-surface: #FFFFFF;       /* Pure White – čisté sekční pásy a aktivní prvky */
-  --vs-text: #15221B;          /* Deep Pine – hlavní text, nadpisy, horní lišta */
-  --vs-accent: #2F6F54;        /* Botanical Eucalyptus – hlavní CTA, aktivní prvky */
+  --vs-bg: #FAF8F5;            /* Silk Cream - primární pozadí e-shopu */
+  --vs-surface: #FFFFFF;       /* Pure White - čisté sekční pásy a aktivní prvky */
+  --vs-text: #15221B;          /* Deep Pine - hlavní text, nadpisy, horní lišta */
+  --vs-accent: #2F6F54;        /* Botanical Eucalyptus - hlavní CTA, aktivní prvky */
   --vs-accent-dark: #245842;   /* Tmavší odstín pro hover/active */
-  --vs-soft-mint: #EAF5EE;     /* Soft Mint – akcentní pásy, aktivní bundle, štítky */
+  --vs-soft-mint: #EAF5EE;     /* Soft Mint - akcentní pásy, aktivní bundle, štítky */
   --vs-green-bg: #EAF5EE;      /* Alias pro zpětnou kompatibilitu */
-  --vs-gold: #C29A5B;          /* Champagne Gold – hvězdičky hodnocení, prémiový akcent */
+  --vs-gold: #C29A5B;          /* Champagne Gold - hvězdičky hodnocení, prémiový akcent */
   --vs-amber: #C29A5B;         /* Alias pro Judge.me a starší snippety */
-  --vs-border: #E8E2D8;        /* Warm Border – jemné 1px architektonické linky */
+  --vs-border: #E8E2D8;        /* Warm Border - jemné 1px architektonické linky */
 
   /* Pomocné textové odstíny odvozené z Deep Pine */
   --vs-muted: #4A5B52;
@@ -257,7 +257,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   }
 }
 
-/* Mobilní vysouvací navigace – čisté linkové položky bez bublin */
+/* Mobilní vysouvací navigace - čisté linkové položky bez bublin */
 .vs-mobile-drawer:not([open]) {
   display: none;
 }
@@ -661,7 +661,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   }
 }
 
-/* Pravý sloupec – Kompaktní Buy Box pro okamžitou konverzi */
+/* Pravý sloupec - Kompaktní Buy Box pro okamžitou konverzi */
 .vs-buy-panel {
   display: flex;
   flex-direction: column;
@@ -1185,7 +1185,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 /* ==========================================================================
-   SEKCE 6: JAK BRÝLE POUŽÍVAT (EDITORIAL ČÍSLOVÁNÍ 01–03 BEZ BUBLIN)
+   SEKCE 6: JAK BRÝLE POUŽÍVAT (EDITORIAL ČÍSLOVÁNÍ 01-03 BEZ BUBLIN)
    ========================================================================== */
 
 .vs-steps-editorial {

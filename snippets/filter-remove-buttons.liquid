@@ -32,11 +32,11 @@
         on:keydown="/removeFilter?form="
       >
         {%- if filter.min_value.value != null and filter.max_value.value != null %}
-          <bdi>{{ filter.min_value.value | money }}–{{ filter.max_value.value | money }}</bdi>
+          <bdi>{{ filter.min_value.value | money }}-{{ filter.max_value.value | money }}</bdi>
         {%- elsif filter.min_value.value != null -%}
-          <bdi>{{ filter.min_value.value | money }}–{{ filter.range_max | money }}</bdi>
+          <bdi>{{ filter.min_value.value | money }}-{{ filter.range_max | money }}</bdi>
         {%- elsif filter.max_value.value != null -%}
-          <bdi>{{ 0 | money }}–{{ filter.max_value.value | money }}</bdi>
+          <bdi>{{ 0 | money }}-{{ filter.max_value.value | money }}</bdi>
         {%- endif -%}
         <span class="svg-wrapper svg-wrapper--smaller">
           {{- 'icon-filters-close.svg' | inline_asset_content -}}

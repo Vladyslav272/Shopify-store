@@ -6,7 +6,7 @@ import { getScrollTop, scrollTo } from '@theme/scroll-container';
  * A custom element that manages a dialog.
  *
  * @typedef {object} Refs
- * @property {HTMLDialogElement} dialog – The dialog element.
+ * @property {HTMLDialogElement} dialog - The dialog element.
  *
  * @extends Component<Refs>
  */

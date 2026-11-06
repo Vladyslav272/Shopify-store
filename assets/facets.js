@@ -953,7 +953,7 @@ class FacetStatusComponent extends Component {
     const currency = facetStatus.dataset.currency || '';
     const minInputNum = this.#parseCents(minInputValue, '0', currency);
     const maxInputNum = this.#parseCents(maxInputValue, facetStatus.dataset.rangeMax, currency);
-    facetStatus.innerHTML = `<bdi>${this.#formatMoney(minInputNum)}–${this.#formatMoney(maxInputNum)}</bdi>`;
+    facetStatus.innerHTML = `<bdi>${this.#formatMoney(minInputNum)}-${this.#formatMoney(maxInputNum)}</bdi>`;
   }
 
   /**

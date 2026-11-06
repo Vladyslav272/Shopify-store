@@ -45,12 +45,12 @@
         >
           {%- if filter.min_value.value != null or filter.max_value.value != null %}
             {%- if filter.min_value.value != null and filter.max_value.value != null %}
-              <bdi>{{ filter.min_value.value | money | strip_html }}–{{ filter.max_value.value | money | strip_html }}</bdi>
+              <bdi>{{ filter.min_value.value | money | strip_html }}-{{ filter.max_value.value | money | strip_html }}</bdi>
             {%- elsif filter.min_value.value != null -%}
-              <bdi>{{ filter.min_value.value | money | strip_html }}–{{ filter.range_max | money | strip_html }}</bdi>
+              <bdi>{{ filter.min_value.value | money | strip_html }}-{{ filter.range_max | money | strip_html }}</bdi>
 
             {%- elsif filter.max_value.value != null -%}
-              <bdi>{{ 0 | money | strip_html }}–{{ filter.max_value.value | money | strip_html }}</bdi>
+              <bdi>{{ 0 | money | strip_html }}-{{ filter.max_value.value | money | strip_html }}</bdi>
             {%- endif -%}
           {%- endif -%}
         </span>

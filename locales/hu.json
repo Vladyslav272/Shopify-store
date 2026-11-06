@@ -60,7 +60,7 @@
     "increase_quantity": "Mennyiség növelése",
     "quantity": "Mennyiség",
     "rating": "A termék értékelése: {{ rating }} / 5",
-    "nested_product": "{{ product_title }} – {{ parent_title }}",
+    "nested_product": "{{ product_title }} - {{ parent_title }}",
     "discount_menu": "Kedvezménykódok",
     "remove": "Eltávolítás",
     "view_pricing_info": "Árképzési adatok megtekintése",
@@ -257,7 +257,7 @@
     "at_price_each": "{{ price }}/db",
     "each": "{{ price }}/db",
     "each_abbreviation": "db",
-    "price_at": "–",
+    "price_at": "-",
     "price_range": "Árkategória",
     "cancel": "Mégse",
     "product_subtotal": "Termékek részösszege",
@@ -313,7 +313,7 @@
     }
   },
   "fields": {
-    "separator": "–"
+    "separator": "-"
   },
   "placeholders": {
     "password": "Jelszó",
