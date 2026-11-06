@@ -32,33 +32,6 @@
 
   assign p2_kc = section.settings.bundle_2_price_kc | default: 1990
   assign c2_kc = section.settings.bundle_2_compare_kc | default: 3420
-  assign p2_fmt = p2_kc | append: ' Kč'
-  if p2_kc >= 1000
-    assign p2_thousands = p2_kc | divided_by: 1000
-    assign p2_remainder = p2_kc | modulo: 1000
-    if p2_remainder < 10
-      assign p2_rem_str = '00' | append: p2_remainder
-    elsif p2_remainder < 100
-      assign p2_rem_str = '0' | append: p2_remainder
-    else
-      assign p2_rem_str = p2_remainder
-    endif
-    assign p2_fmt = p2_thousands | append: ' ' | append: p2_rem_str | append: ' Kč'
-  endif
-
-  assign c2_fmt = c2_kc | append: ' Kč'
-  if c2_kc >= 1000
-    assign c2_thousands = c2_kc | divided_by: 1000
-    assign c2_remainder = c2_kc | modulo: 1000
-    if c2_remainder < 10
-      assign c2_rem_str = '00' | append: c2_remainder
-    elsif c2_remainder < 100
-      assign c2_rem_str = '0' | append: c2_remainder
-    else
-      assign c2_rem_str = c2_remainder
-    endif
-    assign c2_fmt = c2_thousands | append: ' ' | append: c2_rem_str | append: ' Kč'
-  endif
 
   assign ebook_product = section.settings.ebook_product
   assign ebook_variant_id = ''
@@ -121,10 +94,14 @@
   id="veaskin-pdp"
   data-vs-experience
   data-ebook-variant-id="{{ ebook_variant_id }}"
+  data-p1-kc="{{ p1_kc }}"
+  data-c1-kc="{{ c1_kc }}"
+  data-p2-kc="{{ p2_kc }}"
+  data-c2-kc="{{ c2_kc }}"
 >
 
   <!-- ========================================================================
-       SEKCE 2: KOMPAKTNÍ NÁKUPNÍ SEKCE (BUY BOX + 2 HORIZONTÁLNÍ VOLUME KARTY)
+       SEKCE 2: KOMPAKTNÍ NÁKUPNÍ SEKCE (BUY BOX + MNOŽSTEVNÍ SLEVA + VOLIČ KUSŮ)
        ======================================================================== -->
   <section class="vs-band vs-band--white" id="top">
     <div class="vs-container vs-container--hero">
@@ -209,60 +186,64 @@
             {{ section.settings.product_subtitle | default: 'Svěží a odpočatý pohled za 10 minut denně – bez ranních otoků a vrstvy korektoru.' }}
           </p>
 
-          <!-- Volume Bundle Selector: 2 přehledné horizontální karty pod sebou přímo nad CTA -->
-          <div class="vs-bundle-selector" role="radiogroup" aria-label="Výběr balení VeaSkin">
-            <!-- Karta 1: 1× VeaSkin (Perlově bílá) – běžná cena za 1 kus -->
-            <button
-              type="button"
-              class="vs-bundle-card"
-              role="radio"
-              aria-checked="false"
-              data-vs-bundle-card
-              data-qty="1"
-              data-price="{{ p1_kc }}"
-              data-price-fmt="{{ p1_fmt }}"
-              data-compare-fmt="{{ c1_fmt }}"
-              data-badge-label="1× + E-book zdarma"
-            >
-              <div class="vs-bundle-card__left">
-                <span class="vs-bundle-card__radio" aria-hidden="true"></span>
-                <div class="vs-bundle-card__info">
-                  <span class="vs-bundle-card__title">1× VeaSkin (Perlově bílá)</span>
-                  <span class="vs-bundle-card__sub">+ E-book „Oči bez stínů“ zdarma • Doprava zdarma</span>
-                </div>
-              </div>
-              <div class="vs-bundle-card__right">
-                <span class="vs-bundle-card__price-old">{{ c1_fmt }}</span>
-                <span class="vs-bundle-card__price-now">{{ p1_fmt }}</span>
-              </div>
-            </button>
+          <!-- Přehledný řádek s cenou a dárkem e-booku zdarma -->
+          <div class="vs-price-row">
+            <span class="vs-price-row__current" data-vs-price-current>{{ p1_fmt }}</span>
+            <span class="vs-price-row__compare" data-vs-price-compare>{{ c1_fmt }}</span>
+            <span class="vs-price-row__ebook" data-vs-price-badge>+ E-book „Oči bez stínů“ zdarma</span>
+          </div>
 
-            <!-- Karta 2: 2× VeaSkin – Rituál ve dvou (Aktivní/vybraná, Soft Mint #EAF5EE, 2px rámeček #2F6F54) -->
-            <button
-              type="button"
-              class="vs-bundle-card vs-bundle-card--has-badge is-active"
-              role="radio"
-              aria-checked="true"
-              data-vs-bundle-card
-              data-qty="2"
-              data-price="{{ p2_kc }}"
-              data-price-fmt="{{ p2_fmt }}"
-              data-compare-fmt="{{ c2_fmt }}"
-              data-badge-label="Ušetříte 42 % + E-book"
-            >
-              <span class="vs-bundle-card__badge">NEJOBLÍBENĚJŠÍ • UŠETŘÍTE 42 %</span>
-              <div class="vs-bundle-card__left">
-                <span class="vs-bundle-card__radio" aria-hidden="true"></span>
-                <div class="vs-bundle-card__info">
-                  <span class="vs-bundle-card__title">2× VeaSkin – Rituál ve dvou</span>
-                  <span class="vs-bundle-card__sub">+ E-book „Oči bez stínů“ zdarma • Doprava zdarma</span>
-                </div>
-              </div>
-              <div class="vs-bundle-card__right">
-                <span class="vs-bundle-card__price-old">{{ c2_fmt }}</span>
-                <span class="vs-bundle-card__price-now">{{ p2_fmt }}</span>
-              </div>
-            </button>
+          <!-- 2. Informační box v barvě Soft Mint (#EAF5EE) s jemným rámečkem (#2F6F54) a ikonou dárku/lístku těsně nad voličem množství -->
+          <div class="vs-volume-mint-box" data-vs-mint-box>
+            <span class="vs-volume-mint-box__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                <rect x="2" y="7" width="20" height="5" rx="1"></rect>
+                <line x1="12" y1="22" x2="12" y2="7"></line>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+              </svg>
+            </span>
+            <div class="vs-volume-mint-box__content">
+              <p class="vs-volume-mint-box__title">Rituál ve dvou se slevou 42 %</p>
+              <p class="vs-volume-mint-box__text">
+                Při výběru 2 a více kusů zaplatíte za pár jen <strong>1 990 Kč</strong> (místo <s>3 420 Kč</s>) a dopravu máte zdarma.
+              </p>
+            </div>
+          </div>
+
+          <!-- 1. Čistý, moderní volič množství (Quantity Selector: tlačítka [ - ] 1 [ + ] v rámečku #E8E2D8 vedle popisku „Počet kusů:“) přímo nad CTA -->
+          <div class="vs-qty-bar">
+            <label class="vs-qty-bar__label" for="vs-qty-display-{{ section.id }}">Počet kusů:</label>
+            <div class="vs-qty-stepper" role="group" aria-label="Nastavení počtu kusů">
+              <button
+                type="button"
+                class="vs-qty-stepper__btn"
+                data-vs-qty-step="-1"
+                aria-label="Snížit počet kusů"
+              >
+                &minus;
+              </button>
+              <input
+                type="number"
+                id="vs-qty-display-{{ section.id }}"
+                class="vs-qty-stepper__value"
+                value="1"
+                min="1"
+                max="10"
+                inputmode="numeric"
+                aria-label="Počet kusů"
+                data-vs-qty-input
+              >
+              <button
+                type="button"
+                class="vs-qty-stepper__btn"
+                data-vs-qty-step="1"
+                aria-label="Zvýšit počet kusů"
+              >
+                +
+              </button>
+            </div>
           </div>
 
           <!-- Hlavní CTA tlačítko napojené na Shopify košík -->
@@ -272,7 +253,7 @@
               data-product-id="{{ target_product.id }}"
               data-product-url="{{ target_product.url }}"
               on:submit="/handleSubmit"
-              data-quantity-default="2"
+              data-quantity-default="1"
               data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
             >
               <div
@@ -294,7 +275,7 @@
                 <input
                   type="hidden"
                   name="quantity"
-                  value="2"
+                  value="1"
                   data-vs-form-qty
                 >
                 <span class="product-form-text__error hidden" ref="addToCartTextError">
@@ -310,7 +291,7 @@
                   {% unless first_variant.available %}disabled{% endunless %}
                 >
                   {%- if first_variant.available -%}
-                    <span data-vs-cta-label>Přidat do košíku — {{ p2_fmt }}</span>
+                    <span data-vs-cta-label>Přidat do košíku — {{ p1_fmt }}</span>
                   {%- else -%}
                     <span>Vyprodáno</span>
                   {%- endif -%}
@@ -319,7 +300,7 @@
             </product-form-component>
           {%- else -%}
             <button type="button" class="vs-cta-btn vs-cta-btn--main" data-vs-cta-btn>
-              <span data-vs-cta-label>Přidat do košíku — {{ p2_fmt }}</span>
+              <span data-vs-cta-label>Přidat do košíku — {{ p1_fmt }}</span>
             </button>
           {%- endif -%}
 
@@ -767,8 +748,8 @@
       <div class="vs-docked-sticky-bar__info">
         <div class="vs-docked-sticky-bar__title">VeaSkin LED &amp; EMS brýle</div>
         <div class="vs-docked-sticky-bar__pricing">
-          <span class="vs-docked-sticky-bar__price" data-vs-sticky-price>{{ p2_fmt }}</span>
-          <span class="vs-docked-sticky-bar__badge" data-vs-sticky-badge>Ušetříte 42 % + E-book</span>
+          <span class="vs-docked-sticky-bar__price" data-vs-sticky-price>{{ p1_fmt }}</span>
+          <span class="vs-docked-sticky-bar__badge" data-vs-sticky-badge>+ E-book zdarma</span>
         </div>
       </div>
       <a href="#nabidka-box" class="vs-docked-sticky-bar__btn" data-vs-sticky-cta>
@@ -780,22 +761,60 @@
 
 {% javascript %}
   (() => {
-    const selectBundleCard = (card) => {
-      if (!card) return;
-      const root = card.closest('[data-vs-experience]');
+    const formatKc = (val) => `${Math.round(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} Kč`;
+
+    const updateQuantityState = (root, rawQty) => {
       if (!root) return;
+      const qty = Math.max(1, Math.min(10, parseInt(String(rawQty), 10) || 1));
 
-      const qty = card.getAttribute('data-qty') || '1';
-      const priceFmt = card.getAttribute('data-price-fmt') || '1 329 Kč';
-      const badgeLabel = card.getAttribute('data-badge-label') || 'Doprava zdarma';
+      const p1 = Number(root.getAttribute('data-p1-kc')) || 1329;
+      const c1 = Number(root.getAttribute('data-c1-kc')) || 1899;
+      const p2 = Number(root.getAttribute('data-p2-kc')) || 1990;
+      const c2 = Number(root.getAttribute('data-c2-kc')) || 3420;
 
-      const qtyInput = root.querySelector('[data-vs-form-qty]');
+      // Při 2 a více kusech platí zvýhodněná cena 1 990 Kč za pár (995 Kč / ks)
+      let totalPrice = p1;
+      let totalCompare = c1;
+      if (qty === 2) {
+        totalPrice = p2;
+        totalCompare = c2;
+      } else if (qty > 2) {
+        const unitDiscounted = Math.round(p2 / 2);
+        const unitCompare = Math.round(c2 / 2);
+        totalPrice = unitDiscounted * qty;
+        totalCompare = unitCompare * qty;
+      }
+
+      const priceFmt = formatKc(totalPrice);
+      const compareFmt = formatKc(totalCompare);
+
+      const qtyDisplayInput = root.querySelector('[data-vs-qty-input]');
+      const formQtyInput = root.querySelector('[data-vs-form-qty]');
+      const priceCurrentEl = root.querySelector('[data-vs-price-current]');
+      const priceCompareEl = root.querySelector('[data-vs-price-compare]');
+      const priceBadgeEl = root.querySelector('[data-vs-price-badge]');
       const ctaLabelEl = root.querySelector('[data-vs-cta-label]');
       const stickyPriceEl = root.querySelector('[data-vs-sticky-price]');
       const stickyBadgeEl = root.querySelector('[data-vs-sticky-badge]');
+      const mintBox = root.querySelector('[data-vs-mint-box]');
 
-      if (qtyInput instanceof HTMLInputElement) {
-        qtyInput.value = qty;
+      if (qtyDisplayInput instanceof HTMLInputElement) {
+        qtyDisplayInput.value = String(qty);
+      }
+      if (formQtyInput instanceof HTMLInputElement) {
+        formQtyInput.value = String(qty);
+      }
+      if (priceCurrentEl) {
+        priceCurrentEl.textContent = priceFmt;
+      }
+      if (priceCompareEl) {
+        priceCompareEl.textContent = compareFmt;
+      }
+      if (priceBadgeEl) {
+        priceBadgeEl.textContent =
+          qty >= 2
+            ? '✓ Sleva 42 % aktivována + E-book zdarma'
+            : '+ E-book „Oči bez stínů“ zdarma';
       }
       if (ctaLabelEl) {
         ctaLabelEl.textContent = `Přidat do košíku — ${priceFmt}`;
@@ -804,13 +823,10 @@
         stickyPriceEl.textContent = priceFmt;
       }
       if (stickyBadgeEl) {
-        stickyBadgeEl.textContent = badgeLabel;
+        stickyBadgeEl.textContent = qty >= 2 ? 'Sleva 42 % + E-book' : '+ E-book zdarma';
       }
-
-      for (const item of root.querySelectorAll('[data-vs-bundle-card]')) {
-        const active = item === card;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-checked', active ? 'true' : 'false');
+      if (mintBox) {
+        mintBox.classList.toggle('is-active', qty >= 2);
       }
     };
 
@@ -835,14 +851,30 @@
         return;
       }
 
-      // 2. Přepínání 2 horizontálních karet množstevní slevy (1× vs. 2× VeaSkin)
-      const bundleCard = target.closest('[data-vs-bundle-card]');
-      if (bundleCard) {
-        selectBundleCard(bundleCard);
+      // 2. Tlačítka [ - ] a [ + ] u voliče množství
+      const stepBtn = target.closest('[data-vs-qty-step]');
+      if (stepBtn) {
+        const root = stepBtn.closest('[data-vs-experience]');
+        const qtyInput = root?.querySelector('[data-vs-qty-input]');
+        const delta = parseInt(stepBtn.getAttribute('data-vs-qty-step') || '0', 10);
+        const current = qtyInput instanceof HTMLInputElement ? parseInt(qtyInput.value, 10) || 1 : 1;
+        updateQuantityState(root, current + delta);
         return;
       }
 
-      // 3. Plynulé odscrollování k nákupní zóně
+      // 3. Kliknutí na Soft Mint info-box rychle nastaví 2 kusy, pokud je aktuálně 1 kus
+      const mintBox = target.closest('[data-vs-mint-box]');
+      if (mintBox) {
+        const root = mintBox.closest('[data-vs-experience]');
+        const qtyInput = root?.querySelector('[data-vs-qty-input]');
+        const current = qtyInput instanceof HTMLInputElement ? parseInt(qtyInput.value, 10) || 1 : 1;
+        if (current < 2) {
+          updateQuantityState(root, 2);
+        }
+        return;
+      }
+
+      // 4. Plynulé odscrollování k nákupní zóně
       const scrollTrigger = target.closest('[data-vs-sticky-cta], [data-vs-scroll-buy]');
       if (scrollTrigger) {
         event.preventDefault();
@@ -853,6 +885,14 @@
           setTimeout(() => buyZone.classList.remove('is-highlighted'), 950);
         }
       }
+    });
+
+    // Ruční přepsání čísla v poli počtu kusů
+    document.addEventListener('change', (event) => {
+      const input = event.target instanceof HTMLInputElement ? event.target : null;
+      if (!input || !input.hasAttribute('data-vs-qty-input')) return;
+      const root = input.closest('[data-vs-experience]');
+      updateQuantityState(root, input.value);
     });
 
     // Volitelné automatické přidání digitálního produktu e-booku (0 Kč), pokud je spárován v editoru
