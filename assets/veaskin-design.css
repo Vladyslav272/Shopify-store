@@ -1,6 +1,6 @@
 /* ==========================================================================
    VeaSkin Official Design System – Botanical Eucalyptus & Silk Cream
-   Editorial Band Architecture (No Section Bubbles) + Single-Variant D2C CRO
+   Editorial Band Architecture (No Section Bubbles) + Volume Bundle D2C CRO
    ========================================================================== */
 
 :root {
@@ -10,7 +10,7 @@
   --vs-text: #15221B;          /* Deep Pine – hlavní text, nadpisy, horní lišta */
   --vs-accent: #2F6F54;        /* Botanical Eucalyptus – hlavní CTA, aktivní prvky */
   --vs-accent-dark: #245842;   /* Tmavší odstín pro hover/active */
-  --vs-soft-mint: #EAF5EE;     /* Soft Mint – akcentní pásy, bonus e-book, štítky */
+  --vs-soft-mint: #EAF5EE;     /* Soft Mint – akcentní pásy, aktivní bundle, štítky */
   --vs-green-bg: #EAF5EE;      /* Alias pro zpětnou kompatibilitu */
   --vs-gold: #C29A5B;          /* Champagne Gold – hvězdičky hodnocení, prémiový akcent */
   --vs-amber: #C29A5B;         /* Alias pro Judge.me a starší snippety */
@@ -420,7 +420,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-container--hero {
   padding-top: 0;
-  padding-bottom: 36px;
+  padding-bottom: 32px;
 }
 
 .vs-container--compact {
@@ -434,8 +434,8 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   }
 
   .vs-container--hero {
-    padding-top: 36px;
-    padding-bottom: 56px;
+    padding-top: 32px;
+    padding-bottom: 52px;
   }
 
   .vs-container--compact {
@@ -560,13 +560,13 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 /* ==========================================================================
-   SEKCE 2: OTEVŘENÁ HLAVNÍ NÁKUPNÍ SEKCE (JEDNA VARIANTA + E-BOOK + MNOŽSTVÍ)
+   SEKCE 2: HLAVNÍ NÁKUPNÍ SEKCE (BUY BOX + 2 HORIZONTÁLNÍ VOLUME BUNDLE KARTY)
    ========================================================================== */
 
 .vs-hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Na mobilu sahá hlavní fotka čistě od kraje ke kraji bez rámečku */
@@ -661,7 +661,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   }
 }
 
-/* Pravý sloupec – Nákupní zóna přímo na čisté ploše */
+/* Pravý sloupec – Kompaktní Buy Box pro okamžitou konverzi */
 .vs-buy-panel {
   display: flex;
   flex-direction: column;
@@ -682,7 +682,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   font-size: 12.5px;
   font-weight: 700;
   color: var(--vs-accent);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .vs-stock-line__dot {
@@ -700,7 +700,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-product-title {
   font-family: var(--vs-heading);
-  font-size: clamp(24px, 6vw, 32px);
+  font-size: clamp(23px, 5.8vw, 31px);
   font-weight: 700;
   line-height: 1.16;
   letter-spacing: -0.02em;
@@ -708,262 +708,167 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   margin: 0 0 8px;
 }
 
-.vs-variant-meta {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--vs-muted);
-  margin: 0 0 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.vs-variant-meta__swatch {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #FFFFFF 0%, #EFECE6 100%);
-  border: 1px solid #C8C1B4;
-  display: inline-block;
-}
-
+/* Stručný 2řádkový podnadpis pod názvem produktu */
 .vs-product-subtitle {
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--vs-muted);
-  line-height: 1.55;
-  margin: 0 0 18px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--vs-border);
+  line-height: 1.48;
+  margin: 0 0 16px;
 }
 
-/* Cenový řádek jedné varianty + štítek úspory */
-.vs-price-block {
+/* Volume Bundle Selector: 2 přehledné horizontální karty pod sebou přímo nad CTA */
+.vs-bundle-selector {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 10px 12px;
-  margin-bottom: 14px;
-  font-variant-numeric: tabular-nums;
-}
-
-.vs-price-block__current {
-  font-family: var(--vs-heading);
-  font-size: clamp(26px, 6.2vw, 32px);
-  font-weight: 700;
-  color: var(--vs-text);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.vs-price-block__compare {
-  font-size: 16px;
-  color: var(--vs-subtle);
-  text-decoration: line-through;
-  line-height: 1.1;
-}
-
-.vs-price-block__badge {
-  background-color: var(--vs-soft-mint);
-  color: var(--vs-accent);
-  font-family: var(--vs-heading);
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 4px 9px;
-  border-radius: 4px;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-}
-
-/* Bonus k brýlím: E-book „Oči bez stínů“ ZDARMA */
-.vs-ebook-bonus {
-  padding: 13px 14px;
-  background-color: var(--vs-soft-mint);
-  border-left: 3px solid var(--vs-accent);
-  display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 12px;
   margin-bottom: 14px;
 }
 
-.vs-ebook-bonus__icon {
-  width: 38px;
-  height: 44px;
-  min-width: 38px;
-  border-radius: 4px;
-  background-color: var(--vs-surface);
-  border: 1px solid var(--vs-border);
-  color: var(--vs-accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.vs-ebook-bonus__body {
-  flex: 1;
-  min-width: 0;
-}
-
-.vs-ebook-bonus__top {
+.vs-bundle-card {
+  position: relative;
+  width: 100%;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.vs-ebook-bonus__title {
-  font-family: var(--vs-heading);
-  font-size: 13.5px;
-  font-weight: 700;
+  gap: 12px;
+  padding: 14px 15px;
+  background-color: #FFFFFF;
+  border: 1px solid #E8E2D8;
+  border-radius: var(--vs-radius-md);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--vs-body);
   color: var(--vs-text);
-  line-height: 1.3;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
 }
 
-.vs-ebook-bonus__tag {
+.vs-bundle-card--has-badge {
+  margin-top: 6px;
+  padding-top: 17px;
+}
+
+.vs-bundle-card.is-active {
+  background-color: #EAF5EE;
+  border: 2px solid #2F6F54;
+  padding: 13px 14px;
+}
+
+.vs-bundle-card--has-badge.is-active {
+  padding-top: 16px;
+}
+
+.vs-bundle-card__badge {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  background-color: #2F6F54;
+  color: #FFFFFF;
   font-family: var(--vs-heading);
-  font-size: 11.5px;
+  font-size: 10.5px;
   font-weight: 700;
-  color: var(--vs-accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
-.vs-ebook-bonus__tag s {
-  font-family: var(--vs-body);
-  font-weight: 400;
-  color: var(--vs-subtle);
-  margin-right: 4px;
-}
-
-.vs-ebook-bonus__desc {
-  font-size: 12.5px;
-  color: var(--vs-muted);
-  line-height: 1.42;
-  margin: 3px 0 0;
-}
-
-/* Obsah balení (čistá linka bez bubliny, bez zmínky o českém návodu) */
-.vs-package-line {
-  font-size: 12.5px;
-  color: var(--vs-muted);
-  line-height: 1.48;
-  padding: 0 0 16px;
-  margin: 0 0 16px;
-  border-bottom: 1px solid var(--vs-border);
-}
-
-.vs-package-line strong {
-  color: var(--vs-text);
-  font-weight: 700;
-}
-
-/* Výběr množství (Stepper − / + a rychlé volby 1 ks, 2 ks, 3 ks) */
-.vs-qty-selector {
-  margin-bottom: 16px;
-}
-
-.vs-qty-selector__head {
+.vs-bundle-card__left {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 11px;
+  min-width: 0;
 }
 
-.vs-qty-selector__label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--vs-text);
-}
-
-.vs-qty-selector__shipping {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--vs-accent);
-}
-
-.vs-qty-selector__controls {
-  display: flex;
-  align-items: stretch;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.vs-qty-stepper {
-  display: inline-grid;
-  grid-template-columns: 44px minmax(42px, auto) 44px;
-  align-items: center;
-  border: 1px solid var(--vs-border);
-  border-radius: var(--vs-radius-md);
-  background-color: var(--vs-surface);
-  height: 46px;
-  overflow: hidden;
-}
-
-.vs-qty-btn {
-  height: 100%;
-  border: none;
-  background: transparent;
-  color: var(--vs-text);
-  font-family: var(--vs-heading);
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
+.vs-bundle-card__radio {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #B5AEA2;
+  background-color: #FFFFFF;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 150ms ease, color 150ms ease;
+  box-sizing: border-box;
+  transition: border-color 150ms ease;
 }
 
-.vs-qty-val {
-  text-align: center;
+.vs-bundle-card.is-active .vs-bundle-card__radio {
+  border: 2px solid #2F6F54;
+}
+
+.vs-bundle-card.is-active .vs-bundle-card__radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2F6F54;
+  display: block;
+}
+
+.vs-bundle-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.vs-bundle-card__title {
   font-family: var(--vs-heading);
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   color: var(--vs-text);
-  font-variant-numeric: tabular-nums;
-  border-inline: 1px solid var(--vs-border);
-  line-height: 46px;
+  line-height: 1.25;
 }
 
-.vs-qty-pills {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  min-width: 180px;
-}
-
-.vs-qty-pill {
-  height: 46px;
-  border: 1px solid var(--vs-border);
-  border-radius: var(--vs-radius-md);
-  background-color: var(--vs-surface);
+.vs-bundle-card__sub {
+  font-size: 12px;
+  font-weight: 500;
   color: var(--vs-muted);
-  font-family: var(--vs-heading);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 0 10px;
-  -webkit-tap-highlight-color: transparent;
-  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+  line-height: 1.3;
 }
 
-.vs-qty-pill.is-active {
-  border: 1.5px solid var(--vs-accent);
-  background-color: var(--vs-soft-mint);
-  color: var(--vs-accent);
+.vs-bundle-card__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.vs-bundle-card__price-now {
+  font-family: var(--vs-heading);
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--vs-text);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.vs-bundle-card.is-active .vs-bundle-card__price-now {
+  color: #15221B;
+}
+
+.vs-bundle-card__price-old {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vs-subtle);
+  text-decoration: line-through;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 /* Rychlé 3 pilíře důvěry pod CTA oddělené jemnými svislými linkami */
 .vs-quick-trust {
   list-style: none;
   margin: 14px 0 0;
-  padding: 14px 0;
+  padding: 13px 0;
   border-top: 1px solid var(--vs-border);
   border-bottom: 1px solid var(--vs-border);
   display: grid;
@@ -995,8 +900,8 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 /* Samostatný prvek 30denní garance s linkou Champagne Gold */
 .vs-guarantee-strip {
-  margin-top: 14px;
-  padding: 12px 14px;
+  margin-top: 12px;
+  padding: 11px 14px;
   background-color: var(--vs-bg);
   border-left: 3px solid var(--vs-gold);
   display: flex;
@@ -1331,7 +1236,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 /* ==========================================================================
-   SEKCE 7: VÝSLEDKY A STATISTIKY + PŘED A PO POSUVNÍK (BEZ KARET)
+   SEKCE 7: VÝSLEDKY A STATISTIKY + PŘED A PO POSUVNÍK (BLIŽŠÍ DETAIL OČÍ)
    ========================================================================== */
 
 .vs-results-open {
@@ -1367,7 +1272,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   position: relative;
   border-radius: var(--vs-radius-sm);
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 5 / 3;
   user-select: none;
   background-color: var(--vs-bg);
   border: 1px solid var(--vs-border);
@@ -1379,6 +1284,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 48%;
   display: block;
 }
 
@@ -1391,34 +1297,35 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 2px;
-  background-color: #FFFFFF;
+  width: 1.5px;
+  background-color: rgba(255, 255, 255, 0.92);
   transform: translateX(-50%);
   pointer-events: none;
-  box-shadow: 0 0 10px rgba(21, 34, 27, 0.35);
+  box-shadow: 0 0 8px rgba(21, 34, 27, 0.28);
 }
 
+/* Madlo posuvníku zmenšené o 30 % (26×26 px), aby nezakrývalo nos */
 .vs-ba-knob {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 38px;
-  height: 38px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background-color: var(--vs-surface);
+  background-color: rgba(255, 255, 255, 0.96);
   border: 1.5px solid var(--vs-accent);
   color: var(--vs-accent);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  box-shadow: 0 4px 12px rgba(21, 34, 27, 0.2);
+  box-shadow: 0 2px 8px rgba(21, 34, 27, 0.18);
 }
 
 .vs-ba-knob svg {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
 }
 
 .vs-ba-tag {
@@ -2142,8 +2049,7 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
 
 @media (hover: hover) {
   .vs-menu-btn:hover,
-  .vs-cart-btn:hover,
-  .vs-qty-btn:hover {
+  .vs-cart-btn:hover {
     color: var(--vs-accent);
     background-color: var(--vs-soft-mint);
   }
@@ -2157,9 +2063,8 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
     background-color: var(--vs-accent-dark);
   }
 
-  .vs-qty-pill:not(.is-active):hover {
+  .vs-bundle-card:not(.is-active):hover {
     border-color: var(--vs-accent);
-    color: var(--vs-text);
   }
 
   .vs-faq-item__summary:hover {
@@ -2199,10 +2104,12 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
     scroll-behavior: auto;
   }
 
-  .vs-faq-item__icon,
-  .vs-docked-sticky-bar,
-  .vs-cta-btn,
-  .vs-qty-pill {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
