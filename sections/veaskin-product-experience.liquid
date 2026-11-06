@@ -10,18 +10,18 @@
   assign first_variant = target_product.selected_or_first_available_variant
   assign v1_id = first_variant.id
 
-  assign raw_price = first_variant.price | default: 132900
+  assign raw_price = first_variant.price | default: 262100
   assign raw_compare = first_variant.compare_at_price | default: 0
 
   if raw_compare > raw_price and raw_price > 0
     assign p1_base = raw_price
     assign c1_base = raw_compare
-  elsif raw_price > 0 and raw_price != 132900
-    assign p1_base = raw_price
-    assign c1_base = raw_price | times: 143 | divided_by: 100
+  elsif raw_price > 0
+    assign c1_base = raw_price
+    assign p1_base = raw_price | times: 70 | divided_by: 10000.0 | round | times: 100
   else
-    assign p1_base = 132900
-    assign c1_base = 189900
+    assign c1_base = 262100
+    assign p1_base = 183500
   endif
 
   assign p1_kc = p1_base | divided_by: 100
@@ -759,8 +759,8 @@
       if (!root) return;
       const qty = Math.max(1, Math.min(10, parseInt(String(rawQty), 10) || 1));
 
-      const p1 = Number(root.getAttribute('data-p1-kc')) || 1329;
-      const c1 = Number(root.getAttribute('data-c1-kc')) || 1899;
+      const p1 = Number(root.getAttribute('data-p1-kc')) || 1835;
+      const c1 = Number(root.getAttribute('data-c1-kc')) || 2621;
 
       const totalPrice = p1 * qty;
       const totalCompare = c1 * qty;
