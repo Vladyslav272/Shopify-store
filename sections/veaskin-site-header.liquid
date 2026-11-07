@@ -66,49 +66,12 @@
     aria-label="Informace o dopravě a garanci nákupu"
   >
     <div class="vs-topbar__inner">
-      {%- if announcement_mode == 'marquee' -%}
-        <div class="vs-topbar-marquee">
-          <div class="vs-topbar-marquee__track">
-            <span>{{ rot_msg_1 }}</span>
-            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_2 }}</span>
-            {%- if rot_msg_3 != blank -%}
-              <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-              <span>{{ rot_msg_3 }}</span>
-            {%- endif -%}
-            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_1 }}</span>
-            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_2 }}</span>
-            {%- if rot_msg_3 != blank -%}
-              <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-              <span>{{ rot_msg_3 }}</span>
-            {%- endif -%}
-            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-          </div>
-        </div>
-      {%- else -%}
-        <!-- Plynulé střídavé měnění nadpisů (automatický rotátor) -->
-        <div
-          class="vs-topbar-rotator vs-topbar-rotator--count-{{ msg_count }}"
-          data-vs-topbar-rotator
-        >
-          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--1" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
-          </div>
-          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--2" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
-          </div>
-          {%- if rot_msg_3 != blank -%}
-            <div class="vs-topbar-rotator__item vs-topbar-rotator__item--3" data-vs-rotator-item>
-              <span class="vs-topbar__star" aria-hidden="true">✦</span>
-              <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
-            </div>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
+      <div class="vs-topbar-static">
+        <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        <span class="vs-topbar__phrase">Doprava ZDARMA</span>
+        <span class="vs-topbar__star vs-topbar__star--sep" aria-hidden="true">✦</span>
+        <span class="vs-topbar__phrase">30 dní na vyzkoušení<span class="vs-topbar-desktop-only"> bez rizika</span></span>
+      </div>
     </div>
   </div>
   <div class="vs-header-sticky">
