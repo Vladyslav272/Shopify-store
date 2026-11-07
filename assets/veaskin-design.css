@@ -2332,3 +2332,215 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
     background-color: rgba(234, 245, 238, 0);
   }
 }
+
+
+/* ==========================================================================
+   CTA BUTTON TYPOGRAPHY & SUBTEXT (Jednotn? vzhled a DOPRAVA ZDARMA)
+   ========================================================================== */
+
+.vs-cta-btn--main {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  min-height: 58px;
+  padding: 12px 20px !important;
+}
+
+.vs-cta-btn__main {
+  display: block;
+  font-family: var(--vs-heading);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.vs-cta-btn__sub {
+  display: block;
+  font-family: var(--vs-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  opacity: 0.92;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   SEKCE: UP??MN? SROVN?N? (.vs-comp-grid & .vs-comp-box)
+   ========================================================================== */
+
+.vs-section-srovnani {
+  padding-block: var(--vs-section-pad);
+}
+
+.vs-comp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+.vs-comp-box {
+  background-color: var(--vs-surface);
+  border: 1px solid var(--vs-border);
+  border-radius: var(--vs-radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--vs-shadow-subtle);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.vs-comp-box--winner {
+  border: 2px solid var(--vs-accent);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F4F7F5 100%);
+  box-shadow: 0 12px 30px -8px rgba(47, 111, 84, 0.18);
+}
+
+.vs-winner-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--vs-accent);
+  color: #FFFFFF;
+  font-family: var(--vs-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.vs-comp-heading {
+  font-family: var(--vs-heading);
+  font-size: 19px;
+  line-height: 1.28;
+  font-weight: 700;
+  color: var(--vs-text);
+  margin: 0 0 8px;
+}
+
+.vs-comp-price {
+  font-family: var(--vs-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--vs-text);
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--vs-border);
+}
+
+.vs-comp-box--winner .vs-comp-price {
+  color: var(--vs-accent);
+}
+
+.vs-comp-price small {
+  font-family: var(--vs-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--vs-muted);
+}
+
+.vs-comp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--vs-text-secondary);
+}
+
+.vs-comp-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.45;
+}
+
+.vs-comp-list strong {
+  color: var(--vs-text);
+}
+
+.vs-mark-yes {
+  color: var(--vs-accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.vs-mark-no {
+  color: #B45309;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 860px) {
+  .vs-comp-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* ==========================================================================
+   SEKCE: GARANCE SPOKOJENOSTI 30 DN?
+   ========================================================================== */
+
+.vs-garance-section {
+  padding-block: var(--vs-section-pad);
+}
+
+.vs-guarantee-card {
+  background-color: var(--vs-surface-dark);
+  color: #FAF8F5;
+  border-radius: var(--vs-radius-lg);
+  padding: 44px 28px;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+  box-shadow: 0 16px 40px -12px rgba(21, 34, 27, 0.3);
+}
+
+.vs-guarantee-icon {
+  font-size: 38px;
+  margin-bottom: 14px;
+}
+
+.vs-guarantee-heading {
+  font-family: var(--vs-heading);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 12px;
+  color: #FFFFFF;
+}
+
+.vs-guarantee-desc {
+  font-family: var(--vs-body);
+  font-size: 15px;
+  color: #A3BAAF;
+  max-width: 600px;
+  margin: 0 auto 26px;
+  line-height: 1.6;
+}
+
+.vs-guarantee-cta {
+  background-color: var(--vs-accent) !important;
+  color: #FFFFFF !important;
+  font-size: 14px !important;
+  letter-spacing: 0.05em !important;
+  padding: 15px 32px !important;
+  display: inline-flex !important;
+  width: auto !important;
+}
+
+.vs-guarantee-cta:hover {
+  background-color: var(--vs-accent-hover) !important;
+}

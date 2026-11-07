@@ -300,16 +300,18 @@
                   {% unless first_variant.available %}disabled{% endunless %}
                 >
                   {%- if first_variant.available -%}
-                    <span data-vs-cta-label>Přidat do košíku - {{ p1_fmt }}</span>
+                    <span class="vs-cta-btn__main" data-vs-cta-label>PŘIDAT DO KOŠÍKU - {{ p1_fmt }}</span>
+                    <span class="vs-cta-btn__sub">(DOPRAVA ZDARMA)</span>
                   {%- else -%}
-                    <span>Vyprodáno</span>
+                    <span class="vs-cta-btn__main">VYPRODÁNO</span>
                   {%- endif -%}
                 </button>
               {%- endform -%}
             </product-form-component>
           {%- else -%}
             <button type="button" class="vs-cta-btn vs-cta-btn--main" data-vs-cta-btn>
-              <span data-vs-cta-label>Přidat do košíku - {{ p1_fmt }}</span>
+              <span class="vs-cta-btn__main" data-vs-cta-label>PŘIDAT DO KOŠÍKU - {{ p1_fmt }}</span>
+              <span class="vs-cta-btn__sub">(DOPRAVA ZDARMA)</span>
             </button>
           {%- endif -%}
 
@@ -657,7 +659,62 @@
   <!-- ========================================================================
        SEKCE 8: RECENZE ZÁKAZNIC (3 UNIKÁTNÍ AUTENTICKÉ UGC FOTOGRAFIE)
        ======================================================================== -->
-  <section class="vs-band vs-band--cream" id="recenze-sekce">
+  
+  <!-- ========================================================================
+       SEKCE 7: SROVNÁNÍ: PROČ JE VEASKIN NEJCHYTŘEJŠÍ VOLBA (UPŘÍMNÉ SROVNÁNÍ)
+       ======================================================================== -->
+  <section class="vs-band vs-band--white vs-section-srovnani" id="srovnani">
+    <div class="vs-container">
+      <div class="vs-section-head">
+        <span class="vs-kicker">⚖️ Upřímné srovnání</span>
+        <h2 class="vs-section-heading">Proč je VeaSkin nejchytřejší volba?</h2>
+        <p class="vs-section-sub">
+          Přehledné srovnání přístupu, výsledků a nákladů běžných metod vs. VeaSkin.
+        </p>
+      </div>
+
+      <div class="vs-comp-grid">
+        <!-- Sloupec 1: Běžné oční krémy -->
+        <div class="vs-comp-box">
+          <h3 class="vs-comp-heading">Běžné oční krémy</h3>
+          <div class="vs-comp-price">cca 1 500 Kč <small>/ 2 měsíce</small></div>
+          <ul class="vs-comp-list">
+            <li><span class="vs-mark-no" aria-hidden="true">✕</span> Působí pouze na povrchu epidermis</li>
+            <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nerozhýbou stagnující lymfu a otoky</li>
+            <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost neustálého dokupování zásob</li>
+            <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Snadná domácí aplikace</li>
+          </ul>
+        </div>
+
+        <!-- Sloupec 2: VeaSkin LED & EMS brýle (Vítěz) -->
+        <div class="vs-comp-box vs-comp-box--winner">
+          <span class="vs-winner-badge">Chytrá volba</span>
+          <h3 class="vs-comp-heading">VeaSkin LED &amp; EMS Brýle</h3>
+          <div class="vs-comp-price">{{ p1_fmt }} <small>/ jednorázová investice</small></div>
+          <ul class="vs-comp-list">
+            <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Cílená lymfatická masáž + 660 nm LED</strong></li>
+            <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Viditelný ústup ranních otoků už po 10 min.</strong></li>
+            <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>Dlouholetá péče bez dalších nákladů</strong></li>
+            <li><span class="vs-mark-yes" aria-hidden="true">✓</span> <strong>30 dní na vyzkoušení bez rizika</strong></li>
+          </ul>
+        </div>
+
+        <!-- Sloupec 3: Klinické zákroky -->
+        <div class="vs-comp-box">
+          <h3 class="vs-comp-heading">Klinické zákroky</h3>
+          <div class="vs-comp-price">8 000 - 15 000 Kč <small>/ sezení</small></div>
+          <ul class="vs-comp-list">
+            <li><span class="vs-mark-yes" aria-hidden="true">✓</span> Výrazný okamžitý vizuální efekt</li>
+            <li><span class="vs-mark-no" aria-hidden="true">✕</span> Jehly, modřinky a čas na zotavení</li>
+            <li><span class="vs-mark-no" aria-hidden="true">✕</span> Nutnost opakování každých 6 měsíců</li>
+            <li><span class="vs-mark-no" aria-hidden="true">✕</span> Vysoká opakovaná finanční zátěž</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="vs-band vs-band--cream" id="recenze-sekce">
     <div class="vs-container">
       <div class="vs-section-head">
         <div class="vs-reviews-header-meta">
@@ -743,7 +800,26 @@
     </div>
   </section>
 
-  <!-- Dokovaná spodní mobilní lišta (zobrazí se po odscrollování z Buy Boxu) -->
+  
+  <!-- ========================================================================
+       SEKCE 9: GARANCE SPOKOJENOSTI 30 DNÍ
+       ======================================================================== -->
+  <section class="vs-band vs-band--cream vs-garance-section" id="garance">
+    <div class="vs-container">
+      <div class="vs-guarantee-card">
+        <div class="vs-guarantee-icon" aria-hidden="true">🛡️</div>
+        <h3 class="vs-guarantee-heading">Vyzkoušejte VeaSkin 30 dní bez rizika</h3>
+        <p class="vs-guarantee-desc">
+          Věříme v účinek červeného světla i jemných mikroproudů. Vyzkoušejte přístroj v pohodlí domova po dobu 30 dní. Pokud nebudete naprosto spokojeni s výsledky, jednoduše nám jej zašlete zpět a vrátíme vám plnou částku.
+        </p>
+        <a href="#nabidka-box" class="vs-cta-btn vs-cta-btn--inline vs-guarantee-cta" data-vs-scroll-buy>
+          OBJEDNAT SE ZÁRUKOU 30 DNÍ →
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- Dokovaná spodní mobilní lišta (zobrazí se po odscrollování z Buy Boxu) -->
   <aside class="vs-docked-sticky-bar" data-vs-sticky-bar aria-label="Rychlý přechod k objednávce">
     <div class="vs-docked-sticky-bar__inner">
       <img
@@ -762,7 +838,7 @@
         </div>
       </div>
       <a href="#nabidka-box" class="vs-docked-sticky-bar__btn" data-vs-sticky-cta>
-        Koupit
+        KOUPIT
       </a>
     </div>
   </aside>
@@ -805,7 +881,7 @@
         priceCompareEl.textContent = compareFmt;
       }
       if (ctaLabelEl) {
-        ctaLabelEl.textContent = `Přidat do košíku - ${priceFmt}`;
+        ctaLabelEl.textContent = `PŘIDAT DO KOŠÍKU - ${priceFmt}`;
       }
       if (stickyPriceEl) {
         stickyPriceEl.textContent = priceFmt;
