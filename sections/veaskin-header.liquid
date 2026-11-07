@@ -1,0 +1,680 @@
+{% liquid
+  assign main_product = all_products['led-ems-bryle-na-ocni-okoli']
+  if main_product == blank
+    assign main_product = collections.all.products.first
+  endif
+  if main_product != blank and main_product.url != blank
+    assign base_product_url = main_product.url
+  else
+    assign base_product_url = '/products/led-ems-bryle-na-ocni-okoli'
+  endif
+
+  if request.page_type == 'product'
+    assign anchor_prefix = ''
+    assign logo_href = '#top'
+  else
+    assign anchor_prefix = base_product_url
+    assign logo_href = base_product_url
+  endif
+
+  assign announcement_mode = section.settings.announcement_mode | default: 'rotate'
+
+  # Inteligentní extrakce a rozdělení zpráv (pokud je vloženo víc benefitů se svislítkem '|')
+  assign raw_m1 = section.settings.rot_msg_1
+  if raw_m1 == blank
+    assign raw_m1 = section.settings.static_msg_1
+  endif
+  if raw_m1 == blank
+    assign raw_m1 = 'Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce'
+  endif
+
+  if raw_m1 contains '|'
+    assign parts_m1 = raw_m1 | split: '|'
+    assign rot_msg_1 = parts_m1[0] | strip
+    assign rot_msg_2 = parts_m1[1] | strip
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+  else
+    assign rot_msg_1 = raw_m1
+    assign rot_msg_2 = section.settings.rot_msg_2 | default: section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+  endif
+
+  assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
+
+  assign msg_count = 2
+  if rot_msg_3 != blank
+    assign msg_count = 3
+  endif
+%}
+
+<script
+  type="module"
+  src="{{ 'cart-icon.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+<script
+  type="module"
+  src="{{ 'header-actions.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+
+<style>
+  .vs-topbar {
+    background-color: #15221B !important;
+    color: #FFFFFF !important;
+    height: 36px !important;
+    max-height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 10px !important;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: clamp(11px, 2.8vw, 12.5px) !important;
+    font-weight: 500 !important;
+    line-height: 36px !important;
+    letter-spacing: 0.25px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    justify-content: safe center !important;
+    text-align: center !important;
+    user-select: none !important;
+    position: relative !important;
+    z-index: 100 !important;
+  }
+  @media screen and (min-width: 768px) {
+    .vs-topbar {
+      font-size: 13px !important;
+      padding: 0 24px !important;
+      letter-spacing: 0.3px !important;
+    }
+  }
+  .vs-topbar__inner {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    position: relative !important;
+  }
+  .vs-topbar-rotator {
+    position: relative !important;
+    width: 100% !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+  .vs-topbar-rotator:hover .vs-topbar-rotator__item {
+    animation-play-state: paused !important;
+  }
+  .vs-topbar__star {
+    color: #C29A5B !important;
+    margin-right: 6px !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+  }
+  @media screen and (min-width: 768px) {
+    .vs-topbar__star {
+      margin-right: 8px !important;
+      font-size: 11px !important;
+    }
+  }
+  .vs-topbar__text {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: calc(100% - 18px) !important;
+    line-height: 36px !important;
+    vertical-align: middle !important;
+  }
+  .vs-topbar-rotator__item {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    justify-content: safe center !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    padding: 0 6px !important;
+    color: #FFFFFF !important;
+    box-sizing: border-box !important;
+  }
+  .vs-topbar-rotator--count-3 .vs-topbar-rotator__item--1 {
+    animation: vsTopBarRotator3_1 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  }
+  .vs-topbar-rotator--count-3 .vs-topbar-rotator__item--2 {
+    animation: vsTopBarRotator3_2 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  }
+  .vs-topbar-rotator--count-3 .vs-topbar-rotator__item--3 {
+    animation: vsTopBarRotator3_3 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  }
+  @keyframes vsTopBarRotator3_1 {
+    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    3.5% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    29% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    33.33% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    33.34% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    96.5% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    100% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  }
+  @keyframes vsTopBarRotator3_2 {
+    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    33.33% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    36.83% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    62% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    66.66% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    66.67% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    100% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+  }
+  @keyframes vsTopBarRotator3_3 {
+    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    66.66% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    70.16% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    95% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    99.9% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    100% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+  }
+  .vs-topbar-rotator--count-2 .vs-topbar-rotator__item--1 {
+    animation: vsTopBarRotator2_1 7s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  }
+  .vs-topbar-rotator--count-2 .vs-topbar-rotator__item--2 {
+    animation: vsTopBarRotator2_2 7s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  }
+  @keyframes vsTopBarRotator2_1 {
+    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    5% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    45% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    50% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    50.01% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    95% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    100% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  }
+  @keyframes vsTopBarRotator2_2 {
+    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    50% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+    55% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    95% { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    99.9% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+    100% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+  }
+</style>
+
+<!-- SEKCE 1: HORNÍ LIŠTA (ANNOUNCEMENT BAR) & HLAVIČKA -->
+<div class="vs-site-header-shell" data-vs-header-root>
+  <div
+    class="vs-topbar"
+    role="region"
+    aria-label="Informace o dopravě a garanci nákupu"
+  >
+    <div class="vs-topbar__inner">
+      {%- if announcement_mode == 'marquee' -%}
+        <div class="vs-topbar-marquee">
+          <div class="vs-topbar-marquee__track">
+            <span>{{ rot_msg_1 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_2 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_3 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_1 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_2 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+            <span>{{ rot_msg_3 }}</span>
+            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+          </div>
+        </div>
+      {%- else -%}
+        <!-- Plynulé střídavé měnění nadpisů (automatický rotátor) -->
+        <div
+          class="vs-topbar-rotator vs-topbar-rotator--count-{{ msg_count }}"
+          data-vs-topbar-rotator
+        >
+          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--1" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
+            <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
+          </div>
+          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--2" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
+            <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
+          </div>
+          {%- if rot_msg_3 != blank -%}
+            <div class="vs-topbar-rotator__item vs-topbar-rotator__item--3" data-vs-rotator-item>
+              <span class="vs-topbar__star" aria-hidden="true">✦</span>
+              <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="vs-header-sticky">
+    <header class="vs-header">
+      <!-- Vlevo: Menu + Desktop kotvy -->
+      <div class="vs-header__left">
+        <button
+          type="button"
+          class="vs-menu-btn"
+          aria-label="Otevřít menu"
+          aria-controls="vs-mobile-nav-drawer"
+          aria-expanded="false"
+          data-vs-menu-open
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="3.5" y1="6.5" x2="20.5" y2="6.5"></line>
+            <line x1="3.5" y1="12" x2="20.5" y2="12"></line>
+            <line x1="3.5" y1="17.5" x2="15.5" y2="17.5"></line>
+          </svg>
+        </button>
+
+        <nav class="vs-desktop-nav" aria-label="Hlavní navigace">
+          <ul class="vs-nav">
+            <li><a href="{{ anchor_prefix }}#benefity" class="vs-nav__link">Benefity</a></li>
+            <li><a href="{{ anchor_prefix }}#technologie" class="vs-nav__link">Technologie</a></li>
+            <li><a href="{{ anchor_prefix }}#vysledky" class="vs-nav__link">Výsledky</a></li>
+            <li><a href="{{ anchor_prefix }}#recenze-sekce" class="vs-nav__link">Recenze</a></li>
+            <li><a href="{{ anchor_prefix }}#dotazy" class="vs-nav__link">FAQ</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Uprostřed: Logo VEASKIN (#15221B) -->
+      <a href="{{ logo_href }}" class="vs-logo" aria-label="{{ shop.name | default: 'VeaSkin' }} - Domů">
+        {%- if section.settings.use_image_logo and settings.logo != blank -%}
+          <img
+            src="{{ settings.logo | image_url: width: 320 }}"
+            alt="{{ shop.name | default: 'VEASKIN' | escape }}"
+            class="vs-logo__img"
+            width="116"
+            height="36"
+            loading="eager"
+            fetchpriority="high"
+          >
+        {%- else -%}
+          <span class="vs-logo__wordmark">VEASKIN</span>
+        {%- endif -%}
+      </a>
+
+      <!-- Vpravo: Ikona košíku -->
+      <div class="vs-header__right">
+        <header-actions>
+          {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+            <button
+              type="button"
+              class="vs-cart-btn button-unstyled"
+              on:click="#cart-drawer/toggle"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="cart-drawer"
+              aria-label="{{ 'accessibility.cart' | t | default: 'Nákupní košík' }}"
+              aria-describedby="cart-bubble-text"
+              data-testid="vs-cart-drawer-trigger"
+            >
+              <svg
+                class="vs-cart-btn__icon"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span
+                class="vs-cart-btn__count{% if cart.item_count == 0 %} is-empty{% endif %}"
+                data-vs-cart-count
+                aria-hidden="true"
+              >{{ cart.item_count }}</span>
+              <cart-icon class="visually-hidden" data-testid="cart-icon">
+                {% render 'cart-bubble', limit: 100 %}
+              </cart-icon>
+            </button>
+          {%- else -%}
+            <a
+              href="{{ routes.cart_url }}"
+              class="vs-cart-btn"
+              aria-label="{{ 'accessibility.cart' | t | default: 'Nákupní košík' }}"
+            >
+              <svg
+                class="vs-cart-btn__icon"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span
+                class="vs-cart-btn__count{% if cart.item_count == 0 %} is-empty{% endif %}"
+                data-vs-cart-count
+                aria-hidden="true"
+              >{{ cart.item_count }}</span>
+              <cart-icon class="visually-hidden" data-testid="cart-icon">
+                {% render 'cart-bubble', limit: 100 %}
+              </cart-icon>
+            </a>
+          {%- endif -%}
+          <span
+            ref="liveRegion"
+            class="visually-hidden"
+            role="status"
+            data-testid="cart-count-live-region"
+          ></span>
+        </header-actions>
+      </div>
+    </header>
+  </div>
+
+  <!-- Mobilní vysouvací navigace -->
+  <dialog
+    id="vs-mobile-nav-drawer"
+    class="vs-mobile-drawer"
+    aria-label="Mobilní navigace"
+    data-vs-mobile-drawer
+  >
+    <div class="vs-mobile-drawer__panel">
+      <div class="vs-mobile-drawer__head">
+        <a href="{{ logo_href }}" class="vs-logo" data-vs-drawer-link aria-label="VEASKIN - Domů">
+          <span class="vs-logo__wordmark">VEASKIN</span>
+        </a>
+        <button
+          type="button"
+          class="vs-mobile-drawer__close"
+          aria-label="Zavřít navigaci"
+          data-vs-menu-close
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="vs-mobile-drawer__nav" aria-label="Sekce stránky">
+        <ul class="vs-mobile-drawer__list">
+          <li>
+            <a href="{{ anchor_prefix }}#nabidka-box" class="vs-mobile-drawer__link vs-mobile-drawer__link--highlight" data-vs-drawer-link>
+              <span>VeaSkin LED &amp; EMS brýle</span>
+              <span class="vs-mobile-drawer__badge">−30 % + E-book</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#benefity" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>4 klíčové benefity</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#ranni-ritual" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Ranní proměna za 10 minut</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#technologie" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>630-660 nm Červené LED + EMS</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#jak-pouzivat" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Jak brýle používat (3 kroky)</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#vysledky" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Výsledky Před / Po (Den 14)</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#recenze-sekce" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Recenze zákaznic (4.9 ★)</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ anchor_prefix }}#dotazy" class="vs-mobile-drawer__link" data-vs-drawer-link>
+              <span>Často kladené otázky</span>
+              <span class="vs-mobile-drawer__arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="vs-mobile-drawer__foot">
+        <div class="vs-mobile-drawer__perks">
+          <span>✓ Doprava zdarma + E-book „Oči bez stínů“ zdarma</span>
+          <span>✓ 30 dní na vyzkoušení u ranní kávy bez rizika</span>
+        </div>
+        <a href="{{ anchor_prefix }}#nabidka-box" class="vs-cta-btn vs-mobile-drawer__cta" data-vs-drawer-link>
+          Objednat VeaSkin se slevou →
+        </a>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+{% javascript %}
+  (() => {
+    const syncExpanded = (open) => {
+      for (const btn of document.querySelectorAll('[data-vs-menu-open]')) {
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+
+    const syncCartCountBadges = (count) => {
+      const n = Number.isFinite(count) && count >= 0 ? count : 0;
+      for (const badge of document.querySelectorAll('[data-vs-cart-count]')) {
+        badge.textContent = String(n);
+        badge.classList.toggle('is-empty', n === 0);
+      }
+    };
+
+    const observeNativeCartBubble = () => {
+      const bubbleCount = document.querySelector('.vs-site-header-shell cart-icon [ref="cartBubbleCount"]');
+      if (!bubbleCount) return;
+      const readCount = () => {
+        const raw = (bubbleCount.textContent || '').trim();
+        const parsed = parseInt(raw, 10);
+        if (!Number.isNaN(parsed)) {
+          syncCartCountBadges(bubbleCount.classList.contains('hidden') ? 0 : parsed);
+        }
+      };
+      const obs = new MutationObserver(readCount);
+      obs.observe(bubbleCount, { childList: true, characterData: true, subtree: true, attributes: true });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        observeNativeCartBubble();
+      }, { once: true });
+    } else {
+      observeNativeCartBubble();
+    }
+
+    window.addEventListener('pageshow', async (event) => {
+      if (!event.persisted) return;
+      try {
+        const res = await fetch('/cart.js');
+        if (!res.ok) return;
+        const cartData = await res.json();
+        syncCartCountBadges(cartData.item_count);
+      } catch {
+        // Ignore network errors on back/forward cache restore
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
+
+      const openBtn = target.closest('[data-vs-menu-open]');
+      if (openBtn) {
+        const dialog = document.querySelector('[data-vs-mobile-drawer]');
+        if (dialog instanceof HTMLDialogElement && !dialog.open) {
+          dialog.showModal();
+          syncExpanded(true);
+        }
+        return;
+      }
+
+      const closeBtn = target.closest('[data-vs-menu-close]');
+      const navLink = target.closest('[data-vs-drawer-link]');
+      if (closeBtn || navLink) {
+        const dialog = document.querySelector('[data-vs-mobile-drawer]');
+        if (dialog instanceof HTMLDialogElement && dialog.open) {
+          dialog.close();
+          syncExpanded(false);
+        }
+        return;
+      }
+
+      if (target instanceof HTMLDialogElement && target.hasAttribute('data-vs-mobile-drawer')) {
+        target.close();
+        syncExpanded(false);
+      }
+    });
+
+    document.addEventListener(
+      'close',
+      (event) => {
+        if (event.target instanceof HTMLDialogElement && event.target.hasAttribute('data-vs-mobile-drawer')) {
+          syncExpanded(false);
+        }
+      },
+      true
+    );
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "VeaSkin Hlavička",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Horní informační lišta (Announcement Bar)"
+    },
+    {
+      "type": "select",
+      "id": "announcement_mode",
+      "label": "Režim lišty",
+      "options": [
+        {
+          "value": "rotate",
+          "label": "Střídání 3 zpráv po 4 vteřinách (výchozí)"
+        },
+        {
+          "value": "static",
+          "label": "Statická lišta (Doprava ZDARMA ✦ 30 dní bez rizika)"
+        },
+        {
+          "value": "marquee",
+          "label": "Plynulý běžící pás (Marquee)"
+        }
+      ],
+      "default": "rotate"
+    },
+    {
+      "type": "header",
+      "content": "Možnost A: Texty statické lišty"
+    },
+    {
+      "type": "text",
+      "id": "static_msg_1",
+      "label": "První benefit",
+      "default": "Doprava ZDARMA"
+    },
+    {
+      "type": "text",
+      "id": "static_msg_2",
+      "label": "Druhý benefit",
+      "default": "30 dní na vyzkoušení bez rizika"
+    },
+    {
+      "type": "header",
+      "content": "Možnost B: 3 zprávy pro rotaci / běžící pás"
+    },
+    {
+      "type": "text",
+      "id": "rot_msg_1",
+      "label": "Zpráva 1",
+      "default": "Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce"
+    },
+    {
+      "type": "text",
+      "id": "rot_msg_2",
+      "label": "Zpráva 2",
+      "default": "30 dní na vyzkoušení bez rizika"
+    },
+    {
+      "type": "text",
+      "id": "rot_msg_3",
+      "label": "Zpráva 3",
+      "default": "Sleva 42 % při nákupu 2 a více kusů"
+    },
+    {
+      "type": "header",
+      "content": "Logo a navigace"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_image_logo",
+      "label": "Použít obrázkové logo místo nápisu VEASKIN",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
