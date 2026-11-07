@@ -32,11 +32,11 @@
     assign parts_m1 = raw_m1 | split: '|'
     assign rot_msg_1 = parts_m1[0] | strip
     assign rot_msg_2 = parts_m1[1] | strip
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: ''
   else
     assign rot_msg_1 = raw_m1
     assign rot_msg_2 = section.settings.rot_msg_2 | default: section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: ''
   endif
 
   assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
@@ -72,14 +72,18 @@
             <span>{{ rot_msg_1 }}</span>
             <span class="vs-topbar__sep" aria-hidden="true">✦</span>
             <span>{{ rot_msg_2 }}</span>
-            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_3 }}</span>
+            {%- if rot_msg_3 != blank -%}
+              <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+              <span>{{ rot_msg_3 }}</span>
+            {%- endif -%}
             <span class="vs-topbar__sep" aria-hidden="true">✦</span>
             <span>{{ rot_msg_1 }}</span>
             <span class="vs-topbar__sep" aria-hidden="true">✦</span>
             <span>{{ rot_msg_2 }}</span>
-            <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_3 }}</span>
+            {%- if rot_msg_3 != blank -%}
+              <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+              <span>{{ rot_msg_3 }}</span>
+            {%- endif -%}
             <span class="vs-topbar__sep" aria-hidden="true">✦</span>
           </div>
         </div>
@@ -504,7 +508,7 @@
       "type": "text",
       "id": "rot_msg_3",
       "label": "Zpráva 3",
-      "default": "Sleva 42 % při nákupu 2 a více kusů"
+      "default": ""
     },
     {
       "type": "header",
