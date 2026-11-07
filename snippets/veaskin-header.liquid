@@ -505,7 +505,7 @@
   </dialog>
 </div>
 
-{% javascript %}
+<script>
   (() => {
     const syncExpanded = (open) => {
       for (const btn of document.querySelectorAll('[data-vs-menu-open]')) {
@@ -597,84 +597,4 @@
       true
     );
   })();
-{% endjavascript %}
-
-{% schema %}
-{
-  "name": "VeaSkin Hlavička",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Horní informační lišta (Announcement Bar)"
-    },
-    {
-      "type": "select",
-      "id": "announcement_mode",
-      "label": "Režim lišty",
-      "options": [
-        {
-          "value": "rotate",
-          "label": "Střídání 3 zpráv po 4 vteřinách (výchozí)"
-        },
-        {
-          "value": "static",
-          "label": "Statická lišta (Doprava ZDARMA ✦ 30 dní bez rizika)"
-        },
-        {
-          "value": "marquee",
-          "label": "Plynulý běžící pás (Marquee)"
-        }
-      ],
-      "default": "rotate"
-    },
-    {
-      "type": "header",
-      "content": "Možnost A: Texty statické lišty"
-    },
-    {
-      "type": "text",
-      "id": "static_msg_1",
-      "label": "První benefit",
-      "default": "Doprava ZDARMA"
-    },
-    {
-      "type": "text",
-      "id": "static_msg_2",
-      "label": "Druhý benefit",
-      "default": "30 dní na vyzkoušení bez rizika"
-    },
-    {
-      "type": "header",
-      "content": "Možnost B: 3 zprávy pro rotaci / běžící pás"
-    },
-    {
-      "type": "text",
-      "id": "rot_msg_1",
-      "label": "Zpráva 1",
-      "default": "Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce"
-    },
-    {
-      "type": "text",
-      "id": "rot_msg_2",
-      "label": "Zpráva 2",
-      "default": "30 dní na vyzkoušení bez rizika"
-    },
-    {
-      "type": "text",
-      "id": "rot_msg_3",
-      "label": "Zpráva 3",
-      "default": "Sleva 42 % při nákupu 2 a více kusů"
-    },
-    {
-      "type": "header",
-      "content": "Logo a navigace"
-    },
-    {
-      "type": "checkbox",
-      "id": "use_image_logo",
-      "label": "Použít obrázkové logo místo nápisu VEASKIN",
-      "default": false
-    }
-  ]
-}
-{% endschema %}
+</script>
