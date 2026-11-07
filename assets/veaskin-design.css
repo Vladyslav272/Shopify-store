@@ -133,15 +133,57 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   position: relative;
 }
 
-/* Staticka lista (Preferovana MOZNOST A - 1 radek na mobilu i desktopu) */
-.vs-topbar-static {
+/* Automaticky rotujici zpravy v liste (Rotator) */
+.vs-topbar-rotator {
+  position: relative;
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.vs-topbar-rotator__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 7px;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
   white-space: nowrap;
-  text-align: center;
-  line-height: 36px;
+  overflow: visible;
+  text-overflow: clip;
+  padding: 0 4px;
+  color: #FFFFFF;
+  box-sizing: border-box;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vs-topbar-rotator__item.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.vs-topbar-rotator__item.is-leaving {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vs-topbar-rotator__item {
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
 }
 
 .vs-topbar__star {
@@ -157,6 +199,28 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   .vs-topbar__star {
     font-size: 12px;
   }
+}
+
+.vs-topbar__text {
+  color: #FFFFFF;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 36px;
+}
+
+/* Staticka lista (fallback) */
+.vs-topbar-static {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 36px;
 }
 
 .vs-topbar__phrase {

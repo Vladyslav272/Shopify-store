@@ -19,32 +19,22 @@
 
   assign announcement_mode = section.settings.announcement_mode | default: 'rotate'
 
-  # Inteligentní extrakce a rozdělení zpráv (pokud je vloženo víc benefitů se svislítkem '|')
-  assign raw_m1 = section.settings.rot_msg_1
-  if raw_m1 == blank
-    assign raw_m1 = section.settings.static_msg_1
+  assign rot_msg_1 = section.settings.rot_msg_1
+  if rot_msg_1 == blank
+    assign rot_msg_1 = 'Doprava ZDARMA ke každé objednávce'
   endif
-  if raw_m1 == blank
-    assign raw_m1 = 'Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce'
+  assign rot_msg_2 = section.settings.rot_msg_2
+  if rot_msg_2 == blank
+    assign rot_msg_2 = 'Sleva 30 % + E-book zdarma v ceně'
   endif
-
-  if raw_m1 contains '|'
-    assign parts_m1 = raw_m1 | split: '|'
-    assign rot_msg_1 = parts_m1[0] | strip
-    assign rot_msg_2 = parts_m1[1] | strip
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 30 % na celou objednávku'
-  else
-    assign rot_msg_1 = raw_m1
-    assign rot_msg_2 = section.settings.rot_msg_2 | default: section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 30 % na celou objednávku'
+  assign rot_msg_3 = section.settings.rot_msg_3
+  if rot_msg_3 == blank
+    assign rot_msg_3 = '30 dní na vyzkoušení bez rizika'
   endif
 
-  assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
-
-  assign msg_count = 2
-  if rot_msg_3 != blank
-    assign msg_count = 3
-  endif
+  assign rot_msg_1 = rot_msg_1 | remove: '✦' | strip
+  assign rot_msg_2 = rot_msg_2 | remove: '✦' | strip
+  assign rot_msg_3 = rot_msg_3 | remove: '✦' | strip
 %}
 
 <script
@@ -66,11 +56,25 @@
     aria-label="Informace o dopravě a garanci nákupu"
   >
     <div class="vs-topbar__inner">
-      <div class="vs-topbar-static">
-        <span class="vs-topbar__star" aria-hidden="true">✦</span>
-        <span class="vs-topbar__phrase">Doprava ZDARMA</span>
-        <span class="vs-topbar__star vs-topbar__star--sep" aria-hidden="true">✦</span>
-        <span class="vs-topbar__phrase">30 dní na vyzkoušení<span class="vs-topbar-desktop-only"> bez rizika</span></span>
+      <div
+        class="vs-topbar-rotator"
+        data-vs-topbar-rotator
+      >
+        <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+          <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        </div>
+        <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+          <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        </div>
+        <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+          <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        </div>
       </div>
     </div>
   </div>
@@ -330,6 +334,37 @@
       }
     };
 
+    const initTopbarRotator = () => {
+      const rotators = document.querySelectorAll('[data-vs-topbar-rotator]');
+      rotators.forEach((rotator) => {
+        if (rotator.dataset.rotatorStarted === 'true') return;
+        rotator.dataset.rotatorStarted = 'true';
+
+        const items = Array.from(rotator.querySelectorAll('[data-vs-rotator-item]'));
+        if (items.length <= 1) return;
+
+        items.forEach((item, idx) => {
+          item.classList.toggle('is-active', idx === 0);
+          item.classList.remove('is-leaving');
+        });
+
+        let current = 0;
+        setInterval(() => {
+          const prev = items[current];
+          prev.classList.remove('is-active');
+          prev.classList.add('is-leaving');
+          setTimeout(() => {
+            prev.classList.remove('is-leaving');
+          }, 400);
+
+          current = (current + 1) % items.length;
+          const next = items[current];
+          next.classList.remove('is-leaving');
+          next.classList.add('is-active');
+        }, 3500);
+      });
+    };
+
     const observeNativeCartBubble = () => {
       const bubbleCount = document.querySelector('.vs-site-header-shell cart-icon [ref="cartBubbleCount"]');
       if (!bubbleCount) return;
@@ -347,6 +382,7 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         observeNativeCartBubble();
+        initTopbarRotator();
       }, { once: true });
     } else {
       observeNativeCartBubble();
@@ -459,19 +495,19 @@
       "type": "text",
       "id": "rot_msg_1",
       "label": "Zpráva 1",
-      "default": "Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce"
+      "default": "Doprava ZDARMA ke každé objednávce"
     },
     {
       "type": "text",
       "id": "rot_msg_2",
       "label": "Zpráva 2",
-      "default": "30 dní na vyzkoušení bez rizika"
+      "default": "Sleva 30 % + E-book zdarma v ceně"
     },
     {
       "type": "text",
       "id": "rot_msg_3",
       "label": "Zpráva 3",
-      "default": "Sleva 30 % na celou objednávku"
+      "default": "30 dní na vyzkoušení bez rizika"
     },
     {
       "type": "header",

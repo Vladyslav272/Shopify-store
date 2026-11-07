@@ -19,32 +19,22 @@
 
   assign announcement_mode = section.settings.announcement_mode | default: 'rotate'
 
-  # Inteligentní extrakce a rozdělení zpráv (pokud je vloženo víc benefitů se svislítkem '|')
-  assign raw_m1 = section.settings.rot_msg_1
-  if raw_m1 == blank
-    assign raw_m1 = section.settings.static_msg_1
+  assign rot_msg_1 = section.settings.rot_msg_1
+  if rot_msg_1 == blank
+    assign rot_msg_1 = 'Doprava ZDARMA ke každé objednávce'
   endif
-  if raw_m1 == blank
-    assign raw_m1 = 'Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce'
+  assign rot_msg_2 = section.settings.rot_msg_2
+  if rot_msg_2 == blank
+    assign rot_msg_2 = 'Sleva 30 % + E-book zdarma v ceně'
   endif
-
-  if raw_m1 contains '|'
-    assign parts_m1 = raw_m1 | split: '|'
-    assign rot_msg_1 = parts_m1[0] | strip
-    assign rot_msg_2 = parts_m1[1] | strip
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 30 % na celou objednávku'
-  else
-    assign rot_msg_1 = raw_m1
-    assign rot_msg_2 = section.settings.rot_msg_2 | default: section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 30 % na celou objednávku'
+  assign rot_msg_3 = section.settings.rot_msg_3
+  if rot_msg_3 == blank
+    assign rot_msg_3 = '30 dní na vyzkoušení bez rizika'
   endif
 
-  assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
-
-  assign msg_count = 2
-  if rot_msg_3 != blank
-    assign msg_count = 3
-  endif
+  assign rot_msg_1 = rot_msg_1 | remove: '✦' | strip
+  assign rot_msg_2 = rot_msg_2 | remove: '✦' | strip
+  assign rot_msg_3 = rot_msg_3 | remove: '✦' | strip
 %}
 
 <script
@@ -65,12 +55,12 @@
     height: 36px !important;
     max-height: 36px !important;
     min-height: 36px !important;
-    padding: 0 10px !important;
+    padding: 0 8px !important;
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
     font-size: 12px !important;
     font-weight: 500 !important;
     line-height: 36px !important;
-    letter-spacing: 0.25px !important;
+    letter-spacing: 0.2px !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
@@ -85,8 +75,8 @@
   @media screen and (min-width: 768px) {
     .vs-topbar {
       font-size: 13.5px !important;
-      padding: 0 24px !important;
-      letter-spacing: 0.3px !important;
+      padding: 0 20px !important;
+      letter-spacing: 0.25px !important;
     }
   }
   .vs-topbar__inner {
@@ -100,14 +90,52 @@
     white-space: nowrap !important;
     position: relative !important;
   }
-  .vs-topbar-static {
+  .vs-topbar-rotator {
+    position: relative !important;
+    width: 100% !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+  .vs-topbar-rotator__item {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
+    gap: 7px !important;
+    opacity: 0 !important;
+    transform: translateY(6px) !important;
+    pointer-events: none !important;
     white-space: nowrap !important;
-    text-align: center !important;
-    line-height: 36px !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    padding: 0 4px !important;
+    color: #FFFFFF !important;
+    box-sizing: border-box !important;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .vs-topbar-rotator__item.is-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+  .vs-topbar-rotator__item.is-leaving {
+    opacity: 0 !important;
+    transform: translateY(-6px) !important;
+    pointer-events: none !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vs-topbar-rotator__item {
+      transform: none !important;
+      transition: opacity 0.4s ease !important;
+    }
   }
   .vs-topbar__star {
     color: #C29A5B !important;
@@ -122,21 +150,15 @@
       font-size: 12px !important;
     }
   }
-  .vs-topbar__phrase {
+  .vs-topbar__text {
     color: #FFFFFF !important;
     font-weight: 500 !important;
     white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
     display: inline-block !important;
     vertical-align: middle !important;
     line-height: 36px !important;
-  }
-  .vs-topbar-desktop-only {
-    display: none !important;
-  }
-  @media screen and (min-width: 768px) {
-    .vs-topbar-desktop-only {
-      display: inline !important;
-    }
   }
 </style>
 
@@ -148,11 +170,25 @@
     aria-label="Informace o dopravě a garanci nákupu"
   >
     <div class="vs-topbar__inner">
-      <div class="vs-topbar-static">
-        <span class="vs-topbar__star" aria-hidden="true">✦</span>
-        <span class="vs-topbar__phrase">Doprava ZDARMA</span>
-        <span class="vs-topbar__star vs-topbar__star--sep" aria-hidden="true">✦</span>
-        <span class="vs-topbar__phrase">30 dní na vyzkoušení<span class="vs-topbar-desktop-only"> bez rizika</span></span>
+      <div
+        class="vs-topbar-rotator"
+        data-vs-topbar-rotator
+      >
+        <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+          <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        </div>
+        <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+          <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        </div>
+        <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+          <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
+          <span class="vs-topbar__star" aria-hidden="true">✦</span>
+        </div>
       </div>
     </div>
   </div>
@@ -434,7 +470,7 @@
           prev.classList.add('is-leaving');
           setTimeout(() => {
             prev.classList.remove('is-leaving');
-          }, 450);
+          }, 400);
 
           current = (current + 1) % items.length;
           const next = items[current];
