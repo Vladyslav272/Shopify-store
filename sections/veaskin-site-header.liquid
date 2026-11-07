@@ -19,7 +19,7 @@
 
   assign announcement_mode = section.settings.announcement_mode | default: 'rotate'
 
-  # Inteligentní extrakce zpráv pro lištu (pokud uživatel vložil ' | ' oddělovač do jednoho pole, rozdělíme jej)
+  # Inteligentní extrakce a rozdělení zpráv (pokud je vloženo víc benefitů se svislítkem '|')
   assign raw_m1 = section.settings.rot_msg_1
   if raw_m1 == blank
     assign raw_m1 = section.settings.static_msg_1
@@ -41,12 +41,9 @@
 
   assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
 
-  assign static_msg_1 = section.settings.static_msg_1 | default: 'Doprava ZDARMA'
-  assign static_msg_2 = section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-  if static_msg_1 contains '|'
-    assign parts_static = static_msg_1 | split: '|'
-    assign static_msg_1 = parts_static[0] | strip
-    assign static_msg_2 = parts_static[1] | strip
+  assign msg_count = 2
+  if rot_msg_3 != blank
+    assign msg_count = 3
   endif
 %}
 
@@ -86,42 +83,22 @@
             <span class="vs-topbar__sep" aria-hidden="true">✦</span>
           </div>
         </div>
-      {%- elsif announcement_mode == 'static' -%}
-        <!-- Desktop: statické 2 benefity, Mobil: vždy čistě střídající se 1 zpráva -->
-        <div class="vs-topbar__content vs-topbar-desktop-only">
-          <span class="vs-topbar__item">{{ static_msg_1 }}</span>
-          <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-          <span class="vs-topbar__item">{{ static_msg_2 }}</span>
-        </div>
-        <div class="vs-topbar-rotator vs-topbar-mobile-only" data-vs-topbar-rotator>
-          <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
-          </div>
-          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
-          </div>
-          {%- if rot_msg_3 != blank -%}
-            <div class="vs-topbar-rotator__item" data-vs-rotator-item>
-              <span class="vs-topbar__star" aria-hidden="true">✦</span>
-              <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
-            </div>
-          {%- endif -%}
-        </div>
       {%- else -%}
-        <!-- Výchozí a doporučené: Plynule střídající se zprávy po 3.8s (na mobilu i desktopu) -->
-        <div class="vs-topbar-rotator" data-vs-topbar-rotator>
-          <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+        <!-- Plynulé střídavé měnění nadpisů (automatický rotátor) -->
+        <div
+          class="vs-topbar-rotator vs-topbar-rotator--count-{{ msg_count }}"
+          data-vs-topbar-rotator
+        >
+          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--1" data-vs-rotator-item>
             <span class="vs-topbar__star" aria-hidden="true">✦</span>
             <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
           </div>
-          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--2" data-vs-rotator-item>
             <span class="vs-topbar__star" aria-hidden="true">✦</span>
             <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
           </div>
           {%- if rot_msg_3 != blank -%}
-            <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <div class="vs-topbar-rotator__item vs-topbar-rotator__item--3" data-vs-rotator-item>
               <span class="vs-topbar__star" aria-hidden="true">✦</span>
               <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
             </div>
@@ -400,43 +377,12 @@
       obs.observe(bubbleCount, { childList: true, characterData: true, subtree: true, attributes: true });
     };
 
-    const initTopbarRotator = () => {
-      const rotators = document.querySelectorAll('[data-vs-topbar-rotator]');
-      rotators.forEach((rotator) => {
-        if (rotator.dataset.rotatorInit === 'true') return;
-        rotator.dataset.rotatorInit = 'true';
-
-        const items = Array.from(rotator.querySelectorAll('[data-vs-rotator-item]'));
-        if (items.length <= 1) return;
-
-        items.forEach((item, idx) => {
-          item.classList.toggle('is-active', idx === 0);
-          item.classList.remove('is-leaving');
-        });
-
-        let currentIndex = 0;
-        setInterval(() => {
-          const prevItem = items[currentIndex];
-          prevItem.classList.remove('is-active');
-          prevItem.classList.add('is-leaving');
-          setTimeout(() => prevItem.classList.remove('is-leaving'), 380);
-
-          currentIndex = (currentIndex + 1) % items.length;
-          const nextItem = items[currentIndex];
-          nextItem.classList.remove('is-leaving');
-          nextItem.classList.add('is-active');
-        }, 3800);
-      });
-    };
-
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         observeNativeCartBubble();
-        initTopbarRotator();
       }, { once: true });
     } else {
       observeNativeCartBubble();
-      initTopbarRotator();
     }
 
     window.addEventListener('pageshow', async (event) => {
