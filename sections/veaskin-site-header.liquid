@@ -32,11 +32,11 @@
     assign parts_m1 = raw_m1 | split: '|'
     assign rot_msg_1 = parts_m1[0] | strip
     assign rot_msg_2 = parts_m1[1] | strip
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: ''
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 30 % na celou objednávku'
   else
     assign rot_msg_1 = raw_m1
     assign rot_msg_2 = section.settings.rot_msg_2 | default: section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-    assign rot_msg_3 = section.settings.rot_msg_3 | default: ''
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 30 % na celou objednávku'
   endif
 
   assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
@@ -508,7 +508,7 @@
       "type": "text",
       "id": "rot_msg_3",
       "label": "Zpráva 3",
-      "default": ""
+      "default": "Sleva 30 % na celou objednávku"
     },
     {
       "type": "header",
