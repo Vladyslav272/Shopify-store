@@ -112,9 +112,6 @@
     overflow: hidden !important;
     white-space: nowrap !important;
   }
-  .vs-topbar-rotator:hover .vs-topbar-rotator__item {
-    animation-play-state: paused !important;
-  }
   .vs-topbar__star {
     color: #C29A5B !important;
     margin-right: 6px !important;
@@ -150,70 +147,24 @@
     justify-content: center !important;
     justify-content: safe center !important;
     opacity: 0 !important;
+    transform: translateY(8px) !important;
     pointer-events: none !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     padding: 0 6px !important;
     color: #FFFFFF !important;
     box-sizing: border-box !important;
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
-  .vs-topbar-rotator--count-3 .vs-topbar-rotator__item--1 {
-    animation: vsTopBarRotator3_1 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  .vs-topbar-rotator__item.is-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
   }
-  .vs-topbar-rotator--count-3 .vs-topbar-rotator__item--2 {
-    animation: vsTopBarRotator3_2 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
-  }
-  .vs-topbar-rotator--count-3 .vs-topbar-rotator__item--3 {
-    animation: vsTopBarRotator3_3 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
-  }
-  @keyframes vsTopBarRotator3_1 {
-    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    3.5% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    29% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    33.33% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-    33.34% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    96.5% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    100% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  }
-  @keyframes vsTopBarRotator3_2 {
-    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    33.33% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    36.83% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    62% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    66.66% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-    66.67% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    100% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-  }
-  @keyframes vsTopBarRotator3_3 {
-    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    66.66% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    70.16% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    95% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    99.9% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-    100% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-  }
-  .vs-topbar-rotator--count-2 .vs-topbar-rotator__item--1 {
-    animation: vsTopBarRotator2_1 7s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
-  }
-  .vs-topbar-rotator--count-2 .vs-topbar-rotator__item--2 {
-    animation: vsTopBarRotator2_2 7s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
-  }
-  @keyframes vsTopBarRotator2_1 {
-    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    5% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    45% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    50% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-    50.01% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    95% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    100% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  }
-  @keyframes vsTopBarRotator2_2 {
-    0% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    50% { opacity: 0; transform: translateY(8px); pointer-events: none; }
-    55% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    95% { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    99.9% { opacity: 0; transform: translateY(-8px); pointer-events: none; }
-    100% { opacity: 0; transform: translateY(8px); pointer-events: none; }
+  .vs-topbar-rotator__item.is-leaving {
+    opacity: 0 !important;
+    transform: translateY(-8px) !important;
+    pointer-events: none !important;
   }
 </style>
 
@@ -248,7 +199,7 @@
           class="vs-topbar-rotator vs-topbar-rotator--count-{{ msg_count }}"
           data-vs-topbar-rotator
         >
-          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--1" data-vs-rotator-item>
+          <div class="vs-topbar-rotator__item vs-topbar-rotator__item--1 is-active" data-vs-rotator-item>
             <span class="vs-topbar__star" aria-hidden="true">✦</span>
             <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
           </div>
@@ -522,6 +473,38 @@
       }
     };
 
+    
+    const initTopbarRotator = () => {
+      const rotators = document.querySelectorAll('[data-vs-topbar-rotator]');
+      rotators.forEach((rotator) => {
+        if (rotator.dataset.rotatorStarted === 'true') return;
+        rotator.dataset.rotatorStarted = 'true';
+
+        const items = Array.from(rotator.querySelectorAll('[data-vs-rotator-item]'));
+        if (items.length <= 1) return;
+
+        items.forEach((item, idx) => {
+          item.classList.toggle('is-active', idx === 0);
+          item.classList.remove('is-leaving');
+        });
+
+        let current = 0;
+        setInterval(() => {
+          const prev = items[current];
+          prev.classList.remove('is-active');
+          prev.classList.add('is-leaving');
+          setTimeout(() => {
+            prev.classList.remove('is-leaving');
+          }, 450);
+
+          current = (current + 1) % items.length;
+          const next = items[current];
+          next.classList.remove('is-leaving');
+          next.classList.add('is-active');
+        }, 3500);
+      });
+    };
+
     const observeNativeCartBubble = () => {
       const bubbleCount = document.querySelector('.vs-site-header-shell cart-icon [ref="cartBubbleCount"]');
       if (!bubbleCount) return;
@@ -539,9 +522,11 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         observeNativeCartBubble();
+      initTopbarRotator();
       }, { once: true });
     } else {
       observeNativeCartBubble();
+      initTopbarRotator();
     }
 
     window.addEventListener('pageshow', async (event) => {

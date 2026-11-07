@@ -141,37 +141,6 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 }
 
 .vs-topbar-rotator:hover .vs-topbar-rotator__item {
-  animation-play-state: paused;
-}
-
-.vs-topbar__star {
-  color: #C29A5B;
-  margin-right: 6px;
-  font-size: 10px;
-  line-height: 1;
-  display: inline-block;
-  vertical-align: middle;
-  flex-shrink: 0;
-}
-
-@media screen and (min-width: 768px) {
-  .vs-topbar__star {
-    margin-right: 8px;
-    font-size: 11px;
-  }
-}
-
-.vs-topbar__text {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 18px);
-  line-height: 36px;
-  vertical-align: middle;
-}
-
-.vs-topbar-rotator__item {
   position: absolute;
   top: 0;
   left: 0;
@@ -181,214 +150,26 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   align-items: center;
   justify-content: safe center;
   opacity: 0;
+  transform: translateY(8px);
   pointer-events: none;
   white-space: nowrap;
   overflow: hidden;
   padding: 0 6px;
   color: #FFFFFF;
   box-sizing: border-box;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 3 zprávy: střídavé postupné měnění každých 3.5s (10.5s celkový cyklus) */
-.vs-topbar-rotator--count-3 .vs-topbar-rotator__item--1 {
-  animation: vsTopBarRotator3_1 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+.vs-topbar-rotator__item.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.vs-topbar-rotator--count-3 .vs-topbar-rotator__item--2 {
-  animation: vsTopBarRotator3_2 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-.vs-topbar-rotator--count-3 .vs-topbar-rotator__item--3 {
-  animation: vsTopBarRotator3_3 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-@keyframes vsTopBarRotator3_1 {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  3.5% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  29% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  33.33% {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-  }
-  33.34% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  96.5% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-}
-
-@keyframes vsTopBarRotator3_2 {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  33.33% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  36.83% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  62% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  66.66% {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-  }
-  66.67% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-}
-
-@keyframes vsTopBarRotator3_3 {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  66.66% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  70.16% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  95% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  99.9% {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-}
-
-/* 2 zprávy: střídavé postupné měnění každých 3.5s (7s celkový cyklus) */
-.vs-topbar-rotator--count-2 .vs-topbar-rotator__item--1 {
-  animation: vsTopBarRotator2_1 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-.vs-topbar-rotator--count-2 .vs-topbar-rotator__item--2 {
-  animation: vsTopBarRotator2_2 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-@keyframes vsTopBarRotator2_1 {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  5% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  45% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  50% {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-  }
-  50.01% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  95% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-}
-
-@keyframes vsTopBarRotator2_2 {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  50% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
-  55% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  95% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  99.9% {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-  }
+.vs-topbar-rotator__item.is-leaving {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
 }
 
 /* Režim plynulého běžícího pásu (Marquee) */
