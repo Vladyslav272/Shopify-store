@@ -2547,19 +2547,35 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
 }
 
 .vs-guarantee-card {
-  background-color: var(--vs-surface-dark);
-  color: #FAF8F5;
-  border-radius: var(--vs-radius-lg);
+  background-color: #FFFFFF;
+  color: var(--vs-text);
+  border: 1px solid var(--vs-border);
+  border-radius: 16px;
   padding: 44px 28px;
   text-align: center;
   max-width: 860px;
   margin: 0 auto;
-  box-shadow: 0 16px 40px -12px rgba(21, 34, 27, 0.3);
+  box-shadow: 0 4px 24px -4px rgba(21, 34, 27, 0.06);
 }
 
 .vs-guarantee-icon {
-  font-size: 38px;
-  margin-bottom: 14px;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 50%;
+  background-color: var(--vs-soft-mint);
+  color: var(--vs-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.vs-guarantee-icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 .vs-guarantee-heading {
@@ -2567,8 +2583,8 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
   font-size: clamp(26px, 6vw, 28px);
   font-weight: 700;
   line-height: 1.25;
-  margin: 0 0 12px;
-  color: #FFFFFF;
+  margin: 0 0 14px;
+  color: var(--vs-text);
 }
 
 @media screen and (min-width: 768px) {
@@ -2581,9 +2597,9 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
 .vs-guarantee-desc {
   font-family: var(--vs-body);
   font-size: 16.5px;
-  color: #EAF5EE;
-  max-width: 600px;
-  margin: 0 auto 26px;
+  color: var(--vs-muted);
+  max-width: 620px;
+  margin: 0 auto 28px;
   line-height: 1.6;
 }
 
@@ -2603,8 +2619,11 @@ main.vs-product-main > [id*="17926947644e416e5d"] .section-background {
   padding: 15px 32px !important;
   display: inline-flex !important;
   width: auto !important;
+  border-radius: var(--vs-radius-md) !important;
+  text-decoration: none !important;
+  transition: background-color 150ms ease, transform 150ms ease !important;
 }
 
 .vs-guarantee-cta:hover {
-  background-color: var(--vs-accent-hover) !important;
+  background-color: var(--vs-accent-dark) !important;
 }
