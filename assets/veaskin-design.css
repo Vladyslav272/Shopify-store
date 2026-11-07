@@ -631,6 +631,131 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   margin-inline: auto;
 }
 
+/* ==========================================================================
+   MOBILNI SYMETRICKE VYCENTROVANI HLAVICEK SEKCI POD BUY BOXEM (DO 768px)
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+  /* 1. Vycentrovani uvodnich bloku sekci pod Buy Boxem */
+  .vs-section-head {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vs-section-head .vs-kicker,
+  .vs-lifestyle-split__copy .vs-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vs-section-head .vs-kicker::after,
+  .vs-lifestyle-split__copy .vs-kicker::after {
+    content: '';
+    width: 18px;
+    height: 1.5px;
+    background-color: var(--vs-gold);
+    display: inline-block;
+  }
+
+  .vs-section-head .vs-section-heading,
+  .vs-lifestyle-split__copy .vs-section-heading {
+    text-align: center;
+  }
+
+  .vs-section-head .vs-section-sub {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vs-reviews-header-meta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vs-lifestyle-split__copy {
+    text-align: center;
+  }
+
+  .vs-lifestyle-split__text {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vs-lifestyle-split__copy .vs-cta-btn--inline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 2. Striktni zachovani zarovnani doleva pro Buy Box a vnitrek karet */
+  .vs-hero-info,
+  .vs-product-title,
+  .vs-product-subtitle,
+  .vs-price-row,
+  .vs-volume-mint-box,
+  .vs-qty-bar,
+  .vs-guarantee-strip {
+    text-align: left;
+  }
+
+  .vs-benefit-item,
+  .vs-benefit-item__title,
+  .vs-benefit-item__desc {
+    text-align: left;
+  }
+
+  .vs-tech-col,
+  .vs-tech-col__title,
+  .vs-tech-col__desc {
+    text-align: left;
+  }
+
+  .vs-step-row,
+  .vs-step-row__title,
+  .vs-step-row__desc {
+    text-align: left;
+  }
+
+  .vs-ba-head,
+  .vs-stat-row,
+  .vs-stat-row__text {
+    text-align: left;
+  }
+
+  .vs-comp-box,
+  .vs-comp-heading,
+  .vs-comp-price,
+  .vs-comp-list,
+  .vs-comp-list li {
+    text-align: left;
+  }
+
+  .vs-review-item,
+  .vs-review-item__quote,
+  .vs-review-item__author {
+    text-align: left;
+  }
+
+  .vs-faq-wrap,
+  .vs-faq-list,
+  .vs-faq-item,
+  .vs-faq-card,
+  .vs-faq-summary,
+  .vs-faq-item__summary,
+  .vs-faq-body,
+  .vs-faq-item__body {
+    text-align: left;
+  }
+}
+
 .vs-stars {
   color: var(--vs-gold);
   font-size: 14px;
