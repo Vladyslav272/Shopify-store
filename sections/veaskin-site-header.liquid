@@ -18,12 +18,36 @@
   endif
 
   assign announcement_mode = section.settings.announcement_mode | default: 'rotate'
+
+  # Inteligentní extrakce zpráv pro lištu (pokud uživatel vložil ' | ' oddělovač do jednoho pole, rozdělíme jej)
+  assign raw_m1 = section.settings.rot_msg_1
+  if raw_m1 == blank
+    assign raw_m1 = section.settings.static_msg_1
+  endif
+  if raw_m1 == blank
+    assign raw_m1 = 'Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce'
+  endif
+
+  if raw_m1 contains '|'
+    assign parts_m1 = raw_m1 | split: '|'
+    assign rot_msg_1 = parts_m1[0] | strip
+    assign rot_msg_2 = parts_m1[1] | strip
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+  else
+    assign rot_msg_1 = raw_m1
+    assign rot_msg_2 = section.settings.rot_msg_2 | default: section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
+    assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+  endif
+
+  assign rot_msg_1 = rot_msg_1 | replace: 'Ráno bez otoků', 'Oči bez stínů'
+
   assign static_msg_1 = section.settings.static_msg_1 | default: 'Doprava ZDARMA'
   assign static_msg_2 = section.settings.static_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-
-  assign rot_msg_1 = section.settings.rot_msg_1 | default: 'Doprava ZDARMA + E-book „Ráno bez otoků“ k objednávce'
-  assign rot_msg_2 = section.settings.rot_msg_2 | default: '30 dní na vyzkoušení bez rizika'
-  assign rot_msg_3 = section.settings.rot_msg_3 | default: 'Sleva 42 % při nákupu 2 a více kusů'
+  if static_msg_1 contains '|'
+    assign parts_static = static_msg_1 | split: '|'
+    assign static_msg_1 = parts_static[0] | strip
+    assign static_msg_2 = parts_static[1] | strip
+  endif
 %}
 
 <script
@@ -45,28 +69,7 @@
     aria-label="Informace o dopravě a garanci nákupu"
   >
     <div class="vs-topbar__inner">
-      {%- if announcement_mode == 'static' -%}
-        <div class="vs-topbar__content">
-          <span class="vs-topbar__item">{{ static_msg_1 }}</span>
-          <span class="vs-topbar__sep" aria-hidden="true">✦</span>
-          <span class="vs-topbar__item">{{ static_msg_2 }}</span>
-        </div>
-      {%- elsif announcement_mode == 'rotate' -%}
-        <div class="vs-topbar-rotator" data-vs-topbar-rotator>
-          <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_1 }}</span>
-          </div>
-          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_2 }}</span>
-          </div>
-          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
-            <span class="vs-topbar__star" aria-hidden="true">✦</span>
-            <span>{{ rot_msg_3 }}</span>
-          </div>
-        </div>
-      {%- elsif announcement_mode == 'marquee' -%}
+      {%- if announcement_mode == 'marquee' -%}
         <div class="vs-topbar-marquee">
           <div class="vs-topbar-marquee__track">
             <span>{{ rot_msg_1 }}</span>
@@ -83,10 +86,50 @@
             <span class="vs-topbar__sep" aria-hidden="true">✦</span>
           </div>
         </div>
+      {%- elsif announcement_mode == 'static' -%}
+        <!-- Desktop: statické 2 benefity, Mobil: vždy čistě střídající se 1 zpráva -->
+        <div class="vs-topbar__content vs-topbar-desktop-only">
+          <span class="vs-topbar__item">{{ static_msg_1 }}</span>
+          <span class="vs-topbar__sep" aria-hidden="true">✦</span>
+          <span class="vs-topbar__item">{{ static_msg_2 }}</span>
+        </div>
+        <div class="vs-topbar-rotator vs-topbar-mobile-only" data-vs-topbar-rotator>
+          <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
+            <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
+          </div>
+          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
+            <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
+          </div>
+          {%- if rot_msg_3 != blank -%}
+            <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+              <span class="vs-topbar__star" aria-hidden="true">✦</span>
+              <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <!-- Výchozí a doporučené: Plynule střídající se zprávy po 3.8s (na mobilu i desktopu) -->
+        <div class="vs-topbar-rotator" data-vs-topbar-rotator>
+          <div class="vs-topbar-rotator__item is-active" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
+            <span class="vs-topbar__text">{{ rot_msg_1 }}</span>
+          </div>
+          <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+            <span class="vs-topbar__star" aria-hidden="true">✦</span>
+            <span class="vs-topbar__text">{{ rot_msg_2 }}</span>
+          </div>
+          {%- if rot_msg_3 != blank -%}
+            <div class="vs-topbar-rotator__item" data-vs-rotator-item>
+              <span class="vs-topbar__star" aria-hidden="true">✦</span>
+              <span class="vs-topbar__text">{{ rot_msg_3 }}</span>
+            </div>
+          {%- endif -%}
+        </div>
       {%- endif -%}
     </div>
   </div>
-
   <div class="vs-header-sticky">
     <header class="vs-header">
       <!-- Vlevo: Menu + Desktop kotvy -->
@@ -358,22 +401,32 @@
     };
 
     const initTopbarRotator = () => {
-      const rotator = document.querySelector('[data-vs-topbar-rotator]');
-      if (!rotator) return;
-      const items = rotator.querySelectorAll('[data-vs-rotator-item]');
-      if (items.length <= 1) return;
-      let currentIndex = 0;
-      setInterval(() => {
-        const prevItem = items[currentIndex];
-        prevItem.classList.remove('is-active');
-        prevItem.classList.add('is-leaving');
-        setTimeout(() => prevItem.classList.remove('is-leaving'), 450);
+      const rotators = document.querySelectorAll('[data-vs-topbar-rotator]');
+      rotators.forEach((rotator) => {
+        if (rotator.dataset.rotatorInit === 'true') return;
+        rotator.dataset.rotatorInit = 'true';
 
-        currentIndex = (currentIndex + 1) % items.length;
-        const nextItem = items[currentIndex];
-        nextItem.classList.remove('is-leaving');
-        nextItem.classList.add('is-active');
-      }, 4000);
+        const items = Array.from(rotator.querySelectorAll('[data-vs-rotator-item]'));
+        if (items.length <= 1) return;
+
+        items.forEach((item, idx) => {
+          item.classList.toggle('is-active', idx === 0);
+          item.classList.remove('is-leaving');
+        });
+
+        let currentIndex = 0;
+        setInterval(() => {
+          const prevItem = items[currentIndex];
+          prevItem.classList.remove('is-active');
+          prevItem.classList.add('is-leaving');
+          setTimeout(() => prevItem.classList.remove('is-leaving'), 380);
+
+          currentIndex = (currentIndex + 1) % items.length;
+          const nextItem = items[currentIndex];
+          nextItem.classList.remove('is-leaving');
+          nextItem.classList.add('is-active');
+        }, 3800);
+      });
     };
 
     if (document.readyState === 'loading') {
@@ -493,7 +546,7 @@
       "type": "text",
       "id": "rot_msg_1",
       "label": "Zpráva 1",
-      "default": "Doprava ZDARMA + E-book „Ráno bez otoků“ k objednávce"
+      "default": "Doprava ZDARMA + E-book „Oči bez stínů“ k objednávce"
     },
     {
       "type": "text",

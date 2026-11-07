@@ -89,12 +89,12 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   height: 36px;
   max-height: 36px;
   min-height: 36px;
-  padding: 0 12px;
+  padding: 0 10px;
   font-family: 'DM Sans', var(--vs-body), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 12px;
+  font-size: clamp(11px, 2.9vw, 12.5px);
   font-weight: 500;
   line-height: 36px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.25px;
   white-space: nowrap;
   overflow: hidden;
   box-sizing: border-box;
@@ -103,12 +103,15 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   justify-content: center;
   text-align: center;
   user-select: none;
+  position: relative;
+  z-index: 100;
 }
 
 @media screen and (min-width: 768px) {
   .vs-topbar {
     font-size: 13px;
     padding: 0 24px;
+    letter-spacing: 0.3px;
   }
 }
 
@@ -122,6 +125,24 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   height: 100%;
   overflow: hidden;
   white-space: nowrap;
+  position: relative;
+}
+
+.vs-topbar-desktop-only {
+  display: none !important;
+}
+
+.vs-topbar-mobile-only {
+  display: flex !important;
+}
+
+@media screen and (min-width: 768px) {
+  .vs-topbar-desktop-only {
+    display: inline-flex !important;
+  }
+  .vs-topbar-mobile-only {
+    display: none !important;
+  }
 }
 
 .vs-topbar__content {
@@ -130,12 +151,10 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   justify-content: center;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
   color: #FFFFFF;
   margin: 0;
   padding: 0;
-  line-height: 1;
+  line-height: 36px;
 }
 
 .vs-topbar__item {
@@ -160,7 +179,7 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   }
 }
 
-/* Režim střídání zpráv po 4 vteřinách */
+/* Režim střídání zpráv po 3.8 vteřinách (Rotator) */
 .vs-topbar-rotator {
   position: relative;
   width: 100%;
@@ -174,18 +193,29 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
 
 .vs-topbar__star {
   color: #C29A5B;
-  margin-right: 7px;
+  margin-right: 6px;
   font-size: 10px;
   line-height: 1;
   display: inline-block;
   vertical-align: middle;
+  flex-shrink: 0;
 }
 
 @media screen and (min-width: 768px) {
   .vs-topbar__star {
-    margin-right: 9px;
+    margin-right: 8px;
     font-size: 11px;
   }
+}
+
+.vs-topbar__text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 18px);
+  line-height: 36px;
+  vertical-align: middle;
 }
 
 .vs-topbar-rotator__item {
@@ -196,30 +226,21 @@ main.vs-product-main > .shopify-section:not(#shopify-section-veaskin-product-exp
   bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 400ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(8px);
+  transition: opacity 350ms ease, transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 12px;
+  padding: 0 6px;
   color: #FFFFFF;
-  font-size: 12px;
-  letter-spacing: 0.3px;
-  font-weight: 500;
-}
-
-@media screen and (min-width: 768px) {
-  .vs-topbar-rotator__item {
-    font-size: 13px;
-  }
+  box-sizing: border-box;
 }
 
 .vs-topbar-rotator__item.is-leaving {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-8px);
 }
 
 .vs-topbar-rotator__item.is-active {
